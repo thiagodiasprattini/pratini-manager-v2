@@ -132,6 +132,22 @@ PRATINI MANAGER
 </div>
 
 </div>
+<script>
+const eventoAtivoNome = localStorage.getItem("evento_ativo_nome");
 
+if(eventoAtivoNome){
+const aviso = document.createElement("div");
+aviso.style.background = "#ffc400";
+aviso.style.color = "#000";
+aviso.style.padding = "20px";
+aviso.style.margin = "20px";
+aviso.style.borderRadius = "15px";
+aviso.style.textAlign = "center";
+aviso.style.fontWeight = "bold";
+aviso.innerHTML = "🏁 Evento ativo:<br><br>" + eventoAtivoNome;
+
+document.body.insertBefore(aviso, document.querySelector(".container"));
+}
+</script>
 </body>
 </html>
