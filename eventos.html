@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eventos - Pratini Manager</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#111;
+color:white;
+}
+
+header{
+background:#ffc400;
+color:#000;
+padding:20px;
+text-align:center;
+font-size:28px;
+font-weight:bold;
+}
+
+.container{
+padding:20px;
+max-width:900px;
+margin:auto;
+}
+
+.card{
+background:#1f1f1f;
+padding:20px;
+border-radius:15px;
+margin-bottom:15px;
+}
+
+input,button{
+width:100%;
+padding:14px;
+margin:8px 0;
+border:none;
+border-radius:8px;
+font-size:16px;
+box-sizing:border-box;
+}
+
+button{
+background:#ffc400;
+font-weight:bold;
+cursor:pointer;
+}
+
+.evento{
+border-left:6px solid #ffc400;
+}
+
+.voltar{
+background:#333;
+color:white;
+}
+</style>
+</head>
+
+<body>
+
+<header>EVENTOS</header>
+
+<div class="container">
+
+<div class="card">
+<h2>Novo Evento</h2>
+<input id="nomeEvento" placeholder="Nome do evento">
+<input id="cidadeEvento" placeholder="Cidade">
+<input id="dataEvento" type="date">
+<button onclick="adicionarEvento()">Adicionar Evento</button>
+</div>
+
+<div id="listaEventos"></div>
+
+<button class="voltar" onclick="location.href='dashboard.html'">Voltar ao Painel</button>
+
+</div>
+
+<script>
+let eventos = JSON.parse(localStorage.getItem("eventos_v2")) || [];
+
+function salvarEventos(){
+localStorage.setItem("eventos_v2", JSON.stringify(eventos));
+listarEventos();
+}
+
+function adicionarEvento(){
+const nome = document.getElementById("nomeEvento").value.trim();
+const cidade = document.getElementById("cidadeEvento").value.trim();
+const data = document.getElementById("dataEvento").value;
+
+if(!nome){
+alert("Digite o nome do evento.");
+return;
+}
+
+eventos.push({
+id: Date.now(),
+nome,
+cidade,
+data,
+status:"Ativo"
+});
+
+document.getElementById("nomeEvento").value = "";
+document.getElementById("cidadeEvento").value = "";
+document.getElementById("dataEvento").value = "";
+
+salvarEventos();
+}
+
+function listarEventos(){
+const lista = document.getElementById("listaEventos");
+lista.innerHTML = "";
+
+if(eventos.length === 0){
+lista.innerHTML = "<p>Nenhum evento cadastrado ainda.</p>";
+return;
+}
+
+eventos.forEach(evento => {
+lista.innerHTML += `
+<div class="card evento">
+<h2>${evento.nome}</h2>
+<p><b>Cidade:</b> ${evento.cidade || "Não informada"}</p>
+<p><b>Data:</b> ${evento.data || "Não informada"}</p>
+<p><b>Status:</b> ${evento.status}</p>
+<button onclick="selecionarEvento(${evento.id})">Abrir Evento</button>
+</div>
+`;
+});
+}
+
+function selecionarEvento(id){
+localStorage.setItem("evento_ativo_v2", id);
+alert("Evento selecionado!");
+location.href = "dashboard.html";
+}
+
+listarEventos();
+</script>
+
+</body>
+</html>
