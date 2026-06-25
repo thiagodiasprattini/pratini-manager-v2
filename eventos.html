@@ -45,7 +45,7 @@ async function carregarEventos(){
 const lista = document.getElementById("listaEventos");
 lista.innerHTML = "Carregando eventos...";
 
-const { data, error } = await supabase
+const { data, error } = await db
 .from("eventos_v2")
 .select("*")
 .order("created_at", { ascending:false });
