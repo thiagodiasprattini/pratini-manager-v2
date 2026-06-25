@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atletas - Pratini Manager</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://kchpprimvfnwchztwlsa.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</script>
+
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#111;color:white}
+header{background:#ffc400;color:#000;padding:20px;text-align:center;font-size:28px;font-weight:bold}
+.container{padding:20px;max-width:900px;margin:auto}
+.card{background:#1f1f1f;padding:20px;border-radius:15px;margin-bottom:15px}
+input,button{width:100%;padding:14px;margin:8px 0;border:none;border-radius:8px;font-size:16px;box-sizing:border-box}
+button{background:#ffc400;font-weight:bold;cursor:pointer}
+.voltar{background:#333;color:white}
+.atleta{border-left:6px solid #ffc400}
+small{color:#bbb}
+</style>
+</head>
+
+<body>
+
+<header>ATLETAS</header>
+
+<div class="container">
+
+<div class="card">
+<h2>Evento Ativo</h2>
+<p id="eventoAtivo">Carregando...</p>
+</div>
+
+<div class="card">
+<h2>Novo Atleta</h2>
+<input id="nome" placeholder="Nome do atleta">
+<input id="cpf" placeholder="CPF">
+<input id="numero_peito" placeholder="Número de peito">
+<input id="modalidade" placeholder="Modalidade">
+<input id="camiseta" placeholder="Camiseta">
+<input id="equipe" placeholder="Equipe">
+<input id="produto_extra" placeholder="Produto extra">
+<button onclick="salvarAtleta()">Salvar Atleta</button>
+</div>
+
+<div id="listaAtletas">Carregando atletas...</div>
+
+<button class="voltar" onclick="location.href='dashboard.html'">Voltar ao Painel</button>
+
+</div>
+
+<script>
+const eventoId = localStorage.getItem("evento_ativo_id");
+const eventoNome = localStorage.getItem("evento_ativo_nome");
+
+document.getElementById("eventoAtivo").innerHTML = eventoNome || "Nenhum evento ativo selecionado.";
+
+async function carregarAtletas(){
+const lista = document.getElementById("listaAtletas");
+
+if(!eventoId){
+lista.innerHTML = "<p>Selecione um evento ativo antes de cadastrar atletas.</p>";
+return;
+}
+
+lista.innerHTML = "Carregando atletas...";
+
+const { data, error } = await db
+.from("atletas_v2")
+.select("*")
+.eq("evento_id", eventoId)
+.order("created_at", { ascending:false });
+
+if(error){
+lista.innerHTML = "<p>Erro ao carregar atletas: " + error.message + "</p>";
+return;
+}
+
+if(!data || data.length === 0){
+lista.innerHTML = "<p>Nenhum atleta cadastrado ainda.</p>";
+return;
+}
+
+lista.innerHTML = "";
+
+data.forEach(atleta => {
+lista.innerHTML += `
+<div class="card atleta">
+<h2>${atleta.nome}</h2>
+<p><b>CPF:</b> ${atleta.cpf || "Não informado"}</p>
+<p><b>Número:</b> ${atleta.numero_peito || "Não informado"}</p>
+<p><b>Modalidade:</b> ${atleta.modalidade || "Não informada"}</p>
+<p><b>Camiseta:</b> ${atleta.camiseta || "Não informada"}</p>
+<p><b>Equipe:</b> ${atleta.equipe || "Não informada"}</p>
+<p><b>Produto Extra:</b> ${atleta.produto_extra || "Nenhum"}</p>
+<p><b>Status Kit:</b> ${atleta.status_kit}</p>
+</div>
+`;
+});
+}
+
+async function salvarAtleta(){
+if(!eventoId){
+alert("Selecione um evento ativo primeiro.");
+return;
+}
+
+const nome = document.getElementById("nome").value.trim();
+const cpf = document.getElementById("cpf").value.trim();
+const numero_peito = document.getElementById("numero_peito").value.trim();
+const modalidade = document.getElementById("modalidade").value.trim();
+const camiseta = document.getElementById("camiseta").value.trim();
+const equipe = document.getElementById("equipe").value.trim();
+const produto_extra = document.getElementById("produto_extra").value.trim();
+
+if(!nome){
+alert("Digite o nome do atleta.");
+return;
+}
+
+const { error } = await db
+.from("atletas_v2")
+.insert([{
+evento_id: eventoId,
+nome,
+cpf,
+numero_peito,
+modalidade,
+camiseta,
+equipe,
+produto_extra
+}]);
+
+if(error){
+alert("Erro ao salvar atleta: " + error.message);
+return;
+}
+
+alert("Atleta salvo com sucesso!");
+
+document.getElementById("nome").value = "";
+document.getElementById("cpf").value = "";
+document.getElementById("numero_peito").value = "";
+document.getElementById("modalidade").value = "";
+document.getElementById("camiseta").value = "";
+document.getElementById("equipe").value = "";
+document.getElementById("produto_extra").value = "";
+
+carregarAtletas();
+}
+
+carregarAtletas();
+</script>
+
+</body>
+</html>
