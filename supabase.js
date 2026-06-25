@@ -1,9 +1,4 @@
-<div class="card" onclick="location.href='eventos.html'">
+const SUPABASE_URL = "https://kchpprimvfnwchztwlsa.supabase.co/rest/v1/";
+const SUPABASE_ANON_KEY = "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
 
-<div class="icone">🏃</div>
-
-<h2>Eventos</h2>
-
-<p>Cadastrar e gerenciar eventos.</p>
-
-</div>
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
