@@ -93,7 +93,7 @@ alert("Digite o nome do evento.");
 return;
 }
 
-const { error } = await supabase
+const { error } = await db
 .from("eventos_v2")
 .insert([{ nome, cidade, data_evento }]);
 
