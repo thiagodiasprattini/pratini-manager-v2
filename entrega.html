@@ -119,7 +119,10 @@ resultado.innerHTML += `
 
 ${entregue ? `
 <p><b>Retirado por:</b> ${atleta.retirado_por || "Não informado"}</p>
-<p><b>Data retirada:</b> ${atleta.data_retirada || "Não informada"}</p>
+<p><b>Data retirada:</b> ${atleta.data_retirada ? new 
+Date(atleta.data_retirada).toLocaleString("pt-BR", 
+{ timeZone: "America/Sao_Paulo" }) : "Não informada"}
+</p>
 ` : `
 <button onclick="entregarKit('${atleta.id}', '${atleta.nome.replace(/'/g,"")}')">Entregar Kit</button>
 `}
