@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Importar Planilha - Pratini Manager</title>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://kchpprimvfnwchztwlsa.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</script>
+
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#111;color:white}
+header{background:#ffc400;color:#000;padding:20px;text-align:center;font-size:26px;font-weight:bold}
+.container{padding:20px;max-width:900px;margin:auto}
+.card{background:#1f1f1f;padding:20px;border-radius:15px;margin-bottom:15px}
+input,select,button{width:100%;padding:14px;margin:8px 0;border:none;border-radius:8px;font-size:16px;box-sizing:border-box}
+button{background:#ffc400;font-weight:bold;cursor:pointer}
+.voltar{background:#333;color:white}
+.ok{color:#00d26a;font-weight:bold}
+.erro{color:#ff4d4d;font-weight:bold}
+</style>
+</head>
+
+<body>
+
+<header>CENTRAL DE IMPORTAÇÃO</header>
+
+<div class="container">
+
+<div class="card">
+<h2>Evento Ativo</h2>
+<p id="eventoAtivo"></p>
+</div>
+
+<div class="card">
+<h2>Selecionar Planilha</h2>
+<input type="file" id="arquivo" accept=".xlsx,.xls,.csv">
+<button onclick="lerArquivo()">Ler Planilha</button>
+<p>Formatos aceitos: Excel e CSV.</p>
+</div>
+
+<div class="card" id="mapeamento" style="display:none">
+<h2>Mapear Colunas</h2>
+
+<label>Nome do atleta</label>
+<select id="colNome"></select>
+
+<label>CPF</label>
+<select id="colCpf"></select>
+
+<label>Número de peito</label>
+<select id="colNumero"></select>
+
+<label>Modalidade</label>
+<select id="colModalidade"></select>
+
+<label>Camiseta</label>
+<select id="colCamiseta"></select>
+
+<label>Equipe</label>
+<select id="colEquipe"></select>
+
+<label>Produto Extra</label>
+<select id="colProduto"></select>
+
+<button onclick="preVisualizar()">Pré-visualizar Importação</button>
+</div>
+
+<div class="card" id="preview" style="display:none">
+<h2>Pré-visualização</h2>
+<p id="resumo"></p>
+<button onclick="importarAtletas()">Importar Atletas</button>
+</div>
+
+<div class="card" id="resultado" style="display:none">
+<h2>Resultado</h2>
+<p id="resultadoTexto"></p>
+</div>
+
+<button class="voltar" onclick="location.href='dashboard.html'">Voltar ao Painel</button>
+
+</div>
+
+<script>
+let dadosPlanilha = [];
+let colunas = [];
+let nomeArquivo = "";
+
+const eventoId = localStorage.getItem("evento_ativo_id");
+const eventoNome = localStorage.getItem("evento_ativo_nome");
+
+document.getElementById("eventoAtivo").innerText = eventoNome || "Nenhum evento ativo selecionado.";
+
+function normalizarTexto(txt){
+return (txt || "").toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();
+}
+
+function sugerirColuna(palavras){
+for(const coluna of colunas){
+const c = normalizarTexto(coluna);
+for(const palavra of palavras){
+if(c.includes(palavra)) return coluna;
+}
+}
+return "";
+}
+
+function preencherSelects(){
+const campos = [
+["colNome", ["nome completo","nome","atleta","colaborador"]],
+["colCpf", ["cpf","documento"]],
+["colNumero", ["numero","número","peito","bib"]],
+["colModalidade", ["modalidade","distancia","distância","prova","categoria"]],
+["colCamiseta", ["camiseta","tamanho","camisas"]],
+["colEquipe", ["equipe","assessoria","grupo"]],
+["colProduto", ["produto","extra","brinde"]]
+];
+
+campos.forEach(([id, sugestoes])=>{
+const select = document.getElementById(id);
+select.innerHTML = "<option value=''>Não importar</option>";
+
+colunas.forEach(col=>{
+select.innerHTML += `<option value="${col}">${col}</option>`;
+});
+
+const sugestao = sugerirColuna(sugestoes);
+if(sugestao) select.value = sugestao;
+});
+}
+
+function lerArquivo(){
+if(!eventoId){
+alert("Selecione um evento ativo antes de importar.");
+return;
+}
+
+const arquivo = document.getElementById("arquivo").files[0];
+
+if(!arquivo){
+alert("Selecione uma planilha.");
+return;
+}
+
+nomeArquivo = arquivo.name;
+
+const leitor = new FileReader();
+
+leitor.onload = function(e){
+try{
+const data = new Uint8Array(e.target.result);
+const workbook = XLSX.read(data, {type:"array"});
+const primeiraAba = workbook.SheetNames[0];
+const planilha = workbook.Sheets[primeiraAba];
+
+dadosPlanilha = XLSX.utils.sheet_to_json(planilha, {defval:""});
+
+if(dadosPlanilha.length === 0){
+alert("A planilha está vazia.");
+return;
+}
+
+colunas = Object.keys(dadosPlanilha[0]);
+
+preencherSelects();
+
+document.getElementById("mapeamento").style.display = "block";
+alert("Planilha lida com sucesso!");
+
+}catch(erro){
+alert("Erro ao ler planilha: " + erro.message);
+}
+};
+
+leitor.readAsArrayBuffer(arquivo);
+}
+
+function valor(linha, campo){
+const coluna = document.getElementById(campo).value;
+return coluna ? (linha[coluna] || "").toString().trim() : "";
+}
+
+function preVisualizar(){
+const total = dadosPlanilha.length;
+const campoNome = document.getElementById("colNome").value;
+
+if(!campoNome){
+alert("A coluna Nome do atleta é obrigatória.");
+return;
+}
+
+let validos = 0;
+
+dadosPlanilha.forEach(linha=>{
+if(valor(linha,"colNome")) validos++;
+});
+
+document.getElementById("preview").style.display = "block";
+document.getElementById("resumo").innerHTML = `
+Evento: <b>${eventoNome}</b><br><br>
+Arquivo: <b>${nomeArquivo}</b><br><br>
+Linhas encontradas: <b>${total}</b><br>
+Atletas válidos: <b>${validos}</b><br>
+Registros sem nome: <b>${total - validos}</b><br><br>
+Clique em importar para gravar no banco.
+`;
+}
+
+async function buscarAtletaExistente(cpf, numero){
+let query = db.from("atletas_v2").select("*").eq("evento_id", eventoId);
+
+if(cpf){
+const { data } = await query.eq("cpf", cpf).limit(1);
+if(data && data.length > 0) return data[0];
+}
+
+if(numero){
+const { data } = await db
+.from("atletas_v2")
+.select("*")
+.eq("evento_id", eventoId)
+.eq("numero_peito", numero)
+.limit(1);
+
+if(data && data.length > 0) return data[0];
+}
+
+return null;
+}
+
+async function importarAtletas(){
+let novos = 0;
+let atualizados = 0;
+let ignorados = 0;
+let erros = 0;
+
+for(const linha of dadosPlanilha){
+const nome = valor(linha,"colNome");
+const cpf = valor(linha,"colCpf");
+const numero_peito = valor(linha,"colNumero");
+const modalidade = valor(linha,"colModalidade");
+const camiseta = valor(linha,"colCamiseta");
+const equipe = valor(linha,"colEquipe");
+const produto_extra = valor(linha,"colProduto");
+
+if(!nome){
+ignorados++;
+continue;
+}
+
+try{
+const existente = await buscarAtletaExistente(cpf, numero_peito);
+
+if(existente){
+const atualizacao = {
+nome,
+cpf,
+numero_peito,
+modalidade,
+camiseta,
+equipe,
+produto_extra
+};
+
+const { error } = await db
+.from("atletas_v2")
+.update(atualizacao)
+.eq("id", existente.id);
+
+if(error){
+erros++;
+} else {
+atualizados++;
+}
+
+}else{
+const { error } = await db
+.from("atletas_v2")
+.insert([{
+evento_id: eventoId,
+nome,
+cpf,
+numero_peito,
+modalidade,
+camiseta,
+equipe,
+produto_extra,
+status_kit:"pendente"
+}]);
+
+if(error){
+erros++;
+} else {
+novos++;
+}
+}
+
+}catch(e){
+erros++;
+}
+}
+
+await db.from("importacoes_v2").insert([{
+evento_id: eventoId,
+nome_arquivo: nomeArquivo,
+usuario: "Administrador",
+total_linhas: dadosPlanilha.length,
+novos,
+atualizados,
+ignorados,
+erros
+}]);
+
+await db.from("auditoria_v2").insert([{
+evento_id: eventoId,
+usuario: "Administrador",
+acao: "Importação de planilha",
+detalhe: `${nomeArquivo} | Novos: ${novos} | Atualizados: ${atualizados} | Ignorados: ${ignorados} | Erros: ${erros}`
+}]);
+
+document.getElementById("resultado").style.display = "block";
+document.getElementById("resultadoTexto").innerHTML = `
+<span class="ok">Importação concluída!</span><br><br>
+Novos atletas: <b>${novos}</b><br>
+Atualizados: <b>${atualizados}</b><br>
+Ignorados: <b>${ignorados}</b><br>
+Erros: <b>${erros}</b>
+`;
+}
+</script>
+
+</body>
+</html>
