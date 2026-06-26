@@ -151,6 +151,22 @@ aviso.innerHTML = "🏁 Evento ativo:<br><br>" + eventoAtivoNome;
 
 document.body.insertBefore(aviso, document.querySelector(".container"));
 }
+
+const perfilUsuario = localStorage.getItem("usuario_perfil");
+
+if(perfilUsuario === "atendente"){
+  document.querySelectorAll(".card").forEach(card => {
+    const titulo = card.querySelector("h2");
+    if(!titulo) return;
+
+    const nome = titulo.innerText.trim();
+
+    if(nome !== "Entrega de Kits" && nome !== "QR Code"){
+      card.style.display = "none";
+    }
+  });
+}
+ 
 </script>
 </body>
 </html>
