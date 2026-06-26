@@ -140,7 +140,7 @@ const { error } = await db
 .update({
 status_kit: "entregue",
 retirado_por: nome,
-data_retirada: new Date().toLocaleString("ptBR"),  
+new Date(atleta.data_retirada).toLocaleString("pt-BR"),  
 entregue_por:
 localStorage.getItem("usuario_nome"),
   entregue_por_usuario:
