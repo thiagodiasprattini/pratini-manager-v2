@@ -151,7 +151,9 @@ aviso.innerHTML = "🏁 Evento ativo:<br><br>" + eventoAtivoNome;
 
 document.body.insertBefore(aviso, document.querySelector(".container"));
 }
-
+const perfilUsuario =
+localStorage.getltem(usuario_perfil");
+    
 if(perfilUsuario === "atendente"){
   document.querySelectorAll(".card").forEach(card => {
     const titulo = card.querySelector("h2");
