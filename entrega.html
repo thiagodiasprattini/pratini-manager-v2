@@ -134,6 +134,7 @@ Date(atleta.data_retirada).toLocaleString("pt-BR",
 }
 
 async function entregarKit(id, nome){
+
 const confirmar = await Swal.fire({
     title: "Confirmar entrega",
     text: "Deseja realmente entregar o kit para " + nome + "?",
@@ -149,7 +150,17 @@ const confirmar = await Swal.fire({
 if (!confirmar.isConfirmed) {
     return;
 }
-}
+
+const { error } = await db
+.from("atletas_v2")
+.update({
+    status_kit: "entregue",
+    retirado_por: nome,
+    data_retirada: new Date().toISOString(),
+    entregue_por: localStorage.getItem("usuario_nome"),
+    entregue_por_usuario: localStorage.getItem("usuario_login")
+})
+.eq("id", id);
 
 const { error } = await db
 .from("atletas_v2")
