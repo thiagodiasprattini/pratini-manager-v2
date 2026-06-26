@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Entrega de Kits - Pratini Manager</title>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -132,10 +134,21 @@ Date(atleta.data_retirada).toLocaleString("pt-BR",
 }
 
 async function entregarKit(id, nome){
-const confirmar = confirm("Confirmar entrega do kit para " + nome + "?");
+const confirmar = await Swal.fire({
+    title: "Confirmar entrega",
+    text: "Deseja realmente entregar o kit para " + nome + "?",
+    icon: "question",
+    background: "#1f1f1f",
+    color: "#ffffff",
+    confirmButtonColor: "#ffc400",
+    cancelButtonColor: "#555",
+    confirmButtonText: "Entregar",
+    cancelButtonText: "Cancelar"
+});
 
-if(!confirmar){
-return;
+if (!confirmar.isConfirmed) {
+    return;
+}
 }
 
 const { error } = await db
