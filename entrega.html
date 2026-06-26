@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrega de Kits - Pratini Manager</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://kchpprimvfnwchztwlsa.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+</script>
+
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#111;color:white}
+header{background:#ffc400;color:#000;padding:20px;text-align:center;font-size:26px;font-weight:bold}
+.container{padding:20px;max-width:900px;margin:auto}
+.card{background:#1f1f1f;padding:20px;border-radius:15px;margin-bottom:15px}
+input,button{width:100%;padding:16px;margin:8px 0;border:none;border-radius:8px;font-size:18px;box-sizing:border-box}
+button{background:#ffc400;font-weight:bold;cursor:pointer}
+.voltar{background:#333;color:white}
+.entregue{background:#145c2e}
+.pendente{border-left:6px solid #ffc400}
+.status-entregue{color:#00d26a;font-weight:bold;font-size:22px}
+.status-pendente{color:#ffc400;font-weight:bold;font-size:22px}
+</style>
+</head>
+
+<body>
+
+<header>ENTREGA DE KITS</header>
+
+<div class="container">
+
+<div class="card">
+<h2>Evento Ativo</h2>
+<p id="eventoAtivo">Carregando...</p>
+</div>
+
+<div class="card">
+<h2>Pesquisar Atleta</h2>
+<input id="busca" placeholder="Digite nome, CPF ou número de peito">
+<button onclick="buscarAtletas()">Buscar</button>
+</div>
+
+<div id="resultado"></div>
+
+<button class="voltar" onclick="location.href='dashboard.html'">Voltar ao Painel</button>
+
+</div>
+
+<script>
+const eventoId = localStorage.getItem("evento_ativo_id");
+const eventoNome = localStorage.getItem("evento_ativo_nome");
+
+document.getElementById("eventoAtivo").innerHTML = eventoNome || "Nenhum evento ativo selecionado.";
+
+function normalizar(txt){
+return (txt || "").toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();
+}
+
+async function buscarAtletas(){
+const termo = document.getElementById("busca").value.trim();
+const resultado = document.getElementById("resultado");
+
+if(!eventoId){
+resultado.innerHTML = "<div class='card'>Selecione um evento ativo primeiro.</div>";
+return;
+}
+
+if(!termo){
+resultado.innerHTML = "<div class='card'>Digite algo para pesquisar.</div>";
+return;
+}
+
+resultado.innerHTML = "<div class='card'>Buscando...</div>";
+
+const { data, error } = await db
+.from("atletas_v2")
+.select("*")
+.eq("evento_id", eventoId)
+.limit(1000);
+
+if(error){
+resultado.innerHTML = "<div class='card'>Erro na busca: " + error.message + "</div>";
+return;
+}
+
+const busca = normalizar(termo);
+
+const encontrados = data.filter(a =>
+normalizar(a.nome).includes(busca) ||
+normalizar(a.cpf).includes(busca) ||
+normalizar(a.numero_peito).includes(busca)
+);
+
+if(encontrados.length === 0){
+resultado.innerHTML = "<div class='card'>Nenhum atleta encontrado.</div>";
+return;
+}
+
+resultado.innerHTML = "";
+
+encontrados.forEach(atleta=>{
+const entregue = atleta.status_kit === "entregue";
+
+resultado.innerHTML += `
+<div class="card ${entregue ? 'entregue' : 'pendente'}">
+<h2>${atleta.nome}</h2>
+<p><b>CPF:</b> ${atleta.cpf || "Não informado"}</p>
+<p><b>Número:</b> ${atleta.numero_peito || "Não informado"}</p>
+<p><b>Modalidade:</b> ${atleta.modalidade || "Não informada"}</p>
+<p><b>Camiseta:</b> ${atleta.camiseta || "Não informada"}</p>
+<p><b>Equipe:</b> ${atleta.equipe || "Não informada"}</p>
+<p><b>Produto Extra:</b> ${atleta.produto_extra || "Nenhum"}</p>
+<p><b>Status:</b> <span class="${entregue ? 'status-entregue' : 'status-pendente'}">${entregue ? 'ENTREGUE' : 'PENDENTE'}</span></p>
+
+${entregue ? `
+<p><b>Retirado por:</b> ${atleta.retirado_por || "Não informado"}</p>
+<p><b>Data retirada:</b> ${atleta.data_retirada || "Não informada"}</p>
+` : `
+<button onclick="entregarKit('${atleta.id}', '${atleta.nome.replace(/'/g,"")}')">Entregar Kit</button>
+`}
+</div>
+`;
+});
+}
+
+async function entregarKit(id, nome){
+const confirmar = confirm("Confirmar entrega do kit para " + nome + "?");
+
+if(!confirmar){
+return;
+}
+
+const { error } = await db
+.from("atletas_v2")
+.update({
+status_kit: "entregue",
+retirado_por: nome,
+data_retirada: new Date().toISOString()
+})
+.eq("id", id);
+
+if(error){
+alert("Erro ao entregar kit: " + error.message);
+return;
+}
+
+await db.from("auditoria_v2").insert([{
+evento_id: eventoId,
+usuario: "Atendente",
+acao: "Kit entregue",
+detalhe: nome
+}]);
+
+alert("Kit entregue com sucesso!");
+
+buscarAtletas();
+}
+</script>
+
+</body>
+</html>
