@@ -66,6 +66,14 @@ small{color:#bbb}
 const eventoId = localStorage.getItem("evento_ativo_id");
 const eventoNome = localStorage.getItem("evento_ativo_nome");
 
+ const perfilUsuario = 
+ localStorage.getItem("usuario_perfil");
+
+if(perfilUsuario !== "admin"){
+  alert("Acesso restrito ao administrador.");
+  location.href = "dashboard.html";
+}
+ 
 document.getElementById("eventoAtivo").innerHTML = eventoNome || "Nenhum evento ativo selecionado.";
 
 async function carregarAtletas(){
