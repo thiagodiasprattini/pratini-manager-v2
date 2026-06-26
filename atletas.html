@@ -161,6 +161,24 @@ document.getElementById("produto_extra").value = "";
 
 carregarAtletas();
 }
+ 
+ function filtrarAtletas(){
+
+    const texto = document.getElementById("busca").value.toLowerCase();
+
+    const cards = document.querySelectorAll(".atleta");
+
+    cards.forEach(card=>{
+
+        if(card.innerText.toLowerCase().includes(texto)){
+            card.style.display="";
+        }else{
+            card.style.display="none";
+        }
+
+    });
+
+}
 
 carregarAtletas();
 </script>
