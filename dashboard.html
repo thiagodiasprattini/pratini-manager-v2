@@ -154,6 +154,20 @@ document.body.insertBefore(aviso, document.querySelector(".container"));
 
 const perfilUsuario = localStorage.getItem("usuario_perfil");
 
+if (perfilUsuario !== "admin") {
+
+    document.querySelector('[onclick*="eventos.html"]').style.display = "none";
+
+    document.querySelector('[onclick*="atletas.html"]').style.display = "none";
+
+    document.querySelector('[onclick*="importar.html"]').style.display = "none";
+
+    document.querySelector('[onclick*="relatorios.html"]').style.display = "none";
+
+    document.querySelector('[onclick*="configuracoes.html"]').style.display = "none";
+
+}
+
 if(perfilUsuario === "atendente"){
   document.querySelectorAll(".card").forEach(card => {
     const titulo = card.querySelector("h2");
