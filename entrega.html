@@ -162,22 +162,16 @@ const { error } = await db
 })
 .eq("id", id);
 
-const { error } = await db
-.from("atletas_v2")
-.update({
-status_kit: "entregue",
-retirado_por: nome,
-data_retirada: new Date().toISOString(),  
-entregue_por:
-localStorage.getItem("usuario_nome"),
-  entregue_por_usuario:
-localStorage.getItem("usuario_login")
-})
-.eq("id", id);
-
 if(error){
-alert("Erro ao entregar kit: " + error.message);
-return;
+    Swal.fire({
+        title: "Erro",
+        text: "Erro ao entregar kit: " + error.message,
+        icon: "error",
+        background: "#1f1f1f",
+        color: "#fff",
+        confirmButtonColor: "#ffc400"
+    });
+    return;
 }
 
 await db.from("auditoria_v2").insert([{
