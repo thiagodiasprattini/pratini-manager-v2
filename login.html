@@ -146,7 +146,6 @@ async function entrar(){
         .from("usuarios_v2")
         .select("*")
         .eq("usuario", usuario)
-        .eq("senha", senha)
         .eq("ativo", true)
         .limit(1);
 
