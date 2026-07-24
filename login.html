@@ -153,10 +153,9 @@ async function entrar(){
         mensagem.innerHTML = "Erro ao acessar: " + error.message;
         return;
     }
-
-    if(!data || data.length === 0){
-        mensagem.innerHTML = "Usuário ou senha inválidos.";
-        return;
+console.log("RETORNO LOGIN:", data);
+console.log("ERRO LOGIN:", error);
+    
     }
 
     const user = data[0];
