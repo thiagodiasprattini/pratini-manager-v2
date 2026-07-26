@@ -129,18 +129,17 @@ button:hover{
 </div>
 
 <script>
-async function entrar(){
+async function entrar() {
 
-    const usuario = document.getElementById("usuario").value.trim();
-    const senha = document.getElementById("senha").value.trim();
-    const mensagem = document.getElementById("mensagem");
+const usuario = ...
+const senha = ...
 
-    mensagem.innerHTML = "";
+const { data, error } = await db
+.from(...)
+.select(...)
 
-    if(!usuario || !senha){
-        mensagem.innerHTML = "Digite usuário e senha.";
-        return;
-    }
+...
+}
 
     const { data, error } = await db
         .from("usuarios_v2")
