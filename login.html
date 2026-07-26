@@ -9,7 +9,7 @@ async function entrar() {
     campoMensagem.innerHTML = "";
 
     try {
-
+ 
         const { data, error } = await db
             .from("usuarios_v2")
             .select("*")
