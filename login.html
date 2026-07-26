@@ -131,39 +131,29 @@ button:hover{
 <script>
 async function entrar() {
 
-const usuario = ...
-const senha = ...
-
-const { data, error } = await db
-.from(...)
-.select(...)
-
-...
-}
+    const usuario = document.getElementById("usuario").value;
+    const senha = document.getElementById("senha").value;
 
     const { data, error } = await db
         .from("usuarios_v2")
         .select("*")
         .eq("usuario", usuario)
+        .eq("senha", senha)
         .eq("ativo", true)
         .limit(1);
 
-    if(error){
-        mensagem.innerHTML = "Erro ao acessar: " + error.message;
+    if (error) {
+        console.log(error);
+        document.getElementById("mensagem").innerHTML = "Erro ao consultar usuário";
         return;
     }
-console.log("RETORNO LOGIN:", data);
-console.log("ERRO LOGIN:", error);
-    
+
+    if (data.length > 0) {
+        window.location.href = "atletas.html";
+    } else {
+        document.getElementById("mensagem").innerHTML = "Usuário ou senha inválidos";
     }
 
-    const user = data[0];
-
-    localStorage.setItem("usuario_nome", user.nome);
-    localStorage.setItem("usuario_login", user.usuario);
-    localStorage.setItem("usuario_perfil", user.perfil);
-
-    location.href = "dashboard.html";
 }
 </script>
 
