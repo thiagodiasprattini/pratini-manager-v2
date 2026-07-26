@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,15 +12,22 @@
 <script>
 const SUPABASE_URL = "https://kchpprimvfnwchztwlsa.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
 </script>
 
+
 <style>
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
+
 
 body{
     background:#111;
@@ -31,7 +39,9 @@ body{
     padding:20px;
 }
 
+
 .card{
+
     background:#1f1f1f;
     width:100%;
     max-width:420px;
@@ -39,36 +49,51 @@ body{
     border-radius:18px;
     text-align:center;
     box-shadow:0 10px 30px rgba(0,0,0,.45);
+
 }
 
+
 .logo{
+
     width:280px;
     max-width:100%;
     margin-bottom:8px;
+
 }
 
+
 h1{
+
     color:#65d600;
     font-size:28px;
     margin-bottom:6px;
+
 }
 
+
 .subtitulo{
+
     color:#bdbdbd;
     margin-bottom:25px;
     font-size:14px;
+
 }
 
+
 input{
+
     width:100%;
     padding:14px;
     margin-bottom:15px;
     border:none;
     border-radius:8px;
     font-size:16px;
+
 }
 
+
 button{
+
     width:100%;
     padding:15px;
     background:#65d600;
@@ -79,83 +104,214 @@ button{
     font-weight:bold;
     cursor:pointer;
     transition:.2s;
+
 }
+
 
 button:hover{
+
     background:#58bb00;
+
 }
 
+
+button:disabled{
+
+    opacity:.6;
+    cursor:not-allowed;
+
+}
+
+
 .erro{
+
     color:#ff5b5b;
     margin-top:15px;
     font-size:14px;
+
 }
 
+
 .footer{
+
     margin-top:25px;
     font-size:12px;
     color:#888;
     text-align:center;
     line-height:1.5;
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="card">
 
-    <img src="Colorida.png" alt="Pratini Sports" class="logo">
 
-    <h1>Portal Pratini Sports</h1>
+<img src="Colorida.png" alt="Pratini Sports" class="logo">
 
-    <p class="subtitulo">
-        Acesso exclusivo para equipe autorizada
-    </p>
 
-    <input id="usuario" placeholder="Usuário">
+<h1>Portal Pratini Sports</h1>
 
-    <input id="senha" type="password" placeholder="Senha">
 
-    <button onclick="entrar()">Entrar</button>
+<p class="subtitulo">
+Acesso exclusivo para equipe autorizada
+</p>
 
-    <p id="mensagem" class="erro"></p>
 
-    <div class="footer">
-        © 2026 Pratini Sports<br>
-        Todos os direitos reservados
-    </div>
+<input id="usuario" placeholder="Usuário">
+
+
+<input id="senha" type="password" placeholder="Senha">
+
+
+<button id="btnEntrar" onclick="entrar()">
+Entrar
+</button>
+
+
+<p id="mensagem" class="erro"></p>
+
+
+<div class="footer">
+
+© 2026 Pratini Sports<br>
+Todos os direitos reservados
 
 </div>
 
+
+</div>
+
+
+
 <script>
-async function entrar() {
 
-    const usuario = document.getElementById("usuario").value;
-    const senha = document.getElementById("senha").value;
 
-    const { data, error } = await db
+async function entrar(){
+
+
+    const campoMensagem = document.getElementById("mensagem");
+    const botao = document.getElementById("btnEntrar");
+
+
+    const usuario = document
+        .getElementById("usuario")
+        .value
+        .trim();
+
+
+    const senha = document
+        .getElementById("senha")
+        .value
+        .trim();
+
+
+
+    campoMensagem.innerHTML = "";
+
+
+
+    if(!usuario || !senha){
+
+        campoMensagem.innerHTML =
+        "Digite usuário e senha.";
+
+        return;
+
+    }
+
+
+
+    botao.disabled = true;
+    botao.innerHTML = "Entrando...";
+
+
+
+    try{
+
+
+        const { data, error } = await db
+
         .from("usuarios_v2")
+
         .select("*")
+
         .eq("usuario", usuario)
+
         .eq("senha", senha)
+
         .eq("ativo", true)
+
         .limit(1);
 
-    if (error) {
-        console.log(error);
-        document.getElementById("mensagem").innerHTML = "Erro ao consultar usuário";
-        return;
+
+
+        if(error){
+
+            console.log(error);
+
+            campoMensagem.innerHTML =
+            "Erro ao conectar ao sistema.";
+
+            return;
+
+        }
+
+
+
+        if(data && data.length > 0){
+
+
+            window.location.href =
+            "atletas.html";
+
+
+        }else{
+
+
+            campoMensagem.innerHTML =
+            "Usuário ou senha inválidos.";
+
+
+        }
+
+
+
+    }catch(err){
+
+
+        console.log(err);
+
+        campoMensagem.innerHTML =
+        "Falha inesperada no login.";
+
+
     }
 
-    if (data.length > 0) {
-        window.location.href = "atletas.html";
-    } else {
-        document.getElementById("mensagem").innerHTML = "Usuário ou senha inválidos";
+
+    finally{
+
+
+        botao.disabled = false;
+
+        botao.innerHTML = "Entrar";
+
+
     }
+
 
 }
+
+
 </script>
 
+
 </body>
+
 </html>
