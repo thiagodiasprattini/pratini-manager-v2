@@ -111,9 +111,9 @@ const entregue = atleta.status_kit === "entregue";
 resultado.innerHTML += `
 <div class="card ${entregue ? 'entregue' : 'pendente'}">
 <h2>${atleta.nome}</h2>
-<p><b>CPF:</b> ${atleta.cpf || "Não informado"}</p>
-<p><b>Número:</b> ${atleta.numero_peito || "Não informado"}</p>
-<p><b>Modalidade:</b> ${atleta.modalidade || "Não informada"}</p>
+<p><b>Inscrição:</b> ${atleta.cpf || "Não informado"}</p>
+<p><b>Modalidade:</b> ${atleta.numero_peito || "Não informado"}</p>
+<p><b>Data de Nascimento:</b> ${atleta.modalidade || "Não informada"}</p>
 <p><b>Camiseta:</b> ${atleta.camiseta || "Não informada"}</p>
 <p><b>Equipe:</b> ${atleta.equipe || "Não informada"}</p>
 <p><b>Produto Extra:</b> ${atleta.produto_extra || "Nenhum"}</p>
