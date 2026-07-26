@@ -252,16 +252,14 @@ async function entrar(){
 
 
 
-        if(error){
+        console.log("DATA:", data);
+console.log("ERROR:", error);
 
-            console.log(error);
-
-            campoMensagem.innerHTML =
-            "Erro ao conectar ao sistema.";
-
-            return;
-
-        }
+if (error) {
+    campoMensagem.innerHTML =
+    JSON.stringify(error);
+    return;
+}
 
 
 
