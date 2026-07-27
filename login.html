@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,11 +12,12 @@
 <script src="supabase.js"></script>
 
 <style>
+
 body{
     margin:0;
     background:#111;
     color:white;
-    font-family:Arial;
+    font-family:Arial, sans-serif;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -35,91 +38,163 @@ h1{
 }
 
 input,button{
+
     width:100%;
     padding:14px;
     margin:8px 0;
     border-radius:8px;
     border:none;
     font-size:16px;
+
 }
 
 button{
+
     background:#f5c400;
     font-weight:bold;
+    cursor:pointer;
+
 }
 
-#mensagem{
-    margin-top:15px;
+button:hover{
+
+    opacity:0.8;
+
 }
+
+
+#mensagem{
+
+    margin-top:15px;
+    font-weight:bold;
+
+}
+
 </style>
 
 </head>
 
+
 <body>
 
+
 <div class="container">
+
 
 <h1>Portal Pratini Sports</h1>
 
 <p>Acesso exclusivo para equipe autorizada</p>
 
+
 <input id="usuario" placeholder="Usuário">
+
 
 <input id="senha" type="password" placeholder="Senha">
 
+
 <button onclick="entrar()">Entrar</button>
 
+
 <p id="mensagem"></p>
+
 
 </div>
 
 
+
 <script>
+
 async function entrar() {
+
 
     const campoMensagem = document.getElementById("mensagem");
 
+
     const usuario = document.getElementById("usuario").value.trim();
+
     const senha = document.getElementById("senha").value.trim();
 
-    campoMensagem.innerHTML = "";
+
+    campoMensagem.innerHTML = "Verificando...";
+
 
     try {
 
+
         const { data, error } = await db
+
             .from("usuarios_v2")
+
             .select("*")
+
             .eq("usuario", usuario)
+
             .eq("senha", senha)
+
             .eq("ativo", true);
 
+
+
+        console.log("DATA:", data);
+
+        console.log("ERROR:", error);
+
+
+
         if (error) {
+
+
             campoMensagem.innerHTML = error.message;
+
             return;
+
         }
+
+
 
         if (data && data.length > 0) {
-            campoMensagem.innerHTML = "LOGIN OK";
 
-            // depois ativamos o redirecionamento
-            // window.location.href = "dashboard.html";
+
+            campoMensagem.innerHTML = "Login realizado!";
+
+
+            setTimeout(function(){
+
+
+                window.location.href = "dashboard.html";
+
+
+            }, 800);
+
+
 
         } else {
+
+
             campoMensagem.innerHTML = "Usuário ou senha inválidos";
+
+
         }
+
+
 
     } catch (err) {
 
+
+        console.log(err);
+
         campoMensagem.innerHTML = err.message;
 
+
     }
+
+
 }
+
+
 </script>
+
 
 </body>
-</html>
-        campoMensagem.innerHTML = err.message;
 
-    }
-}
-</script>
+</html>
