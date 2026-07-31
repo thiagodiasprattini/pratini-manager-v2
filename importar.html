@@ -117,7 +117,7 @@ async function verificarAcesso(){
     const { data: sessao } = await db.auth.getSession();
 
     if(!sessao || !sessao.session){
-        window.location.href = "index.html";
+        window.location.href = "login.html";
         return;
     }
 
