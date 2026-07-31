@@ -5,18 +5,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Painel - Pratini Sports</title>
+<title>Pratini Sports</title>
 
 <style>
 
 :root{
-    --bg:#1A1A1A;
-    --header:#2A2A2A;
-    --card:#59D600;
-    --card-hover:#6EF500;
+    --bg:#1F1F1F;
+    --card:#2E2E2E;
+    --card-hover:#383838;
+
+    --primary:#73C46B;
+    --primary-hover:#8AD982;
+
     --text:#FFFFFF;
-    --dark:#111111;
-    --border:#444444;
+    --text-secondary:#CFCFCF;
+    --border:#4A4A4A;
 }
 
 *{
@@ -26,71 +29,47 @@
 }
 
 body{
+
     font-family:'Segoe UI', Arial, sans-serif;
+
     background:
-        linear-gradient(
-            135deg,
-            #1A1A1A,
-            #232323,
-            #2A2A2A
-        );
+    linear-gradient(
+        135deg,
+        #1A1A1A,
+        #222222,
+        #2A2A2A
+    );
+
     color:var(--text);
+
     min-height:100vh;
+
     display:flex;
     flex-direction:column;
 }
 
-/* HEADER */
+/* TOPO */
 
 header{
 
-    background:var(--header);
-
-    border-bottom:4px solid var(--card);
-
-    height:95px;
-
-    position:relative;
+    padding:25px 20px;
 
     display:flex;
-
-    align-items:center;
 
     justify-content:center;
 
-    box-shadow:
-    0 4px 15px rgba(0,0,0,.30);
-}
-
-/* LOGO */
-
-.logo{
-
-    position:absolute;
-
-    left:25px;
-
-    display:flex;
-
     align-items:center;
+
+    border-bottom:3px solid rgba(115,196,107,.25);
+
+    background:#252525;
 }
 
 .logo img{
 
-    height:78px;
+    height:95px;
 
     width:auto;
-}
-
-/* TÍTULO */
-
-.titulo{
-
-    font-size:34px;
-
-    font-weight:700;
-
-    color:#FFFFFF;
 }
 
 /* EVENTO ATIVO */
@@ -99,22 +78,20 @@ header{
 
     margin:25px;
 
-    padding:22px;
+    background:var(--primary);
 
-    background:var(--card);
+    color:#111;
 
-    color:#111111;
+    padding:20px;
 
     border-radius:15px;
 
     text-align:center;
 
-    font-size:18px;
-
     font-weight:700;
 
     box-shadow:
-    0 10px 25px rgba(89,214,0,.25);
+    0 8px 20px rgba(115,196,107,.20);
 }
 
 /* CONTEÚDO */
@@ -130,7 +107,7 @@ main{
     display:grid;
 
     grid-template-columns:
-    repeat(auto-fit,minmax(260px,1fr));
+    repeat(auto-fit,minmax(270px,1fr));
 
     gap:22px;
 }
@@ -141,29 +118,29 @@ main{
 
     background:var(--card);
 
-    color:#111111;
+    border:1px solid var(--border);
+
+    border-top:4px solid var(--primary);
 
     border-radius:16px;
 
-    padding:30px;
+    padding:30px 25px;
 
     cursor:pointer;
 
     transition:all .25s ease;
-
-    box-shadow:
-    0 5px 15px rgba(0,0,0,.15);
 }
 
 .card:hover{
 
     background:var(--card-hover);
 
-    transform:
-    translateY(-5px);
+    border-color:var(--primary);
+
+    transform:translateY(-4px);
 
     box-shadow:
-    0 12px 25px rgba(89,214,0,.25);
+    0 10px 25px rgba(115,196,107,.12);
 }
 
 .card h2{
@@ -172,12 +149,12 @@ main{
 
     margin-bottom:12px;
 
-    color:#111111;
+    color:var(--text);
 }
 
 .card p{
 
-    color:#222222;
+    color:var(--text-secondary);
 
     line-height:1.6;
 }
@@ -186,56 +163,48 @@ main{
 
 footer{
 
-    background:var(--header);
+    margin-top:30px;
 
-    border-top:3px solid var(--card);
+    background:#252525;
+
+    border-top:2px solid rgba(115,196,107,.30);
 
     text-align:center;
 
     padding:18px;
 
-    color:#CFCFCF;
+    color:#BFBFBF;
 
     font-size:13px;
 }
 
-/* RESPONSIVO */
+/* MOBILE */
 
 @media(max-width:768px){
 
-    header{
-
-        height:auto;
-
-        padding:20px;
-
-        flex-direction:column;
-    }
-
-    .logo{
-
-        position:static;
-
-        margin-bottom:10px;
-    }
-
     .logo img{
 
-        height:90px;
-    }
-
-    .titulo{
-
-        font-size:28px;
+        height:85px;
     }
 
     .container{
 
         padding:20px;
     }
+
+    .card{
+
+        padding:25px 20px;
+    }
+
+    .card h2{
+
+        font-size:20px;
+    }
 }
 
 </style>
+
 </head>
 
 <body>
@@ -244,10 +213,6 @@ footer{
 
     <div class="logo">
         <img src="Colorida.png" alt="Pratini Sports">
-    </div>
-
-    <div class="titulo">
-        Painel
     </div>
 
 </header>
