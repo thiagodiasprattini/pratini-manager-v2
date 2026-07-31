@@ -4,22 +4,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portal Pratini Sports</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 const SUPABASE_URL = "https://kchpprimvfnwchztwlsa.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
 </script>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body{
     min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background:linear-gradient(135deg,#2b2b2b 0%,#232323 50%,#1a1a1a 100%);
+    background:linear-gradient(
+        135deg,
+        #2b2b2b 0%,
+        #232323 50%,
+        #1a1a1a 100%
+    );
 }
+
 .container{
     width:90%;
     max-width:430px;
@@ -30,13 +49,44 @@ body{
     border:1px solid rgba(89,214,0,0.15);
     text-align:center;
 }
-.logo{margin-bottom:15px;}
-.logo img{width:210px;height:auto;}
-h1{color:#ffffff;font-size:28px;font-weight:700;margin-bottom:8px;}
-.subtitulo{color:#cfcfcf;font-size:14px;margin-bottom:30px;}
-.form-group{text-align:left;margin-bottom:18px;}
-label{display:block;margin-bottom:8px;color:#ffffff;font-size:14px;font-weight:600;}
-input{
+
+.logo{
+    margin-bottom:15px;
+}
+
+.logo img{
+    width:210px;
+    height:auto;
+}
+
+h1{
+    color:#ffffff;
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.subtitulo{
+    color:#cfcfcf;
+    font-size:14px;
+    margin-bottom:30px;
+}
+
+.form-group{
+    text-align:left;
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    color:#ffffff;
+    font-size:14px;
+    font-weight:600;
+}
+
+input[type="email"],
+input[type="password"]{
     width:100%;
     height:54px;
     background:#ffffff;
@@ -47,12 +97,39 @@ input{
     font-size:16px;
     transition:all .3s ease;
 }
-input::placeholder{color:#888888;}
+
+input::placeholder{
+    color:#888888;
+}
+
 input:focus{
     outline:none;
     border-color:#59D600;
     box-shadow:0 0 0 4px rgba(89,214,0,0.20);
 }
+
+.opcoes-login{
+    margin-top:5px;
+    margin-bottom:20px;
+    text-align:left;
+}
+
+.checkbox-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
+    color:#ffffff;
+    font-size:14px;
+    font-weight:500;
+}
+
+.checkbox-item input{
+    width:18px;
+    height:18px;
+    cursor:pointer;
+}
+
 button{
     width:100%;
     height:55px;
@@ -66,100 +143,297 @@ button{
     cursor:pointer;
     transition:.3s;
 }
+
 button:hover{
     background:#6ef500;
     transform:translateY(-2px);
     box-shadow:0 8px 20px rgba(89,214,0,0.30);
 }
-button:active{transform:translateY(0);}
-#mensagem{margin-top:18px;min-height:20px;font-weight:600;color:#ffffff;}
-.footer{margin-top:25px;color:#bdbdbd;font-size:12px;}
+
+button:active{
+    transform:translateY(0);
+}
+
+#mensagem{
+    margin-top:18px;
+    min-height:20px;
+    font-weight:600;
+    color:#ffffff;
+}
+
+.footer{
+    margin-top:25px;
+    color:#bdbdbd;
+    font-size:12px;
+}
+
 </style>
+
 </head>
+
 <body>
+
 <div class="container">
+
     <div class="logo">
         <img src="Colorida.png" alt="Pratini Sports">
     </div>
+
     <h1>Portal Pratini Sports</h1>
-    <p class="subtitulo">Acesso exclusivo para equipe autorizada</p>
+
+    <p class="subtitulo">
+        Acesso exclusivo para equipe autorizada
+    </p>
+
     <div class="form-group">
         <label for="email">E-mail</label>
-        <input id="email" type="email" placeholder="Digite seu e-mail">
+        <input
+            id="email"
+            type="email"
+            placeholder="Digite seu e-mail">
     </div>
+
     <div class="form-group">
         <label for="senha">Senha</label>
-        <input id="senha" type="password" placeholder="Digite sua senha">
+        <input
+            id="senha"
+            type="password"
+            placeholder="Digite sua senha">
     </div>
-    <button onclick="entrar()">Entrar</button>
+
+    <div class="opcoes-login">
+
+        <label class="checkbox-item">
+            <input
+                type="checkbox"
+                id="lembrarEmail">
+            Lembrar e-mail
+        </label>
+
+        <label class="checkbox-item">
+            <input
+                type="checkbox"
+                id="manterConectado">
+            Manter-me conectado
+        </label>
+
+    </div>
+
+    <button onclick="entrar()">
+        Entrar
+    </button>
+
     <p id="mensagem"></p>
-    <div class="footer">© 2025 Pratini Sports</div>
+
+    <div class="footer">
+        © 2025 Pratini Sports
+    </div>
+
 </div>
 
 <script>
-async function entrar(){
-    const campoMensagem = document.getElementById("mensagem");
-    const email = document.getElementById("email").value.trim();
-    const senha = document.getElementById("senha").value.trim();
 
-    campoMensagem.style.color = "#ffffff";
-    campoMensagem.innerHTML = "Verificando acesso...";
+window.addEventListener("load", async () => {
 
-    if(!email || !senha){
-        campoMensagem.style.color = "#ff6b6b";
-        campoMensagem.innerHTML = "Digite e-mail e senha.";
-        return;
+    const emailSalvo =
+    localStorage.getItem("email_salvo");
+
+    if(emailSalvo){
+
+        document.getElementById("email").value =
+        emailSalvo;
+
+        document.getElementById("lembrarEmail").checked =
+        true;
     }
 
-    if(typeof db === "undefined"){
-        campoMensagem.style.color = "#ff6b6b";
-        campoMensagem.innerHTML = "Erro: Supabase não carregado.";
+    const manterConectado =
+    localStorage.getItem("manter_conectado");
+
+    if(
+        manterConectado === "sim" &&
+        typeof db !== "undefined"
+    ){
+
+        try{
+
+            const {
+                data: { session }
+            } = await db.auth.getSession();
+
+            if(session){
+
+                const { data: perfil } =
+                await db
+                .from("perfis")
+                .select("role")
+                .eq("id", session.user.id)
+                .single();
+
+                if(perfil){
+
+                    if(perfil.role === "admin"){
+                        window.location.href =
+                        "admin-dashboard.html";
+                    }else{
+                        window.location.href =
+                        "dashboard.html";
+                    }
+
+                }
+
+            }
+
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+});
+
+async function entrar(){
+
+    const campoMensagem =
+    document.getElementById("mensagem");
+
+    const email =
+    document.getElementById("email")
+    .value.trim();
+
+    const senha =
+    document.getElementById("senha")
+    .value.trim();
+
+    const lembrarEmail =
+    document.getElementById("lembrarEmail")
+    .checked;
+
+    const manterConectado =
+    document.getElementById("manterConectado")
+    .checked;
+
+    campoMensagem.style.color = "#ffffff";
+    campoMensagem.innerHTML =
+    "Verificando acesso...";
+
+    if(!email || !senha){
+
+        campoMensagem.style.color =
+        "#ff6b6b";
+
+        campoMensagem.innerHTML =
+        "Digite e-mail e senha.";
+
         return;
     }
 
     try{
-        const { data, error } = await db.auth.signInWithPassword({
+
+        const { data, error } =
+        await db.auth.signInWithPassword({
+
             email: email,
             password: senha
+
         });
 
         if(error){
-            campoMensagem.style.color = "#ff6b6b";
-            campoMensagem.innerHTML = "E-mail ou senha inválidos.";
+
+            campoMensagem.style.color =
+            "#ff6b6b";
+
+            campoMensagem.innerHTML =
+            "E-mail ou senha inválidos.";
+
             return;
         }
 
         if(data && data.session){
-            const { data: perfil, error: erroPerfil } = await db
-                .from("perfis")
-                .select("role")
-                .eq("id", data.user.id)
-                .single();
+
+            if(lembrarEmail){
+
+                localStorage.setItem(
+                    "email_salvo",
+                    email
+                );
+
+            }else{
+
+                localStorage.removeItem(
+                    "email_salvo"
+                );
+
+            }
+
+            if(manterConectado){
+
+                localStorage.setItem(
+                    "manter_conectado",
+                    "sim"
+                );
+
+            }else{
+
+                localStorage.removeItem(
+                    "manter_conectado"
+                );
+
+            }
+
+            const { data: perfil, error: erroPerfil } =
+            await db
+            .from("perfis")
+            .select("role")
+            .eq("id", data.user.id)
+            .single();
 
             if(erroPerfil || !perfil){
-                campoMensagem.style.color = "#ff6b6b";
-                campoMensagem.innerHTML = "Perfil não encontrado. Contate o administrador.";
+
+                campoMensagem.style.color =
+                "#ff6b6b";
+
+                campoMensagem.innerHTML =
+                "Perfil não encontrado.";
+
                 return;
             }
 
-            campoMensagem.style.color = "#59D600";
-            campoMensagem.innerHTML = "Login realizado com sucesso!";
+            campoMensagem.style.color =
+            "#59D600";
+
+            campoMensagem.innerHTML =
+            "Login realizado com sucesso!";
 
             setTimeout(function(){
+
                 if(perfil.role === "admin"){
-                    window.location.href = "admin-dashboard.html";
+
+                    window.location.href =
+                    "admin-dashboard.html";
+
                 }else{
-                    window.location.href = "dashboard.html";
+
+                    window.location.href =
+                    "dashboard.html";
+
                 }
+
             },800);
         }
 
     }catch(err){
+
         console.error(err);
-        campoMensagem.style.color = "#ff6b6b";
-        campoMensagem.innerHTML = "Erro: " + err.message;
+
+        campoMensagem.style.color =
+        "#ff6b6b";
+
+        campoMensagem.innerHTML =
+        "Erro: " + err.message;
     }
 }
+
 </script>
+
 </body>
 </html>
