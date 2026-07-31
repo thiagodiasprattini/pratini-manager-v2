@@ -26,64 +26,58 @@ body{
 
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-    background:
-    radial-gradient(
-        circle at top,
-        rgba(89,214,0,0.15),
-        transparent 35%
-    ),
-    linear-gradient(
-        135deg,
-        #000000,
-        #0f0f0f,
-        #181818
-    );
-
-    color:#ffffff;
+    background:#f4f5f7;
 }
+
+/* CARD */
 
 .container{
     width:90%;
-    max-width:420px;
+    max-width:430px;
 
-    background:rgba(20,20,20,0.96);
+    background:#ffffff;
 
-    border:1px solid rgba(89,214,0,0.25);
+    border-radius:20px;
 
-    border-radius:24px;
-
-    padding:40px 35px;
+    padding:40px;
 
     box-shadow:
-    0 0 30px rgba(89,214,0,0.15),
-    0 15px 40px rgba(0,0,0,0.45);
+    0 10px 35px rgba(0,0,0,0.08);
 
-    backdrop-filter:blur(10px);
+    text-align:center;
 }
 
+/* LOGO */
+
 .logo{
-    display:flex;
-    justify-content:center;
-    margin-bottom:25px;
+    margin-bottom:15px;
 }
 
 .logo img{
-    width:320px;
+    width:240px;
     max-width:100%;
     height:auto;
+}
 
-    filter:
-    drop-shadow(0 0 10px rgba(89,214,0,0.20));
+/* TITULO */
+
+h1{
+    font-size:28px;
+    color:#111111;
+    margin-bottom:8px;
+    font-weight:700;
 }
 
 .subtitulo{
-    text-align:center;
-    color:#cfcfcf;
+    color:#666666;
     font-size:14px;
     margin-bottom:30px;
 }
 
+/* CAMPOS */
+
 .form-group{
+    text-align:left;
     margin-bottom:18px;
 }
 
@@ -91,34 +85,27 @@ label{
     display:block;
     margin-bottom:8px;
 
-    color:#dcdcdc;
+    color:#333333;
 
     font-size:14px;
-
-    font-weight:500;
+    font-weight:600;
 }
 
 input{
     width:100%;
-    height:55px;
+    height:54px;
 
-    background:#1d1d1d;
+    background:#ffffff;
 
-    border:1px solid #333;
+    border:1px solid #dcdcdc;
 
-    border-radius:12px;
+    border-radius:10px;
 
-    padding:0 16px;
-
-    color:#fff;
+    padding:0 15px;
 
     font-size:16px;
 
-    transition:all .3s ease;
-}
-
-input::placeholder{
-    color:#888;
+    transition:0.3s;
 }
 
 input:focus{
@@ -130,55 +117,45 @@ input:focus{
     0 0 0 4px rgba(89,214,0,0.15);
 }
 
+input::placeholder{
+    color:#999999;
+}
+
+/* BOTAO */
+
 button{
     width:100%;
     height:55px;
 
-    margin-top:10px;
-
     border:none;
 
-    border-radius:12px;
+    border-radius:10px;
 
     background:#59D600;
 
-    color:#000;
+    color:#000000;
 
     font-size:17px;
-
     font-weight:700;
 
     cursor:pointer;
 
-    transition:.3s;
+    transition:0.3s;
 }
 
 button:hover{
-    background:#6eff00;
-
-    transform:translateY(-2px);
-
-    box-shadow:
-    0 10px 25px rgba(89,214,0,0.35);
-}
-
-button:active{
-    transform:translateY(0);
+    background:#67f000;
 }
 
 #mensagem{
-    text-align:center;
-    margin-top:18px;
-    font-weight:600;
+    margin-top:15px;
     min-height:20px;
+    font-weight:600;
 }
 
 .footer{
-    text-align:center;
     margin-top:25px;
-
-    color:#777;
-
+    color:#999999;
     font-size:12px;
 }
 
@@ -190,14 +167,14 @@ button:active{
 <div class="container">
 
     <div class="logo">
-    <img src="Colorida.png" alt="Pratini Sports">
-</div>
+        <img src="Colorida.png" alt="Pratini Sports">
+    </div>
 
-<h1>Portal Pratini Sports</h1>
+    <h1>Portal Pratini Sports</h1>
 
-<p class="subtitulo">
-    Acesso exclusivo para equipe autorizada
-</p>
+    <p class="subtitulo">
+        Acesso exclusivo para equipe autorizada
+    </p>
 
     <div class="form-group">
         <label for="email">E-mail</label>
@@ -244,12 +221,12 @@ async function entrar(){
         .value
         .trim();
 
-    campoMensagem.style.color = "#ffffff";
+    campoMensagem.style.color = "#333";
     campoMensagem.innerHTML = "Verificando acesso...";
 
     if(!email || !senha){
 
-        campoMensagem.style.color = "#ff6666";
+        campoMensagem.style.color = "#d93025";
         campoMensagem.innerHTML =
         "Digite e-mail e senha.";
 
@@ -258,7 +235,7 @@ async function entrar(){
 
     if(typeof db === "undefined"){
 
-        campoMensagem.style.color = "#ff6666";
+        campoMensagem.style.color = "#d93025";
         campoMensagem.innerHTML =
         "Erro: Supabase não carregado.";
 
@@ -277,7 +254,7 @@ async function entrar(){
 
         if(error){
 
-            campoMensagem.style.color = "#ff6666";
+            campoMensagem.style.color = "#d93025";
             campoMensagem.innerHTML =
             "E-mail ou senha inválidos.";
 
@@ -297,15 +274,15 @@ async function entrar(){
                 window.location.href =
                 "dashboard.html";
 
-            }, 800);
+            },800);
         }
 
-    }
-    catch(err){
+    }catch(err){
 
         console.error(err);
 
-        campoMensagem.style.color = "#ff6666";
+        campoMensagem.style.color =
+        "#d93025";
 
         campoMensagem.innerHTML =
         "Erro: " + err.message;
