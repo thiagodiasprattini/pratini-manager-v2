@@ -1,21 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Portal Pratini Sports</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const SUPABASE_URL = "https://kchpprimvfnwchztwlsa.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
-
-const db = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
-</script>
+<script src="supabase.js"></script>
 
 <style>
 
@@ -30,8 +23,11 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
+
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background:linear-gradient(
+
+    background:
+    linear-gradient(
         135deg,
         #2b2b2b 0%,
         #232323 50%,
@@ -39,16 +35,28 @@ body{
     );
 }
 
+/* CARD PRINCIPAL */
+
 .container{
+
     width:90%;
     max-width:430px;
+
     background:#303030;
+
     padding:40px;
+
     border-radius:20px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.35);
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,0.35);
+
     border:1px solid rgba(89,214,0,0.15);
+
     text-align:center;
 }
+
+/* LOGO */
 
 .logo{
     margin-bottom:15px;
@@ -59,18 +67,27 @@ body{
     height:auto;
 }
 
+/* TITULO */
+
 h1{
     color:#ffffff;
+
     font-size:28px;
+
     font-weight:700;
+
     margin-bottom:8px;
 }
 
 .subtitulo{
     color:#cfcfcf;
+
     font-size:14px;
+
     margin-bottom:30px;
 }
+
+/* FORM */
 
 .form-group{
     text-align:left;
@@ -79,22 +96,36 @@ h1{
 
 label{
     display:block;
+
     margin-bottom:8px;
+
     color:#ffffff;
+
     font-size:14px;
+
     font-weight:600;
 }
 
-input[type="email"],
-input[type="password"]{
+/* CAMPOS BRANCOS */
+
+input{
+
     width:100%;
+
     height:54px;
+
     background:#ffffff;
+
     color:#222222;
+
     border:1px solid #dddddd;
+
     border-radius:10px;
+
     padding:0 15px;
+
     font-size:16px;
+
     transition:all .3s ease;
 }
 
@@ -103,72 +134,81 @@ input::placeholder{
 }
 
 input:focus{
+
     outline:none;
+
     border-color:#59D600;
-    box-shadow:0 0 0 4px rgba(89,214,0,0.20);
+
+    box-shadow:
+    0 0 0 4px rgba(89,214,0,0.20);
 }
 
-.opcoes-login{
-    margin-top:5px;
-    margin-bottom:20px;
-    text-align:left;
-}
-
-.checkbox-item{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:10px;
-    color:#ffffff;
-    font-size:14px;
-    font-weight:500;
-}
-
-.checkbox-item input{
-    width:18px;
-    height:18px;
-    cursor:pointer;
-}
+/* BOTÃO */
 
 button{
+
     width:100%;
+
     height:55px;
+
     border:none;
+
     border-radius:10px;
+
     margin-top:10px;
+
     background:#59D600;
+
     color:#000000;
+
     font-size:17px;
+
     font-weight:700;
+
     cursor:pointer;
+
     transition:.3s;
 }
 
 button:hover{
+
     background:#6ef500;
+
     transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(89,214,0,0.30);
+
+    box-shadow:
+    0 8px 20px rgba(89,214,0,0.30);
 }
 
 button:active{
     transform:translateY(0);
 }
 
+/* MENSAGENS */
+
 #mensagem{
+
     margin-top:18px;
+
     min-height:20px;
+
     font-weight:600;
+
     color:#ffffff;
 }
 
+/* RODAPÉ */
+
 .footer{
+
     margin-top:25px;
+
     color:#bdbdbd;
+
     font-size:12px;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -201,24 +241,6 @@ button:active{
             placeholder="Digite sua senha">
     </div>
 
-    <div class="opcoes-login">
-
-        <label class="checkbox-item">
-            <input
-                type="checkbox"
-                id="lembrarEmail">
-            Lembrar e-mail
-        </label>
-
-        <label class="checkbox-item">
-            <input
-                type="checkbox"
-                id="manterConectado">
-            Manter-me conectado
-        </label>
-
-    </div>
-
     <button onclick="entrar()">
         Entrar
     </button>
@@ -233,96 +255,40 @@ button:active{
 
 <script>
 
-window.addEventListener("load", async () => {
-
-    const emailSalvo =
-    localStorage.getItem("email_salvo");
-
-    if(emailSalvo){
-
-        document.getElementById("email").value =
-        emailSalvo;
-
-        document.getElementById("lembrarEmail").checked =
-        true;
-    }
-
-    const manterConectado =
-    localStorage.getItem("manter_conectado");
-
-    if(
-        manterConectado === "sim" &&
-        typeof db !== "undefined"
-    ){
-
-        try{
-
-            const {
-                data: { session }
-            } = await db.auth.getSession();
-
-            if(session){
-
-                const { data: perfil } =
-                await db
-                .from("perfis")
-                .select("role")
-                .eq("id", session.user.id)
-                .single();
-
-                if(perfil){
-
-                    if(perfil.role === "admin"){
-                        window.location.href =
-                        "admin-dashboard.html";
-                    }else{
-                        window.location.href =
-                        "dashboard.html";
-                    }
-
-                }
-
-            }
-
-        }catch(e){
-            console.log(e);
-        }
-    }
-
-});
-
 async function entrar(){
 
     const campoMensagem =
-    document.getElementById("mensagem");
+        document.getElementById("mensagem");
 
     const email =
-    document.getElementById("email")
-    .value.trim();
+        document.getElementById("email")
+        .value
+        .trim();
 
     const senha =
-    document.getElementById("senha")
-    .value.trim();
-
-    const lembrarEmail =
-    document.getElementById("lembrarEmail")
-    .checked;
-
-    const manterConectado =
-    document.getElementById("manterConectado")
-    .checked;
+        document.getElementById("senha")
+        .value
+        .trim();
 
     campoMensagem.style.color = "#ffffff";
-    campoMensagem.innerHTML =
-    "Verificando acesso...";
+    campoMensagem.innerHTML = "Verificando acesso...";
 
     if(!email || !senha){
 
-        campoMensagem.style.color =
-        "#ff6b6b";
+        campoMensagem.style.color = "#ff6b6b";
 
         campoMensagem.innerHTML =
         "Digite e-mail e senha.";
+
+        return;
+    }
+
+    if(typeof db === "undefined"){
+
+        campoMensagem.style.color = "#ff6b6b";
+
+        campoMensagem.innerHTML =
+        "Erro: Supabase não carregado.";
 
         return;
     }
@@ -339,8 +305,7 @@ async function entrar(){
 
         if(error){
 
-            campoMensagem.style.color =
-            "#ff6b6b";
+            campoMensagem.style.color = "#ff6b6b";
 
             campoMensagem.innerHTML =
             "E-mail ou senha inválidos.";
@@ -350,54 +315,6 @@ async function entrar(){
 
         if(data && data.session){
 
-            if(lembrarEmail){
-
-                localStorage.setItem(
-                    "email_salvo",
-                    email
-                );
-
-            }else{
-
-                localStorage.removeItem(
-                    "email_salvo"
-                );
-
-            }
-
-            if(manterConectado){
-
-                localStorage.setItem(
-                    "manter_conectado",
-                    "sim"
-                );
-
-            }else{
-
-                localStorage.removeItem(
-                    "manter_conectado"
-                );
-
-            }
-
-            const { data: perfil, error: erroPerfil } =
-            await db
-            .from("perfis")
-            .select("role")
-            .eq("id", data.user.id)
-            .single();
-
-            if(erroPerfil || !perfil){
-
-                campoMensagem.style.color =
-                "#ff6b6b";
-
-                campoMensagem.innerHTML =
-                "Perfil não encontrado.";
-
-                return;
-            }
-
             campoMensagem.style.color =
             "#59D600";
 
@@ -406,17 +323,8 @@ async function entrar(){
 
             setTimeout(function(){
 
-                if(perfil.role === "admin"){
-
-                    window.location.href =
-                    "admin-dashboard.html";
-
-                }else{
-
-                    window.location.href =
-                    "dashboard.html";
-
-                }
+                window.location.href =
+                "dashboard.html";
 
             },800);
         }
