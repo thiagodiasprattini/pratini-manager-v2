@@ -23,10 +23,24 @@ button{background:#ffc400;font-weight:bold;cursor:pointer}
 .voltar{background:#333;color:white}
 .atleta{border-left:6px solid #ffc400}
 small{color:#bbb}
+.carregando{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-size:16px;
+    color:#cfcfcf;
+}
 </style>
 </head>
 
 <body>
+
+<div id="telaCarregando" class="carregando">
+    Verificando acesso...
+</div>
+
+<div id="telaPainel" style="display:none;">
 
 <header>ATLETAS</header>
 
@@ -62,19 +76,43 @@ small{color:#bbb}
 
 </div>
 
+</div>
+
 <script>
+
 const eventoId = localStorage.getItem("evento_ativo_id");
 const eventoNome = localStorage.getItem("evento_ativo_nome");
 
- const perfilUsuario = 
- localStorage.getItem("usuario_perfil");
+async function verificarAcesso(){
 
-if(perfilUsuario !== "admin"){
-  alert("Acesso restrito ao administrador.");
-  location.href = "dashboard.html";
+    const { data: sessao } = await db.auth.getSession();
+
+    if(!sessao || !sessao.session){
+        window.location.href = "index.html";
+        return;
+    }
+
+    const usuario = sessao.session.user;
+
+    const { data: perfil, error } = await db
+        .from("perfis")
+        .select("role")
+        .eq("id", usuario.id)
+        .single();
+
+    if(error || !perfil || perfil.role !== "admin"){
+        alert("Acesso restrito ao administrador.");
+        window.location.href = "dashboard.html";
+        return;
+    }
+
+    document.getElementById("eventoAtivo").innerHTML = eventoNome || "Nenhum evento ativo selecionado.";
+
+    document.getElementById("telaCarregando").style.display = "none";
+    document.getElementById("telaPainel").style.display = "block";
+
+    carregarAtletas();
 }
- 
-document.getElementById("eventoAtivo").innerHTML = eventoNome || "Nenhum evento ativo selecionado.";
 
 async function carregarAtletas(){
 const lista = document.getElementById("listaAtletas");
@@ -188,7 +226,7 @@ carregarAtletas();
 
 }
 
-carregarAtletas();
+verificarAcesso();
 </script>
 
 </body>
