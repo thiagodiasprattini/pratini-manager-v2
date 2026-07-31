@@ -1,60 +1,159 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Painel - Pratini Manager</title>
 
 <style>
 
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#111;
-color:white;
+:root{
+    --bg:#1A1A1A;
+    --card:#303030;
+    --card-hover:#3A3A3A;
+    --primary:#59D600;
+    --primary-hover:#6EF500;
+    --text:#FFFFFF;
+    --text-secondary:#CFCFCF;
+    --border:#444444;
 }
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI', Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+/* HEADER */
 
 header{
-background:#ffc400;
-color:#000;
-padding:20px;
-text-align:center;
-font-size:28px;
-font-weight:bold;
+
+    background:var(--card);
+
+    border-bottom:3px solid var(--primary);
+
+    padding:22px;
+
+    text-align:center;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:var(--text);
+
+    box-shadow:
+    0 2px 10px rgba(0,0,0,.25);
 }
+
+/* EVENTO ATIVO */
+
+.evento-ativo{
+
+    background:var(--card);
+
+    border-left:6px solid var(--primary);
+
+    margin:20px;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    font-weight:600;
+
+    color:var(--text);
+}
+
+/* GRID */
 
 .container{
-padding:20px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
+
+    padding:25px;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
+    gap:20px;
 }
 
+/* CARDS */
+
 .card{
-background:#1f1f1f;
-padding:25px;
-border-radius:15px;
-text-align:center;
-cursor:pointer;
-transition:.3s;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:16px;
+
+    padding:30px 20px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    transition:all .25s ease;
 }
 
 .card:hover{
-background:#2a2a2a;
-transform:scale(1.03);
+
+    background:var(--card-hover);
+
+    border-color:var(--primary);
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.30);
 }
+
+/* ÍCONES */
 
 .icone{
-font-size:60px;
-margin-bottom:15px;
+
+    width:70px;
+
+    height:70px;
+
+    margin:0 auto 20px auto;
+
+    border-radius:50%;
+
+    background:rgba(89,214,0,.12);
+
+    border:2px solid rgba(89,214,0,.25);
 }
 
-h2{
-margin:10px 0;
+/* TÍTULOS */
+
+.card h2{
+
+    margin-bottom:10px;
+
+    font-size:22px;
+
+    color:var(--text);
 }
 
-p{
-color:#bbb;
+.card p{
+
+    color:var(--text-secondary);
+
+    line-height:1.5;
 }
 
 </style>
@@ -64,109 +163,104 @@ color:#bbb;
 <body>
 
 <header>
-
 Portal Pratini Sports
-
 </header>
 
 <div class="container">
 
-<div class="card" onclick="location.href='eventos.html'">
-
-<div class="icone">🏃</div>
-
-<h2>Eventos</h2>
-
-<p>Cadastrar e gerenciar eventos.</p>
-
-</div>
-
-<div class="card" onclick="location.href='atletas.html'">
-
-<div class="icone">👥</div>
-<h2>Atletas</h2>
-<p>Lista completa dos inscritos.</p>
-</div>
-    
-<div class="card" onclick="location.href='importar.html'">
-    <div class="icone">📥</div>
-    <h2>Importar</h2>
-    <p>Importar atletas por planilha.</p>
+    <div class="card" onclick="location.href='eventos.html'">
+        <div class="icone"></div>
+        <h2>Eventos</h2>
+        <p>Cadastrar e gerenciar eventos.</p>
     </div>
 
-<div class="card" onclick="location.href='entrega.html'">
+    <div class="card" onclick="location.href='atletas.html'">
+        <div class="icone"></div>
+        <h2>Atletas</h2>
+        <p>Lista completa dos inscritos.</p>
+    </div>
 
-<div class="icone">🎽</div>
+    <div class="card" onclick="location.href='importar.html'">
+        <div class="icone"></div>
+        <h2>Importar</h2>
+        <p>Importar atletas por planilha.</p>
+    </div>
 
-<h2>Entrega de Inscrição do Atleta</h2>
+    <div class="card" onclick="location.href='entrega.html'">
+        <div class="icone"></div>
+        <h2>Entrega de Inscrição</h2>
+        <p>Pesquisar e entregar inscrição.</p>
+    </div>
 
-<p>Pesquisar e entregar inscrição.</p>
+    <div class="card">
+        <div class="icone"></div>
+        <h2>QR Code</h2>
+        <p>Leitor pelo celular.</p>
+    </div>
 
-</div>
+    <div class="card">
+        <div class="icone"></div>
+        <h2>Relatórios</h2>
+        <p>Acompanhe tudo em tempo real.</p>
+    </div>
 
-<div class="card">
-
-<div class="icone">📷</div>
-
-<h2>QR Code</h2>
-
-<p>Leitor pelo celular.</p>
-
-</div>
-
-<div class="card">
-
-<div class="icone">📊</div>
-
-<h2>Relatórios</h2>
-
-<p>Acompanhe tudo em tempo real.</p>
-
-</div>
-
-<div class="card">
-
-<div class="icone">⚙️</div>
-
-<h2>Configurações</h2>
-
-<p>Configurações do sistema.</p>
+    <div class="card">
+        <div class="icone"></div>
+        <h2>Configurações</h2>
+        <p>Configurações do sistema.</p>
+    </div>
 
 </div>
 
-</div>
 <script>
-const eventoAtivoNome = localStorage.getItem("evento_ativo_nome");
+
+const eventoAtivoNome =
+localStorage.getItem("evento_ativo_nome");
 
 if(eventoAtivoNome){
-const aviso = document.createElement("div");
-aviso.style.background = "#ffc400";
-aviso.style.color = "#000";
-aviso.style.padding = "20px";
-aviso.style.margin = "20px";
-aviso.style.borderRadius = "15px";
-aviso.style.textAlign = "center";
-aviso.style.fontWeight = "bold";
-aviso.innerHTML = "🏁 Evento ativo:<br><br>" + eventoAtivoNome;
 
-document.body.insertBefore(aviso, document.querySelector(".container"));
+    const aviso =
+    document.createElement("div");
+
+    aviso.className =
+    "evento-ativo";
+
+    aviso.innerHTML =
+    "Evento ativo<br><br>" +
+    eventoAtivoNome;
+
+    document.body.insertBefore(
+        aviso,
+        document.querySelector(".container")
+    );
 }
+
 const perfilUsuario =
 localStorage.getItem("usuario_perfil");
-    
+
 if(perfilUsuario === "atendente"){
-  document.querySelectorAll(".card").forEach(card => {
-    const titulo = card.querySelector("h2");
-    if(!titulo) return;
 
-    const nome = titulo.innerText.trim();
+    document.querySelectorAll(".card")
+    .forEach(card => {
 
-    if(nome !== "Entrega de Inscrição" && nome !== "QR Code"){
-      card.style.display = "none";
-    }
-  });
+        const titulo =
+        card.querySelector("h2");
+
+        if(!titulo) return;
+
+        const nome =
+        titulo.innerText.trim();
+
+        if(
+            nome !== "Entrega de Inscrição" &&
+            nome !== "QR Code"
+        ){
+            card.style.display = "none";
+        }
+    });
 }
- 
+
 </script>
+
 </body>
 </html>
