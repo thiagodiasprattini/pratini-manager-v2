@@ -51,7 +51,7 @@ button{
 <div class="container">
 <h1>Portal Pratini Sports</h1>
 <p>Acesso exclusivo para equipe autorizada</p>
-<input id="usuario" placeholder="Usuário">
+<input id="email" type="email" placeholder="E-mail">
 <input id="senha" type="password" placeholder="Senha">
 <button onclick="entrar()">Entrar</button>
 <p id="mensagem"></p>
@@ -59,11 +59,11 @@ button{
 <script>
 async function entrar(){
     const campoMensagem = document.getElementById("mensagem");
-    const usuario = document.getElementById("usuario").value.trim();
+    const email = document.getElementById("email").value.trim();
     const senha = document.getElementById("senha").value.trim();
     campoMensagem.innerHTML = "Verificando...";
-    if(!usuario || !senha){
-        campoMensagem.innerHTML = "Digite usuário e senha";
+    if(!email || !senha){
+        campoMensagem.innerHTML = "Digite e-mail e senha";
         return;
     }
     if(typeof db === "undefined"){
@@ -72,28 +72,23 @@ async function entrar(){
         return;
     }
     try{
-        const { data, error } = await db
-        .from("usuarios_v2")
-        .select("*")
-        .eq("usuario", usuario)
-        .eq("senha", senha)
-        .eq("ativo", true);
+        const { data, error } = await db.auth.signInWithPassword({
+            email: email,
+            password: senha
+        });
         console.log("DATA:", data);
         console.log("ERROR:", error);
         if(error){
             campoMensagem.innerHTML =
-            "Erro Supabase: " + error.message;
+            "E-mail ou senha inválidos";
             return;
         }
-        if(data && data.length > 0){
+        if(data && data.session){
             campoMensagem.innerHTML =
             "Login realizado com sucesso!";
             setTimeout(function(){
                 window.location.href = "dashboard.html";
             }, 800);
-        }else{
-            campoMensagem.innerHTML =
-            "Usuário ou senha inválidos";
         }
     }catch(err){
         console.log(err);
