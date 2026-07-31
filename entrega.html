@@ -6,7 +6,6 @@
 <title>Entrega - Portal Pratini</title>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -27,10 +26,24 @@ button{background:#ffc400;font-weight:bold;cursor:pointer}
 .pendente{border-left:6px solid #ffc400}
 .status-entregue{color:#00d26a;font-weight:bold;font-size:22px}
 .status-pendente{color:#ffc400;font-weight:bold;font-size:22px}
+.carregando{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-size:16px;
+    color:#cfcfcf;
+}
 </style>
 </head>
 
 <body>
+
+<div id="telaCarregando" class="carregando">
+    Verificando acesso...
+</div>
+
+<div id="telaPainel" style="display:none;">
 
 <header>ENTREGA DE KITS</header>
 
@@ -53,11 +66,47 @@ button{background:#ffc400;font-weight:bold;cursor:pointer}
 
 </div>
 
-<script>
-const eventoId = localStorage.getItem("evento_ativo_id");
-const eventoNome = localStorage.getItem("evento_ativo_nome");
+</div>
 
-document.getElementById("eventoAtivo").innerHTML = eventoNome || "Nenhum evento ativo selecionado.";
+<script>
+
+let usuarioLogado = null;
+
+async function verificarAcesso(){
+
+    const { data: sessao } = await db.auth.getSession();
+
+    if(!sessao || !sessao.session){
+        window.location.href = "index.html";
+        return;
+    }
+
+    const usuario = sessao.session.user;
+
+    const { data: perfil, error } = await db
+        .from("perfis")
+        .select("role, nome")
+        .eq("id", usuario.id)
+        .single();
+
+    if(error || !perfil){
+        window.location.href = "index.html";
+        return;
+    }
+
+    usuarioLogado = {
+        nome: perfil.nome || usuario.email,
+        email: usuario.email
+    };
+
+    const eventoNome = localStorage.getItem("evento_ativo_nome");
+    document.getElementById("eventoAtivo").innerHTML = eventoNome || "Nenhum evento ativo selecionado.";
+
+    document.getElementById("telaCarregando").style.display = "none";
+    document.getElementById("telaPainel").style.display = "block";
+}
+
+const eventoId = localStorage.getItem("evento_ativo_id");
 
 function normalizar(txt){
 return (txt || "").toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();
@@ -147,45 +196,4 @@ const confirmar = await Swal.fire({
     cancelButtonText: "Cancelar"
 });
 
-if (!confirmar.isConfirmed) {
-    return;
-}
-
-const { error } = await db
-.from("atletas_v2")
-.update({
-    status_kit: "entregue",
-    retirado_por: nome,
-    data_retirada: new Date().toISOString(),
-    entregue_por: localStorage.getItem("usuario_nome"),
-    entregue_por_usuario: localStorage.getItem("usuario_login")
-})
-.eq("id", id);
-
-if(error){
-    Swal.fire({
-        title: "Erro",
-        text: "Erro ao entregar kit: " + error.message,
-        icon: "error",
-        background: "#1f1f1f",
-        color: "#fff",
-        confirmButtonColor: "#ffc400"
-    });
-    return;
-}
-
-await db.from("auditoria_v2").insert([{
-evento_id: eventoId,
-usuario: "Atendente",
-acao: "Kit entregue",
-detalhe: nome
-}]);
-
-alert("Kit entregue com sucesso!");
-
-buscarAtletas();
-}
-</script>
-
-</body>
-</html>
+if
