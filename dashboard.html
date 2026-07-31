@@ -1,225 +1,117 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Pratini Sports</title>
 
-<style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 
+<style>
 :root{
     --bg:#1F1F1F;
     --card:#2E2E2E;
     --card-hover:#383838;
-
     --primary:#73C46B;
     --primary-hover:#8AD982;
-
     --text:#FFFFFF;
     --text-secondary:#CFCFCF;
     --border:#4A4A4A;
 }
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;}
 body{
-
     font-family:'Segoe UI', Arial, sans-serif;
-
-    background:
-    linear-gradient(
-        135deg,
-        #1A1A1A,
-        #222222,
-        #2A2A2A
-    );
-
+    background:linear-gradient(135deg,#1A1A1A,#222222,#2A2A2A);
     color:var(--text);
-
     min-height:100vh;
-
     display:flex;
     flex-direction:column;
 }
-
-/* TOPO */
-
 header{
-
     padding:25px 20px;
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
     border-bottom:3px solid rgba(115,196,107,.25);
-
     background:#252525;
 }
-
-.logo img{
-
-    height:95px;
-
-    width:auto;
-}
-
-/* EVENTO ATIVO */
-
+.logo img{height:95px;width:auto;}
 .evento-ativo{
-
     margin:25px;
-
     background:var(--primary);
-
     color:#111;
-
     padding:20px;
-
     border-radius:15px;
-
     text-align:center;
-
     font-weight:700;
-
-    box-shadow:
-    0 8px 20px rgba(115,196,107,.20);
+    box-shadow:0 8px 20px rgba(115,196,107,.20);
 }
-
-/* CONTEÚDO */
-
-main{
-    flex:1;
-}
-
+main{flex:1;}
 .container{
-
     padding:25px;
-
     display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(270px,1fr));
-
+    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
     gap:22px;
 }
-
-/* CARDS */
-
 .card{
-
     background:var(--card);
-
     border:1px solid var(--border);
-
     border-top:4px solid var(--primary);
-
     border-radius:16px;
-
     padding:30px 25px;
-
     cursor:pointer;
-
     transition:all .25s ease;
 }
-
 .card:hover{
-
     background:var(--card-hover);
-
     border-color:var(--primary);
-
     transform:translateY(-4px);
-
-    box-shadow:
-    0 10px 25px rgba(115,196,107,.12);
+    box-shadow:0 10px 25px rgba(115,196,107,.12);
 }
-
-.card h2{
-
-    font-size:22px;
-
-    margin-bottom:12px;
-
-    color:var(--text);
-}
-
-.card p{
-
-    color:var(--text-secondary);
-
-    line-height:1.6;
-}
-
-/* RODAPÉ */
-
+.card h2{font-size:22px;margin-bottom:12px;color:var(--text);}
+.card p{color:var(--text-secondary);line-height:1.6;}
 footer{
-
     margin-top:30px;
-
     background:#252525;
-
     border-top:2px solid rgba(115,196,107,.30);
-
     text-align:center;
-
     padding:18px;
-
     color:#BFBFBF;
-
     font-size:13px;
 }
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-    .logo img{
-
-        height:85px;
-    }
-
-    .container{
-
-        padding:20px;
-    }
-
-    .card{
-
-        padding:25px 20px;
-    }
-
-    .card h2{
-
-        font-size:20px;
-    }
+.carregando{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-size:16px;
+    color:#cfcfcf;
 }
-
+@media(max-width:768px){
+    .logo img{height:85px;}
+    .container{padding:20px;}
+    .card{padding:25px 20px;}
+    .card h2{font-size:20px;}
+}
 </style>
-
 </head>
-
 <body>
 
-<header>
+<div id="telaCarregando" class="carregando">
+    Verificando acesso...
+</div>
 
+<div id="telaPainel" style="display:none;">
+
+<header>
     <div class="logo">
         <img src="Colorida.png" alt="Pratini Sports">
     </div>
-
 </header>
 
 <main>
-
-<div class="container">
+<div class="container" id="containerCards">
 
     <div class="card" onclick="location.href='eventos.html'">
         <h2>Eventos</h2>
@@ -257,61 +149,63 @@ footer{
     </div>
 
 </div>
-
 </main>
 
 <footer>
     © 2025 Pratini Sports
 </footer>
 
+</div>
+
 <script>
+async function verificarAcesso(){
 
-const eventoAtivoNome =
-localStorage.getItem("evento_ativo_nome");
+    const { data: sessao } = await db.auth.getSession();
 
-if(eventoAtivoNome){
+    if(!sessao || !sessao.session){
+        window.location.href = "index.html";
+        return;
+    }
 
-    const aviso =
-    document.createElement("div");
+    const usuario = sessao.session.user;
 
-    aviso.className =
-    "evento-ativo";
+    const { data: perfil, error } = await db
+        .from("perfis")
+        .select("role, nome")
+        .eq("id", usuario.id)
+        .single();
 
-    aviso.innerHTML =
-    "EVENTO ATIVO<br><br>" +
-    eventoAtivoNome;
+    if(error || !perfil){
+        window.location.href = "index.html";
+        return;
+    }
 
-    document.body.insertBefore(
-        aviso,
-        document.querySelector("main")
-    );
+    // Mostra o evento ativo, se houver
+    const eventoAtivoNome = localStorage.getItem("evento_ativo_nome");
+    if(eventoAtivoNome){
+        const aviso = document.createElement("div");
+        aviso.className = "evento-ativo";
+        aviso.innerHTML = "EVENTO ATIVO<br><br>" + eventoAtivoNome;
+        document.body.insertBefore(aviso, document.querySelector("main"));
+    }
+
+    // Esconde cards se for atendente
+    if(perfil.role === "atendente"){
+        document.querySelectorAll(".card").forEach(card => {
+            const titulo = card.querySelector("h2");
+            if(!titulo) return;
+            const nome = titulo.innerText.trim();
+            if(nome !== "Entrega de Inscrição" && nome !== "QR Code"){
+                card.style.display = "none";
+            }
+        });
+    }
+
+    document.getElementById("telaCarregando").style.display = "none";
+    document.getElementById("telaPainel").style.display = "block";
 }
 
-const perfilUsuario =
-localStorage.getItem("usuario_perfil");
-
-if(perfilUsuario === "atendente"){
-
-    document.querySelectorAll(".card")
-    .forEach(card => {
-
-        const titulo =
-        card.querySelector("h2");
-
-        if(!titulo) return;
-
-        const nome =
-        titulo.innerText.trim();
-
-        if(
-            nome !== "Entrega de Inscrição" &&
-            nome !== "QR Code"
-        ){
-            card.style.display = "none";
-        }
-    });
-}
-
+verificarAcesso();
 </script>
 
 </body>
