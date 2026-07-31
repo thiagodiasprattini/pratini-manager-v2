@@ -24,10 +24,24 @@ button{background:#ffc400;font-weight:bold;cursor:pointer}
 .voltar{background:#333;color:white}
 .ok{color:#00d26a;font-weight:bold}
 .erro{color:#ff4d4d;font-weight:bold}
+.carregando{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-size:16px;
+    color:#cfcfcf;
+}
 </style>
 </head>
 
 <body>
+
+<div id="telaCarregando" class="carregando">
+    Verificando acesso...
+</div>
+
+<div id="telaPainel" style="display:none;">
 
 <header>CENTRAL DE IMPORTAÇÃO</header>
 
@@ -87,15 +101,50 @@ button{background:#ffc400;font-weight:bold;cursor:pointer}
 
 </div>
 
+</div>
+
 <script>
 let dadosPlanilha = [];
 let colunas = [];
 let nomeArquivo = "";
+let usuarioLogado = null;
 
 const eventoId = localStorage.getItem("evento_ativo_id");
 const eventoNome = localStorage.getItem("evento_ativo_nome");
 
-document.getElementById("eventoAtivo").innerText = eventoNome || "Nenhum evento ativo selecionado.";
+async function verificarAcesso(){
+
+    const { data: sessao } = await db.auth.getSession();
+
+    if(!sessao || !sessao.session){
+        window.location.href = "index.html";
+        return;
+    }
+
+    const usuario = sessao.session.user;
+
+    const { data: perfil, error } = await db
+        .from("perfis")
+        .select("role, nome")
+        .eq("id", usuario.id)
+        .single();
+
+    if(error || !perfil || perfil.role !== "admin"){
+        alert("Acesso restrito ao administrador.");
+        window.location.href = "dashboard.html";
+        return;
+    }
+
+    usuarioLogado = {
+        nome: perfil.nome || usuario.email,
+        email: usuario.email
+    };
+
+    document.getElementById("eventoAtivo").innerText = eventoNome || "Nenhum evento ativo selecionado.";
+
+    document.getElementById("telaCarregando").style.display = "none";
+    document.getElementById("telaPainel").style.display = "block";
+}
 
 function normalizarTexto(txt){
 return (txt || "").toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();
@@ -311,7 +360,7 @@ erros++;
 await db.from("importacoes_v2").insert([{
 evento_id: eventoId,
 nome_arquivo: nomeArquivo,
-usuario: "Administrador",
+usuario: usuarioLogado ? usuarioLogado.nome : "Desconhecido",
 total_linhas: dadosPlanilha.length,
 novos,
 atualizados,
@@ -321,7 +370,7 @@ erros
 
 await db.from("auditoria_v2").insert([{
 evento_id: eventoId,
-usuario: "Administrador",
+usuario: usuarioLogado ? usuarioLogado.nome : "Desconhecido",
 acao: "Importação de planilha",
 detalhe: `${nomeArquivo} | Novos: ${novos} | Atualizados: ${atualizados} | Ignorados: ${ignorados} | Erros: ${erros}`
 }]);
@@ -335,6 +384,8 @@ Ignorados: <b>${ignorados}</b><br>
 Erros: <b>${erros}</b>
 `;
 }
+
+verificarAcesso();
 </script>
 
 </body>
