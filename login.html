@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Portal Pratini Sports</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -21,99 +23,102 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
+
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
     background:
+    radial-gradient(
+        circle at top,
+        rgba(89,214,0,0.15),
+        transparent 35%
+    ),
     linear-gradient(
         135deg,
-        #000000 0%,
-        #111111 40%,
-        #1a1a1a 100%
+        #000000,
+        #0f0f0f,
+        #181818
     );
 
-    color:white;
+    color:#ffffff;
 }
 
-/* Card principal */
-
 .container{
-    width:100%;
+    width:90%;
     max-width:420px;
 
-    background:rgba(18,18,18,0.95);
+    background:rgba(20,20,20,0.96);
 
     border:1px solid rgba(89,214,0,0.25);
 
     border-radius:24px;
 
-    padding:40px;
+    padding:40px 35px;
 
     box-shadow:
     0 0 30px rgba(89,214,0,0.15),
-    0 10px 40px rgba(0,0,0,0.4);
+    0 15px 40px rgba(0,0,0,0.45);
 
-    backdrop-filter: blur(10px);
+    backdrop-filter:blur(10px);
 }
-
-/* Logo */
 
 .logo{
     display:flex;
     justify-content:center;
-    margin-bottom:20px;
+    margin-bottom:25px;
 }
 
 .logo img{
-    width:250px;
+    width:320px;
     max-width:100%;
-}
+    height:auto;
 
-/* Título */
-
-h1{
-    text-align:center;
-    margin-bottom:10px;
-    font-size:28px;
-    color:#59D600;
+    filter:
+    drop-shadow(0 0 10px rgba(89,214,0,0.20));
 }
 
 .subtitulo{
     text-align:center;
-    color:#bdbdbd;
-    margin-bottom:30px;
+    color:#cfcfcf;
     font-size:14px;
+    margin-bottom:30px;
 }
 
-/* Grupo dos campos */
-
 .form-group{
-    margin-bottom:16px;
+    margin-bottom:18px;
 }
 
 label{
     display:block;
     margin-bottom:8px;
+
     color:#dcdcdc;
+
     font-size:14px;
+
+    font-weight:500;
 }
 
 input{
     width:100%;
-    height:54px;
+    height:55px;
 
-    background:#1f1f1f;
+    background:#1d1d1d;
 
-    border:1px solid #2f2f2f;
-
-    color:white;
-
-    padding:0 16px;
+    border:1px solid #333;
 
     border-radius:12px;
 
+    padding:0 16px;
+
+    color:#fff;
+
     font-size:16px;
 
-    transition:0.3s;
+    transition:all .3s ease;
+}
+
+input::placeholder{
+    color:#888;
 }
 
 input:focus{
@@ -121,24 +126,23 @@ input:focus{
 
     border-color:#59D600;
 
-    box-shadow:0 0 0 4px rgba(89,214,0,0.15);
+    box-shadow:
+    0 0 0 4px rgba(89,214,0,0.15);
 }
-
-/* Botão */
 
 button{
     width:100%;
-    height:56px;
+    height:55px;
+
+    margin-top:10px;
 
     border:none;
 
     border-radius:12px;
 
-    margin-top:10px;
-
     background:#59D600;
 
-    color:black;
+    color:#000;
 
     font-size:17px;
 
@@ -146,37 +150,36 @@ button{
 
     cursor:pointer;
 
-    transition:0.3s;
+    transition:.3s;
 }
 
 button:hover{
-    transform:translateY(-2px);
-
     background:#6eff00;
 
-    box-shadow:0 8px 25px rgba(89,214,0,0.35);
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 10px 25px rgba(89,214,0,0.35);
 }
 
 button:active{
     transform:translateY(0);
 }
 
-/* Mensagem */
-
 #mensagem{
-    margin-top:18px;
     text-align:center;
+    margin-top:18px;
     font-weight:600;
     min-height:20px;
 }
 
-/* Rodapé */
-
 .footer{
     text-align:center;
     margin-top:25px;
-    font-size:12px;
+
     color:#777;
+
+    font-size:12px;
 }
 
 </style>
@@ -187,18 +190,15 @@ button:active{
 <div class="container">
 
     <div class="logo">
-        <!-- Troque pelo caminho da sua logo -->
-        <img src="logo.png" alt="Pratini Sports">
+        <img src="Colorida.png" alt="Pratini Sports">
     </div>
-
-    <h1>Portal Pratini Sports</h1>
 
     <p class="subtitulo">
         Acesso exclusivo para equipe autorizada
     </p>
 
     <div class="form-group">
-        <label>E-mail</label>
+        <label for="email">E-mail</label>
         <input
             id="email"
             type="email"
@@ -206,7 +206,7 @@ button:active{
     </div>
 
     <div class="form-group">
-        <label>Senha</label>
+        <label for="senha">Senha</label>
         <input
             id="senha"
             type="password"
@@ -242,10 +242,12 @@ async function entrar(){
         .value
         .trim();
 
+    campoMensagem.style.color = "#ffffff";
     campoMensagem.innerHTML = "Verificando acesso...";
 
     if(!email || !senha){
 
+        campoMensagem.style.color = "#ff6666";
         campoMensagem.innerHTML =
         "Digite e-mail e senha.";
 
@@ -254,6 +256,7 @@ async function entrar(){
 
     if(typeof db === "undefined"){
 
+        campoMensagem.style.color = "#ff6666";
         campoMensagem.innerHTML =
         "Erro: Supabase não carregado.";
 
@@ -272,6 +275,7 @@ async function entrar(){
 
         if(error){
 
+            campoMensagem.style.color = "#ff6666";
             campoMensagem.innerHTML =
             "E-mail ou senha inválidos.";
 
@@ -291,10 +295,15 @@ async function entrar(){
                 window.location.href =
                 "dashboard.html";
 
-            },800);
+            }, 800);
         }
 
-    }catch(err){
+    }
+    catch(err){
+
+        console.error(err);
+
+        campoMensagem.style.color = "#ff6666";
 
         campoMensagem.innerHTML =
         "Erro: " + err.message;
