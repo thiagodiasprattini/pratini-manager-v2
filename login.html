@@ -4,98 +4,304 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portal Pratini Sports</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+
 <style>
-body{
+
+*{
     margin:0;
-    background:#111;
-    color:white;
-    font-family:Arial, sans-serif;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    background:
+    linear-gradient(
+        135deg,
+        #000000 0%,
+        #111111 40%,
+        #1a1a1a 100%
+    );
+
+    color:white;
 }
+
+/* Card principal */
+
 .container{
-    background:#1f1f1f;
-    padding:30px;
-    border-radius:15px;
-    width:90%;
-    max-width:400px;
-    text-align:center;
-}
-h1{
-    color:#f5c400;
-}
-input, button{
     width:100%;
-    padding:14px;
-    margin:8px 0;
-    border-radius:8px;
-    border:none;
+    max-width:420px;
+
+    background:rgba(18,18,18,0.95);
+
+    border:1px solid rgba(89,214,0,0.25);
+
+    border-radius:24px;
+
+    padding:40px;
+
+    box-shadow:
+    0 0 30px rgba(89,214,0,0.15),
+    0 10px 40px rgba(0,0,0,0.4);
+
+    backdrop-filter: blur(10px);
+}
+
+/* Logo */
+
+.logo{
+    display:flex;
+    justify-content:center;
+    margin-bottom:20px;
+}
+
+.logo img{
+    width:250px;
+    max-width:100%;
+}
+
+/* Título */
+
+h1{
+    text-align:center;
+    margin-bottom:10px;
+    font-size:28px;
+    color:#59D600;
+}
+
+.subtitulo{
+    text-align:center;
+    color:#bdbdbd;
+    margin-bottom:30px;
+    font-size:14px;
+}
+
+/* Grupo dos campos */
+
+.form-group{
+    margin-bottom:16px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    color:#dcdcdc;
+    font-size:14px;
+}
+
+input{
+    width:100%;
+    height:54px;
+
+    background:#1f1f1f;
+
+    border:1px solid #2f2f2f;
+
+    color:white;
+
+    padding:0 16px;
+
+    border-radius:12px;
+
     font-size:16px;
+
+    transition:0.3s;
 }
+
+input:focus{
+    outline:none;
+
+    border-color:#59D600;
+
+    box-shadow:0 0 0 4px rgba(89,214,0,0.15);
+}
+
+/* Botão */
+
 button{
-    background:#f5c400;
-    font-weight:bold;
+    width:100%;
+    height:56px;
+
+    border:none;
+
+    border-radius:12px;
+
+    margin-top:10px;
+
+    background:#59D600;
+
+    color:black;
+
+    font-size:17px;
+
+    font-weight:700;
+
     cursor:pointer;
+
+    transition:0.3s;
 }
+
+button:hover{
+    transform:translateY(-2px);
+
+    background:#6eff00;
+
+    box-shadow:0 8px 25px rgba(89,214,0,0.35);
+}
+
+button:active{
+    transform:translateY(0);
+}
+
+/* Mensagem */
+
 #mensagem{
-    margin-top:15px;
-    font-weight:bold;
+    margin-top:18px;
+    text-align:center;
+    font-weight:600;
+    min-height:20px;
 }
+
+/* Rodapé */
+
+.footer{
+    text-align:center;
+    margin-top:25px;
+    font-size:12px;
+    color:#777;
+}
+
 </style>
 </head>
+
 <body>
+
 <div class="container">
-<h1>Portal Pratini Sports</h1>
-<p>Acesso exclusivo para equipe autorizada</p>
-<input id="email" type="email" placeholder="E-mail">
-<input id="senha" type="password" placeholder="Senha">
-<button onclick="entrar()">Entrar</button>
-<p id="mensagem"></p>
+
+    <div class="logo">
+        <!-- Troque pelo caminho da sua logo -->
+        <img src="logo.png" alt="Pratini Sports">
+    </div>
+
+    <h1>Portal Pratini Sports</h1>
+
+    <p class="subtitulo">
+        Acesso exclusivo para equipe autorizada
+    </p>
+
+    <div class="form-group">
+        <label>E-mail</label>
+        <input
+            id="email"
+            type="email"
+            placeholder="Digite seu e-mail">
+    </div>
+
+    <div class="form-group">
+        <label>Senha</label>
+        <input
+            id="senha"
+            type="password"
+            placeholder="Digite sua senha">
+    </div>
+
+    <button onclick="entrar()">
+        Entrar
+    </button>
+
+    <p id="mensagem"></p>
+
+    <div class="footer">
+        © 2025 Pratini Sports
+    </div>
+
 </div>
+
 <script>
+
 async function entrar(){
-    const campoMensagem = document.getElementById("mensagem");
-    const email = document.getElementById("email").value.trim();
-    const senha = document.getElementById("senha").value.trim();
-    campoMensagem.innerHTML = "Verificando...";
+
+    const campoMensagem =
+        document.getElementById("mensagem");
+
+    const email =
+        document.getElementById("email")
+        .value
+        .trim();
+
+    const senha =
+        document.getElementById("senha")
+        .value
+        .trim();
+
+    campoMensagem.innerHTML = "Verificando acesso...";
+
     if(!email || !senha){
-        campoMensagem.innerHTML = "Digite e-mail e senha";
-        return;
-    }
-    if(typeof db === "undefined"){
+
         campoMensagem.innerHTML =
-        "Erro: Supabase não carregado. Verifique o arquivo supabase.js";
+        "Digite e-mail e senha.";
+
         return;
     }
+
+    if(typeof db === "undefined"){
+
+        campoMensagem.innerHTML =
+        "Erro: Supabase não carregado.";
+
+        return;
+    }
+
     try{
-        const { data, error } = await db.auth.signInWithPassword({
+
+        const { data, error } =
+        await db.auth.signInWithPassword({
+
             email: email,
             password: senha
+
         });
-        console.log("DATA:", data);
-        console.log("ERROR:", error);
+
         if(error){
+
             campoMensagem.innerHTML =
-            "E-mail ou senha inválidos";
+            "E-mail ou senha inválidos.";
+
             return;
         }
+
         if(data && data.session){
+
+            campoMensagem.style.color =
+            "#59D600";
+
             campoMensagem.innerHTML =
             "Login realizado com sucesso!";
+
             setTimeout(function(){
-                window.location.href = "dashboard.html";
-            }, 800);
+
+                window.location.href =
+                "dashboard.html";
+
+            },800);
         }
+
     }catch(err){
-        console.log(err);
+
         campoMensagem.innerHTML =
         "Erro: " + err.message;
     }
 }
+
 </script>
+
 </body>
 </html>
