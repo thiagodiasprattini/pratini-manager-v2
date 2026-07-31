@@ -11,12 +11,11 @@
 
 :root{
     --bg:#1A1A1A;
-    --card:#303030;
-    --card-hover:#3A3A3A;
-    --primary:#59D600;
-    --primary-hover:#6EF500;
+    --header:#2A2A2A;
+    --card:#59D600;
+    --card-hover:#6EF500;
     --text:#FFFFFF;
-    --text-secondary:#CFCFCF;
+    --dark:#111111;
     --border:#444444;
 }
 
@@ -32,8 +31,8 @@ body{
         linear-gradient(
             135deg,
             #1A1A1A,
-            #202020,
-            #262626
+            #232323,
+            #2A2A2A
         );
     color:var(--text);
     min-height:100vh;
@@ -41,15 +40,15 @@ body{
     flex-direction:column;
 }
 
-/* TOPO */
+/* HEADER */
 
 header{
 
-    background:var(--card);
+    background:var(--header);
 
-    border-bottom:4px solid var(--primary);
+    border-bottom:4px solid var(--card);
 
-    height:90px;
+    height:95px;
 
     position:relative;
 
@@ -60,7 +59,7 @@ header{
     justify-content:center;
 
     box-shadow:
-    0 4px 15px rgba(0,0,0,.25);
+    0 4px 15px rgba(0,0,0,.30);
 }
 
 /* LOGO */
@@ -78,7 +77,7 @@ header{
 
 .logo img{
 
-    height:70px;
+    height:78px;
 
     width:auto;
 }
@@ -87,13 +86,11 @@ header{
 
 .titulo{
 
-    font-size:32px;
+    font-size:34px;
 
     font-weight:700;
 
-    color:#ffffff;
-
-    letter-spacing:.5px;
+    color:#FFFFFF;
 }
 
 /* EVENTO ATIVO */
@@ -102,23 +99,25 @@ header{
 
     margin:25px;
 
-    padding:20px;
+    padding:22px;
 
-    background:#303030;
+    background:var(--card);
 
-    border-left:6px solid var(--primary);
+    color:#111111;
 
     border-radius:15px;
 
-    font-weight:600;
-
     text-align:center;
 
+    font-size:18px;
+
+    font-weight:700;
+
     box-shadow:
-    0 0 15px rgba(89,214,0,.12);
+    0 10px 25px rgba(89,214,0,.25);
 }
 
-/* GRID */
+/* CONTEÚDO */
 
 main{
     flex:1;
@@ -142,9 +141,7 @@ main{
 
     background:var(--card);
 
-    border:1px solid var(--border);
-
-    border-top:4px solid var(--primary);
+    color:#111111;
 
     border-radius:16px;
 
@@ -152,21 +149,21 @@ main{
 
     cursor:pointer;
 
-    text-align:center;
-
     transition:all .25s ease;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,.15);
 }
 
 .card:hover{
 
     background:var(--card-hover);
 
-    border-color:var(--primary);
-
-    transform:translateY(-5px);
+    transform:
+    translateY(-5px);
 
     box-shadow:
-    0 10px 25px rgba(89,214,0,.15);
+    0 12px 25px rgba(89,214,0,.25);
 }
 
 .card h2{
@@ -175,12 +172,12 @@ main{
 
     margin-bottom:12px;
 
-    color:#ffffff;
+    color:#111111;
 }
 
 .card p{
 
-    color:var(--text-secondary);
+    color:#222222;
 
     line-height:1.6;
 }
@@ -189,15 +186,15 @@ main{
 
 footer{
 
-    background:#252525;
+    background:var(--header);
 
-    border-top:3px solid var(--primary);
+    border-top:3px solid var(--card);
 
     text-align:center;
 
     padding:18px;
 
-    color:#cfcfcf;
+    color:#CFCFCF;
 
     font-size:13px;
 }
@@ -210,7 +207,7 @@ footer{
 
         height:auto;
 
-        padding:20px 15px 25px 15px;
+        padding:20px;
 
         flex-direction:column;
     }
@@ -224,14 +221,12 @@ footer{
 
     .logo img{
 
-        height:80px;
+        height:90px;
     }
 
     .titulo{
 
-        font-size:26px;
-
-        text-align:center;
+        font-size:28px;
     }
 
     .container{
@@ -318,7 +313,7 @@ if(eventoAtivoNome){
     "evento-ativo";
 
     aviso.innerHTML =
-    "<strong>Evento ativo</strong><br><br>" +
+    "EVENTO ATIVO<br><br>" +
     eventoAtivoNome;
 
     document.body.insertBefore(
