@@ -1,18 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Portal Pratini Sports</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
-
 <style>
-
 body{
     margin:0;
     background:#111;
@@ -23,207 +17,90 @@ body{
     align-items:center;
     height:100vh;
 }
-
 .container{
-
     background:#1f1f1f;
     padding:30px;
     border-radius:15px;
     width:90%;
     max-width:400px;
     text-align:center;
-
 }
-
 h1{
-
     color:#f5c400;
-
 }
-
 input, button{
-
     width:100%;
     padding:14px;
     margin:8px 0;
     border-radius:8px;
     border:none;
     font-size:16px;
-
 }
-
-
 button{
-
     background:#f5c400;
     font-weight:bold;
     cursor:pointer;
-
 }
-
-
 #mensagem{
-
     margin-top:15px;
     font-weight:bold;
-
 }
-
 </style>
-
 </head>
-
-
 <body>
-
-
 <div class="container">
-
-
 <h1>Portal Pratini Sports</h1>
-
 <p>Acesso exclusivo para equipe autorizada</p>
-
-
 <input id="usuario" placeholder="Usuário">
-
-
 <input id="senha" type="password" placeholder="Senha">
-
-
 <button onclick="entrar()">Entrar</button>
-
-
 <p id="mensagem"></p>
-
-
 </div>
-
-
-
 <script>
-
-
 async function entrar(){
-
-
     const campoMensagem = document.getElementById("mensagem");
-
-
     const usuario = document.getElementById("usuario").value.trim();
-
     const senha = document.getElementById("senha").value.trim();
-
-
-
     campoMensagem.innerHTML = "Verificando...";
-
-
-
     if(!usuario || !senha){
-
         campoMensagem.innerHTML = "Digite usuário e senha";
-
         return;
-
     }
-
-
-
     if(typeof db === "undefined"){
-
-        campoMensagem.innerHTML = 
+        campoMensagem.innerHTML =
         "Erro: Supabase não carregado. Verifique o arquivo supabase.js";
-
         return;
-
     }
-
-
-
     try{
-
-
         const { data, error } = await db
-
         .from("usuarios_v2")
-
         .select("*")
-
         .eq("usuario", usuario)
-
         .eq("senha", senha)
-
         .eq("ativo", true);
-
-
-
         console.log("DATA:", data);
-
         console.log("ERROR:", error);
-
-
-
         if(error){
-
             campoMensagem.innerHTML =
             "Erro Supabase: " + error.message;
-
             return;
-
         }
-
-
-
         if(data && data.length > 0){
-
-
             campoMensagem.innerHTML =
             "Login realizado com sucesso!";
-
-
             setTimeout(function(){
-
-                function entrar(){
-
-    window.location.href = "dashboard.html";
-
-}
-
-            },800);
-
-
-
+                window.location.href = "dashboard.html";
+            }, 800);
         }else{
-
-
             campoMensagem.innerHTML =
             "Usuário ou senha inválidos";
-
-
         }
-
-
-
     }catch(err){
-
-
         console.log(err);
-
-
         campoMensagem.innerHTML =
         "Erro: " + err.message;
-
-
     }
-
-
 }
-
-
 </script>
-
-
 </body>
-
 </html>
