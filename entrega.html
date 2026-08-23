@@ -54,3 +54,25 @@ await Swal.fire({
 
 buscarAtletas();
 }
+resultado.innerHTML += `
+<div class="card ${entregue ? 'entregue' : 'pendente'}">
+<h2>${atleta.nome}</h2>
+<p><b>Número de peito:</b> ${atleta.numero_peito || "Não informado"}</p>
+<p><b>Modalidade:</b> ${atleta.modalidade || "Não informada"}</p>
+<p><b>Camiseta:</b> ${atleta.camiseta || "Não informada"}</p>
+<p><b>Equipe:</b> ${atleta.equipe || "Não informada"}</p>
+<p><b>Produto Extra:</b> ${atleta.produto_extra || "Nenhum"}</p>
+<p><b>Status:</b> <span class="${entregue ? 'status-entregue' : 'status-pendente'}">${entregue ? 'ENTREGUE' : 'PENDENTE'}</span></p>
+
+${entregue ? `
+<p><b>Retirado por:</b> ${atleta.retirado_por || "Não informado"}</p>
+<p><b>Login de quem entregou:</b> ${atleta.retirado_login || "Não informado"}</p>
+<p><b>Data retirada:</b> ${atleta.data_retirada ? new 
+Date(atleta.data_retirada).toLocaleString("pt-BR", 
+{ timeZone: "America/Sao_Paulo" }) : "Não informada"}
+</p>
+` : `
+<button onclick="entregarKit('${atleta.id}', '${atleta.nome.replace(/'/g,"")}')">Entregar Kit</button>
+`}
+</div>
+`;
