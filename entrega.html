@@ -1,4 +1,4 @@
-async function entregarInscrição(id, nome){
+async function entregarKit(id, nome){
 
 const confirmar = await Swal.fire({
     title: "Confirmar entrega",
@@ -39,7 +39,7 @@ if(error){
 await db.from("auditoria_v2").insert([{
     evento_id: eventoId,
     usuario: usuarioLogado ? usuarioLogado.nome : "Desconhecido",
-    acao: "Entrega de Inscrição",
+    acao: "Entrega de kit",
     detalhe: `Kit entregue para ${nome} por ${usuarioLogado ? usuarioLogado.email : "login desconhecido"} (id: ${id})`
 }]);
 
