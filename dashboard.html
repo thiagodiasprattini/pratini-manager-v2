@@ -10,18 +10,17 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>Central Pratini Sports</title>
+<title>Pratini Sports - Painel</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase.js"></script>
 
-
 <style>
 
-/* =========================================================
-   VARIÁVEIS
-========================================================= */
+/* =========================
+   CORES PADRÃO PRATINI SPORTS
+========================= */
 
 :root{
 
@@ -38,13 +37,12 @@
     --cinza:#b8b8b8;
 
     --borda:#3a3e42;
-
 }
 
 
-/* =========================================================
+/* =========================
    RESET
-========================================================= */
+========================= */
 
 *{
 
@@ -53,13 +51,12 @@
     padding:0;
 
     box-sizing:border-box;
-
 }
 
 
-/* =========================================================
+/* =========================
    BODY
-========================================================= */
+========================= */
 
 body{
 
@@ -76,16 +73,17 @@ body{
 
     min-height:100vh;
 
+    display:flex;
+
+    flex-direction:column;
 }
 
 
-/* =========================================================
+/* =========================
    CABEÇALHO
-========================================================= */
+========================= */
 
 header{
-
-    position:relative;
 
     min-height:105px;
 
@@ -100,74 +98,39 @@ header{
 
     justify-content:center;
 
-    padding:
-        15px 180px;
-
+    padding:15px 20px;
 }
 
 
-/* LOGO */
-
-.logo{
-
-    position:absolute;
-
-    left:28px;
-
-    top:50%;
-
-    transform:
-        translateY(-50%);
+.logo img{
 
     width:145px;
 
     max-height:80px;
 
     object-fit:contain;
-
 }
 
 
-/* TÍTULO */
-
-.titulo-header{
-
-    font-size:26px;
-
-    font-weight:700;
-
-    letter-spacing:.5px;
-
-    text-align:center;
-
-    color:#fff;
-
-}
-
-
-/* =========================================================
-   CONTAINER PRINCIPAL
-========================================================= */
-
-.container{
-
-    max-width:1100px;
-
-    margin:auto;
-
-    padding:
-        25px 20px 40px;
-
-}
-
-
-/* =========================================================
+/* =========================
    EVENTO ATIVO
-========================================================= */
+========================= */
 
 .evento-ativo{
 
+    margin:
+        25px auto 20px;
+
+    width:
+        calc(100% - 40px);
+
+    max-width:950px;
+
     background:#111;
+
+    color:#fff;
+
+    padding:20px;
 
     border:
         1px solid #3a3e42;
@@ -177,31 +140,25 @@ header{
 
     border-radius:14px;
 
-    padding:18px 20px;
-
-    margin-bottom:22px;
-
     text-align:center;
 
-    box-shadow:
-        0 6px 20px
-        rgba(0,0,0,.25);
+    font-weight:700;
 
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.25);
 }
 
 
 .evento-ativo-titulo{
 
-    color:#999;
+    color:#aaa;
 
     font-size:13px;
 
-    font-weight:bold;
-
     letter-spacing:1.5px;
 
-    margin-bottom:7px;
-
+    margin-bottom:8px;
 }
 
 
@@ -209,55 +166,57 @@ header{
 
     color:#fff;
 
-    font-size:22px;
+    font-size:21px;
 
     font-weight:800;
-
 }
 
 
-/* =========================================================
+/* =========================
    CONTADOR
-========================================================= */
+========================= */
 
 .contador{
+
+    margin:
+        0 auto 25px;
+
+    width:
+        calc(100% - 40px);
+
+    max-width:950px;
 
     background:#111;
 
     border:
-        1px solid #3a3e42;
+        1px solid var(--borda);
 
     border-top:
         4px solid var(--verde);
 
-    border-radius:15px;
+    border-radius:16px;
 
     padding:25px;
-
-    margin-bottom:22px;
 
     text-align:center;
 
     box-shadow:
         0 8px 25px
-        rgba(0,0,0,.22);
-
+        rgba(0,0,0,.20);
 }
 
 
 .contador .numero{
 
-    font-size:52px;
+    font-size:48px;
 
     font-weight:900;
 
+    color:var(--verde);
+
     line-height:1;
 
-    color:
-        var(--verde);
-
     margin-bottom:8px;
-
 }
 
 
@@ -270,57 +229,75 @@ header{
     text-transform:uppercase;
 
     letter-spacing:1px;
-
 }
 
 
-/* =========================================================
-   GRID DOS CARDS
-========================================================= */
+/* =========================
+   CONTAINER
+========================= */
 
-.cards{
+main{
+
+    flex:1;
+}
+
+
+.container{
+
+    width:100%;
+
+    max-width:950px;
+
+    margin:auto;
+
+    padding:
+        0 20px 30px;
 
     display:grid;
 
     grid-template-columns:
         repeat(
             auto-fit,
-            minmax(250px,1fr)
+            minmax(270px,1fr)
         );
 
     gap:18px;
-
 }
 
 
-/* =========================================================
-   CARD
-========================================================= */
+/* =========================
+   CARDS
+========================= */
 
 .card{
 
     background:#111;
 
     border:
-        1px solid #3a3e42;
+        1px solid var(--borda);
 
-    border-radius:14px;
+    border-top:
+        4px solid var(--verde);
+
+    border-radius:15px;
 
     padding:25px;
 
     cursor:pointer;
 
     transition:
-        .18s ease;
+        .2s ease;
 
     box-shadow:
         0 6px 20px
         rgba(0,0,0,.20);
-
 }
 
 
 .card:hover{
+
+    background:
+        var(--grafite-claro);
 
     border-color:
         var(--verde);
@@ -329,25 +306,54 @@ header{
         translateY(-3px);
 
     box-shadow:
-        0 9px 25px
+        0 10px 25px
         rgba(124,252,0,.10);
-
 }
 
 
-/* ÍCONE */
+.card h2{
 
-.card-icone{
+    font-size:21px;
 
-    width:48px;
+    margin-bottom:9px;
 
-    height:48px;
+    color:#fff;
+}
+
+
+.card p{
+
+    color:#aaa;
+
+    line-height:1.5;
+
+    font-size:15px;
+}
+
+
+/* =========================
+   ÍCONE DO CARD
+========================= */
+
+.card-topo{
 
     display:flex;
 
     align-items:center;
 
-    justify-content:center;
+    gap:12px;
+
+    margin-bottom:10px;
+}
+
+
+.card-icone{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:10px;
 
     background:
         rgba(124,252,0,.08);
@@ -356,55 +362,28 @@ header{
         1px solid
         rgba(124,252,0,.25);
 
-    border-radius:11px;
+    display:flex;
 
-    margin-bottom:17px;
+    align-items:center;
+
+    justify-content:center;
 
     color:
         var(--verde);
 
-    font-size:24px;
-
-    font-weight:bold;
-
-}
-
-
-/* TÍTULO */
-
-.card h2{
-
-    color:#fff;
-
     font-size:21px;
 
-    font-weight:700;
-
-    margin-bottom:8px;
-
+    font-weight:bold;
 }
 
 
-/* DESCRIÇÃO */
-
-.card p{
-
-    color:#aaa;
-
-    font-size:15px;
-
-    line-height:1.5;
-
-}
-
-
-/* =========================================================
-   RODAPÉ
-========================================================= */
+/* =========================
+   FOOTER
+========================= */
 
 footer{
 
-    margin-top:25px;
+    margin-top:20px;
 
     background:#101214;
 
@@ -413,18 +392,17 @@ footer{
 
     text-align:center;
 
-    padding:18px;
+    padding:17px;
 
     color:#888;
 
     font-size:13px;
-
 }
 
 
-/* =========================================================
+/* =========================
    CARREGANDO
-========================================================= */
+========================= */
 
 .carregando{
 
@@ -436,103 +414,77 @@ footer{
 
     height:100vh;
 
+    background:
+        var(--grafite);
+
     color:#ccc;
 
-    font-size:17px;
-
+    font-size:16px;
 }
 
 
-/* =========================================================
+/* =========================
    MOBILE
-========================================================= */
+========================= */
 
 @media(max-width:650px){
 
     header{
 
         min-height:90px;
-
-        padding:
-            15px 120px 15px 120px;
-
     }
 
 
-    .logo{
+    .logo img{
 
-        left:15px;
-
-        width:105px;
+        width:115px;
 
         max-height:65px;
-
     }
 
 
-    .titulo-header{
+    .evento-ativo{
 
-        font-size:21px;
+        margin-top:18px;
 
+        width:
+            calc(100% - 24px);
+    }
+
+
+    .contador{
+
+        width:
+            calc(100% - 24px);
     }
 
 
     .container{
 
         padding:
-            18px 12px 30px;
-
-    }
-
-
-    .evento-ativo{
-
-        padding:16px;
-
-    }
-
-
-    .evento-ativo-nome{
-
-        font-size:19px;
-
-    }
-
-
-    .contador{
-
-        padding:22px 15px;
-
-    }
-
-
-    .contador .numero{
-
-        font-size:45px;
-
-    }
-
-
-    .cards{
+            0 12px 25px;
 
         grid-template-columns:1fr;
 
-        gap:12px;
-
+        gap:14px;
     }
 
 
     .card{
 
-        padding:20px;
-
+        padding:22px;
     }
 
 
     .card h2{
 
         font-size:20px;
+    }
 
+
+    .contador .numero{
+
+        font-size:42px;
     }
 
 }
@@ -545,9 +497,9 @@ footer{
 <body>
 
 
-<!-- =====================================================
+<!-- =========================
      TELA DE CARREGAMENTO
-===================================================== -->
+========================= -->
 
 <div
     id="telaCarregando"
@@ -559,9 +511,9 @@ footer{
 </div>
 
 
-<!-- =====================================================
+<!-- =========================
      PAINEL
-===================================================== -->
+========================= -->
 
 <div
     id="telaPainel"
@@ -569,238 +521,148 @@ footer{
 >
 
 
-<!-- =====================================================
-     CABEÇALHO
-===================================================== -->
-
 <header>
 
-    <img
-        src="Colorida.png"
-        class="logo"
-        alt="Pratini Sports"
-    >
+    <div class="logo">
 
-    <div class="titulo-header">
-
-        CENTRAL PRATINI SPORTS
+        <img
+            src="Colorida.png"
+            alt="Pratini Sports"
+        >
 
     </div>
 
 </header>
 
 
-<!-- =====================================================
-     CONTEÚDO
-===================================================== -->
-
 <main>
 
-<div class="container">
+
+<!-- EVENTO ATIVO -->
+
+<div id="containerEvento"></div>
 
 
-<!-- =====================================================
-     EVENTO ATIVO
-===================================================== -->
+<!-- CONTADOR -->
 
-<div
-    id="eventoAtivo"
-    class="evento-ativo"
->
-
-    <div class="evento-ativo-titulo">
-
-        EVENTO ATIVO
-
-    </div>
-
-    <div
-        id="eventoAtivoNome"
-        class="evento-ativo-nome"
-    >
-
-        Nenhum evento selecionado.
-
-    </div>
-
-</div>
+<div id="containerContador"></div>
 
 
-<!-- =====================================================
-     CONTADOR
-===================================================== -->
+<!-- =========================
+     OPÇÕES
+========================= -->
 
 <div
-    id="containerContador"
-></div>
-
-
-<!-- =====================================================
-     CARDS
-===================================================== -->
-
-<div
-    class="cards"
+    class="container"
     id="containerCards"
 >
 
 
-<!-- EVENTOS -->
+    <!-- EVENTOS -->
 
-<div
-    class="card card-admin"
-    onclick="location.href='eventos.html'"
->
+    <div
+        class="card"
+        onclick="location.href='eventos.html'"
+    >
 
-    <div class="card-icone">
+        <div class="card-topo">
 
-        📅
+            <div class="card-icone">
+                E
+            </div>
 
-    </div>
+            <h2>Eventos</h2>
 
-    <h2>
+        </div>
 
-        Eventos
-
-    </h2>
-
-    <p>
-
-        Cadastrar, selecionar e
-        gerenciar os eventos da Pratini Sports.
-
-    </p>
-
-</div>
-
-
-<!-- ATLETAS -->
-
-<div
-    class="card card-admin"
-    onclick="location.href='atletas.html'"
->
-
-    <div class="card-icone">
-
-        👤
+        <p>
+            Cadastrar e gerenciar
+            eventos.
+        </p>
 
     </div>
 
-    <h2>
 
-        Atletas
+    <!-- ATLETAS -->
 
-    </h2>
+    <div
+        class="card"
+        onclick="location.href='atletas.html'"
+    >
 
-    <p>
+        <div class="card-topo">
 
-        Consultar e gerenciar a lista
-        completa de atletas inscritos.
+            <div class="card-icone">
+                A
+            </div>
 
-    </p>
+            <h2>Atletas</h2>
 
-</div>
+        </div>
 
-
-<!-- IMPORTAR -->
-
-<div
-    class="card card-admin"
-    onclick="location.href='importar.html'"
->
-
-    <div class="card-icone">
-
-        ⇧
+        <p>
+            Consultar e cadastrar
+            atletas do evento.
+        </p>
 
     </div>
 
-    <h2>
 
-        Importar
+    <!-- IMPORTAÇÃO -->
 
-    </h2>
+    <div
+        class="card"
+        onclick="location.href='importar.html'"
+    >
 
-    <p>
+        <div class="card-topo">
 
-        Importar ou atualizar atletas
-        através de planilhas Excel ou CSV.
+            <div class="card-icone">
+                I
+            </div>
 
-    </p>
+            <h2>Importar</h2>
 
-</div>
+        </div>
 
-
-<!-- ENTREGA -->
-
-<div
-    class="card"
-    onclick="location.href='entrega.html'"
->
-
-    <div class="card-icone">
-
-        ✓
+        <p>
+            Importar atletas através
+            de planilha Excel ou CSV.
+        </p>
 
     </div>
 
-    <h2>
 
-        Entrega de Inscrição
+    <!-- ENTREGA -->
 
-    </h2>
+    <div
+        class="card"
+        onclick="location.href='entrega.html'"
+    >
 
-    <p>
+        <div class="card-topo">
 
-        Pesquisar atletas e registrar
-        a entrega dos kits.
+            <div class="card-icone">
+                ✓
+            </div>
 
-    </p>
+            <h2>Entrega de Inscrição</h2>
 
-</div>
+        </div>
 
-
-<!-- RELATÓRIOS -->
-
-<div
-    class="card card-admin"
-    onclick="location.href='relatorios.html'"
->
-
-    <div class="card-icone">
-
-        ▤
+        <p>
+            Pesquisar atletas e
+            registrar a entrega dos kits.
+        </p>
 
     </div>
 
-    <h2>
-
-        Relatórios
-
-    </h2>
-
-    <p>
-
-        Acompanhar informações,
-        entregas e dados do evento.
-
-    </p>
 
 </div>
 
-
-</div>
-
-
-</div>
 
 </main>
 
-
-<!-- =====================================================
-     RODAPÉ
-===================================================== -->
 
 <footer>
 
@@ -812,16 +674,12 @@ footer{
 </div>
 
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
 <script>
 
 
-/* =========================================================
+/* =========================
    EVENTO ATIVO
-========================================================= */
+========================= */
 
 const eventoId =
     localStorage.getItem(
@@ -832,21 +690,18 @@ const eventoId =
 let canalRealtime = null;
 
 
-/* =========================================================
+/* =========================
    VERIFICAR ACESSO
-========================================================= */
+========================= */
 
 async function verificarAcesso(){
+
 
     const {
         data: sessao
     } =
         await db.auth.getSession();
 
-
-    /* -----------------------------------------
-       SEM LOGIN
-    ----------------------------------------- */
 
     if(
         !sessao ||
@@ -857,7 +712,6 @@ async function verificarAcesso(){
             "login.html";
 
         return;
-
     }
 
 
@@ -865,33 +719,21 @@ async function verificarAcesso(){
         sessao.session.user;
 
 
-    /* -----------------------------------------
-       BUSCAR PERFIL
-    ----------------------------------------- */
-
     const {
         data: perfil,
         error
     } =
         await db
-
         .from("perfis")
-
         .select(
             "role,nome"
         )
-
         .eq(
             "id",
             usuario.id
         )
-
         .single();
 
-
-    /* -----------------------------------------
-       PERFIL NÃO ENCONTRADO
-    ----------------------------------------- */
 
     if(
         error ||
@@ -902,13 +744,12 @@ async function verificarAcesso(){
             "login.html";
 
         return;
-
     }
 
 
-    /* =====================================================
+    /* =========================
        EVENTO ATIVO
-    ===================================================== */
+    ========================= */
 
     const eventoAtivoNome =
         localStorage.getItem(
@@ -916,45 +757,103 @@ async function verificarAcesso(){
         );
 
 
-    document.getElementById(
-        "eventoAtivoNome"
-    ).innerText =
-        eventoAtivoNome ||
-        "Nenhum evento selecionado.";
+    const containerEvento =
+        document.getElementById(
+            "containerEvento"
+        );
 
 
-    /* =====================================================
-       PERMISSÕES
-    ===================================================== */
+    if(eventoAtivoNome){
+
+        containerEvento.innerHTML = `
+
+            <div class="evento-ativo">
+
+                <div class="evento-ativo-titulo">
+                    EVENTO ATIVO
+                </div>
+
+                <div class="evento-ativo-nome">
+                    ${escaparHTML(
+                        eventoAtivoNome
+                    )}
+                </div>
+
+            </div>
+
+        `;
+
+    }else{
+
+        containerEvento.innerHTML = `
+
+            <div class="evento-ativo">
+
+                <div class="evento-ativo-titulo">
+                    EVENTO ATIVO
+                </div>
+
+                <div class="evento-ativo-nome">
+                    Nenhum evento selecionado
+                </div>
+
+            </div>
+
+        `;
+    }
+
+
+    /* =========================
+       ACESSO DO ATENDENTE
+    ========================= */
 
     if(
         perfil.role === "atendente"
     ){
 
-        /*
-         * ATENDENTE:
-         * somente Entrega de Inscrição
-         */
-
         document
-        .querySelectorAll(
-            ".card-admin"
-        )
+        .querySelectorAll(".card")
         .forEach(
             card => {
 
-                card.style.display =
-                    "none";
+                const titulo =
+                    card.querySelector(
+                        "h2"
+                    );
+
+
+                if(!titulo){
+                    return;
+                }
+
+
+                const nome =
+                    titulo.innerText
+                    .trim();
+
+
+                /*
+                   ATENDENTE SÓ PODE
+                   ACESSAR ENTREGA
+                */
+
+                if(
+                    nome !==
+                    "Entrega de Inscrição"
+                ){
+
+                    card.style.display =
+                        "none";
+                }
 
             }
         );
-
     }
 
 
-    /* =====================================================
+    /* =========================
        MOSTRAR PAINEL
-    ===================================================== */
+    ========================= */
 
     document.getElementById(
         "telaCarregando"
@@ -968,59 +867,86 @@ async function verificarAcesso(){
         "block";
 
 
-    /* =====================================================
-       CARREGAR CONTADOR
-    ===================================================== */
+    /* =========================
+       CONTADOR
+    ========================= */
 
     carregarContador();
 
 
-    /* =====================================================
+    /* =========================
        REALTIME
-    ===================================================== */
+    ========================= */
 
     escutarNovosInscritos();
 
 }
 
 
-/* =========================================================
-   CONTADOR DE INSCRITOS
-========================================================= */
+/* =========================
+   ESCAPAR HTML
+========================= */
+
+function escaparHTML(texto){
+
+    return (texto || "")
+        .toString()
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
+
+
+/* =========================
+   CONTADOR DE ATLETAS
+========================= */
 
 async function carregarContador(){
 
-    const container =
+
+    const containerContador =
         document.getElementById(
             "containerContador"
         );
 
 
-    /* -----------------------------------------
-       SEM EVENTO
-    ----------------------------------------- */
-
     if(!eventoId){
 
-        container.innerHTML = "";
+        containerContador.innerHTML =
+            "";
 
         return;
-
     }
 
-
-    /* -----------------------------------------
-       CONSULTA
-    ----------------------------------------- */
 
     const {
         count,
         error
     } =
         await db
-
         .from("atletas_v2")
-
         .select(
             "*",
             {
@@ -1028,90 +954,68 @@ async function carregarContador(){
                 head:true
             }
         )
-
         .eq(
             "evento_id",
             eventoId
         );
 
 
-    /* -----------------------------------------
-       ERRO
-    ----------------------------------------- */
-
     if(error){
 
-        container.innerHTML = "";
+        containerContador.innerHTML =
+            "";
 
         console.error(
-            "Erro ao carregar contador:",
             error
         );
 
         return;
-
     }
 
 
-    /* -----------------------------------------
-       EXIBIR
-    ----------------------------------------- */
-
-    container.innerHTML = `
+    containerContador.innerHTML = `
 
         <div class="contador">
 
-            <div class="numero">
-
+            <div
+                class="numero"
+                id="numeroInscritos"
+            >
                 ${count ?? 0}
-
             </div>
 
             <div class="rotulo">
-
-                Inscritos no evento ativo
-
+                Inscritos no evento
             </div>
 
         </div>
 
     `;
-
 }
 
 
-/* =========================================================
+/* =========================
    REALTIME
-========================================================= */
+========================= */
 
 function escutarNovosInscritos(){
+
 
     if(!eventoId){
 
         return;
-
     }
 
-
-    /* -----------------------------------------
-       EVITAR CANAIS DUPLICADOS
-    ----------------------------------------- */
 
     if(canalRealtime){
 
         db.removeChannel(
             canalRealtime
         );
-
     }
 
 
-    /* -----------------------------------------
-       CRIAR CANAL
-    ----------------------------------------- */
-
     canalRealtime =
-
         db
 
         .channel(
@@ -1150,12 +1054,11 @@ function escutarNovosInscritos(){
 }
 
 
-/* =========================================================
+/* =========================
    INICIAR
-========================================================= */
+========================= */
 
 verificarAcesso();
-
 
 </script>
 
