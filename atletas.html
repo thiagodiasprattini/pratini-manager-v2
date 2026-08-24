@@ -342,6 +342,15 @@ small{
 
     <h2>Novo Atleta</h2>
 
+    <button
+        onclick="alternarFormularioNovoAtleta()"
+        id="btnAbrirNovoAtleta"
+    >
+        + CADASTRAR NOVO ATLETA
+    </button>
+
+    <div id="formNovoAtleta" class="oculto">
+
     <label>Nome completo</label>
 
     <input
@@ -487,6 +496,15 @@ small{
         SALVAR ATLETA
     </button>
 
+    <button
+        class="btn-cancelar"
+        onclick="fecharFormularioNovoAtleta()"
+    >
+        CANCELAR
+    </button>
+
+    </div>
+
 </div>
 
 
@@ -615,6 +633,11 @@ async function verificarAcesso(){
         "telaPainel"
     ).style.display =
         "block";
+
+
+    aplicarMaiusculoAutomatico(
+        document.getElementById("formNovoAtleta")
+    );
 
 
     carregarAtletas();
@@ -753,6 +776,10 @@ function renderizarAtletas(listaDados){
             selecionarValorIgnorandoCaixa(
                 document.getElementById("edit_pelotao_" + atleta.id),
                 atleta.pelotao
+            );
+
+            aplicarMaiusculoAutomatico(
+                document.getElementById("edicao-" + atleta.id)
             );
 
         }
@@ -1624,6 +1651,98 @@ async function excluirAtleta(id){
 
 
 /* =========================
+   ABRIR/FECHAR FORMULÁRIO NOVO ATLETA
+========================= */
+
+function alternarFormularioNovoAtleta(){
+
+    const form =
+        document.getElementById(
+            "formNovoAtleta"
+        );
+
+    form.classList.toggle(
+        "oculto"
+    );
+
+    const botao =
+        document.getElementById(
+            "btnAbrirNovoAtleta"
+        );
+
+    botao.innerText =
+        form.classList.contains("oculto")
+            ? "+ CADASTRAR NOVO ATLETA"
+            : "− FECHAR FORMULÁRIO";
+}
+
+
+function fecharFormularioNovoAtleta(){
+
+    document.getElementById(
+        "formNovoAtleta"
+    ).classList.add(
+        "oculto"
+    );
+
+    document.getElementById(
+        "btnAbrirNovoAtleta"
+    ).innerText =
+        "+ CADASTRAR NOVO ATLETA";
+
+    limparFormulario();
+}
+
+
+/* =========================
+   MAIÚSCULAS AUTOMÁTICAS
+   (aplica em todo input de texto e textarea,
+   inclusive nos formulários criados dinamicamente
+   na edição de cada atleta)
+========================= */
+
+function aplicarMaiusculoAutomatico(raiz){
+
+    const escopo =
+        raiz || document;
+
+    const campos =
+        escopo.querySelectorAll(
+            'input[type="text"], textarea'
+        );
+
+    campos.forEach(campo => {
+
+        if(campo.dataset.maiusculoAtivo === "1"){
+            return;
+        }
+
+        campo.dataset.maiusculoAtivo = "1";
+
+        campo.addEventListener("input", function(){
+
+            const posicaoCursor =
+                campo.selectionStart;
+
+            campo.value =
+                campo.value.toUpperCase();
+
+            if(
+                campo.setSelectionRange &&
+                posicaoCursor !== null
+            ){
+
+                campo.setSelectionRange(
+                    posicaoCursor,
+                    posicaoCursor
+                );
+            }
+        });
+    });
+}
+
+
+/* =========================
    LIMPAR FORMULÁRIO
 ========================= */
 
@@ -1799,6 +1918,31 @@ function baixarPlanilha(){
         XLSX.utils.json_to_sheet(
             dadosExportacao
         );
+
+
+    // Força "NÚMERO DE PEITO" (coluna A) e "CPF" (coluna C) como texto,
+    // porque o Excel converte esses campos para número automaticamente
+    // e apaga o zero à esquerda (ex: CPF 012.345.678-90 vira 12.345.678-90)
+    ["A", "C"].forEach(letraColuna => {
+
+        for(
+            let linha = 2;
+            linha <= dadosExportacao.length + 1;
+            linha++
+        ){
+
+            const endereco =
+                letraColuna + linha;
+
+            const celula =
+                planilha[endereco];
+
+            if(celula){
+                celula.t = "s";
+                celula.z = "@";
+            }
+        }
+    });
 
 
     planilha["!cols"] = [
