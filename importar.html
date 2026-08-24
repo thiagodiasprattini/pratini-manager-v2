@@ -90,7 +90,8 @@ button{background:#ffc400;font-weight:bold;cursor:pointer}
 <div class="card" id="preview" style="display:none">
 <h2>Pré-visualização</h2>
 <p id="resumo"></p>
-<button onclick="importarAtletas()">Importar Atletas</button>
+<button id="btnImportar" onclick="importarAtletas()">Importar Atletas</button>
+<p id="progresso" style="display:none"></p>
 </div>
 
 <div class="card" id="resultado" style="display:none">
@@ -318,12 +319,33 @@ return null;
 }
 
 async function importarAtletas(){
+
+const botao = document.getElementById("btnImportar");
+const progresso = document.getElementById("progresso");
+
+botao.disabled = true;
+botao.innerText = "Importando...";
+progresso.style.display = "block";
+progresso.innerText = "Iniciando importação...";
+
 let novos = 0;
 let atualizados = 0;
 let ignorados = 0;
 let erros = 0;
+let ultimoErro = "";
+
+try{
+
+const total = dadosPlanilha.length;
+let processados = 0;
 
 for(const linha of dadosPlanilha){
+processados++;
+
+if(processados % 5 === 0 || processados === total){
+progresso.innerText = `Importando ${processados} de ${total}... (novos: ${novos}, atualizados: ${atualizados}, erros: ${erros})`;
+}
+
 const nome = valor(linha,"colNome");
 const cpf = valor(linha,"colCpf");
 const numero_peito = valor(linha,"colNumero");
@@ -358,6 +380,7 @@ const { error } = await db
 
 if(error){
 erros++;
+ultimoErro = error.message;
 } else {
 atualizados++;
 }
@@ -381,6 +404,7 @@ status_kit:"pendente"
 
 if(error){
 erros++;
+ultimoErro = error.message;
 } else {
 novos++;
 }
@@ -388,9 +412,11 @@ novos++;
 
 }catch(e){
 erros++;
+ultimoErro = e.message;
 }
 }
 
+try{
 await db.from("importacoes_v2").insert([{
 evento_id: eventoId,
 nome_arquivo: nomeArquivo,
@@ -401,14 +427,22 @@ atualizados,
 ignorados,
 erros
 }]);
+}catch(e){
+console.error("Erro ao gravar log de importação:", e);
+}
 
+try{
 await db.from("auditoria_v2").insert([{
 evento_id: eventoId,
 usuario: usuarioLogado ? usuarioLogado.nome : "Desconhecido",
 acao: "Importação de planilha",
 detalhe: `${nomeArquivo} | Novos: ${novos} | Atualizados: ${atualizados} | Ignorados: ${ignorados} | Erros: ${erros}`
 }]);
+}catch(e){
+console.error("Erro ao gravar auditoria:", e);
+}
 
+progresso.style.display = "none";
 document.getElementById("resultado").style.display = "block";
 document.getElementById("resultadoTexto").innerHTML = `
 <span class="ok">Importação concluída!</span><br><br>
@@ -416,7 +450,23 @@ Novos atletas: <b>${novos}</b><br>
 Atualizados: <b>${atualizados}</b><br>
 Ignorados: <b>${ignorados}</b><br>
 Erros: <b>${erros}</b>
+${erros > 0 ? `<br><br><span class="erro">Último erro registrado: ${ultimoErro}</span>` : ""}
 `;
+
+}catch(erroGeral){
+progresso.style.display = "none";
+document.getElementById("resultado").style.display = "block";
+document.getElementById("resultadoTexto").innerHTML = `
+<span class="erro">A importação parou por um erro inesperado:</span><br><br>
+${erroGeral.message}<br><br>
+Progresso até parar — Novos: <b>${novos}</b>, Atualizados: <b>${atualizados}</b>, Ignorados: <b>${ignorados}</b>, Erros: <b>${erros}</b>
+`;
+console.error(erroGeral);
+
+}finally{
+botao.disabled = false;
+botao.innerText = "Importar Atletas";
+}
 }
 
 verificarAcesso();
