@@ -22,78 +22,34 @@ const db = window.supabase.createClient(
 
 <style>
 
-:root{
-    --verde:#7CFC00;
-    --grafite:#242424;
-    --grafite-claro:#303030;
-    --preto:#101010;
-    --cinza:#bdbdbd;
-    --branco:#ffffff;
-}
-
-*{
-    box-sizing:border-box;
-}
-
-html{
-    background:var(--grafite);
-}
-
 body{
     margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-    background:var(--grafite);
+    font-family:Arial,sans-serif;
+    background:#111;
     color:white;
-    min-height:100vh;
 }
-
-/* =========================================================
-   TOPO
-========================================================= */
 
 header{
-    background:#151515;
-    border-bottom:1px solid #383838;
-    padding:22px;
+    background:#7CFC00;
+    color:#000;
+    padding:20px;
     text-align:center;
-    font-size:25px;
-    font-weight:800;
-    letter-spacing:.3px;
-    color:#ffffff;
+    font-size:26px;
+    font-weight:bold;
 }
-
-/* =========================================================
-   CONTAINER
-========================================================= */
 
 .container{
-    width:100%;
-    max-width:950px;
+    padding:20px;
+    max-width:900px;
     margin:auto;
-    padding:25px 18px 50px;
 }
-
-/* =========================================================
-   CARDS
-========================================================= */
 
 .card{
-    background:#101010;
-    border:1px solid #3a3a3a;
-    padding:22px;
-    border-radius:16px;
-    margin-bottom:18px;
-    box-shadow:0 8px 25px rgba(0,0,0,.22);
+    background:#1f1f1f;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:15px;
 }
-
-.card h2{
-    margin-top:0;
-    margin-bottom:18px;
-}
-
-/* =========================================================
-   CAMPOS
-========================================================= */
 
 input,
 select,
@@ -101,236 +57,78 @@ button{
     width:100%;
     padding:14px;
     margin:8px 0;
-    border-radius:9px;
+    border:none;
+    border-radius:8px;
     font-size:16px;
     box-sizing:border-box;
 }
 
-input,
-select{
-    background:#1b1b1b;
-    color:#ffffff;
-    border:1px solid #444444;
-    outline:none;
-}
-
-input:focus,
-select:focus{
-    border-color:var(--verde);
-    box-shadow:0 0 0 2px rgba(124,252,0,.08);
-}
-
 button{
-    border:none;
-    background:var(--verde);
-    color:#000000;
-    font-weight:800;
+    background:#7CFC00;
+    color:#000;
+    font-weight:bold;
     cursor:pointer;
-    transition:.2s;
-}
-
-button:hover{
-    filter:brightness(.92);
 }
 
 button:disabled{
-    opacity:.55;
+    opacity:.5;
     cursor:not-allowed;
 }
 
-/* =========================================================
-   LABEL
-========================================================= */
-
-label{
-    display:block;
-    margin-top:12px;
-    margin-bottom:5px;
-    color:#d0d0d0;
-    font-weight:700;
-}
-
-/* =========================================================
-   EVENTO
-========================================================= */
-
-.evento{
-    text-align:center;
-    margin-bottom:20px;
-}
-
-.evento-nome{
-    font-size:23px;
-    font-weight:800;
-    color:#ffffff;
-}
-
-/* =========================================================
-   BOTÃO VOLTAR
-========================================================= */
-
 .voltar{
-    background:#383838;
-    color:#ffffff;
+    background:#333;
+    color:white;
 }
-
-.voltar:hover{
-    background:#444444;
-}
-
-/* =========================================================
-   TEXTOS
-========================================================= */
 
 .ok{
-    color:var(--verde);
+    color:#7CFC00;
     font-weight:bold;
 }
 
 .erro{
-    color:#ff5c5c;
+    color:#ff4d4d;
     font-weight:bold;
 }
 
-.info{
-    color:#cfcfcf;
-    line-height:1.5;
-}
-
-/* =========================================================
-   AVISO DATA
-========================================================= */
-
-.aviso-data{
-    margin-top:12px;
-    padding:13px;
-    background:#181818;
-    border:1px solid #3c3c3c;
-    border-left:4px solid var(--verde);
+.aviso{
+    background:#292929;
+    border-left:5px solid #7CFC00;
+    padding:15px;
     border-radius:8px;
-    color:#d4d4d4;
-    line-height:1.5;
-}
-
-.aviso-data strong{
-    color:var(--verde);
-}
-
-/* =========================================================
-   PREVIEW
-========================================================= */
-
-#preview{
-    overflow:hidden;
-}
-
-.tabela-preview{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:18px;
-    font-size:14px;
-}
-
-.tabela-preview th,
-.tabela-preview td{
-    padding:10px;
-    border-bottom:1px solid #333;
-    text-align:left;
-}
-
-.tabela-preview th{
-    color:var(--verde);
-    background:#181818;
-}
-
-.tabela-preview td{
-    color:#dddddd;
-}
-
-/* =========================================================
-   PROGRESSO
-========================================================= */
-
-#progresso{
     margin-top:15px;
-    padding:14px;
-    background:#181818;
-    border-radius:9px;
-    color:#dddddd;
 }
-
-/* =========================================================
-   RESULTADO
-========================================================= */
-
-.resultado-sucesso{
-    background:#151515;
-    border:1px solid rgba(124,252,0,.35);
-    border-radius:12px;
-    padding:20px;
-    line-height:1.8;
-}
-
-.resultado-sucesso strong{
-    color:var(--verde);
-}
-
-/* =========================================================
-   CARREGAMENTO
-========================================================= */
 
 .carregando{
     display:flex;
     justify-content:center;
     align-items:center;
-    min-height:100vh;
-    background:var(--grafite);
+    height:100vh;
+    font-size:16px;
     color:#cfcfcf;
-    font-size:17px;
 }
 
-/* =========================================================
-   RESPONSIVO
-========================================================= */
+label{
+    display:block;
+    margin-top:12px;
+    margin-bottom:5px;
+    font-weight:bold;
+}
 
-@media(max-width:650px){
-
-    header{
-        font-size:21px;
-        padding:20px 15px;
-    }
-
-    .container{
-        padding:18px 12px 40px;
-    }
-
-    .card{
-        padding:18px;
-    }
-
-    .evento-nome{
-        font-size:20px;
-    }
-
+.info-equipe{
+    font-size:14px;
+    color:#aaa;
+    margin-top:5px;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<!-- =====================================================
-     CARREGAMENTO
-===================================================== -->
-
 <div id="telaCarregando" class="carregando">
     Verificando acesso...
 </div>
-
-
-<!-- =====================================================
-     PAINEL
-===================================================== -->
 
 <div id="telaPainel" style="display:none;">
 
@@ -338,218 +136,161 @@ label{
     CENTRAL DE IMPORTAÇÃO
 </header>
 
-
 <div class="container">
 
-    <!-- =================================================
-         EVENTO
-    ================================================== -->
+<div class="card">
 
-    <div class="evento">
+<h2 id="eventoAtivo"></h2>
 
-        <div
-            id="eventoAtivo"
-            class="evento-nome"
-        ></div>
+</div>
 
-    </div>
 
+<div class="card">
 
-    <!-- =================================================
-         SELECIONAR ARQUIVO
-    ================================================== -->
+<h2>Selecionar Planilha</h2>
 
-    <div class="card">
+<input
+    type="file"
+    id="arquivo"
+    accept=".xlsx,.xls,.csv"
+>
 
-        <h2>Selecionar Planilha</h2>
+<button onclick="lerArquivo()">
+    Ler Planilha
+</button>
 
-        <input
-            type="file"
-            id="arquivo"
-            accept=".xlsx,.xls,.csv"
-        >
+<p>
+Formatos aceitos: Excel (.xlsx/.xls) e CSV.
+</p>
 
-        <button onclick="lerArquivo()">
-            LER PLANILHA
-        </button>
+</div>
 
-        <p class="info">
-            Formatos aceitos:
-            Excel (.xlsx/.xls) e CSV
-            separado por ponto e vírgula ou vírgula.
-        </p>
 
-    </div>
+<div
+    class="card"
+    id="mapeamento"
+    style="display:none"
+>
 
+<h2>Mapear Colunas</h2>
 
-    <!-- =================================================
-         MAPEAMENTO
-    ================================================== -->
 
-    <div
-        class="card"
-        id="mapeamento"
-        style="display:none"
-    >
+<label>
+Nome do atleta
+</label>
 
-        <h2>Mapear Colunas</h2>
+<select id="colNome"></select>
 
-        <p class="info">
-            O sistema tenta identificar automaticamente
-            as colunas da sua planilha.
-            Confira o mapeamento antes de importar.
-        </p>
 
+<label>
+CPF
+</label>
 
-        <!-- NOME -->
+<select id="colCpf"></select>
 
-        <label>
-            Nome do atleta
-        </label>
 
-        <select id="colNome"></select>
+<label>
+Número de peito
+</label>
 
+<select id="colNumero"></select>
 
-        <!-- CPF -->
 
-        <label>
-            CPF
-        </label>
+<label>
+Modalidade / Distância
+</label>
 
-        <select id="colCpf"></select>
+<select id="colModalidade"></select>
 
 
-        <!-- NÚMERO -->
+<label>
+Camiseta
+</label>
 
-        <label>
-            Número de peito
-        </label>
+<select id="colCamiseta"></select>
 
-        <select id="colNumero"></select>
 
+<label>
+Equipe
+</label>
 
-        <!-- DATA DE NASCIMENTO -->
+<select id="colEquipe"></select>
 
-        <label>
-            Data de nascimento
-        </label>
+<div class="info-equipe">
+⚠️ A coluna Equipe não aceitará automaticamente colunas como
+Pelotão, Pace ou Modalidade.
+</div>
 
-        <select id="colNascimento"></select>
 
-        <div class="aviso-data">
+<label>
+Produto Extra
+</label>
 
-            <strong>Importante:</strong>
+<select id="colProduto"></select>
 
-            se sua planilha possui a coluna
-            <strong>NASCIMENTO</strong>,
-            ela será gravada automaticamente no campo
-            <strong>data_nascimento</strong>
-            do Supabase.
 
-        </div>
+<label>
+Data de nascimento
+</label>
 
+<select id="colNascimento"></select>
 
-        <!-- MODALIDADE -->
 
-        <label>
-            Modalidade
-        </label>
+<button onclick="preVisualizar()">
+    Pré-visualizar Importação
+</button>
 
-        <select id="colModalidade"></select>
+</div>
 
 
-        <!-- CAMISETA -->
+<div
+    class="card"
+    id="preview"
+    style="display:none"
+>
 
-        <label>
-            Camiseta
-        </label>
+<h2>
+Pré-visualização
+</h2>
 
-        <select id="colCamiseta"></select>
+<p id="resumo"></p>
 
+<button
+    id="btnImportar"
+    onclick="importarAtletas()"
+>
+    Importar Atletas
+</button>
 
-        <!-- PELOTÃO / EQUIPE -->
+<p
+    id="progresso"
+    style="display:none"
+></p>
 
-        <label>
-            Pelotão
-        </label>
+</div>
 
-        <select id="colEquipe"></select>
 
+<div
+    class="card"
+    id="resultado"
+    style="display:none"
+>
 
-        <!-- PRODUTO -->
+<h2>
+Resultado
+</h2>
 
-        <label>
-            Produto extra
-        </label>
+<p id="resultadoTexto"></p>
 
-        <select id="colProduto"></select>
+</div>
 
 
-        <button onclick="preVisualizar()">
-            PRÉ-VISUALIZAR IMPORTAÇÃO
-        </button>
-
-    </div>
-
-
-    <!-- =================================================
-         PREVIEW
-    ================================================== -->
-
-    <div
-        class="card"
-        id="preview"
-        style="display:none"
-    >
-
-        <h2>Pré-visualização</h2>
-
-        <p id="resumo"></p>
-
-        <div id="tabelaPreview"></div>
-
-        <button
-            id="btnImportar"
-            onclick="importarAtletas()"
-        >
-            IMPORTAR ATLETAS
-        </button>
-
-        <p
-            id="progresso"
-            style="display:none"
-        ></p>
-
-    </div>
-
-
-    <!-- =================================================
-         RESULTADO
-    ================================================== -->
-
-    <div
-        class="card"
-        id="resultado"
-        style="display:none"
-    >
-
-        <h2>Resultado</h2>
-
-        <div id="resultadoTexto"></div>
-
-    </div>
-
-
-    <!-- =================================================
-         VOLTAR
-    ================================================== -->
-
-    <button
-        class="voltar"
-        onclick="location.href='dashboard.html'"
-    >
-        Voltar ao Painel
-    </button>
+<button
+    class="voltar"
+    onclick="location.href='dashboard.html'"
+>
+Voltar ao Painel
+</button>
 
 </div>
 
@@ -558,16 +299,9 @@ label{
 
 <script>
 
-/* =========================================================
-   VARIÁVEIS
-========================================================= */
-
 let dadosPlanilha = [];
-
 let colunas = [];
-
 let nomeArquivo = "";
-
 let usuarioLogado = null;
 
 const eventoId =
@@ -577,109 +311,85 @@ const eventoNome =
     localStorage.getItem("evento_ativo_nome");
 
 
-/* =========================================================
-   VERIFICAR ACESSO
-========================================================= */
+/* =====================================================
+   ACESSO
+===================================================== */
 
 async function verificarAcesso(){
 
-    try{
+    const { data: sessao } =
+        await db.auth.getSession();
 
-        const {
-            data: sessao,
-            error: erroSessao
-        } = await db.auth.getSession();
+    if(!sessao || !sessao.session){
 
+        window.location.href = "login.html";
 
-        if(
-            erroSessao ||
-            !sessao ||
-            !sessao.session
-        ){
+        return;
+    }
 
-            window.location.href = "login.html";
-
-            return;
-        }
+    const usuario =
+        sessao.session.user;
 
 
-        const usuario =
-            sessao.session.user;
+    const { data: perfil, error } =
+        await db
+        .from("perfis")
+        .select("role, nome")
+        .eq("id", usuario.id)
+        .single();
 
 
-        const {
-            data: perfil,
-            error
-        } = await db
-            .from("perfis")
-            .select("role, nome")
-            .eq("id", usuario.id)
-            .single();
+    if(
+        error ||
+        !perfil ||
+        perfil.role !== "admin"
+    ){
 
-
-        if(
-            error ||
-            !perfil ||
-            perfil.role !== "admin"
-        ){
-
-            alert(
-                "Acesso restrito ao administrador."
-            );
-
-            window.location.href =
-                "dashboard.html";
-
-            return;
-        }
-
-
-        usuarioLogado = {
-
-            id:usuario.id,
-
-            nome:
-                perfil.nome ||
-                usuario.email,
-
-            email:
-                usuario.email
-
-        };
-
-
-        document.getElementById(
-            "eventoAtivo"
-        ).innerText =
-            eventoNome ||
-            "Nenhum evento ativo selecionado.";
-
-
-        document.getElementById(
-            "telaCarregando"
-        ).style.display = "none";
-
-
-        document.getElementById(
-            "telaPainel"
-        ).style.display = "block";
-
-
-    }catch(erro){
-
-        console.error(erro);
+        alert(
+            "Acesso restrito ao administrador."
+        );
 
         window.location.href =
-            "login.html";
+            "dashboard.html";
 
+        return;
     }
+
+
+    usuarioLogado = {
+
+        nome:
+            perfil.nome ||
+            usuario.email,
+
+        email:
+            usuario.email
+
+    };
+
+
+    document.getElementById(
+        "eventoAtivo"
+    ).innerText =
+        eventoNome ||
+        "Nenhum evento selecionado.";
+
+
+    document.getElementById(
+        "telaCarregando"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "telaPainel"
+    ).style.display = "block";
 
 }
 
 
-/* =========================================================
-   NORMALIZAR TEXTO
-========================================================= */
+/* =====================================================
+   NORMALIZAÇÃO
+===================================================== */
 
 function normalizarTexto(txt){
 
@@ -693,26 +403,50 @@ function normalizarTexto(txt){
 }
 
 
-/* =========================================================
-   SUGERIR COLUNA
-========================================================= */
+/* =====================================================
+   IDENTIFICAÇÃO SEGURA DAS COLUNAS
+===================================================== */
+
+function encontrarColunaExata(lista){
+
+    for(const coluna of colunas){
+
+        const normalizada =
+            normalizarTexto(coluna);
+
+        if(
+            lista.includes(normalizada)
+        ){
+
+            return coluna;
+
+        }
+
+    }
+
+    return "";
+
+}
+
 
 function sugerirColuna(palavras){
 
     for(const coluna of colunas){
 
-        const c =
+        const normalizada =
             normalizarTexto(coluna);
-
 
         for(const palavra of palavras){
 
-            const p =
+            const termo =
                 normalizarTexto(palavra);
 
+            if(
+                normalizada === termo
+            ){
 
-            if(c === p){
                 return coluna;
+
             }
 
         }
@@ -722,19 +456,122 @@ function sugerirColuna(palavras){
 
     for(const coluna of colunas){
 
+        const normalizada =
+            normalizarTexto(coluna);
+
+        for(const palavra of palavras){
+
+            const termo =
+                normalizarTexto(palavra);
+
+            if(
+                normalizada.includes(termo)
+            ){
+
+                return coluna;
+
+            }
+
+        }
+
+    }
+
+    return "";
+
+}
+
+
+/* =====================================================
+   EQUIPE - REGRA ESPECIAL
+===================================================== */
+
+function encontrarEquipe(){
+
+    /*
+        Primeiro procuramos nomes exatos.
+    */
+
+    const nomesExatos = [
+
+        "equipe",
+        "equipe ou assessoria",
+        "nome da equipe",
+        "assessoria",
+        "grupo",
+        "time"
+
+    ];
+
+
+    for(const coluna of colunas){
+
+        const c =
+            normalizarTexto(coluna);
+
+        if(
+            nomesExatos.includes(c)
+        ){
+
+            return coluna;
+
+        }
+
+    }
+
+
+    /*
+        Depois procuramos colunas que contenham
+        equipe ou assessoria.
+
+        MAS NUNCA aceitamos:
+
+        pelotão
+        pace
+        modalidade
+        distância
+        prova
+    */
+
+    const proibidos = [
+
+        "pelotao",
+        "pace",
+        "modalidade",
+        "distancia",
+        "prova",
+        "numero",
+        "peito",
+        "camiseta",
+        "nascimento",
+        "cpf"
+
+    ];
+
+
+    for(const coluna of colunas){
+
         const c =
             normalizarTexto(coluna);
 
 
-        for(const palavra of palavras){
+        if(
+            proibidos.some(
+                termo => c.includes(termo)
+            )
+        ){
 
-            const p =
-                normalizarTexto(palavra);
+            continue;
+
+        }
 
 
-            if(c.includes(p)){
-                return coluna;
-            }
+        if(
+            c.includes("equipe") ||
+            c.includes("assessoria") ||
+            c.includes("time")
+        ){
+
+            return coluna;
 
         }
 
@@ -746,9 +583,9 @@ function sugerirColuna(palavras){
 }
 
 
-/* =========================================================
+/* =====================================================
    PREENCHER SELECTS
-========================================================= */
+===================================================== */
 
 function preencherSelects(){
 
@@ -775,21 +612,9 @@ function preencherSelects(){
             "colNumero",
             [
                 "numero de peito",
-                "numero_peito",
                 "numero",
                 "peito",
                 "bib"
-            ]
-        ],
-
-        [
-            "colNascimento",
-            [
-                "nascimento",
-                "data de nascimento",
-                "data nascimento",
-                "data_nascimento",
-                "nasc"
             ]
         ],
 
@@ -798,7 +623,6 @@ function preencherSelects(){
             [
                 "modalidade",
                 "distancia",
-                "distância",
                 "prova"
             ]
         ],
@@ -808,19 +632,7 @@ function preencherSelects(){
             [
                 "camiseta",
                 "tamanho",
-                "camisa",
-                "camisas"
-            ]
-        ],
-
-        [
-            "colEquipe",
-            [
-                "pelotao",
-                "pelotão",
-                "equipe",
-                "assessoria",
-                "grupo"
+                "camisa"
             ]
         ],
 
@@ -831,6 +643,15 @@ function preencherSelects(){
                 "produto",
                 "extra",
                 "brinde"
+            ]
+        ],
+
+        [
+            "colNascimento",
+            [
+                "nascimento",
+                "data de nascimento",
+                "data nascimento"
             ]
         ]
 
@@ -843,23 +664,23 @@ function preencherSelects(){
             const select =
                 document.getElementById(id);
 
-
             select.innerHTML =
                 "<option value=''>Não importar</option>";
 
 
-            colunas.forEach(col => {
+            colunas.forEach(
+                col => {
 
-                const option =
-                    document.createElement("option");
+                    const option =
+                        document.createElement("option");
 
-                option.value = col;
+                    option.value = col;
+                    option.textContent = col;
 
-                option.textContent = col;
+                    select.appendChild(option);
 
-                select.appendChild(option);
-
-            });
+                }
+            );
 
 
             const sugestao =
@@ -876,12 +697,56 @@ function preencherSelects(){
         }
     );
 
+
+    /*
+        EQUIPE TEM REGRA PRÓPRIA
+    */
+
+    const selectEquipe =
+        document.getElementById(
+            "colEquipe"
+        );
+
+
+    selectEquipe.innerHTML =
+        "<option value=''>Não importar</option>";
+
+
+    colunas.forEach(
+        col => {
+
+            const option =
+                document.createElement("option");
+
+            option.value = col;
+
+            option.textContent = col;
+
+            selectEquipe.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    const equipe =
+        encontrarEquipe();
+
+
+    if(equipe){
+
+        selectEquipe.value =
+            equipe;
+
+    }
+
 }
 
 
-/* =========================================================
-   LER ARQUIVO
-========================================================= */
+/* =====================================================
+   LEITURA DO ARQUIVO
+===================================================== */
 
 function lerArquivo(){
 
@@ -917,26 +782,30 @@ function lerArquivo(){
 
     const ehCsv =
         nomeArquivo
-            .toLowerCase()
-            .endsWith(".csv");
+        .toLowerCase()
+        .endsWith(".csv");
 
 
     if(ehCsv){
 
-        lerComoCsv(arquivo);
+        lerComoCsv(
+            arquivo
+        );
 
     }else{
 
-        lerComoExcel(arquivo);
+        lerComoExcel(
+            arquivo
+        );
 
     }
 
 }
 
 
-/* =========================================================
+/* =====================================================
    FINALIZAR LEITURA
-========================================================= */
+===================================================== */
 
 function finalizarLeitura(dados){
 
@@ -947,35 +816,6 @@ function finalizarLeitura(dados){
 
         alert(
             "A planilha está vazia."
-        );
-
-        return;
-    }
-
-
-    /*
-     * Remove linhas completamente vazias.
-     */
-
-    dados =
-        dados.filter(linha => {
-
-            return Object.values(linha)
-                .some(valor => {
-
-                    return String(
-                        valor ?? ""
-                    ).trim() !== "";
-
-                });
-
-        });
-
-
-    if(dados.length === 0){
-
-        alert(
-            "A planilha não possui dados."
         );
 
         return;
@@ -997,11 +837,12 @@ function finalizarLeitura(dados){
 
     document.getElementById(
         "mapeamento"
-    ).style.display = "block";
+    ).style.display =
+        "block";
 
 
     alert(
-        "Planilha lida com sucesso!\n\n" +
+        "Planilha lida com sucesso! " +
         dadosPlanilha.length +
         " linhas encontradas."
     );
@@ -1009,9 +850,9 @@ function finalizarLeitura(dados){
 }
 
 
-/* =========================================================
-   LER CSV
-========================================================= */
+/* =====================================================
+   CSV
+===================================================== */
 
 function lerComoCsv(arquivo){
 
@@ -1028,54 +869,6 @@ function lerComoCsv(arquivo){
             encoding:"UTF-8",
 
             complete:function(resultado){
-
-                /*
-                 * Caso o CSV venha separado por vírgula
-                 * e a primeira tentativa resulte em
-                 * apenas uma coluna, fazemos nova leitura.
-                 */
-
-                if(
-                    resultado.data &&
-                    resultado.data.length > 0 &&
-                    Object.keys(resultado.data[0]).length <= 1
-                ){
-
-                    Papa.parse(
-                        arquivo,
-                        {
-
-                            header:true,
-
-                            delimiter:",",
-
-                            skipEmptyLines:true,
-
-                            encoding:"UTF-8",
-
-                            complete:function(resultado2){
-
-                                finalizarLeitura(
-                                    resultado2.data
-                                );
-
-                            },
-
-                            error:function(erro){
-
-                                alert(
-                                    "Erro ao ler CSV: " +
-                                    erro.message
-                                );
-
-                            }
-
-                        }
-                    );
-
-                    return;
-                }
-
 
                 finalizarLeitura(
                     resultado.data
@@ -1098,9 +891,9 @@ function lerComoCsv(arquivo){
 }
 
 
-/* =========================================================
-   LER EXCEL
-========================================================= */
+/* =====================================================
+   EXCEL
+===================================================== */
 
 function lerComoExcel(arquivo){
 
@@ -1123,8 +916,7 @@ function lerComoExcel(arquivo){
                     XLSX.read(
                         data,
                         {
-                            type:"array",
-                            cellDates:false
+                            type:"array"
                         }
                     );
 
@@ -1143,8 +935,7 @@ function lerComoExcel(arquivo){
                     XLSX.utils.sheet_to_json(
                         planilha,
                         {
-                            defval:"",
-                            raw:true
+                            defval:""
                         }
                     );
 
@@ -1173,9 +964,9 @@ function lerComoExcel(arquivo){
 }
 
 
-/* =========================================================
-   VALOR DA COLUNA
-========================================================= */
+/* =====================================================
+   VALOR
+===================================================== */
 
 function valor(linha,campo){
 
@@ -1186,101 +977,69 @@ function valor(linha,campo){
 
 
     if(!coluna){
-        return "";
-    }
-
-
-    const valorOriginal =
-        linha[coluna];
-
-
-    if(
-        valorOriginal === null ||
-        valorOriginal === undefined
-    ){
 
         return "";
 
     }
 
 
-    return String(
-        valorOriginal
-    ).trim();
+    return (
+        linha[coluna] || ""
+    )
+    .toString()
+    .trim();
 
 }
 
 
-/* =========================================================
-   CONVERTER DATA
-=========================================================
-
-   Aceita:
-
-   15/08/1985
-   15-08-1985
-   1985-08-15
-   1985/08/15
-   número serial do Excel
-
-   Retorna:
-
-   1985-08-15
-
-========================================================= */
+/* =====================================================
+   DATA DE NASCIMENTO
+===================================================== */
 
 function converterDataNascimento(valorData){
 
-    if(
-        valorData === null ||
-        valorData === undefined ||
-        String(valorData).trim() === ""
-    ){
+    if(!valorData){
 
-        return "";
+        return null;
 
     }
 
 
     /*
-     * Se o Excel entregou um número,
-     * pode ser um número serial de data.
-     */
+        Se o Excel entregar como número
+        serial de data.
+    */
 
     if(
-        typeof valorData === "number" &&
-        isFinite(valorData)
+        typeof valorData === "number"
     ){
 
-        try{
-
-            const dataExcel =
-                XLSX.SSF.parse_date_code(
-                    valorData
-                );
-
-
-            if(
-                dataExcel &&
-                dataExcel.y &&
-                dataExcel.m &&
-                dataExcel.d
-            ){
-
-                return
-                    String(dataExcel.y).padStart(4,"0") +
-                    "-" +
-                    String(dataExcel.m).padStart(2,"0") +
-                    "-" +
-                    String(dataExcel.d).padStart(2,"0");
-
-            }
-
-        }catch(e){
-
-            console.warn(
-                "Não foi possível interpretar serial do Excel:",
+        const data =
+            XLSX.SSF.parse_date_code(
                 valorData
+            );
+
+
+        if(data){
+
+            const ano =
+                data.y;
+
+            const mes =
+                String(data.m)
+                .padStart(2,"0");
+
+            const dia =
+                String(data.d)
+                .padStart(2,"0");
+
+
+            return (
+                ano +
+                "-" +
+                mes +
+                "-" +
+                dia
             );
 
         }
@@ -1288,31 +1047,38 @@ function converterDataNascimento(valorData){
     }
 
 
-    const texto =
-        String(valorData).trim();
+    let texto =
+        valorData
+        .toString()
+        .trim();
 
 
     /*
-     * Formato brasileiro:
-     * DD/MM/YYYY
-     */
+        DD/MM/YYYY
+    */
 
-    let match =
-        texto.match(
-            /^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/
-        );
+    let partes =
+        texto.split("/");
 
 
-    if(match){
+    if(partes.length === 3){
 
-        const dia =
-            match[1].padStart(2,"0");
+        let dia =
+            partes[0].padStart(2,"0");
 
-        const mes =
-            match[2].padStart(2,"0");
+        let mes =
+            partes[1].padStart(2,"0");
 
-        const ano =
-            match[3];
+        let ano =
+            partes[2];
+
+
+        if(ano.length === 2){
+
+            ano =
+                "19" + ano;
+
+        }
 
 
         return (
@@ -1327,78 +1093,26 @@ function converterDataNascimento(valorData){
 
 
     /*
-     * Formato:
-     * YYYY-MM-DD
-     */
+        YYYY-MM-DD
+    */
 
-    match =
-        texto.match(
-            /^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})$/
-        );
+    if(
+        /^\d{4}-\d{2}-\d{2}$/.test(texto)
+    ){
 
-
-    if(match){
-
-        const ano =
-            match[1];
-
-        const mes =
-            match[2].padStart(2,"0");
-
-        const dia =
-            match[3].padStart(2,"0");
-
-
-        return (
-            ano +
-            "-" +
-            mes +
-            "-" +
-            dia
-        );
+        return texto;
 
     }
 
 
-    /*
-     * Caso venha como ISO:
-     *
-     * 1985-08-15T00:00:00
-     */
-
-    match =
-        texto.match(
-            /^(\d{4})-(\d{2})-(\d{2})/
-        );
-
-
-    if(match){
-
-        return (
-            match[1] +
-            "-" +
-            match[2] +
-            "-" +
-            match[3]
-        );
-
-    }
-
-
-    console.warn(
-        "Formato de data não reconhecido:",
-        texto
-    );
-
-
-    return "";
+    return null;
 
 }
 
 
-/* =========================================================
+/* =====================================================
    PRÉ-VISUALIZAÇÃO
-========================================================= */
+===================================================== */
 
 function preVisualizar(){
 
@@ -1419,12 +1133,11 @@ function preVisualizar(){
         );
 
         return;
+
     }
 
 
     let validos = 0;
-
-    let comNascimento = 0;
 
 
     dadosPlanilha.forEach(
@@ -1441,39 +1154,20 @@ function preVisualizar(){
 
             }
 
-
-            const nascimento =
-                valor(
-                    linha,
-                    "colNascimento"
-                );
-
-
-            if(
-                nascimento
-            ){
-
-                const data =
-                    converterDataNascimento(
-                        nascimento
-                    );
-
-
-                if(data){
-
-                    comNascimento++;
-
-                }
-
-            }
-
         }
     );
 
 
+    const equipeSelecionada =
+        document.getElementById(
+            "colEquipe"
+        ).value;
+
+
     document.getElementById(
         "preview"
-    ).style.display = "block";
+    ).style.display =
+        "block";
 
 
     document.getElementById(
@@ -1481,226 +1175,70 @@ function preVisualizar(){
     ).innerHTML = `
 
         Evento:
-        <b>${escaparHTML(eventoNome || "")}</b>
+        <b>${eventoNome}</b>
+
         <br><br>
 
         Arquivo:
-        <b>${escaparHTML(nomeArquivo)}</b>
+        <b>${nomeArquivo}</b>
+
         <br><br>
 
         Linhas encontradas:
         <b>${total}</b>
+
         <br>
 
         Atletas válidos:
         <b>${validos}</b>
+
         <br>
 
         Registros sem nome:
         <b>${total - validos}</b>
-        <br>
-
-        Datas de nascimento reconhecidas:
-        <b>${comNascimento}</b>
-        de
-        <b>${total}</b>
 
         <br><br>
 
-        Confira abaixo antes de importar.
+        Coluna de equipe:
+        <b>
+        ${equipeSelecionada || "Não importar"}
+        </b>
+
+        <br><br>
+
+        Clique em importar para gravar no banco.
 
     `;
-
-
-    gerarPreviewTabela();
 
 }
 
 
-/* =========================================================
-   PREVIEW DA TABELA
-========================================================= */
-
-function gerarPreviewTabela(){
-
-    const linhas =
-        dadosPlanilha.slice(0,5);
-
-
-    let html = `
-
-        <div style="overflow-x:auto;">
-
-        <table class="tabela-preview">
-
-            <thead>
-
-                <tr>
-
-                    <th>Nome</th>
-                    <th>Nascimento</th>
-                    <th>Nº Peito</th>
-                    <th>Modalidade</th>
-                    <th>Camiseta</th>
-                    <th>Pelotão</th>
-                    <th>Produto</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-    `;
-
-
-    linhas.forEach(
-        linha => {
-
-            const nascimentoOriginal =
-                valor(
-                    linha,
-                    "colNascimento"
-                );
-
-
-            const nascimento =
-                converterDataNascimento(
-                    nascimentoOriginal
-                );
-
-
-            html += `
-
-                <tr>
-
-                    <td>
-                        ${escaparHTML(
-                            valor(
-                                linha,
-                                "colNome"
-                            )
-                        )}
-                    </td>
-
-                    <td>
-                        ${escaparHTML(
-                            nascimento ||
-                            "Não informada"
-                        )}
-                    </td>
-
-                    <td>
-                        ${escaparHTML(
-                            valor(
-                                linha,
-                                "colNumero"
-                            )
-                        )}
-                    </td>
-
-                    <td>
-                        ${escaparHTML(
-                            valor(
-                                linha,
-                                "colModalidade"
-                            )
-                        )}
-                    </td>
-
-                    <td>
-                        ${escaparHTML(
-                            valor(
-                                linha,
-                                "colCamiseta"
-                            )
-                        )}
-                    </td>
-
-                    <td>
-                        ${escaparHTML(
-                            valor(
-                                linha,
-                                "colEquipe"
-                            )
-                        )}
-                    </td>
-
-                    <td>
-                        ${escaparHTML(
-                            valor(
-                                linha,
-                                "colProduto"
-                            )
-                        )}
-                    </td>
-
-                </tr>
-
-            `;
-
-        }
-    );
-
-
-    html += `
-
-            </tbody>
-
-        </table>
-
-        </div>
-
-        <p class="info">
-            Mostrando as primeiras
-            ${linhas.length}
-            linhas apenas para conferência.
-        </p>
-
-    `;
-
-
-    document.getElementById(
-        "tabelaPreview"
-    ).innerHTML = html;
-
-}
-
-
-/* =========================================================
+/* =====================================================
    BUSCAR ATLETA EXISTENTE
-========================================================= */
+===================================================== */
 
 async function buscarAtletaExistente(
     cpf,
     numero
 ){
 
-    /*
-     * Primeiro procura pelo CPF.
-     */
-
     if(cpf){
 
         const {
-            data,
-            error
-        } = await db
+            data
+        } =
+            await db
             .from("atletas_v2")
             .select("*")
-            .eq("evento_id",eventoId)
-            .eq("cpf",cpf)
+            .eq(
+                "evento_id",
+                eventoId
+            )
+            .eq(
+                "cpf",
+                cpf
+            )
             .limit(1);
-
-
-        if(error){
-
-            throw new Error(
-                "Erro ao buscar CPF: " +
-                error.message
-            );
-
-        }
 
 
         if(
@@ -1715,31 +1253,23 @@ async function buscarAtletaExistente(
     }
 
 
-    /*
-     * Depois procura pelo número de peito.
-     */
-
     if(numero){
 
         const {
-            data,
-            error
-        } = await db
+            data
+        } =
+            await db
             .from("atletas_v2")
             .select("*")
-            .eq("evento_id",eventoId)
-            .eq("numero_peito",numero)
+            .eq(
+                "evento_id",
+                eventoId
+            )
+            .eq(
+                "numero_peito",
+                numero
+            )
             .limit(1);
-
-
-        if(error){
-
-            throw new Error(
-                "Erro ao buscar número de peito: " +
-                error.message
-            );
-
-        }
 
 
         if(
@@ -1759,40 +1289,9 @@ async function buscarAtletaExistente(
 }
 
 
-/* =========================================================
-   ESCAPAR HTML
-========================================================= */
-
-function escaparHTML(valor){
-
-    if(
-        valor === null ||
-        valor === undefined
-    ){
-
-        return "";
-
-    }
-
-
-    return String(valor)
-
-        .replace(/&/g,"&amp;")
-
-        .replace(/</g,"&lt;")
-
-        .replace(/>/g,"&gt;")
-
-        .replace(/"/g,"&quot;")
-
-        .replace(/'/g,"&#039;");
-
-}
-
-
-/* =========================================================
-   IMPORTAR ATLETAS
-========================================================= */
+/* =====================================================
+   IMPORTAÇÃO
+===================================================== */
 
 async function importarAtletas(){
 
@@ -1808,10 +1307,12 @@ async function importarAtletas(){
         );
 
 
-    botao.disabled = true;
+    botao.disabled =
+        true;
+
 
     botao.innerText =
-        "IMPORTANDO...";
+        "Importando...";
 
 
     progresso.style.display =
@@ -1823,11 +1324,8 @@ async function importarAtletas(){
 
 
     let novos = 0;
-
     let atualizados = 0;
-
     let ignorados = 0;
-
     let erros = 0;
 
     let ultimoErro = "";
@@ -1843,8 +1341,7 @@ async function importarAtletas(){
 
 
         for(
-            const linha
-            of dadosPlanilha
+            const linha of dadosPlanilha
         ){
 
             processados++;
@@ -1856,17 +1353,13 @@ async function importarAtletas(){
             ){
 
                 progresso.innerText =
-                    `Importando ${processados} de ${total}... ` +
-                    `(novos: ${novos}, ` +
-                    `atualizados: ${atualizados}, ` +
-                    `erros: ${erros})`;
+                    `Importando ${processados} de ${total}... 
+                    (novos: ${novos}, 
+                    atualizados: ${atualizados}, 
+                    erros: ${erros})`;
 
             }
 
-
-            /*
-             * DADOS DA PLANILHA
-             */
 
             const nome =
                 valor(
@@ -1889,29 +1382,6 @@ async function importarAtletas(){
                 );
 
 
-            const nascimentoOriginal =
-                valor(
-                    linha,
-                    "colNascimento"
-                );
-
-
-            /*
-             * AQUI ESTÁ A CORREÇÃO PRINCIPAL:
-             *
-             * NASCIMENTO
-             *       ↓
-             * converterDataNascimento()
-             *       ↓
-             * data_nascimento
-             */
-
-            const data_nascimento =
-                converterDataNascimento(
-                    nascimentoOriginal
-                );
-
-
             const modalidade =
                 valor(
                     linha,
@@ -1925,6 +1395,16 @@ async function importarAtletas(){
                     "colCamiseta"
                 );
 
+
+            /*
+                AQUI ESTÁ A CORREÇÃO PRINCIPAL.
+
+                A equipe vem SOMENTE da coluna
+                selecionada em colEquipe.
+
+                Nunca usamos modalidade,
+                pelotão ou pace como equipe.
+            */
 
             const equipe =
                 valor(
@@ -1940,9 +1420,18 @@ async function importarAtletas(){
                 );
 
 
-            /*
-             * NOME É O ÚNICO CAMPO OBRIGATÓRIO.
-             */
+            const nascimentoBruto =
+                valor(
+                    linha,
+                    "colNascimento"
+                );
+
+
+            const data_nascimento =
+                converterDataNascimento(
+                    nascimentoBruto
+                );
+
 
             if(!nome){
 
@@ -1955,10 +1444,6 @@ async function importarAtletas(){
 
             try{
 
-                /*
-                 * Procura atleta existente.
-                 */
-
                 const existente =
                     await buscarAtletaExistente(
                         cpf,
@@ -1966,88 +1451,37 @@ async function importarAtletas(){
                     );
 
 
+                /*
+                    OBJETO DE ATUALIZAÇÃO
+                */
+
                 if(existente){
 
-                    /*
-                     * ATUALIZAÇÃO
-                     *
-                     * Só enviamos campos que realmente
-                     * possuem informação.
-                     *
-                     * Isso evita apagar dados antigos
-                     * com células vazias.
-                     */
+                    const atualizacao = {
 
-                    const atualizacao = {};
+                        nome,
 
+                        cpf,
 
-                    if(nome){
+                        numero_peito,
 
-                        atualizacao.nome =
-                            nome;
+                        modalidade,
 
-                    }
+                        camiseta,
 
+                        equipe,
 
-                    if(cpf){
+                        produto_extra,
 
-                        atualizacao.cpf =
-                            cpf;
+                        data_nascimento
 
-                    }
-
-
-                    if(numero_peito){
-
-                        atualizacao.numero_peito =
-                            numero_peito;
-
-                    }
-
-
-                    if(data_nascimento){
-
-                        atualizacao.data_nascimento =
-                            data_nascimento;
-
-                    }
-
-
-                    if(modalidade){
-
-                        atualizacao.modalidade =
-                            modalidade;
-
-                    }
-
-
-                    if(camiseta){
-
-                        atualizacao.camiseta =
-                            camiseta;
-
-                    }
-
-
-                    if(equipe){
-
-                        atualizacao.equipe =
-                            equipe;
-
-                    }
-
-
-                    if(produto_extra){
-
-                        atualizacao.produto_extra =
-                            produto_extra;
-
-                    }
+                    };
 
 
                     const {
                         error
-                    } = await db
+                    } =
+                        await db
                         .from("atletas_v2")
                         .update(
                             atualizacao
@@ -2071,70 +1505,50 @@ async function importarAtletas(){
 
                     }
 
+
                 }else{
 
-                    /*
-                     * NOVO ATLETA
-                     */
-
-                    const novoAtleta = {
-
-                        evento_id:
-                            eventoId,
-
-                        nome:
-                            nome,
-
-                        cpf:
-                            cpf || null,
-
-                        numero_peito:
-                            numero_peito || null,
-
-                        modalidade:
-                            modalidade || null,
-
-                        camiseta:
-                            camiseta || null,
-
-                        equipe:
-                            equipe || null,
-
-                        produto_extra:
-                            produto_extra || null,
-
-                        status_kit:
-                            "pendente",
-
-                        origem_importacao:
-                            nomeArquivo,
-
-                        importacao_id:
-                            null
-
-                    };
-
 
                     /*
-                     * Só envia data_nascimento
-                     * se a data foi reconhecida.
-                     */
-
-                    if(data_nascimento){
-
-                        novoAtleta.data_nascimento =
-                            data_nascimento;
-
-                    }
-
+                        NOVO ATLETA
+                    */
 
                     const {
                         error
-                    } = await db
+                    } =
+                        await db
                         .from("atletas_v2")
-                        .insert([
-                            novoAtleta
-                        ]);
+                        .insert([{
+
+                            evento_id:
+                                eventoId,
+
+                            nome,
+
+                            cpf,
+
+                            numero_peito,
+
+                            modalidade,
+
+                            camiseta,
+
+                            equipe,
+
+                            produto_extra,
+
+                            data_nascimento,
+
+                            origem_importacao:
+                                nomeArquivo,
+
+                            importacao_id:
+                                null,
+
+                            status_kit:
+                                "pendente"
+
+                        }]);
 
 
                     if(error){
@@ -2165,87 +1579,79 @@ async function importarAtletas(){
         }
 
 
-        /* =================================================
-           REGISTRAR IMPORTAÇÃO
-        ================================================== */
+        /*
+            REGISTRO DA IMPORTAÇÃO
+        */
 
         try{
 
             await db
-                .from("importacoes_v2")
-                .insert([{
+            .from("importacoes_v2")
+            .insert([{
 
-                    evento_id:
-                        eventoId,
+                evento_id:
+                    eventoId,
 
-                    nome_arquivo:
-                        nomeArquivo,
+                nome_arquivo:
+                    nomeArquivo,
 
-                    usuario:
-                        usuarioLogado
-                        ?
-                        usuarioLogado.nome
-                        :
-                        "Desconhecido",
+                usuario:
+                    usuarioLogado
+                    ? usuarioLogado.nome
+                    : "Desconhecido",
 
-                    total_linhas:
-                        dadosPlanilha.length,
+                total_linhas:
+                    dadosPlanilha.length,
 
-                    novos:
-                        novos,
+                novos,
 
-                    atualizados:
-                        atualizados,
+                atualizados,
 
-                    ignorados:
-                        ignorados,
+                ignorados,
 
-                    erros:
-                        erros
+                erros
 
-                }]);
+            }]);
 
         }catch(e){
 
             console.error(
-                "Erro ao gravar log de importação:",
+                "Erro ao gravar log:",
                 e
             );
 
         }
 
 
-        /* =================================================
-           AUDITORIA
-        ================================================== */
+        /*
+            AUDITORIA
+        */
 
         try{
 
             await db
-                .from("auditoria_v2")
-                .insert([{
+            .from("auditoria_v2")
+            .insert([{
 
-                    evento_id:
-                        eventoId,
+                evento_id:
+                    eventoId,
 
-                    usuario:
-                        usuarioLogado
-                        ?
-                        usuarioLogado.nome
-                        :
-                        "Desconhecido",
+                usuario:
+                    usuarioLogado
+                    ? usuarioLogado.nome
+                    : "Desconhecido",
 
-                    acao:
-                        "Importação de planilha",
+                acao:
+                    "Importação de planilha",
 
-                    detalhe:
-                        `${nomeArquivo} | ` +
-                        `Novos: ${novos} | ` +
-                        `Atualizados: ${atualizados} | ` +
-                        `Ignorados: ${ignorados} | ` +
-                        `Erros: ${erros}`
+                detalhe:
+                    `${nomeArquivo} | 
+                    Novos: ${novos} | 
+                    Atualizados: ${atualizados} | 
+                    Ignorados: ${ignorados} | 
+                    Erros: ${erros}`
 
-                }]);
+            }]);
 
         }catch(e){
 
@@ -2256,10 +1662,6 @@ async function importarAtletas(){
 
         }
 
-
-        /* =================================================
-           RESULTADO
-        ================================================== */
 
         progresso.style.display =
             "none";
@@ -2275,53 +1677,44 @@ async function importarAtletas(){
             "resultadoTexto"
         ).innerHTML = `
 
-            <div class="resultado-sucesso">
+            <span class="ok">
+                Importação concluída!
+            </span>
 
-                <span class="ok">
-                    IMPORTAÇÃO CONCLUÍDA!
-                </span>
+            <br><br>
 
+            Novos atletas:
+            <b>${novos}</b>
+
+            <br>
+
+            Atualizados:
+            <b>${atualizados}</b>
+
+            <br>
+
+            Ignorados:
+            <b>${ignorados}</b>
+
+            <br>
+
+            Erros:
+            <b>${erros}</b>
+
+            ${
+                erros > 0
+                ?
+                `
                 <br><br>
 
-                Novos atletas:
-                <b>${novos}</b>
-
-                <br>
-
-                Atletas atualizados:
-                <b>${atualizados}</b>
-
-                <br>
-
-                Registros ignorados:
-                <b>${ignorados}</b>
-
-                <br>
-
-                Erros:
-                <b>${erros}</b>
-
-                ${
-                    erros > 0
-                    ?
-                    `
-                    <br><br>
-
-                    <span class="erro">
-                        Último erro registrado:
-                    </span>
-
-                    <br>
-
-                    ${escaparHTML(
-                        ultimoErro
-                    )}
-                    `
-                    :
-                    ""
-                }
-
-            </div>
+                <span class="erro">
+                    Último erro:
+                    ${ultimoErro}
+                </span>
+                `
+                :
+                ""
+            }
 
         `;
 
@@ -2342,43 +1735,37 @@ async function importarAtletas(){
             "resultadoTexto"
         ).innerHTML = `
 
-            <div class="resultado-sucesso">
+            <span class="erro">
+                A importação parou por um erro inesperado.
+            </span>
 
-                <span class="erro">
-                    A importação parou por um erro inesperado.
-                </span>
+            <br><br>
 
-                <br><br>
+            ${erroGeral.message}
 
-                ${escaparHTML(
-                    erroGeral.message
-                )}
+            <br><br>
 
-                <br><br>
+            Progresso até parar:
 
-                Progresso até parar:
+            <br>
 
-                <br>
+            Novos:
+            <b>${novos}</b>
 
-                Novos:
-                <b>${novos}</b>
+            |
 
-                <br>
+            Atualizados:
+            <b>${atualizados}</b>
 
-                Atualizados:
-                <b>${atualizados}</b>
+            |
 
-                <br>
+            Ignorados:
+            <b>${ignorados}</b>
 
-                Ignorados:
-                <b>${ignorados}</b>
+            |
 
-                <br>
-
-                Erros:
-                <b>${erros}</b>
-
-            </div>
+            Erros:
+            <b>${erros}</b>
 
         `;
 
@@ -2395,16 +1782,12 @@ async function importarAtletas(){
 
 
         botao.innerText =
-            "IMPORTAR ATLETAS";
+            "Importar Atletas";
 
     }
 
 }
 
-
-/* =========================================================
-   INICIAR
-========================================================= */
 
 verificarAcesso();
 
