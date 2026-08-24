@@ -71,7 +71,7 @@ header{
 
     position:relative;
 
-    min-height:105px;
+    min-height:115px;
 
     background:#101214;
 
@@ -85,7 +85,7 @@ header{
     justify-content:center;
 
     padding:
-        15px 180px;
+        15px 200px;
 }
 
 
@@ -93,16 +93,16 @@ header{
 
     position:absolute;
 
-    left:28px;
+    right:30px;
 
     top:50%;
 
     transform:
         translateY(-50%);
 
-    width:145px;
+    width:175px;
 
-    max-height:80px;
+    max-height:95px;
 
     object-fit:contain;
 }
@@ -312,8 +312,7 @@ header{
 
 .card-detalhes{
 
-    background:
-        #050505;
+    background:#050505;
 
     border:
         1px solid #4a4f54;
@@ -325,6 +324,7 @@ header{
     margin-bottom:25px;
 
     box-shadow:
+
         0 0 0 1px
         rgba(124,252,0,.10),
 
@@ -333,7 +333,9 @@ header{
 }
 
 
-/* NOME SOMENTE UMA VEZ */
+/* =========================
+   NOME
+========================= */
 
 .nome-detalhe{
 
@@ -407,7 +409,7 @@ header{
 
 
 /* =========================
-   DADOS
+   DADOS DO ATLETA
 ========================= */
 
 .dados{
@@ -433,6 +435,8 @@ header{
     border-radius:11px;
 
     padding:14px;
+
+    min-width:0;
 }
 
 
@@ -465,10 +469,64 @@ header{
 
 
 /* =========================
+   ORGANIZAÇÃO DOS CAMPOS
+========================= */
+
+/*
+   COLUNA ESQUERDA:
+   Data de nascimento
+   Camiseta
+   Pelotão
+
+   COLUNA DIREITA:
+   Modalidade
+   Equipe
+   Produto
+
+   Assim o PRODUTO fica diretamente
+   abaixo da EQUIPE.
+*/
+
+
+.dado-nascimento{
+    grid-column:1;
+    grid-row:1;
+}
+
+
+.dado-modalidade{
+    grid-column:2;
+    grid-row:1;
+}
+
+
+.dado-camiseta{
+    grid-column:1;
+    grid-row:2;
+}
+
+
+.dado-equipe{
+    grid-column:2;
+    grid-row:2;
+}
+
+
+.dado-pelotao{
+    grid-column:1;
+    grid-row:3;
+}
+
+
+/* =========================
    PRODUTO
 ========================= */
 
 .produto{
+
+    grid-column:2;
+
+    grid-row:3;
 
     background:#111;
 
@@ -479,7 +537,9 @@ header{
 
     padding:15px;
 
-    margin-bottom:18px;
+    margin:0;
+
+    min-width:0;
 }
 
 
@@ -789,42 +849,94 @@ header{
         min-height:90px;
 
         padding:
-            15px 120px 15px 120px;
+            15px 120px 15px 20px;
     }
+
 
     .logo{
 
-        left:15px;
+        right:15px;
 
-        width:105px;
+        width:115px;
 
         max-height:65px;
     }
+
 
     .titulo-header{
 
         font-size:21px;
     }
 
+
     .dados{
 
         grid-template-columns:1fr;
+
+        gap:10px;
     }
+
+
+    .dado-nascimento,
+    .dado-modalidade,
+    .dado-camiseta,
+    .dado-equipe,
+    .dado-pelotao,
+    .produto{
+
+        grid-column:1;
+
+        grid-row:auto;
+    }
+
+
+    /*
+       No celular os campos ficam
+       todos em sequência.
+    */
+
+    .dado-nascimento{
+        order:1;
+    }
+
+    .dado-modalidade{
+        order:2;
+    }
+
+    .dado-camiseta{
+        order:3;
+    }
+
+    .dado-equipe{
+        order:4;
+    }
+
+    .produto{
+        order:5;
+    }
+
+    .dado-pelotao{
+        order:6;
+    }
+
 
     .opcoes{
 
         grid-template-columns:1fr;
     }
 
+
     .nome-detalhe{
 
         font-size:25px;
     }
 
+
     .numero{
 
         font-size:58px;
     }
+
 
     .container{
 
@@ -857,15 +969,15 @@ header{
 
 <header>
 
+    <div class="titulo-header">
+        CENTRAL DE ENTREGA
+    </div>
+
     <img
         src="Colorida.png"
         class="logo"
         alt="Pratini Sports"
     >
-
-    <div class="titulo-header">
-        CENTRAL DE ENTREGA
-    </div>
 
 </header>
 
@@ -926,6 +1038,7 @@ header{
 
 const SUPABASE_URL =
     "https://kchpprimvfnwchztwlsa.supabase.co";
+
 
 const SUPABASE_ANON_KEY =
     "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
@@ -1097,11 +1210,11 @@ function escaparHTML(texto){
 function formatarData(data){
 
     if(!data){
+
         return "Não informada";
     }
 
 
-    // Caso seja YYYY-MM-DD
     const somenteData =
         data.toString().split("T")[0];
 
@@ -1351,6 +1464,8 @@ function abrirDetalhes(atleta){
 <div class="card-detalhes">
 
 
+    <!-- NOME APARECE SOMENTE UMA VEZ -->
+
     <div class="nome-detalhe">
 
         ${escaparHTML(
@@ -1359,6 +1474,8 @@ function abrirDetalhes(atleta){
 
     </div>
 
+
+    <!-- NÚMERO DE PEITO -->
 
     <div class="numero-box">
 
@@ -1378,10 +1495,14 @@ function abrirDetalhes(atleta){
     </div>
 
 
+    <!-- DADOS ORGANIZADOS -->
+
     <div class="dados">
 
 
-        <div class="dado">
+        <!-- LINHA 1 - ESQUERDA -->
+
+        <div class="dado dado-nascimento">
 
             <div class="dado-label">
                 Data de nascimento
@@ -1398,7 +1519,9 @@ function abrirDetalhes(atleta){
         </div>
 
 
-        <div class="dado">
+        <!-- LINHA 1 - DIREITA -->
+
+        <div class="dado dado-modalidade">
 
             <div class="dado-label">
                 Modalidade
@@ -1416,7 +1539,9 @@ function abrirDetalhes(atleta){
         </div>
 
 
-        <div class="dado">
+        <!-- LINHA 2 - ESQUERDA -->
+
+        <div class="dado dado-camiseta">
 
             <div class="dado-label">
                 Camiseta
@@ -1434,7 +1559,9 @@ function abrirDetalhes(atleta){
         </div>
 
 
-        <div class="dado">
+        <!-- LINHA 2 - DIREITA -->
+
+        <div class="dado dado-equipe">
 
             <div class="dado-label">
                 Equipe
@@ -1452,7 +1579,9 @@ function abrirDetalhes(atleta){
         </div>
 
 
-        <div class="dado">
+        <!-- LINHA 3 - ESQUERDA -->
+
+        <div class="dado dado-pelotao">
 
             <div class="dado-label">
                 Pelotão
@@ -1470,23 +1599,27 @@ function abrirDetalhes(atleta){
         </div>
 
 
-    </div>
+        <!-- LINHA 3 - DIREITA
+             PRODUTO FICA DIRETAMENTE
+             ABAIXO DA EQUIPE -->
 
+        <div class="produto">
 
-    <div class="produto">
+            <div class="dado-label">
+                Produto
+            </div>
 
-        <div class="dado-label">
-            Produto
+            <div class="dado-valor">
+
+                ${escaparHTML(
+                    atleta.produto_extra ||
+                    "Nenhum produto"
+                )}
+
+            </div>
+
         </div>
 
-        <div class="dado-valor">
-
-            ${escaparHTML(
-                atleta.produto_extra ||
-                "Nenhum produto"
-            )}
-
-        </div>
 
     </div>
 
@@ -1498,6 +1631,8 @@ function abrirDetalhes(atleta){
 
         `
 
+        <!-- ENTREGA JÁ REALIZADA -->
+
         <div class="entregue-box">
 
             <div class="status-entregue">
@@ -1507,6 +1642,7 @@ function abrirDetalhes(atleta){
             <div class="info-entrega">
 
                 <b>Retirado por:</b>
+
                 ${escaparHTML(
                     atleta.retirado_por ||
                     "Não informado"
@@ -1515,6 +1651,7 @@ function abrirDetalhes(atleta){
                 <br>
 
                 <b>Atendente:</b>
+
                 ${escaparHTML(
                     atleta.entregue_por ||
                     atleta.retirado_login ||
@@ -1524,9 +1661,12 @@ function abrirDetalhes(atleta){
                 <br>
 
                 <b>Data e horário:</b>
+
                 ${
                     atleta.data_retirada
+
                     ?
+
                     new Date(
                         atleta.data_retirada
                     ).toLocaleString(
@@ -1536,7 +1676,9 @@ function abrirDetalhes(atleta){
                                 "America/Sao_Paulo"
                         }
                     )
+
                     :
+
                     "Não informado"
                 }
 
@@ -1550,10 +1692,15 @@ function abrirDetalhes(atleta){
 
         `
 
+        <!-- RETIRADA -->
+
         <div class="retirada">
 
+
             <div class="retirada-titulo">
+
                 Quem está retirando?
+
             </div>
 
 
@@ -1637,6 +1784,7 @@ function abrirDetalhes(atleta){
                 ENTREGAR
             </button>
 
+
         </div>
 
         `
@@ -1649,8 +1797,11 @@ function abrirDetalhes(atleta){
 
 
     window.scrollTo({
+
         top:0,
+
         behavior:"smooth"
+
     });
 }
 
@@ -1666,10 +1817,12 @@ function selecionarTipo(tipo){
             "opcaoProprio"
         );
 
+
     const terceiro =
         document.getElementById(
             "opcaoTerceiro"
         );
+
 
     const campo =
         document.getElementById(
@@ -1690,7 +1843,9 @@ function selecionarTipo(tipo){
         campo.style.display =
             "none";
 
-    }else{
+    }
+
+    else{
 
         terceiro.classList.add(
             "ativo"
@@ -1741,6 +1896,7 @@ async function entregarAtleta(){
 
             confirmButtonColor:
                 "#7CFC00"
+
         });
 
         return;
@@ -1785,6 +1941,7 @@ async function entregarAtleta(){
 
                 confirmButtonColor:
                     "#7CFC00"
+
             });
 
             return;
@@ -1813,7 +1970,10 @@ async function entregarAtleta(){
 
             html:
                 `
-                <div style="font-size:17px;line-height:1.6">
+                <div style="
+                    font-size:17px;
+                    line-height:1.6;
+                ">
 
                 <b>
                 ${escaparHTML(
@@ -1824,6 +1984,7 @@ async function entregarAtleta(){
                 <br>
 
                 Número:
+
                 <b>
                 ${escaparHTML(
                     atletaSelecionado.numero_peito ||
@@ -1834,6 +1995,7 @@ async function entregarAtleta(){
                 <br><br>
 
                 Retirado por:
+
                 <b>
                 ${escaparHTML(
                     retiradoPor
@@ -1865,6 +2027,7 @@ async function entregarAtleta(){
                 "CANCELAR",
 
             reverseButtons:true
+
         });
 
 
@@ -1877,9 +2040,8 @@ async function entregarAtleta(){
 
 
     /*
-       PRIMEIRA PROTEÇÃO:
-       verifica novamente no banco
-       antes de entregar.
+       VERIFICA NOVAMENTE
+       NO BANCO ANTES DA ENTREGA
     */
 
     const {
@@ -1915,6 +2077,7 @@ async function entregarAtleta(){
 
             confirmButtonColor:
                 "#7CFC00"
+
         });
 
         return;
@@ -1945,6 +2108,7 @@ async function entregarAtleta(){
 
             confirmButtonColor:
                 "#7CFC00"
+
         });
 
         buscarAtletas();
@@ -2027,6 +2191,7 @@ async function entregarAtleta(){
 
             confirmButtonColor:
                 "#7CFC00"
+
         });
 
         return;
@@ -2067,6 +2232,7 @@ async function entregarAtleta(){
 
             entregue_em:
                 agora
+
         }]);
 
 
@@ -2102,6 +2268,7 @@ async function entregarAtleta(){
 
         detalhe:
             `Atleta: ${atletaSelecionado.nome} | Número: ${atletaSelecionado.numero_peito || "N/I"} | Retirado por: ${retiradoPor} | Tipo: ${tipo} | Observação: ${observacao || "Nenhuma"}`
+
     }]);
 
 
@@ -2112,7 +2279,10 @@ async function entregarAtleta(){
 
         html:
             `
-            <div style="font-size:18px;line-height:1.6">
+            <div style="
+                font-size:18px;
+                line-height:1.6;
+            ">
 
             <b>
             ${escaparHTML(
@@ -2123,6 +2293,7 @@ async function entregarAtleta(){
             <br>
 
             Número:
+
             <b>
             ${escaparHTML(
                 atletaSelecionado.numero_peito ||
@@ -2153,6 +2324,7 @@ async function entregarAtleta(){
 
         confirmButtonText:
             "OK"
+
     });
 
 
@@ -2167,6 +2339,7 @@ async function entregarAtleta(){
 verificarAcesso();
 
 </script>
+
 
 </body>
 
