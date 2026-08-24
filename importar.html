@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Importar Planilha - Pratini Manager</title>
 
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
@@ -12,464 +13,2401 @@
 <script>
 const SUPABASE_URL = "https://kchpprimvfnwchztwlsa.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
 </script>
 
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#111;color:white}
-header{background:#ffc400;color:#000;padding:20px;text-align:center;font-size:26px;font-weight:bold}
-.container{padding:20px;max-width:900px;margin:auto}
-.card{background:#1f1f1f;padding:20px;border-radius:15px;margin-bottom:15px}
-input,select,button{width:100%;padding:14px;margin:8px 0;border:none;border-radius:8px;font-size:16px;box-sizing:border-box}
-button{background:#ffc400;font-weight:bold;cursor:pointer}
-.voltar{background:#333;color:white}
-.ok{color:#00d26a;font-weight:bold}
-.erro{color:#ff4d4d;font-weight:bold}
+
+:root{
+    --verde:#7CFC00;
+    --grafite:#242424;
+    --grafite-claro:#303030;
+    --preto:#101010;
+    --cinza:#bdbdbd;
+    --branco:#ffffff;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    background:var(--grafite);
+}
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:var(--grafite);
+    color:white;
+    min-height:100vh;
+}
+
+/* =========================================================
+   TOPO
+========================================================= */
+
+header{
+    background:#151515;
+    border-bottom:1px solid #383838;
+    padding:22px;
+    text-align:center;
+    font-size:25px;
+    font-weight:800;
+    letter-spacing:.3px;
+    color:#ffffff;
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container{
+    width:100%;
+    max-width:950px;
+    margin:auto;
+    padding:25px 18px 50px;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card{
+    background:#101010;
+    border:1px solid #3a3a3a;
+    padding:22px;
+    border-radius:16px;
+    margin-bottom:18px;
+    box-shadow:0 8px 25px rgba(0,0,0,.22);
+}
+
+.card h2{
+    margin-top:0;
+    margin-bottom:18px;
+}
+
+/* =========================================================
+   CAMPOS
+========================================================= */
+
+input,
+select,
+button{
+    width:100%;
+    padding:14px;
+    margin:8px 0;
+    border-radius:9px;
+    font-size:16px;
+    box-sizing:border-box;
+}
+
+input,
+select{
+    background:#1b1b1b;
+    color:#ffffff;
+    border:1px solid #444444;
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:var(--verde);
+    box-shadow:0 0 0 2px rgba(124,252,0,.08);
+}
+
+button{
+    border:none;
+    background:var(--verde);
+    color:#000000;
+    font-weight:800;
+    cursor:pointer;
+    transition:.2s;
+}
+
+button:hover{
+    filter:brightness(.92);
+}
+
+button:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+}
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+label{
+    display:block;
+    margin-top:12px;
+    margin-bottom:5px;
+    color:#d0d0d0;
+    font-weight:700;
+}
+
+/* =========================================================
+   EVENTO
+========================================================= */
+
+.evento{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.evento-nome{
+    font-size:23px;
+    font-weight:800;
+    color:#ffffff;
+}
+
+/* =========================================================
+   BOTÃO VOLTAR
+========================================================= */
+
+.voltar{
+    background:#383838;
+    color:#ffffff;
+}
+
+.voltar:hover{
+    background:#444444;
+}
+
+/* =========================================================
+   TEXTOS
+========================================================= */
+
+.ok{
+    color:var(--verde);
+    font-weight:bold;
+}
+
+.erro{
+    color:#ff5c5c;
+    font-weight:bold;
+}
+
+.info{
+    color:#cfcfcf;
+    line-height:1.5;
+}
+
+/* =========================================================
+   AVISO DATA
+========================================================= */
+
+.aviso-data{
+    margin-top:12px;
+    padding:13px;
+    background:#181818;
+    border:1px solid #3c3c3c;
+    border-left:4px solid var(--verde);
+    border-radius:8px;
+    color:#d4d4d4;
+    line-height:1.5;
+}
+
+.aviso-data strong{
+    color:var(--verde);
+}
+
+/* =========================================================
+   PREVIEW
+========================================================= */
+
+#preview{
+    overflow:hidden;
+}
+
+.tabela-preview{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:18px;
+    font-size:14px;
+}
+
+.tabela-preview th,
+.tabela-preview td{
+    padding:10px;
+    border-bottom:1px solid #333;
+    text-align:left;
+}
+
+.tabela-preview th{
+    color:var(--verde);
+    background:#181818;
+}
+
+.tabela-preview td{
+    color:#dddddd;
+}
+
+/* =========================================================
+   PROGRESSO
+========================================================= */
+
+#progresso{
+    margin-top:15px;
+    padding:14px;
+    background:#181818;
+    border-radius:9px;
+    color:#dddddd;
+}
+
+/* =========================================================
+   RESULTADO
+========================================================= */
+
+.resultado-sucesso{
+    background:#151515;
+    border:1px solid rgba(124,252,0,.35);
+    border-radius:12px;
+    padding:20px;
+    line-height:1.8;
+}
+
+.resultado-sucesso strong{
+    color:var(--verde);
+}
+
+/* =========================================================
+   CARREGAMENTO
+========================================================= */
+
 .carregando{
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
-    font-size:16px;
+    min-height:100vh;
+    background:var(--grafite);
     color:#cfcfcf;
+    font-size:17px;
 }
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media(max-width:650px){
+
+    header{
+        font-size:21px;
+        padding:20px 15px;
+    }
+
+    .container{
+        padding:18px 12px 40px;
+    }
+
+    .card{
+        padding:18px;
+    }
+
+    .evento-nome{
+        font-size:20px;
+    }
+
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- =====================================================
+     CARREGAMENTO
+===================================================== -->
+
 <div id="telaCarregando" class="carregando">
     Verificando acesso...
 </div>
 
+
+<!-- =====================================================
+     PAINEL
+===================================================== -->
+
 <div id="telaPainel" style="display:none;">
 
-<header>CENTRAL DE IMPORTAÇÃO</header>
+<header>
+    CENTRAL DE IMPORTAÇÃO
+</header>
+
 
 <div class="container">
 
-<div class="card">
-<h2>Evento Ativo</h2>
-<p id="eventoAtivo"></p>
+    <!-- =================================================
+         EVENTO
+    ================================================== -->
+
+    <div class="evento">
+
+        <div
+            id="eventoAtivo"
+            class="evento-nome"
+        ></div>
+
+    </div>
+
+
+    <!-- =================================================
+         SELECIONAR ARQUIVO
+    ================================================== -->
+
+    <div class="card">
+
+        <h2>Selecionar Planilha</h2>
+
+        <input
+            type="file"
+            id="arquivo"
+            accept=".xlsx,.xls,.csv"
+        >
+
+        <button onclick="lerArquivo()">
+            LER PLANILHA
+        </button>
+
+        <p class="info">
+            Formatos aceitos:
+            Excel (.xlsx/.xls) e CSV
+            separado por ponto e vírgula ou vírgula.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         MAPEAMENTO
+    ================================================== -->
+
+    <div
+        class="card"
+        id="mapeamento"
+        style="display:none"
+    >
+
+        <h2>Mapear Colunas</h2>
+
+        <p class="info">
+            O sistema tenta identificar automaticamente
+            as colunas da sua planilha.
+            Confira o mapeamento antes de importar.
+        </p>
+
+
+        <!-- NOME -->
+
+        <label>
+            Nome do atleta
+        </label>
+
+        <select id="colNome"></select>
+
+
+        <!-- CPF -->
+
+        <label>
+            CPF
+        </label>
+
+        <select id="colCpf"></select>
+
+
+        <!-- NÚMERO -->
+
+        <label>
+            Número de peito
+        </label>
+
+        <select id="colNumero"></select>
+
+
+        <!-- DATA DE NASCIMENTO -->
+
+        <label>
+            Data de nascimento
+        </label>
+
+        <select id="colNascimento"></select>
+
+        <div class="aviso-data">
+
+            <strong>Importante:</strong>
+
+            se sua planilha possui a coluna
+            <strong>NASCIMENTO</strong>,
+            ela será gravada automaticamente no campo
+            <strong>data_nascimento</strong>
+            do Supabase.
+
+        </div>
+
+
+        <!-- MODALIDADE -->
+
+        <label>
+            Modalidade
+        </label>
+
+        <select id="colModalidade"></select>
+
+
+        <!-- CAMISETA -->
+
+        <label>
+            Camiseta
+        </label>
+
+        <select id="colCamiseta"></select>
+
+
+        <!-- PELOTÃO / EQUIPE -->
+
+        <label>
+            Pelotão
+        </label>
+
+        <select id="colEquipe"></select>
+
+
+        <!-- PRODUTO -->
+
+        <label>
+            Produto extra
+        </label>
+
+        <select id="colProduto"></select>
+
+
+        <button onclick="preVisualizar()">
+            PRÉ-VISUALIZAR IMPORTAÇÃO
+        </button>
+
+    </div>
+
+
+    <!-- =================================================
+         PREVIEW
+    ================================================== -->
+
+    <div
+        class="card"
+        id="preview"
+        style="display:none"
+    >
+
+        <h2>Pré-visualização</h2>
+
+        <p id="resumo"></p>
+
+        <div id="tabelaPreview"></div>
+
+        <button
+            id="btnImportar"
+            onclick="importarAtletas()"
+        >
+            IMPORTAR ATLETAS
+        </button>
+
+        <p
+            id="progresso"
+            style="display:none"
+        ></p>
+
+    </div>
+
+
+    <!-- =================================================
+         RESULTADO
+    ================================================== -->
+
+    <div
+        class="card"
+        id="resultado"
+        style="display:none"
+    >
+
+        <h2>Resultado</h2>
+
+        <div id="resultadoTexto"></div>
+
+    </div>
+
+
+    <!-- =================================================
+         VOLTAR
+    ================================================== -->
+
+    <button
+        class="voltar"
+        onclick="location.href='dashboard.html'"
+    >
+        Voltar ao Painel
+    </button>
+
 </div>
 
-<div class="card">
-<h2>Selecionar Planilha</h2>
-<input type="file" id="arquivo" accept=".xlsx,.xls,.csv">
-<button onclick="lerArquivo()">Ler Planilha</button>
-<p>Formatos aceitos: Excel (.xlsx/.xls) e CSV (separado por ; ou ,).</p>
 </div>
 
-<div class="card" id="mapeamento" style="display:none">
-<h2>Mapear Colunas</h2>
-
-<label>Nome do atleta</label>
-<select id="colNome"></select>
-
-<label>CPF</label>
-<select id="colCpf"></select>
-
-<label>Número de peito</label>
-<select id="colNumero"></select>
-
-<label>Modalidade</label>
-<select id="colModalidade"></select>
-
-<label>Camiseta</label>
-<select id="colCamiseta"></select>
-
-<label>Equipe</label>
-<select id="colEquipe"></select>
-
-<label>Produto Extra</label>
-<select id="colProduto"></select>
-
-<button onclick="preVisualizar()">Pré-visualizar Importação</button>
-</div>
-
-<div class="card" id="preview" style="display:none">
-<h2>Pré-visualização</h2>
-<p id="resumo"></p>
-<button id="btnImportar" onclick="importarAtletas()">Importar Atletas</button>
-<p id="progresso" style="display:none"></p>
-</div>
-
-<div class="card" id="resultado" style="display:none">
-<h2>Resultado</h2>
-<p id="resultadoTexto"></p>
-</div>
-
-<button class="voltar" onclick="location.href='dashboard.html'">Voltar ao Painel</button>
-
-</div>
-
-</div>
 
 <script>
+
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
+
 let dadosPlanilha = [];
+
 let colunas = [];
+
 let nomeArquivo = "";
+
 let usuarioLogado = null;
 
-const eventoId = localStorage.getItem("evento_ativo_id");
-const eventoNome = localStorage.getItem("evento_ativo_nome");
+const eventoId =
+    localStorage.getItem("evento_ativo_id");
+
+const eventoNome =
+    localStorage.getItem("evento_ativo_nome");
+
+
+/* =========================================================
+   VERIFICAR ACESSO
+========================================================= */
 
 async function verificarAcesso(){
 
-    const { data: sessao } = await db.auth.getSession();
+    try{
 
-    if(!sessao || !sessao.session){
-        window.location.href = "login.html";
-        return;
+        const {
+            data: sessao,
+            error: erroSessao
+        } = await db.auth.getSession();
+
+
+        if(
+            erroSessao ||
+            !sessao ||
+            !sessao.session
+        ){
+
+            window.location.href = "login.html";
+
+            return;
+        }
+
+
+        const usuario =
+            sessao.session.user;
+
+
+        const {
+            data: perfil,
+            error
+        } = await db
+            .from("perfis")
+            .select("role, nome")
+            .eq("id", usuario.id)
+            .single();
+
+
+        if(
+            error ||
+            !perfil ||
+            perfil.role !== "admin"
+        ){
+
+            alert(
+                "Acesso restrito ao administrador."
+            );
+
+            window.location.href =
+                "dashboard.html";
+
+            return;
+        }
+
+
+        usuarioLogado = {
+
+            id:usuario.id,
+
+            nome:
+                perfil.nome ||
+                usuario.email,
+
+            email:
+                usuario.email
+
+        };
+
+
+        document.getElementById(
+            "eventoAtivo"
+        ).innerText =
+            eventoNome ||
+            "Nenhum evento ativo selecionado.";
+
+
+        document.getElementById(
+            "telaCarregando"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "telaPainel"
+        ).style.display = "block";
+
+
+    }catch(erro){
+
+        console.error(erro);
+
+        window.location.href =
+            "login.html";
+
     }
 
-    const usuario = sessao.session.user;
-
-    const { data: perfil, error } = await db
-        .from("perfis")
-        .select("role, nome")
-        .eq("id", usuario.id)
-        .single();
-
-    if(error || !perfil || perfil.role !== "admin"){
-        alert("Acesso restrito ao administrador.");
-        window.location.href = "dashboard.html";
-        return;
-    }
-
-    usuarioLogado = {
-        nome: perfil.nome || usuario.email,
-        email: usuario.email
-    };
-
-    document.getElementById("eventoAtivo").innerText = eventoNome || "Nenhum evento ativo selecionado.";
-
-    document.getElementById("telaCarregando").style.display = "none";
-    document.getElementById("telaPainel").style.display = "block";
 }
+
+
+/* =========================================================
+   NORMALIZAR TEXTO
+========================================================= */
 
 function normalizarTexto(txt){
-return (txt || "").toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();
+
+    return (txt || "")
+        .toString()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"")
+        .toLowerCase()
+        .trim();
+
 }
+
+
+/* =========================================================
+   SUGERIR COLUNA
+========================================================= */
 
 function sugerirColuna(palavras){
-for(const coluna of colunas){
-const c = normalizarTexto(coluna);
-for(const palavra of palavras){
-if(c.includes(palavra)) return coluna;
+
+    for(const coluna of colunas){
+
+        const c =
+            normalizarTexto(coluna);
+
+
+        for(const palavra of palavras){
+
+            const p =
+                normalizarTexto(palavra);
+
+
+            if(c === p){
+                return coluna;
+            }
+
+        }
+
+    }
+
+
+    for(const coluna of colunas){
+
+        const c =
+            normalizarTexto(coluna);
+
+
+        for(const palavra of palavras){
+
+            const p =
+                normalizarTexto(palavra);
+
+
+            if(c.includes(p)){
+                return coluna;
+            }
+
+        }
+
+    }
+
+
+    return "";
+
 }
-}
-return "";
-}
+
+
+/* =========================================================
+   PREENCHER SELECTS
+========================================================= */
 
 function preencherSelects(){
-const campos = [
-["colNome", ["nome completo","nome","atleta","colaborador"]],
-["colCpf", ["cpf","documento"]],
-["colNumero", ["numero","número","peito","bib"]],
-["colModalidade", ["modalidade","distancia","distância","prova"]],
-["colCamiseta", ["camiseta","tamanho","camisas"]],
-["colEquipe", ["equipe ou assessoria","nome da equipe","equipe","assessoria","grupo"]],
-["colProduto", ["produto","extra","brinde"]]
-];
 
-campos.forEach(([id, sugestoes])=>{
-const select = document.getElementById(id);
-select.innerHTML = "<option value=''>Não importar</option>";
+    const campos = [
 
-colunas.forEach(col=>{
-select.innerHTML += `<option value="${col}">${col}</option>`;
-});
+        [
+            "colNome",
+            [
+                "nome completo",
+                "nome",
+                "atleta"
+            ]
+        ],
 
-const sugestao = sugerirColuna(sugestoes);
-if(sugestao) select.value = sugestao;
-});
+        [
+            "colCpf",
+            [
+                "cpf",
+                "documento"
+            ]
+        ],
+
+        [
+            "colNumero",
+            [
+                "numero de peito",
+                "numero_peito",
+                "numero",
+                "peito",
+                "bib"
+            ]
+        ],
+
+        [
+            "colNascimento",
+            [
+                "nascimento",
+                "data de nascimento",
+                "data nascimento",
+                "data_nascimento",
+                "nasc"
+            ]
+        ],
+
+        [
+            "colModalidade",
+            [
+                "modalidade",
+                "distancia",
+                "distância",
+                "prova"
+            ]
+        ],
+
+        [
+            "colCamiseta",
+            [
+                "camiseta",
+                "tamanho",
+                "camisa",
+                "camisas"
+            ]
+        ],
+
+        [
+            "colEquipe",
+            [
+                "pelotao",
+                "pelotão",
+                "equipe",
+                "assessoria",
+                "grupo"
+            ]
+        ],
+
+        [
+            "colProduto",
+            [
+                "produto extra",
+                "produto",
+                "extra",
+                "brinde"
+            ]
+        ]
+
+    ];
+
+
+    campos.forEach(
+        ([id, sugestoes]) => {
+
+            const select =
+                document.getElementById(id);
+
+
+            select.innerHTML =
+                "<option value=''>Não importar</option>";
+
+
+            colunas.forEach(col => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = col;
+
+                option.textContent = col;
+
+                select.appendChild(option);
+
+            });
+
+
+            const sugestao =
+                sugerirColuna(sugestoes);
+
+
+            if(sugestao){
+
+                select.value =
+                    sugestao;
+
+            }
+
+        }
+    );
+
 }
+
+
+/* =========================================================
+   LER ARQUIVO
+========================================================= */
 
 function lerArquivo(){
-if(!eventoId){
-alert("Selecione um evento ativo antes de importar.");
-return;
+
+    if(!eventoId){
+
+        alert(
+            "Selecione um evento ativo antes de importar."
+        );
+
+        return;
+    }
+
+
+    const arquivo =
+        document.getElementById(
+            "arquivo"
+        ).files[0];
+
+
+    if(!arquivo){
+
+        alert(
+            "Selecione uma planilha."
+        );
+
+        return;
+    }
+
+
+    nomeArquivo =
+        arquivo.name;
+
+
+    const ehCsv =
+        nomeArquivo
+            .toLowerCase()
+            .endsWith(".csv");
+
+
+    if(ehCsv){
+
+        lerComoCsv(arquivo);
+
+    }else{
+
+        lerComoExcel(arquivo);
+
+    }
+
 }
 
-const arquivo = document.getElementById("arquivo").files[0];
 
-if(!arquivo){
-alert("Selecione uma planilha.");
-return;
-}
-
-nomeArquivo = arquivo.name;
-
-const ehCsv = nomeArquivo.toLowerCase().endsWith(".csv");
-
-if(ehCsv){
-lerComoCsv(arquivo);
-}else{
-lerComoExcel(arquivo);
-}
-}
+/* =========================================================
+   FINALIZAR LEITURA
+========================================================= */
 
 function finalizarLeitura(dados){
-if(!dados || dados.length === 0){
-alert("A planilha está vazia.");
-return;
+
+    if(
+        !dados ||
+        dados.length === 0
+    ){
+
+        alert(
+            "A planilha está vazia."
+        );
+
+        return;
+    }
+
+
+    /*
+     * Remove linhas completamente vazias.
+     */
+
+    dados =
+        dados.filter(linha => {
+
+            return Object.values(linha)
+                .some(valor => {
+
+                    return String(
+                        valor ?? ""
+                    ).trim() !== "";
+
+                });
+
+        });
+
+
+    if(dados.length === 0){
+
+        alert(
+            "A planilha não possui dados."
+        );
+
+        return;
+    }
+
+
+    dadosPlanilha =
+        dados;
+
+
+    colunas =
+        Object.keys(
+            dadosPlanilha[0]
+        );
+
+
+    preencherSelects();
+
+
+    document.getElementById(
+        "mapeamento"
+    ).style.display = "block";
+
+
+    alert(
+        "Planilha lida com sucesso!\n\n" +
+        dadosPlanilha.length +
+        " linhas encontradas."
+    );
+
 }
 
-dadosPlanilha = dados;
-colunas = Object.keys(dadosPlanilha[0]);
 
-preencherSelects();
-
-document.getElementById("mapeamento").style.display = "block";
-alert("Planilha lida com sucesso! " + dadosPlanilha.length + " linhas encontradas.");
-}
+/* =========================================================
+   LER CSV
+========================================================= */
 
 function lerComoCsv(arquivo){
-// Lê o CSV com o Papa Parse, forçando ; como separador
-// (arquivos da Ticket Sports usam ; e vírgula decimal nos valores,
-// o que confunde detectores automáticos de separador)
-Papa.parse(arquivo, {
-header: true,
-delimiter: ";",
-skipEmptyLines: true,
-encoding: "UTF-8",
-complete: function(resultado){
-finalizarLeitura(resultado.data);
-},
-error: function(erro){
-alert("Erro ao ler CSV: " + erro.message);
+
+    Papa.parse(
+        arquivo,
+        {
+
+            header:true,
+
+            delimiter:";",
+
+            skipEmptyLines:true,
+
+            encoding:"UTF-8",
+
+            complete:function(resultado){
+
+                /*
+                 * Caso o CSV venha separado por vírgula
+                 * e a primeira tentativa resulte em
+                 * apenas uma coluna, fazemos nova leitura.
+                 */
+
+                if(
+                    resultado.data &&
+                    resultado.data.length > 0 &&
+                    Object.keys(resultado.data[0]).length <= 1
+                ){
+
+                    Papa.parse(
+                        arquivo,
+                        {
+
+                            header:true,
+
+                            delimiter:",",
+
+                            skipEmptyLines:true,
+
+                            encoding:"UTF-8",
+
+                            complete:function(resultado2){
+
+                                finalizarLeitura(
+                                    resultado2.data
+                                );
+
+                            },
+
+                            error:function(erro){
+
+                                alert(
+                                    "Erro ao ler CSV: " +
+                                    erro.message
+                                );
+
+                            }
+
+                        }
+                    );
+
+                    return;
+                }
+
+
+                finalizarLeitura(
+                    resultado.data
+                );
+
+            },
+
+            error:function(erro){
+
+                alert(
+                    "Erro ao ler CSV: " +
+                    erro.message
+                );
+
+            }
+
+        }
+    );
+
 }
-});
-}
+
+
+/* =========================================================
+   LER EXCEL
+========================================================= */
 
 function lerComoExcel(arquivo){
-const leitor = new FileReader();
 
-leitor.onload = function(e){
-try{
-const data = new Uint8Array(e.target.result);
-const workbook = XLSX.read(data, {type:"array"});
-const primeiraAba = workbook.SheetNames[0];
-const planilha = workbook.Sheets[primeiraAba];
+    const leitor =
+        new FileReader();
 
-const dados = XLSX.utils.sheet_to_json(planilha, {defval:""});
 
-finalizarLeitura(dados);
+    leitor.onload =
+        function(e){
 
-}catch(erro){
-alert("Erro ao ler planilha: " + erro.message);
+            try{
+
+                const data =
+                    new Uint8Array(
+                        e.target.result
+                    );
+
+
+                const workbook =
+                    XLSX.read(
+                        data,
+                        {
+                            type:"array",
+                            cellDates:false
+                        }
+                    );
+
+
+                const primeiraAba =
+                    workbook.SheetNames[0];
+
+
+                const planilha =
+                    workbook.Sheets[
+                        primeiraAba
+                    ];
+
+
+                const dados =
+                    XLSX.utils.sheet_to_json(
+                        planilha,
+                        {
+                            defval:"",
+                            raw:true
+                        }
+                    );
+
+
+                finalizarLeitura(
+                    dados
+                );
+
+
+            }catch(erro){
+
+                alert(
+                    "Erro ao ler planilha: " +
+                    erro.message
+                );
+
+            }
+
+        };
+
+
+    leitor.readAsArrayBuffer(
+        arquivo
+    );
+
 }
-};
 
-leitor.readAsArrayBuffer(arquivo);
+
+/* =========================================================
+   VALOR DA COLUNA
+========================================================= */
+
+function valor(linha,campo){
+
+    const coluna =
+        document.getElementById(
+            campo
+        ).value;
+
+
+    if(!coluna){
+        return "";
+    }
+
+
+    const valorOriginal =
+        linha[coluna];
+
+
+    if(
+        valorOriginal === null ||
+        valorOriginal === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return String(
+        valorOriginal
+    ).trim();
+
 }
 
-function valor(linha, campo){
-const coluna = document.getElementById(campo).value;
-return coluna ? (linha[coluna] || "").toString().trim() : "";
+
+/* =========================================================
+   CONVERTER DATA
+=========================================================
+
+   Aceita:
+
+   15/08/1985
+   15-08-1985
+   1985-08-15
+   1985/08/15
+   número serial do Excel
+
+   Retorna:
+
+   1985-08-15
+
+========================================================= */
+
+function converterDataNascimento(valorData){
+
+    if(
+        valorData === null ||
+        valorData === undefined ||
+        String(valorData).trim() === ""
+    ){
+
+        return "";
+
+    }
+
+
+    /*
+     * Se o Excel entregou um número,
+     * pode ser um número serial de data.
+     */
+
+    if(
+        typeof valorData === "number" &&
+        isFinite(valorData)
+    ){
+
+        try{
+
+            const dataExcel =
+                XLSX.SSF.parse_date_code(
+                    valorData
+                );
+
+
+            if(
+                dataExcel &&
+                dataExcel.y &&
+                dataExcel.m &&
+                dataExcel.d
+            ){
+
+                return
+                    String(dataExcel.y).padStart(4,"0") +
+                    "-" +
+                    String(dataExcel.m).padStart(2,"0") +
+                    "-" +
+                    String(dataExcel.d).padStart(2,"0");
+
+            }
+
+        }catch(e){
+
+            console.warn(
+                "Não foi possível interpretar serial do Excel:",
+                valorData
+            );
+
+        }
+
+    }
+
+
+    const texto =
+        String(valorData).trim();
+
+
+    /*
+     * Formato brasileiro:
+     * DD/MM/YYYY
+     */
+
+    let match =
+        texto.match(
+            /^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/
+        );
+
+
+    if(match){
+
+        const dia =
+            match[1].padStart(2,"0");
+
+        const mes =
+            match[2].padStart(2,"0");
+
+        const ano =
+            match[3];
+
+
+        return (
+            ano +
+            "-" +
+            mes +
+            "-" +
+            dia
+        );
+
+    }
+
+
+    /*
+     * Formato:
+     * YYYY-MM-DD
+     */
+
+    match =
+        texto.match(
+            /^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})$/
+        );
+
+
+    if(match){
+
+        const ano =
+            match[1];
+
+        const mes =
+            match[2].padStart(2,"0");
+
+        const dia =
+            match[3].padStart(2,"0");
+
+
+        return (
+            ano +
+            "-" +
+            mes +
+            "-" +
+            dia
+        );
+
+    }
+
+
+    /*
+     * Caso venha como ISO:
+     *
+     * 1985-08-15T00:00:00
+     */
+
+    match =
+        texto.match(
+            /^(\d{4})-(\d{2})-(\d{2})/
+        );
+
+
+    if(match){
+
+        return (
+            match[1] +
+            "-" +
+            match[2] +
+            "-" +
+            match[3]
+        );
+
+    }
+
+
+    console.warn(
+        "Formato de data não reconhecido:",
+        texto
+    );
+
+
+    return "";
+
 }
+
+
+/* =========================================================
+   PRÉ-VISUALIZAÇÃO
+========================================================= */
 
 function preVisualizar(){
-const total = dadosPlanilha.length;
-const campoNome = document.getElementById("colNome").value;
 
-if(!campoNome){
-alert("A coluna Nome do atleta é obrigatória.");
-return;
+    const total =
+        dadosPlanilha.length;
+
+
+    const campoNome =
+        document.getElementById(
+            "colNome"
+        ).value;
+
+
+    if(!campoNome){
+
+        alert(
+            "A coluna Nome do atleta é obrigatória."
+        );
+
+        return;
+    }
+
+
+    let validos = 0;
+
+    let comNascimento = 0;
+
+
+    dadosPlanilha.forEach(
+        linha => {
+
+            if(
+                valor(
+                    linha,
+                    "colNome"
+                )
+            ){
+
+                validos++;
+
+            }
+
+
+            const nascimento =
+                valor(
+                    linha,
+                    "colNascimento"
+                );
+
+
+            if(
+                nascimento
+            ){
+
+                const data =
+                    converterDataNascimento(
+                        nascimento
+                    );
+
+
+                if(data){
+
+                    comNascimento++;
+
+                }
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "preview"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "resumo"
+    ).innerHTML = `
+
+        Evento:
+        <b>${escaparHTML(eventoNome || "")}</b>
+        <br><br>
+
+        Arquivo:
+        <b>${escaparHTML(nomeArquivo)}</b>
+        <br><br>
+
+        Linhas encontradas:
+        <b>${total}</b>
+        <br>
+
+        Atletas válidos:
+        <b>${validos}</b>
+        <br>
+
+        Registros sem nome:
+        <b>${total - validos}</b>
+        <br>
+
+        Datas de nascimento reconhecidas:
+        <b>${comNascimento}</b>
+        de
+        <b>${total}</b>
+
+        <br><br>
+
+        Confira abaixo antes de importar.
+
+    `;
+
+
+    gerarPreviewTabela();
+
 }
 
-let validos = 0;
 
-dadosPlanilha.forEach(linha=>{
-if(valor(linha,"colNome")) validos++;
-});
+/* =========================================================
+   PREVIEW DA TABELA
+========================================================= */
 
-document.getElementById("preview").style.display = "block";
-document.getElementById("resumo").innerHTML = `
-Evento: <b>${eventoNome}</b><br><br>
-Arquivo: <b>${nomeArquivo}</b><br><br>
-Linhas encontradas: <b>${total}</b><br>
-Atletas válidos: <b>${validos}</b><br>
-Registros sem nome: <b>${total - validos}</b><br><br>
-Clique em importar para gravar no banco.
-`;
+function gerarPreviewTabela(){
+
+    const linhas =
+        dadosPlanilha.slice(0,5);
+
+
+    let html = `
+
+        <div style="overflow-x:auto;">
+
+        <table class="tabela-preview">
+
+            <thead>
+
+                <tr>
+
+                    <th>Nome</th>
+                    <th>Nascimento</th>
+                    <th>Nº Peito</th>
+                    <th>Modalidade</th>
+                    <th>Camiseta</th>
+                    <th>Pelotão</th>
+                    <th>Produto</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+    `;
+
+
+    linhas.forEach(
+        linha => {
+
+            const nascimentoOriginal =
+                valor(
+                    linha,
+                    "colNascimento"
+                );
+
+
+            const nascimento =
+                converterDataNascimento(
+                    nascimentoOriginal
+                );
+
+
+            html += `
+
+                <tr>
+
+                    <td>
+                        ${escaparHTML(
+                            valor(
+                                linha,
+                                "colNome"
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${escaparHTML(
+                            nascimento ||
+                            "Não informada"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escaparHTML(
+                            valor(
+                                linha,
+                                "colNumero"
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${escaparHTML(
+                            valor(
+                                linha,
+                                "colModalidade"
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${escaparHTML(
+                            valor(
+                                linha,
+                                "colCamiseta"
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${escaparHTML(
+                            valor(
+                                linha,
+                                "colEquipe"
+                            )
+                        )}
+                    </td>
+
+                    <td>
+                        ${escaparHTML(
+                            valor(
+                                linha,
+                                "colProduto"
+                            )
+                        )}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
+
+
+    html += `
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+        <p class="info">
+            Mostrando as primeiras
+            ${linhas.length}
+            linhas apenas para conferência.
+        </p>
+
+    `;
+
+
+    document.getElementById(
+        "tabelaPreview"
+    ).innerHTML = html;
+
 }
 
-async function buscarAtletaExistente(cpf, numero){
-let query = db.from("atletas_v2").select("*").eq("evento_id", eventoId);
 
-if(cpf){
-const { data } = await query.eq("cpf", cpf).limit(1);
-if(data && data.length > 0) return data[0];
+/* =========================================================
+   BUSCAR ATLETA EXISTENTE
+========================================================= */
+
+async function buscarAtletaExistente(
+    cpf,
+    numero
+){
+
+    /*
+     * Primeiro procura pelo CPF.
+     */
+
+    if(cpf){
+
+        const {
+            data,
+            error
+        } = await db
+            .from("atletas_v2")
+            .select("*")
+            .eq("evento_id",eventoId)
+            .eq("cpf",cpf)
+            .limit(1);
+
+
+        if(error){
+
+            throw new Error(
+                "Erro ao buscar CPF: " +
+                error.message
+            );
+
+        }
+
+
+        if(
+            data &&
+            data.length > 0
+        ){
+
+            return data[0];
+
+        }
+
+    }
+
+
+    /*
+     * Depois procura pelo número de peito.
+     */
+
+    if(numero){
+
+        const {
+            data,
+            error
+        } = await db
+            .from("atletas_v2")
+            .select("*")
+            .eq("evento_id",eventoId)
+            .eq("numero_peito",numero)
+            .limit(1);
+
+
+        if(error){
+
+            throw new Error(
+                "Erro ao buscar número de peito: " +
+                error.message
+            );
+
+        }
+
+
+        if(
+            data &&
+            data.length > 0
+        ){
+
+            return data[0];
+
+        }
+
+    }
+
+
+    return null;
+
 }
 
-if(numero){
-const { data } = await db
-.from("atletas_v2")
-.select("*")
-.eq("evento_id", eventoId)
-.eq("numero_peito", numero)
-.limit(1);
 
-if(data && data.length > 0) return data[0];
+/* =========================================================
+   ESCAPAR HTML
+========================================================= */
+
+function escaparHTML(valor){
+
+    if(
+        valor === null ||
+        valor === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return String(valor)
+
+        .replace(/&/g,"&amp;")
+
+        .replace(/</g,"&lt;")
+
+        .replace(/>/g,"&gt;")
+
+        .replace(/"/g,"&quot;")
+
+        .replace(/'/g,"&#039;");
+
 }
 
-return null;
-}
+
+/* =========================================================
+   IMPORTAR ATLETAS
+========================================================= */
 
 async function importarAtletas(){
 
-const botao = document.getElementById("btnImportar");
-const progresso = document.getElementById("progresso");
+    const botao =
+        document.getElementById(
+            "btnImportar"
+        );
 
-botao.disabled = true;
-botao.innerText = "Importando...";
-progresso.style.display = "block";
-progresso.innerText = "Iniciando importação...";
 
-let novos = 0;
-let atualizados = 0;
-let ignorados = 0;
-let erros = 0;
-let ultimoErro = "";
+    const progresso =
+        document.getElementById(
+            "progresso"
+        );
 
-try{
 
-const total = dadosPlanilha.length;
-let processados = 0;
+    botao.disabled = true;
 
-for(const linha of dadosPlanilha){
-processados++;
+    botao.innerText =
+        "IMPORTANDO...";
 
-if(processados % 5 === 0 || processados === total){
-progresso.innerText = `Importando ${processados} de ${total}... (novos: ${novos}, atualizados: ${atualizados}, erros: ${erros})`;
+
+    progresso.style.display =
+        "block";
+
+
+    progresso.innerText =
+        "Iniciando importação...";
+
+
+    let novos = 0;
+
+    let atualizados = 0;
+
+    let ignorados = 0;
+
+    let erros = 0;
+
+    let ultimoErro = "";
+
+
+    try{
+
+        const total =
+            dadosPlanilha.length;
+
+
+        let processados = 0;
+
+
+        for(
+            const linha
+            of dadosPlanilha
+        ){
+
+            processados++;
+
+
+            if(
+                processados % 5 === 0 ||
+                processados === total
+            ){
+
+                progresso.innerText =
+                    `Importando ${processados} de ${total}... ` +
+                    `(novos: ${novos}, ` +
+                    `atualizados: ${atualizados}, ` +
+                    `erros: ${erros})`;
+
+            }
+
+
+            /*
+             * DADOS DA PLANILHA
+             */
+
+            const nome =
+                valor(
+                    linha,
+                    "colNome"
+                );
+
+
+            const cpf =
+                valor(
+                    linha,
+                    "colCpf"
+                );
+
+
+            const numero_peito =
+                valor(
+                    linha,
+                    "colNumero"
+                );
+
+
+            const nascimentoOriginal =
+                valor(
+                    linha,
+                    "colNascimento"
+                );
+
+
+            /*
+             * AQUI ESTÁ A CORREÇÃO PRINCIPAL:
+             *
+             * NASCIMENTO
+             *       ↓
+             * converterDataNascimento()
+             *       ↓
+             * data_nascimento
+             */
+
+            const data_nascimento =
+                converterDataNascimento(
+                    nascimentoOriginal
+                );
+
+
+            const modalidade =
+                valor(
+                    linha,
+                    "colModalidade"
+                );
+
+
+            const camiseta =
+                valor(
+                    linha,
+                    "colCamiseta"
+                );
+
+
+            const equipe =
+                valor(
+                    linha,
+                    "colEquipe"
+                );
+
+
+            const produto_extra =
+                valor(
+                    linha,
+                    "colProduto"
+                );
+
+
+            /*
+             * NOME É O ÚNICO CAMPO OBRIGATÓRIO.
+             */
+
+            if(!nome){
+
+                ignorados++;
+
+                continue;
+
+            }
+
+
+            try{
+
+                /*
+                 * Procura atleta existente.
+                 */
+
+                const existente =
+                    await buscarAtletaExistente(
+                        cpf,
+                        numero_peito
+                    );
+
+
+                if(existente){
+
+                    /*
+                     * ATUALIZAÇÃO
+                     *
+                     * Só enviamos campos que realmente
+                     * possuem informação.
+                     *
+                     * Isso evita apagar dados antigos
+                     * com células vazias.
+                     */
+
+                    const atualizacao = {};
+
+
+                    if(nome){
+
+                        atualizacao.nome =
+                            nome;
+
+                    }
+
+
+                    if(cpf){
+
+                        atualizacao.cpf =
+                            cpf;
+
+                    }
+
+
+                    if(numero_peito){
+
+                        atualizacao.numero_peito =
+                            numero_peito;
+
+                    }
+
+
+                    if(data_nascimento){
+
+                        atualizacao.data_nascimento =
+                            data_nascimento;
+
+                    }
+
+
+                    if(modalidade){
+
+                        atualizacao.modalidade =
+                            modalidade;
+
+                    }
+
+
+                    if(camiseta){
+
+                        atualizacao.camiseta =
+                            camiseta;
+
+                    }
+
+
+                    if(equipe){
+
+                        atualizacao.equipe =
+                            equipe;
+
+                    }
+
+
+                    if(produto_extra){
+
+                        atualizacao.produto_extra =
+                            produto_extra;
+
+                    }
+
+
+                    const {
+                        error
+                    } = await db
+                        .from("atletas_v2")
+                        .update(
+                            atualizacao
+                        )
+                        .eq(
+                            "id",
+                            existente.id
+                        );
+
+
+                    if(error){
+
+                        erros++;
+
+                        ultimoErro =
+                            error.message;
+
+                    }else{
+
+                        atualizados++;
+
+                    }
+
+                }else{
+
+                    /*
+                     * NOVO ATLETA
+                     */
+
+                    const novoAtleta = {
+
+                        evento_id:
+                            eventoId,
+
+                        nome:
+                            nome,
+
+                        cpf:
+                            cpf || null,
+
+                        numero_peito:
+                            numero_peito || null,
+
+                        modalidade:
+                            modalidade || null,
+
+                        camiseta:
+                            camiseta || null,
+
+                        equipe:
+                            equipe || null,
+
+                        produto_extra:
+                            produto_extra || null,
+
+                        status_kit:
+                            "pendente",
+
+                        origem_importacao:
+                            nomeArquivo,
+
+                        importacao_id:
+                            null
+
+                    };
+
+
+                    /*
+                     * Só envia data_nascimento
+                     * se a data foi reconhecida.
+                     */
+
+                    if(data_nascimento){
+
+                        novoAtleta.data_nascimento =
+                            data_nascimento;
+
+                    }
+
+
+                    const {
+                        error
+                    } = await db
+                        .from("atletas_v2")
+                        .insert([
+                            novoAtleta
+                        ]);
+
+
+                    if(error){
+
+                        erros++;
+
+                        ultimoErro =
+                            error.message;
+
+                    }else{
+
+                        novos++;
+
+                    }
+
+                }
+
+
+            }catch(e){
+
+                erros++;
+
+                ultimoErro =
+                    e.message;
+
+            }
+
+        }
+
+
+        /* =================================================
+           REGISTRAR IMPORTAÇÃO
+        ================================================== */
+
+        try{
+
+            await db
+                .from("importacoes_v2")
+                .insert([{
+
+                    evento_id:
+                        eventoId,
+
+                    nome_arquivo:
+                        nomeArquivo,
+
+                    usuario:
+                        usuarioLogado
+                        ?
+                        usuarioLogado.nome
+                        :
+                        "Desconhecido",
+
+                    total_linhas:
+                        dadosPlanilha.length,
+
+                    novos:
+                        novos,
+
+                    atualizados:
+                        atualizados,
+
+                    ignorados:
+                        ignorados,
+
+                    erros:
+                        erros
+
+                }]);
+
+        }catch(e){
+
+            console.error(
+                "Erro ao gravar log de importação:",
+                e
+            );
+
+        }
+
+
+        /* =================================================
+           AUDITORIA
+        ================================================== */
+
+        try{
+
+            await db
+                .from("auditoria_v2")
+                .insert([{
+
+                    evento_id:
+                        eventoId,
+
+                    usuario:
+                        usuarioLogado
+                        ?
+                        usuarioLogado.nome
+                        :
+                        "Desconhecido",
+
+                    acao:
+                        "Importação de planilha",
+
+                    detalhe:
+                        `${nomeArquivo} | ` +
+                        `Novos: ${novos} | ` +
+                        `Atualizados: ${atualizados} | ` +
+                        `Ignorados: ${ignorados} | ` +
+                        `Erros: ${erros}`
+
+                }]);
+
+        }catch(e){
+
+            console.error(
+                "Erro ao gravar auditoria:",
+                e
+            );
+
+        }
+
+
+        /* =================================================
+           RESULTADO
+        ================================================== */
+
+        progresso.style.display =
+            "none";
+
+
+        document.getElementById(
+            "resultado"
+        ).style.display =
+            "block";
+
+
+        document.getElementById(
+            "resultadoTexto"
+        ).innerHTML = `
+
+            <div class="resultado-sucesso">
+
+                <span class="ok">
+                    IMPORTAÇÃO CONCLUÍDA!
+                </span>
+
+                <br><br>
+
+                Novos atletas:
+                <b>${novos}</b>
+
+                <br>
+
+                Atletas atualizados:
+                <b>${atualizados}</b>
+
+                <br>
+
+                Registros ignorados:
+                <b>${ignorados}</b>
+
+                <br>
+
+                Erros:
+                <b>${erros}</b>
+
+                ${
+                    erros > 0
+                    ?
+                    `
+                    <br><br>
+
+                    <span class="erro">
+                        Último erro registrado:
+                    </span>
+
+                    <br>
+
+                    ${escaparHTML(
+                        ultimoErro
+                    )}
+                    `
+                    :
+                    ""
+                }
+
+            </div>
+
+        `;
+
+
+    }catch(erroGeral){
+
+        progresso.style.display =
+            "none";
+
+
+        document.getElementById(
+            "resultado"
+        ).style.display =
+            "block";
+
+
+        document.getElementById(
+            "resultadoTexto"
+        ).innerHTML = `
+
+            <div class="resultado-sucesso">
+
+                <span class="erro">
+                    A importação parou por um erro inesperado.
+                </span>
+
+                <br><br>
+
+                ${escaparHTML(
+                    erroGeral.message
+                )}
+
+                <br><br>
+
+                Progresso até parar:
+
+                <br>
+
+                Novos:
+                <b>${novos}</b>
+
+                <br>
+
+                Atualizados:
+                <b>${atualizados}</b>
+
+                <br>
+
+                Ignorados:
+                <b>${ignorados}</b>
+
+                <br>
+
+                Erros:
+                <b>${erros}</b>
+
+            </div>
+
+        `;
+
+
+        console.error(
+            erroGeral
+        );
+
+
+    }finally{
+
+        botao.disabled =
+            false;
+
+
+        botao.innerText =
+            "IMPORTAR ATLETAS";
+
+    }
+
 }
 
-const nome = valor(linha,"colNome");
-const cpf = valor(linha,"colCpf");
-const numero_peito = valor(linha,"colNumero");
-const modalidade = valor(linha,"colModalidade");
-const camiseta = valor(linha,"colCamiseta");
-const equipe = valor(linha,"colEquipe");
-const produto_extra = valor(linha,"colProduto");
 
-if(!nome){
-ignorados++;
-continue;
-}
-
-try{
-const existente = await buscarAtletaExistente(cpf, numero_peito);
-
-if(existente){
-const atualizacao = {
-nome,
-cpf,
-numero_peito,
-modalidade,
-camiseta,
-equipe,
-produto_extra
-};
-
-const { error } = await db
-.from("atletas_v2")
-.update(atualizacao)
-.eq("id", existente.id);
-
-if(error){
-erros++;
-ultimoErro = error.message;
-} else {
-atualizados++;
-}
-
-}else{
-const { error } = await db
-.from("atletas_v2")
-.insert([{
-evento_id: eventoId,
-nome,
-cpf,
-numero_peito,
-modalidade,
-camiseta,
-equipe,
-produto_extra,
-origem_importacao: nomeArquivo,
-importacao_id: null,
-status_kit:"pendente"
-}]);
-
-if(error){
-erros++;
-ultimoErro = error.message;
-} else {
-novos++;
-}
-}
-
-}catch(e){
-erros++;
-ultimoErro = e.message;
-}
-}
-
-try{
-await db.from("importacoes_v2").insert([{
-evento_id: eventoId,
-nome_arquivo: nomeArquivo,
-usuario: usuarioLogado ? usuarioLogado.nome : "Desconhecido",
-total_linhas: dadosPlanilha.length,
-novos,
-atualizados,
-ignorados,
-erros
-}]);
-}catch(e){
-console.error("Erro ao gravar log de importação:", e);
-}
-
-try{
-await db.from("auditoria_v2").insert([{
-evento_id: eventoId,
-usuario: usuarioLogado ? usuarioLogado.nome : "Desconhecido",
-acao: "Importação de planilha",
-detalhe: `${nomeArquivo} | Novos: ${novos} | Atualizados: ${atualizados} | Ignorados: ${ignorados} | Erros: ${erros}`
-}]);
-}catch(e){
-console.error("Erro ao gravar auditoria:", e);
-}
-
-progresso.style.display = "none";
-document.getElementById("resultado").style.display = "block";
-document.getElementById("resultadoTexto").innerHTML = `
-<span class="ok">Importação concluída!</span><br><br>
-Novos atletas: <b>${novos}</b><br>
-Atualizados: <b>${atualizados}</b><br>
-Ignorados: <b>${ignorados}</b><br>
-Erros: <b>${erros}</b>
-${erros > 0 ? `<br><br><span class="erro">Último erro registrado: ${ultimoErro}</span>` : ""}
-`;
-
-}catch(erroGeral){
-progresso.style.display = "none";
-document.getElementById("resultado").style.display = "block";
-document.getElementById("resultadoTexto").innerHTML = `
-<span class="erro">A importação parou por um erro inesperado:</span><br><br>
-${erroGeral.message}<br><br>
-Progresso até parar — Novos: <b>${novos}</b>, Atualizados: <b>${atualizados}</b>, Ignorados: <b>${ignorados}</b>, Erros: <b>${erros}</b>
-`;
-console.error(erroGeral);
-
-}finally{
-botao.disabled = false;
-botao.innerText = "Importar Atletas";
-}
-}
+/* =========================================================
+   INICIAR
+========================================================= */
 
 verificarAcesso();
+
 </script>
 
 </body>
