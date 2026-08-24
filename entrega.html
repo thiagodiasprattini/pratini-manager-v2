@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
-<meta name="theme-color" content="#151515">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Central de Entrega - Pratini Sports</title>
 
@@ -16,9 +11,7 @@
 
 <script>
 const SUPABASE_URL = "https://kchpprimvfnwchztwlsa.supabase.co";
-
-const SUPABASE_ANON_KEY =
-"sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
+const SUPABASE_ANON_KEY = "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
 
 const db = window.supabase.createClient(
     SUPABASE_URL,
@@ -29,1011 +22,610 @@ const db = window.supabase.createClient(
 <style>
 
 /* =========================================================
-   CONFIGURAÇÃO GERAL
+   CONFIGURAÇÕES GERAIS
 ========================================================= */
 
-:root {
-
-    --verde: #7CFC00;
-
-    --grafite: #171717;
-
-    --grafite-claro: #222222;
-
-    --fundo-divisao: #292929;
-
-    --preto-card: #101010;
-
-    --preto-card-alternado: #151515;
-
-    --texto: #ffffff;
-
-    --texto-secundario: #c7c7c7;
-
-    --cinza: #8d8d8d;
-
-    --borda: rgba(124, 252, 0, 0.42);
-
-    --sombra-verde:
-        0 0 0 1px rgba(124,252,0,0.20),
-        0 8px 25px rgba(0,0,0,0.38);
-
+:root{
+    --verde:#7CFC00;
+    --grafite:#242424;
+    --grafite-claro:#303030;
+    --preto:#101010;
+    --cinza:#bdbdbd;
+    --branco:#ffffff;
 }
 
+*{
+    box-sizing:border-box;
+}
+
+html{
+    background:#242424;
+}
+
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#242424;
+    color:#ffffff;
+    min-height:100vh;
+}
 
 /* =========================================================
-   RESET
+   TOPO
 ========================================================= */
 
-* {
-    box-sizing: border-box;
+.topo{
+    width:100%;
+    background:#151515;
+    border-bottom:1px solid #383838;
+    padding:18px 25px;
+    position:relative;
+    min-height:105px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-html {
-    background: var(--grafite);
-    color-scheme: dark;
+.logo-topo{
+    position:absolute;
+    right:25px;
+    top:50%;
+    transform:translateY(-50%);
+    height:70px;
+    width:auto;
+    object-fit:contain;
 }
 
-body {
-
-    margin: 0;
-
-    padding: 0;
-
-    min-height: 100vh;
-
-    background:
-        linear-gradient(
-            180deg,
-            #151515 0%,
-            #1c1c1c 45%,
-            #252525 100%
-        );
-
-    color: var(--texto);
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    -webkit-font-smoothing: antialiased;
-
+.titulo-topo{
+    font-size:27px;
+    font-weight:700;
+    letter-spacing:0.5px;
+    color:#ffffff;
+    text-align:center;
 }
-
-
-/* =========================================================
-   ÁREA DE CARREGAMENTO
-========================================================= */
-
-.carregando {
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    min-height: 100vh;
-
-    background: var(--grafite);
-
-    color: var(--texto-secundario);
-
-    font-size: 17px;
-
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-header {
-
-    position: relative;
-
-    width: 100%;
-
-    min-height: 112px;
-
-    background: #111111;
-
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 20px 150px 20px 30px;
-
-}
-
-
-/* Título */
-
-.titulo-central {
-
-    margin: 0;
-
-    text-align: center;
-
-    font-size: 30px;
-
-    font-weight: 800;
-
-    letter-spacing: 0.5px;
-
-    color: #ffffff;
-
-}
-
-
-/* Logo */
-
-.logo-topo {
-
-    position: absolute;
-
-    right: 30px;
-
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    width: 115px;
-
-    height: auto;
-
-    max-height: 75px;
-
-    object-fit: contain;
-
-}
-
 
 /* =========================================================
    CONTAINER
 ========================================================= */
 
-.container {
-
-    width: 100%;
-
-    max-width: 1000px;
-
-    margin: 0 auto;
-
-    padding: 24px 18px 45px;
-
+.container{
+    width:100%;
+    max-width:950px;
+    margin:0 auto;
+    padding:25px 18px 50px;
 }
-
 
 /* =========================================================
    EVENTO
 ========================================================= */
 
-.evento-card {
-
-    background: #1d1d1d;
-
-    border: 1px solid rgba(255,255,255,0.08);
-
-    border-radius: 14px;
-
-    padding: 18px 22px;
-
-    margin-bottom: 18px;
-
-    text-align: center;
-
-    box-shadow:
-        0 6px 20px rgba(0,0,0,0.20);
-
+.evento{
+    text-align:center;
+    margin-bottom:22px;
 }
 
-.evento-nome {
-
-    margin: 0;
-
-    font-size: 23px;
-
-    font-weight: 800;
-
-    color: #ffffff;
-
+.evento-nome{
+    font-size:22px;
+    font-weight:700;
+    color:#ffffff;
 }
-
 
 /* =========================================================
-   ÁREA DE PESQUISA
+   BUSCA
 ========================================================= */
 
-.pesquisa-card {
-
-    background: #1d1d1d;
-
-    border: 1px solid rgba(255,255,255,0.08);
-
-    border-radius: 14px;
-
-    padding: 20px;
-
-    margin-bottom: 24px;
-
-    box-shadow:
-        0 6px 20px rgba(0,0,0,0.20);
-
+.card-busca{
+    background:#101010;
+    border:1px solid #3a3a3a;
+    border-radius:16px;
+    padding:22px;
+    margin-bottom:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.20);
 }
 
-.pesquisa-card h2 {
-
-    margin: 0 0 12px;
-
-    font-size: 19px;
-
-    font-weight: 700;
-
-    color: #ffffff;
-
+.card-busca h2{
+    margin:0 0 15px;
+    font-size:20px;
 }
 
-input {
-
-    width: 100%;
-
-    height: 54px;
-
-    padding: 0 16px;
-
-    margin: 0 0 10px;
-
-    border: 1px solid #444444;
-
-    border-radius: 10px;
-
-    background: #0e0e0e;
-
-    color: #ffffff;
-
-    font-size: 18px;
-
-    outline: none;
-
-    transition: 0.2s;
-
+.campo-busca{
+    width:100%;
+    background:#1b1b1b;
+    border:1px solid #4a4a4a;
+    color:#ffffff;
+    padding:16px 18px;
+    border-radius:10px;
+    font-size:18px;
+    outline:none;
 }
 
-input::placeholder {
-
-    color: #777777;
-
+.campo-busca:focus{
+    border-color:var(--verde);
+    box-shadow:0 0 0 2px rgba(124,252,0,0.10);
 }
 
-input:focus {
-
-    border-color: var(--verde);
-
-    box-shadow:
-        0 0 0 2px rgba(124,252,0,0.10);
-
+.botao{
+    width:100%;
+    border:none;
+    padding:15px;
+    margin-top:12px;
+    border-radius:10px;
+    background:var(--verde);
+    color:#000000;
+    font-size:18px;
+    font-weight:800;
+    cursor:pointer;
+    transition:0.2s;
 }
 
+.botao:hover{
+    filter:brightness(0.92);
+}
+
+.botao:active{
+    transform:scale(0.99);
+}
+
+.botao-voltar{
+    width:100%;
+    border:none;
+    padding:15px;
+    margin-top:20px;
+    border-radius:10px;
+    background:#383838;
+    color:#ffffff;
+    font-size:17px;
+    font-weight:700;
+    cursor:pointer;
+}
 
 /* =========================================================
-   BOTÕES
+   RESULTADOS DA PESQUISA
 ========================================================= */
 
-button {
+#resultado{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
 
-    width: 100%;
+/*
+   CARD RESUMIDO
+   Aparece somente nome + nascimento
+*/
 
-    min-height: 52px;
-
-    padding: 13px 18px;
-
-    margin: 6px 0;
-
-    border: none;
-
-    border-radius: 10px;
-
-    font-size: 17px;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
+.card-atleta{
+    background:#101010;
+    border:1px solid rgba(124,252,0,0.45);
+    border-radius:15px;
+    padding:20px;
+    cursor:pointer;
+    box-shadow:
+        0 0 0 1px rgba(124,252,0,0.04),
+        0 5px 18px rgba(0,0,0,0.35);
     transition:
-        transform 0.15s ease,
-        box-shadow 0.15s ease,
-        opacity 0.15s ease;
-
+        transform 0.15s,
+        border-color 0.15s,
+        background 0.15s;
 }
 
-button:hover {
-
-    transform: translateY(-1px);
-
+.card-atleta:nth-child(even){
+    background:#171717;
 }
 
-button:active {
-
-    transform: translateY(0);
-
+.card-atleta:hover{
+    transform:translateY(-2px);
+    border-color:var(--verde);
 }
 
+.card-atleta:active{
+    transform:scale(0.99);
+}
 
-/* Botão pesquisar */
+.nome-resumo{
+    font-size:24px;
+    font-weight:800;
+    color:#ffffff;
+    line-height:1.2;
+}
 
-.btn-pesquisar {
+.nascimento-resumo{
+    margin-top:8px;
+    font-size:17px;
+    color:#bdbdbd;
+}
 
-    background: var(--verde);
+/* =========================================================
+   DETALHES DO ATLETA
+========================================================= */
 
-    color: #071000;
-
+.detalhes{
+    background:#101010;
+    border:1px solid rgba(124,252,0,0.55);
+    border-radius:18px;
+    padding:25px;
     box-shadow:
-        0 5px 18px rgba(124,252,0,0.16);
-
+        0 0 22px rgba(124,252,0,0.08),
+        0 10px 35px rgba(0,0,0,0.40);
 }
 
+/* Nome grande */
 
-/* Botão entregar */
-
-.btn-entregar {
-
-    background: var(--verde);
-
-    color: #071000;
-
-    font-size: 19px;
-
-    min-height: 56px;
-
-    box-shadow:
-        0 5px 20px rgba(124,252,0,0.18);
-
+.nome-detalhe{
+    text-align:center;
+    font-size:30px;
+    line-height:1.15;
+    font-weight:900;
+    color:#ffffff;
+    margin-bottom:10px;
 }
 
+/* Número */
 
-/* Botão voltar */
-
-.voltar {
-
-    margin-top: 25px;
-
-    background: #303030;
-
-    color: #ffffff;
-
-    border: 1px solid #454545;
-
+.numero-detalhe{
+    text-align:center;
+    font-size:58px;
+    line-height:1;
+    font-weight:900;
+    color:var(--verde);
+    margin:5px 0 25px;
+    letter-spacing:1px;
 }
 
+/* Linha divisória */
 
-/* =========================================================
-   RESULTADOS
-========================================================= */
-
-#resultado {
-
-    width: 100%;
-
+.divisor{
+    height:1px;
+    background:#3d3d3d;
+    margin:20px 0;
 }
 
+/* Grid */
 
-/* =========================================================
-   CARD DO ATLETA
-========================================================= */
-
-.atleta-card {
-
-    position: relative;
-
-    width: 100%;
-
-    background: var(--preto-card);
-
-    border: 1px solid var(--borda);
-
-    border-radius: 16px;
-
-    margin-bottom: 18px;
-
-    padding: 0;
-
-    overflow: hidden;
-
-    box-shadow: var(--sombra-verde);
-
+.dados-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
 }
 
-
-/* Cards alternados */
-
-.atleta-card:nth-child(even) {
-
-    background: var(--preto-card-alternado);
-
+.dado{
+    background:#191919;
+    border:1px solid #333333;
+    border-radius:10px;
+    padding:14px;
 }
 
-
-/* Faixa externa superior */
-
-.atleta-topo {
-
-    width: 100%;
-
-    padding: 20px 18px 18px;
-
-    text-align: center;
-
-    background: rgba(255,255,255,0.025);
-
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-
+.dado-label{
+    font-size:13px;
+    text-transform:uppercase;
+    color:#999999;
+    margin-bottom:5px;
+    font-weight:700;
 }
 
-
-/* Nome */
-
-.nome-atleta {
-
-    margin: 0;
-
-    padding: 0;
-
-    font-size: 29px;
-
-    line-height: 1.15;
-
-    font-weight: 900;
-
-    color: #ffffff;
-
-    text-align: center;
-
-    word-break: break-word;
-
+.dado-valor{
+    font-size:19px;
+    color:#ffffff;
+    font-weight:700;
+    word-break:break-word;
 }
-
-
-/* Número de peito */
-
-.numero-label {
-
-    margin-top: 12px;
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-    letter-spacing: 1.5px;
-
-    color: #999999;
-
-    text-transform: uppercase;
-
-}
-
-.numero-peito {
-
-    margin-top: 1px;
-
-    font-size: 52px;
-
-    line-height: 1;
-
-    font-weight: 900;
-
-    color: var(--verde);
-
-    letter-spacing: 1px;
-
-    text-align: center;
-
-    text-shadow:
-        0 0 14px rgba(124,252,0,0.20);
-
-}
-
-
-/* =========================================================
-   DADOS
-========================================================= */
-
-.dados-atleta {
-
-    padding: 20px;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 10px;
-
-}
-
-
-/* Cada informação */
-
-.dado {
-
-    background: #191919;
-
-    border: 1px solid rgba(255,255,255,0.07);
-
-    border-radius: 10px;
-
-    padding: 13px 14px;
-
-    min-height: 67px;
-
-}
-
-.dado-label {
-
-    display: block;
-
-    margin-bottom: 5px;
-
-    color: #8f8f8f;
-
-    font-size: 12px;
-
-    font-weight: 700;
-
-    text-transform: uppercase;
-
-    letter-spacing: 0.5px;
-
-}
-
-.dado-valor {
-
-    display: block;
-
-    color: #ffffff;
-
-    font-size: 18px;
-
-    line-height: 1.25;
-
-    font-weight: 700;
-
-    word-break: break-word;
-
-}
-
-
-/* =========================================================
-   PRODUTO EXTRA
-========================================================= */
-
-.produto-extra {
-
-    margin: 0 20px 16px;
-
-    padding: 15px;
-
-    background: #181818;
-
-    border-radius: 10px;
-
-    border: 1px solid rgba(255,255,255,0.08);
-
-}
-
-.produto-extra .dado-label {
-
-    margin-bottom: 5px;
-
-}
-
-.produto-extra .dado-valor {
-
-    font-size: 18px;
-
-}
-
-
-/* =========================================================
-   RETIRADA
-========================================================= */
-
-.retirada-area {
-
-    margin: 0 20px 20px;
-
-    padding: 16px;
-
-    border-radius: 11px;
-
-    background: #1a1a1a;
-
-    border: 1px solid rgba(255,255,255,0.08);
-
-}
-
-.retirada-titulo {
-
-    margin: 0 0 10px;
-
-    font-size: 13px;
-
-    font-weight: 800;
-
-    text-transform: uppercase;
-
-    color: #8f8f8f;
-
-    letter-spacing: 0.6px;
-
-}
-
 
 /* =========================================================
    STATUS
 ========================================================= */
 
-.status {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    min-height: 34px;
-
-    padding: 7px 13px;
-
-    border-radius: 8px;
-
-    font-size: 15px;
-
-    font-weight: 800;
-
+.status{
+    margin-top:20px;
+    padding:14px;
+    border-radius:10px;
+    text-align:center;
+    font-weight:800;
+    font-size:17px;
 }
 
-
-/* Aguardando: sem verde */
-
-.status-pendente {
-
-    background: #303030;
-
-    color: #d0d0d0;
-
-    border: 1px solid #474747;
-
+.status-pendente{
+    background:#242424;
+    border:1px solid #4a4a4a;
+    color:#d5d5d5;
 }
 
-
-/* Entregue */
-
-.status-entregue {
-
-    background: rgba(124,252,0,0.10);
-
-    color: var(--verde);
-
-    border: 1px solid rgba(124,252,0,0.35);
-
+.status-entregue{
+    background:rgba(124,252,0,0.08);
+    border:1px solid rgba(124,252,0,0.45);
+    color:var(--verde);
 }
-
 
 /* =========================================================
-   DADOS DA ENTREGA JÁ REALIZADA
+   RETIRADA
 ========================================================= */
 
-.entrega-info {
-
-    margin: 0 20px 20px;
-
-    padding: 17px;
-
-    background: #181818;
-
-    border-radius: 11px;
-
-    border: 1px solid rgba(124,252,0,0.18);
-
+.bloco-retirada{
+    margin-top:20px;
+    background:#181818;
+    border:1px solid #373737;
+    border-radius:12px;
+    padding:18px;
 }
 
-.entrega-info p {
-
-    margin: 7px 0;
-
-    font-size: 17px;
-
-    line-height: 1.4;
-
-    color: #eeeeee;
-
+.titulo-retirada{
+    font-size:19px;
+    font-weight:800;
+    margin-bottom:14px;
 }
 
-.entrega-info strong {
-
-    color: #999999;
-
+.opcoes-retirada{
+    display:flex;
+    gap:10px;
+    flex-direction:column;
 }
 
+.opcao-retirada{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#222222;
+    border:1px solid #414141;
+    border-radius:9px;
+    padding:13px;
+    cursor:pointer;
+}
+
+.opcao-retirada input{
+    width:20px;
+    height:20px;
+    accent-color:var(--verde);
+}
+
+.opcao-retirada span{
+    font-size:17px;
+    font-weight:700;
+}
+
+#campoTerceiro{
+    display:none;
+    margin-top:15px;
+}
+
+#campoTerceiro label{
+    display:block;
+    margin-bottom:7px;
+    color:#cfcfcf;
+    font-size:15px;
+    font-weight:700;
+}
+
+.input-terceiro{
+    width:100%;
+    padding:14px;
+    border-radius:9px;
+    border:1px solid #444444;
+    background:#101010;
+    color:#ffffff;
+    font-size:17px;
+    outline:none;
+}
+
+.input-terceiro:focus{
+    border-color:var(--verde);
+}
+
+/* =========================================================
+   BOTÃO ENTREGAR
+========================================================= */
+
+.botao-entregar{
+    width:100%;
+    margin-top:20px;
+    padding:18px;
+    border:none;
+    border-radius:11px;
+    background:var(--verde);
+    color:#000000;
+    font-size:20px;
+    font-weight:900;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.botao-entregar:hover{
+    filter:brightness(0.92);
+}
+
+.botao-entregar:active{
+    transform:scale(0.99);
+}
+
+/* =========================================================
+   INFORMAÇÕES DA ENTREGA
+========================================================= */
+
+.historico-entrega{
+    margin-top:20px;
+    background:#191919;
+    border:1px solid #373737;
+    border-radius:12px;
+    padding:18px;
+}
+
+.historico-titulo{
+    font-size:19px;
+    font-weight:800;
+    margin-bottom:12px;
+}
+
+.historico-item{
+    font-size:16px;
+    color:#d0d0d0;
+    margin:7px 0;
+    line-height:1.4;
+}
+
+.historico-item strong{
+    color:#ffffff;
+}
+
+/* =========================================================
+   CARREGANDO
+========================================================= */
+
+.carregando{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#242424;
+    color:#cccccc;
+    font-size:17px;
+}
 
 /* =========================================================
    MENSAGENS
 ========================================================= */
 
-.mensagem {
-
-    background: #1d1d1d;
-
-    border: 1px solid rgba(255,255,255,0.08);
-
-    border-radius: 13px;
-
-    padding: 25px;
-
-    text-align: center;
-
-    color: #bdbdbd;
-
-    font-size: 17px;
-
+.mensagem{
+    background:#101010;
+    border:1px solid #3d3d3d;
+    border-radius:14px;
+    padding:25px;
+    text-align:center;
+    color:#cccccc;
+    font-size:17px;
 }
-
 
 /* =========================================================
    RESPONSIVO
 ========================================================= */
 
-@media (max-width: 700px) {
+@media(max-width:650px){
 
-    header {
-
-        min-height: 100px;
-
-        padding:
-            18px 105px 18px 18px;
-
+    .topo{
+        min-height:95px;
+        padding:15px;
     }
 
-    .titulo-central {
-
-        font-size: 23px;
-
+    .logo-topo{
+        height:55px;
+        right:15px;
     }
 
-    .logo-topo {
-
-        right: 18px;
-
-        width: 82px;
-
-        max-height: 65px;
-
+    .titulo-topo{
+        font-size:22px;
+        padding-right:65px;
     }
 
-    .container {
-
-        padding:
-            18px 12px 35px;
-
+    .container{
+        padding:18px 12px 40px;
     }
 
-    .nome-atleta {
-
-        font-size: 25px;
-
+    .dados-grid{
+        grid-template-columns:1fr;
     }
 
-    .numero-peito {
-
-        font-size: 46px;
-
+    .nome-detalhe{
+        font-size:25px;
     }
 
-    .dados-atleta {
-
-        grid-template-columns: 1fr;
-
-        padding: 15px;
-
+    .numero-detalhe{
+        font-size:50px;
     }
 
-    .dado-valor {
-
-        font-size: 17px;
-
+    .nome-resumo{
+        font-size:22px;
     }
-
-}
-
-@media (max-width: 400px) {
-
-    .titulo-central {
-
-        font-size: 20px;
-
-    }
-
-    .logo-topo {
-
-        width: 72px;
-
-    }
-
-    .nome-atleta {
-
-        font-size: 23px;
-
-    }
-
-    .numero-peito {
-
-        font-size: 42px;
-
-    }
-
-}
-
-
-/* =========================================================
-   SAFE AREA PARA CELULAR
-========================================================= */
-
-@supports (padding: env(safe-area-inset-top)) {
-
-    header {
-
-        padding-top:
-            calc(20px + env(safe-area-inset-top));
-
-    }
-
-}
-
-
-/* =========================================================
-   EVITAR SELEÇÃO ACIDENTAL
-========================================================= */
-
-button,
-.numero-peito,
-.status {
-
-    user-select: none;
-
 }
 
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- ======================================================
+<!-- =====================================================
      TELA DE CARREGAMENTO
-====================================================== -->
+===================================================== -->
 
-<div id="telaCarregando"
-     class="carregando">
-
+<div id="telaCarregando" class="carregando">
     Verificando acesso...
-
 </div>
 
 
-
-<!-- ======================================================
+<!-- =====================================================
      PAINEL
-====================================================== -->
+===================================================== -->
 
-<div id="telaPainel"
-     style="display:none;">
+<div id="telaPainel" style="display:none;">
 
+    <header class="topo">
 
-<!-- ======================================================
-     HEADER
-====================================================== -->
+        <div class="titulo-topo">
+            Central de Entrega
+        </div>
 
-<header>
+        <img
+            src="Colorida.png"
+            alt="Pratini Sports"
+            class="logo-topo"
+        >
 
-    <h1 class="titulo-central">
-        CENTRAL DE ENTREGA
-    </h1>
-
-    <img
-        src="Colorida.png"
-        alt="Pratini Sports"
-        class="logo-topo"
-    >
-
-</header>
+    </header>
 
 
+    <main class="container">
 
-<div class="container">
+        <!-- EVENTO -->
 
-
-<!-- ======================================================
-     EVENTO
-====================================================== -->
-
-<div class="evento-card">
-
-    <h2
-        id="eventoAtivo"
-        class="evento-nome">
-
-        Carregando...
-
-    </h2>
-
-</div>
+        <div class="evento">
+            <div
+                id="eventoAtivo"
+                class="evento-nome"
+            >
+                Carregando...
+            </div>
+        </div>
 
 
+        <!-- BUSCA -->
 
-<!-- ======================================================
-     PESQUISA
-====================================================== -->
+        <div class="card-busca">
 
-<div class="pesquisa-card">
+            <h2>Pesquisar atleta</h2>
 
-    <h2>
-        Pesquisar atleta
-    </h2>
+            <input
+                id="busca"
+                class="campo-busca"
+                type="text"
+                autocomplete="off"
+                placeholder="Digite o nome ou número de peito"
+                onkeydown="if(event.key==='Enter') buscarAtletas()"
+            >
 
-    <input
-        id="busca"
-        type="text"
-        autocomplete="off"
-        placeholder="Nome ou número de peito"
-        onkeydown="if(event.key === 'Enter') buscarAtletas()"
-    >
+            <button
+                class="botao"
+                onclick="buscarAtletas()"
+            >
+                PESQUISAR
+            </button>
 
-    <button
-        class="btn-pesquisar"
-        onclick="buscarAtletas()">
-
-        PESQUISAR
-
-    </button>
-
-</div>
+        </div>
 
 
+        <!-- RESULTADO -->
 
-<!-- ======================================================
-     RESULTADO
-====================================================== -->
-
-<div id="resultado"></div>
+        <div id="resultado"></div>
 
 
+        <!-- BOTÃO VOLTAR -->
 
-<!-- ======================================================
-     VOLTAR
-====================================================== -->
+        <button
+            class="botao-voltar"
+            onclick="location.href='dashboard.html'"
+        >
+            Voltar ao Painel
+        </button>
 
-<button
-    class="voltar"
-    onclick="location.href='dashboard.html'">
-
-    VOLTAR AO PAINEL
-
-</button>
-
+    </main>
 
 </div>
-
-</div>
-
 
 
 <script>
@@ -1044,147 +636,34 @@ button,
 
 let usuarioLogado = null;
 
-const eventoId =
-    localStorage.getItem("evento_ativo_id");
-
-
-/* =========================================================
-   FUNÇÕES DE SEGURANÇA / TEXTO
-========================================================= */
-
-/*
-   Corrige problemas com acentos e evita que nomes como
-   André sejam interpretados de forma errada.
-*/
-
-function normalizar(txt) {
-
-    return String(txt || "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .trim();
-
-}
-
-
-/*
-   Protege o HTML contra caracteres especiais.
-*/
-
-function escaparHTML(valor) {
-
-    return String(valor ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-/*
-   Formata data de nascimento.
-*/
-
-function formatarDataNascimento(data) {
-
-    if (!data) {
-
-        return "Não informada";
-
-    }
-
-    /*
-       Quando Supabase retorna YYYY-MM-DD,
-       fazemos a conversão manual para evitar
-       problemas de fuso horário.
-    */
-
-    const texto = String(data).substring(0,10);
-
-    const partes = texto.split("-");
-
-    if (partes.length === 3) {
-
-        return `${partes[2]}/${partes[1]}/${partes[0]}`;
-
-    }
-
-    return escaparHTML(data);
-
-}
-
-
-/*
-   Formata data e hora da retirada.
-*/
-
-function formatarDataHora(data) {
-
-    if (!data) {
-
-        return "Não informada";
-
-    }
-
-    try {
-
-        return new Date(data).toLocaleString(
-            "pt-BR",
-            {
-                timeZone: "America/Sao_Paulo",
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-                hour: "2-digit",
-                minute: "2-digit"
-            }
-        );
-
-    } catch (erro) {
-
-        return "Não informada";
-
-    }
-
-}
+const eventoId = localStorage.getItem("evento_ativo_id");
 
 
 /* =========================================================
    VERIFICAR ACESSO
 ========================================================= */
 
-async function verificarAcesso() {
+async function verificarAcesso(){
 
-    try {
+    try{
 
-        const { data, error } =
+        const { data: sessaoData, error: sessaoError } =
             await db.auth.getSession();
 
-        if (
-            error ||
-            !data ||
-            !data.session
-        ) {
-
+        if(
+            sessaoError ||
+            !sessaoData ||
+            !sessaoData.session
+        ){
             window.location.href = "login.html";
-
             return;
-
         }
 
 
-        const usuario =
-            data.session.user;
+        const usuario = sessaoData.session.user;
 
 
-        /*
-           Busca o perfil do usuário logado.
-        */
-
-        const { data: perfil, error: erroPerfil } =
+        const { data: perfil, error: perfilError } =
             await db
                 .from("perfis")
                 .select("role, nome")
@@ -1192,65 +671,48 @@ async function verificarAcesso() {
                 .single();
 
 
-        if (
-            erroPerfil ||
-            !perfil
-        ) {
+        if(perfilError || !perfil){
 
             window.location.href = "index.html";
-
             return;
-
         }
 
 
         usuarioLogado = {
 
-            id: usuario.id,
+            id:usuario.id,
 
             nome:
                 perfil.nome ||
-                usuario.email,
+                usuario.email ||
+                "Desconhecido",
 
             email:
-                usuario.email,
-
-            role:
-                perfil.role
+                usuario.email ||
+                "Desconhecido"
 
         };
 
 
-        /*
-           Nome do evento selecionado.
-        */
-
         const eventoNome =
-            localStorage.getItem(
-                "evento_ativo_nome"
-            );
+            localStorage.getItem("evento_ativo_nome");
 
 
-        document.getElementById(
-            "eventoAtivo"
-        ).textContent =
+        document.getElementById("eventoAtivo").textContent =
             eventoNome ||
             "Nenhum evento selecionado";
 
 
-        document.getElementById(
-            "telaCarregando"
-        ).style.display = "none";
+        document.getElementById("telaCarregando").style.display =
+            "none";
+
+        document.getElementById("telaPainel").style.display =
+            "block";
 
 
-        document.getElementById(
-            "telaPainel"
-        ).style.display = "block";
+    }catch(error){
 
-
-    } catch (erro) {
-
-        console.error(erro);
+        console.error(error);
 
         window.location.href = "login.html";
 
@@ -1260,45 +722,121 @@ async function verificarAcesso() {
 
 
 /* =========================================================
+   NORMALIZAÇÃO
+   Corrige acentos para pesquisa.
+   Ex.: André = andre
+========================================================= */
+
+function normalizar(txt){
+
+    return (txt || "")
+        .toString()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"")
+        .toLowerCase()
+        .trim();
+
+}
+
+
+/* =========================================================
+   FORMATAÇÃO DA DATA
+========================================================= */
+
+function formatarDataNascimento(data){
+
+    if(!data){
+        return "Não informada";
+    }
+
+    try{
+
+        /*
+         * Evita problemas de fuso horário.
+         * Pega somente YYYY-MM-DD.
+         */
+
+        const partes =
+            String(data).substring(0,10).split("-");
+
+
+        if(partes.length !== 3){
+            return "Não informada";
+        }
+
+
+        return (
+            partes[2] +
+            "/" +
+            partes[1] +
+            "/" +
+            partes[0]
+        );
+
+    }catch(e){
+
+        return "Não informada";
+
+    }
+
+}
+
+
+/* =========================================================
+   ESCAPAR HTML
+   Evita problemas com nomes contendo caracteres especiais.
+========================================================= */
+
+function escaparHTML(valor){
+
+    if(valor === null || valor === undefined){
+        return "";
+    }
+
+    return String(valor)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
    BUSCAR ATLETAS
 ========================================================= */
 
-async function buscarAtletas() {
+async function buscarAtletas(){
 
-    const termo =
-        document
-            .getElementById("busca")
-            .value
-            .trim();
-
+    const termoOriginal =
+        document.getElementById("busca").value.trim();
 
     const resultado =
         document.getElementById("resultado");
 
 
-    if (!eventoId) {
+    if(!eventoId){
 
         resultado.innerHTML = `
             <div class="mensagem">
-                Nenhum evento selecionado.
+                Nenhum evento foi selecionado.
             </div>
         `;
 
         return;
-
     }
 
 
-    if (!termo) {
+    if(!termoOriginal){
 
         resultado.innerHTML = `
             <div class="mensagem">
-                Digite o nome ou o número de peito.
+                Digite o nome ou número de peito.
             </div>
         `;
 
         return;
-
     }
 
 
@@ -1310,50 +848,53 @@ async function buscarAtletas() {
 
 
     /*
-       Busca os atletas do evento atual.
-    */
+     * Busca os atletas do evento.
+     *
+     * Não mostramos CPF, telefone ou outros
+     * dados pessoais na tela.
+     */
 
-    const { data, error } =
-        await db
-            .from("atletas_v2")
-            .select(`
-                id,
-                evento_id,
-                nome,
-                numero_peito,
-                modalidade,
-                camiseta,
-                equipe,
-                produto_extra,
-                status_kit,
-                retirado_por,
-                data_retirada,
-                entregue_por,
-                entregue_por_usuario,
-                retirado_login
-            `)
-            .eq("evento_id", eventoId)
-            .limit(2000);
+    const { data, error } = await db
+        .from("atletas_v2")
+        .select(`
+            id,
+            nome,
+            data_nascimento,
+            numero_peito,
+            modalidade,
+            camiseta,
+            equipe,
+            produto_extra,
+            status_kit,
+            retirado_por,
+            cpf_retirada,
+            data_retirada,
+            entregue_por,
+            entregue_por_usuario,
+            retirado_login
+        `)
+        .eq("evento_id", eventoId)
+        .limit(1000);
 
 
-    if (error) {
+    if(error){
 
         console.error(error);
 
         resultado.innerHTML = `
             <div class="mensagem">
-                Erro ao pesquisar:
+                Erro ao realizar a pesquisa.
+                <br><br>
                 ${escaparHTML(error.message)}
             </div>
         `;
 
         return;
-
     }
 
 
     const busca =
-        normalizar(termo);
+        normalizar(termoOriginal);
 
 
     const encontrados =
@@ -1363,20 +904,18 @@ async function buscarAtletas() {
                 normalizar(atleta.nome);
 
             const numero =
-                normalizar(
-                    atleta.numero_peito
-                );
+                normalizar(atleta.numero_peito);
+
 
             return (
                 nome.includes(busca) ||
-                numero === busca ||
                 numero.includes(busca)
             );
 
         });
 
 
-    if (encontrados.length === 0) {
+    if(encontrados.length === 0){
 
         resultado.innerHTML = `
             <div class="mensagem">
@@ -1385,402 +924,314 @@ async function buscarAtletas() {
         `;
 
         return;
-
     }
 
 
     resultado.innerHTML = "";
 
 
-    encontrados.forEach(
-        (atleta, index) => {
+    encontrados.forEach((atleta, index) => {
 
-            const entregue =
-                String(atleta.status_kit || "")
-                    .toLowerCase()
-                    .trim() === "entregue";
+        const card = document.createElement("div");
 
+        card.className = "card-atleta";
 
-            const nome =
-                escaparHTML(
-                    atleta.nome ||
-                    "Nome não informado"
-                );
+        card.innerHTML = `
 
+            <div class="nome-resumo">
+                ${escaparHTML(atleta.nome)}
+            </div>
 
-            const numero =
-                escaparHTML(
-                    atleta.numero_peito ||
-                    "—"
-                );
+            <div class="nascimento-resumo">
+                Nascimento:
+                ${formatarDataNascimento(atleta.data_nascimento)}
+            </div>
+
+        `;
 
 
-            const dataNascimento =
-                formatarDataNascimento(
-                    atleta.data_nascimento
-                );
+        card.addEventListener(
+            "click",
+            () => abrirDetalhes(atleta)
+        );
 
 
-            /*
-               Como a tabela atletas_v2 atual não possui
-               data_nascimento, tentamos buscar o dado
-               pela tabela antiga caso necessário.
-            */
+        resultado.appendChild(card);
 
-            let dataNascimentoHTML = `
-                <span
-                    class="dado-valor"
-                    id="nascimento-${atleta.id}">
-                    ${escaparHTML(dataNascimento)}
-                </span>
-            `;
+    });
+
+}
 
 
-            const modalidade =
-                escaparHTML(
-                    atleta.modalidade ||
-                    "Não informada"
-                );
+/* =========================================================
+   ABRIR DETALHES
+========================================================= */
+
+function abrirDetalhes(atleta){
+
+    const resultado =
+        document.getElementById("resultado");
 
 
-            const camiseta =
-                escaparHTML(
-                    atleta.camiseta ||
-                    "Não informada"
-                );
+    const entregue =
+        atleta.status_kit === "entregue";
 
 
-            const equipe =
-                escaparHTML(
-                    atleta.equipe ||
-                    "Não informada"
-                );
+    const nome =
+        escaparHTML(atleta.nome);
 
 
-            const produto =
-                escaparHTML(
-                    atleta.produto_extra ||
-                    "Nenhum"
-                );
+    resultado.innerHTML = `
+
+        <div class="detalhes">
+
+            <!-- NOME -->
+
+            <div class="nome-detalhe">
+                ${nome}
+            </div>
 
 
-            /*
-               Informações de retirada.
-            */
+            <!-- NÚMERO -->
 
-            let retiradaHTML = "";
-
-
-            if (entregue) {
-
-                const retiradoPor =
-                    escaparHTML(
-                        atleta.retirado_por ||
-                        "Não informado"
-                    );
+            <div class="numero-detalhe">
+                Nº ${escaparHTML(atleta.numero_peito || "—")}
+            </div>
 
 
-                const atendente =
-                    escaparHTML(
-                        atleta.entregue_por ||
-                        atleta.retirado_login ||
-                        atleta.entregue_por_usuario ||
-                        "Não informado"
-                    );
+            <div class="divisor"></div>
 
 
-                const dataRetirada =
-                    formatarDataHora(
-                        atleta.data_retirada
-                    );
+            <!-- DADOS -->
 
+            <div class="dados-grid">
 
-                retiradaHTML = `
+                <div class="dado">
 
-                    <div class="entrega-info">
-
-                        <p>
-                            <strong>Quem retirou:</strong><br>
-                            ${retiradoPor}
-                        </p>
-
-                        <p>
-                            <strong>Atendente:</strong><br>
-                            ${atendente}
-                        </p>
-
-                        <p>
-                            <strong>Data e horário:</strong><br>
-                            ${escaparHTML(dataRetirada)}
-                        </p>
-
+                    <div class="dado-label">
+                        Data de nascimento
                     </div>
 
-                `;
-
-            }
-
-
-            /*
-               Botão somente se ainda não foi entregue.
-            */
-
-            let acaoHTML = "";
-
-
-            if (!entregue) {
-
-                acaoHTML = `
-
-                    <button
-                        class="btn-entregar"
-                        onclick="abrirEntrega(
-                            '${atleta.id}'
-                        )">
-
-                        ENTREGAR
-
-                    </button>
-
-                `;
-
-            }
-
-
-            resultado.innerHTML += `
-
-                <div
-                    class="atleta-card"
-                    data-index="${index}">
-
-
-                    <!-- TOPO DO ATLETA -->
-
-                    <div class="atleta-topo">
-
-                        <h2 class="nome-atleta">
-                            ${nome}
-                        </h2>
-
-
-                        <div class="numero-label">
-                            NÚMERO DE PEITO
-                        </div>
-
-
-                        <div class="numero-peito">
-                            ${numero}
-                        </div>
-
+                    <div class="dado-valor">
+                        ${formatarDataNascimento(
+                            atleta.data_nascimento
+                        )}
                     </div>
-
-
-
-                    <!-- DADOS -->
-
-                    <div class="dados-atleta">
-
-
-                        <div class="dado">
-
-                            <span class="dado-label">
-                                Data de nascimento
-                            </span>
-
-                            ${dataNascimentoHTML}
-
-                        </div>
-
-
-                        <div class="dado">
-
-                            <span class="dado-label">
-                                Modalidade
-                            </span>
-
-                            <span class="dado-valor">
-                                ${modalidade}
-                            </span>
-
-                        </div>
-
-
-                        <div class="dado">
-
-                            <span class="dado-label">
-                                Camiseta
-                            </span>
-
-                            <span class="dado-valor">
-                                ${camiseta}
-                            </span>
-
-                        </div>
-
-
-                        <div class="dado">
-
-                            <span class="dado-label">
-                                Pelotão / Equipe
-                            </span>
-
-                            <span class="dado-valor">
-                                ${equipe}
-                            </span>
-
-                        </div>
-
-
-                    </div>
-
-
-
-                    <!-- PRODUTO -->
-
-                    <div class="produto-extra">
-
-                        <span class="dado-label">
-                            Produtos
-                        </span>
-
-                        <span class="dado-valor">
-                            ${produto}
-                        </span>
-
-                    </div>
-
-
-
-                    <!-- STATUS -->
-
-                    <div class="retirada-area">
-
-                        <div class="retirada-titulo">
-                            Status da entrega
-                        </div>
-
-
-                        <span
-                            class="status ${
-                                entregue
-                                    ? "status-entregue"
-                                    : "status-pendente"
-                            }">
-
-                            ${
-                                entregue
-                                    ? "ENTREGUE"
-                                    : "AGUARDANDO ENTREGA"
-                            }
-
-                        </span>
-
-                    </div>
-
-
-                    ${retiradaHTML}
-
-
-                    ${
-                        !entregue
-                            ? `
-                                <div
-                                    style="
-                                    padding: 0 20px 20px;
-                                    ">
-
-                                    ${acaoHTML}
-
-                                </div>
-                            `
-                            : ""
-                    }
-
 
                 </div>
 
-            `;
 
-        }
-    );
+                <div class="dado">
 
+                    <div class="dado-label">
+                        Modalidade
+                    </div>
 
-    /*
-       Como a tabela atletas_v2 atual não possui
-       data_nascimento, fazemos uma segunda busca
-       apenas para preencher a data corretamente.
-    */
+                    <div class="dado-valor">
+                        ${escaparHTML(
+                            atleta.modalidade || "Não informada"
+                        )}
+                    </div>
 
-    const ids =
-        encontrados
-            .map(a => a.id)
-            .filter(Boolean);
+                </div>
 
 
-    if (ids.length > 0) {
+                <div class="dado">
 
-        const { data: dadosAntigos } =
-            await db
-                .from("atletas")
-                .select(
-                    "id,nome,numero_peito,data_nascimento"
-                )
-                .eq("evento_id", eventoId);
+                    <div class="dado-label">
+                        Camiseta
+                    </div>
 
+                    <div class="dado-valor">
+                        ${escaparHTML(
+                            atleta.camiseta || "Não informada"
+                        )}
+                    </div>
 
-        if (
-            dadosAntigos &&
-            dadosAntigos.length
-        ) {
-
-            encontrados.forEach(atleta => {
-
-                const nomeAtual =
-                    normalizar(atleta.nome);
+                </div>
 
 
-                const numeroAtual =
-                    normalizar(
-                        atleta.numero_peito
-                    );
+                <div class="dado">
+
+                    <div class="dado-label">
+                        Pelotão
+                    </div>
+
+                    <div class="dado-valor">
+                        ${escaparHTML(
+                            atleta.equipe || "Não informado"
+                        )}
+                    </div>
+
+                </div>
 
 
-                const antigo =
-                    dadosAntigos.find(a =>
-                        normalizar(a.nome) === nomeAtual ||
-                        (
-                            numeroAtual &&
-                            normalizar(a.numero_peito)
-                            === numeroAtual
-                        )
-                    );
+                <div class="dado">
+
+                    <div class="dado-label">
+                        Produtos
+                    </div>
+
+                    <div class="dado-valor">
+                        ${escaparHTML(
+                            atleta.produto_extra || "Nenhum"
+                        )}
+                    </div>
+
+                </div>
+
+            </div>
 
 
-                if (
-                    antigo &&
-                    antigo.data_nascimento
-                ) {
+            ${
+                entregue
 
-                    const elemento =
-                        document.getElementById(
-                            `nascimento-${atleta.id}`
-                        );
+                ?
+
+                gerarHistoricoEntrega(atleta)
+
+                :
+
+                gerarFormularioEntrega(atleta)
+
+            }
 
 
-                    if (elemento) {
+            <button
+                class="botao-voltar"
+                onclick="buscarAtletas()"
+            >
+                Voltar para os resultados
+            </button>
 
-                        elemento.textContent =
-                            formatarDataNascimento(
-                                antigo.data_nascimento
-                            );
+        </div>
 
-                    }
+    `;
 
-                }
+}
 
-            });
 
-        }
+/* =========================================================
+   FORMULÁRIO DE ENTREGA
+========================================================= */
+
+function gerarFormularioEntrega(atleta){
+
+    return `
+
+        <div class="status status-pendente">
+            AGUARDANDO ENTREGA
+        </div>
+
+
+        <div class="bloco-retirada">
+
+            <div class="titulo-retirada">
+                Quem está retirando?
+            </div>
+
+
+            <div class="opcoes-retirada">
+
+                <label class="opcao-retirada">
+
+                    <input
+                        type="radio"
+                        name="tipoRetirada"
+                        value="proprio"
+                        onchange="alterarTipoRetirada()"
+                    >
+
+                    <span>
+                        O próprio atleta
+                    </span>
+
+                </label>
+
+
+                <label class="opcao-retirada">
+
+                    <input
+                        type="radio"
+                        name="tipoRetirada"
+                        value="terceiro"
+                        onchange="alterarTipoRetirada()"
+                    >
+
+                    <span>
+                        Terceiro
+                    </span>
+
+                </label>
+
+            </div>
+
+
+            <div id="campoTerceiro">
+
+                <label>
+                    Nome de quem está retirando
+                </label>
+
+                <input
+                    id="nomeTerceiro"
+                    class="input-terceiro"
+                    type="text"
+                    placeholder="Digite o nome completo"
+                    autocomplete="off"
+                >
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="botao-entregar"
+            onclick="entregar(
+                '${atleta.id}',
+                ${JSON.stringify(atleta.nome)}
+            )"
+        >
+            ENTREGAR
+        </button>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ALTERAR TIPO DE RETIRADA
+========================================================= */
+
+function alterarTipoRetirada(){
+
+    const selecionado =
+        document.querySelector(
+            'input[name="tipoRetirada"]:checked'
+        );
+
+
+    const campo =
+        document.getElementById("campoTerceiro");
+
+
+    if(!selecionado){
+
+        campo.style.display = "none";
+
+        return;
+    }
+
+
+    if(selecionado.value === "terceiro"){
+
+        campo.style.display = "block";
+
+    }else{
+
+        campo.style.display = "none";
 
     }
 
@@ -1788,518 +1239,81 @@ async function buscarAtletas() {
 
 
 /* =========================================================
-   ABRIR JANELA DE ENTREGA
+   HISTÓRICO DE ENTREGA
 ========================================================= */
 
-async function abrirEntrega(id) {
-
-
-    /*
-       Busca novamente o atleta diretamente no banco.
-
-       Isso é importante porque evita entregar um registro
-       que acabou de ser entregue por outro atendente.
-    */
-
-    const { data: atleta, error } =
-        await db
-            .from("atletas_v2")
-            .select("*")
-            .eq("id", id)
-            .single();
-
-
-    if (error || !atleta) {
-
-        Swal.fire({
-
-            title: "Atleta não encontrado",
-
-            text:
-                "Atualize a pesquisa e tente novamente.",
-
-            icon: "error",
-
-            background: "#181818",
-
-            color: "#ffffff",
-
-            confirmButtonColor:
-                "#7CFC00"
-
-        });
-
-        return;
-
-    }
-
-
-    /*
-       PROTEÇÃO CONTRA DUPLA ENTREGA
-    */
-
-    if (
-        String(atleta.status_kit || "")
-            .toLowerCase()
-            .trim()
-        === "entregue"
-    ) {
-
-        Swal.fire({
-
-            title: "ENTREGA JÁ REALIZADA",
-
-            html: `
-
-                <div
-                    style="
-                    font-size:17px;
-                    line-height:1.6;
-                    text-align:left;
-                    ">
-
-                    <b>
-                        ${escaparHTML(atleta.nome)}
-                    </b>
-
-                    <br><br>
-
-                    Este registro já foi marcado
-                    como entregue.
-
-                    <br><br>
-
-                    <b>Quem retirou:</b><br>
-
-                    ${escaparHTML(
-                        atleta.retirado_por ||
-                        "Não informado"
-                    )}
-
-                    <br><br>
-
-                    <b>Data e horário:</b><br>
-
-                    ${escaparHTML(
-                        formatarDataHora(
-                            atleta.data_retirada
-                        )
-                    )}
-
-                </div>
-
-            `,
-
-            icon: "warning",
-
-            background: "#181818",
-
-            color: "#ffffff",
-
-            confirmButtonColor:
-                "#7CFC00"
-
-        });
-
-        return;
-
-    }
-
-
-    /*
-       Tela de confirmação.
-    */
-
-    const resultado =
-        await Swal.fire({
-
-            title:
-                "Confirmar entrega",
-
-            html: `
-
-                <div
-                    style="
-                    text-align:center;
-                    margin-top:10px;
-                    ">
-
-                    <div
-                        style="
-                        font-size:15px;
-                        color:#999;
-                        margin-bottom:5px;
-                        ">
-
-                        ATLETA
-
-                    </div>
-
-
-                    <div
-                        style="
-                        font-size:25px;
-                        font-weight:900;
-                        color:#fff;
-                        margin-bottom:10px;
-                        ">
-
-                        ${escaparHTML(atleta.nome)}
-
-                    </div>
-
-
-                    <div
-                        style="
-                        font-size:13px;
-                        color:#999;
-                        margin-bottom:3px;
-                        ">
-
-                        NÚMERO DE PEITO
-
-                    </div>
-
-
-                    <div
-                        style="
-                        font-size:42px;
-                        font-weight:900;
-                        color:#7CFC00;
-                        margin-bottom:18px;
-                        ">
-
-                        ${escaparHTML(
-                            atleta.numero_peito ||
-                            "—"
-                        )}
-
-                    </div>
-
-
-                    <div
-                        style="
-                        text-align:left;
-                        background:#111;
-                        border:1px solid #333;
-                        border-radius:10px;
-                        padding:15px;
-                        ">
-
-                        <b style="color:#999;">
-                            Data de nascimento:
-                        </b>
-
-                        <br>
-
-                        ${escaparHTML(
-                            formatarDataNascimento(
-                                atleta.data_nascimento
-                            )
-                        )}
-
-                    </div>
-
-                </div>
-
-            `,
-
-            showCancelButton: true,
-
-            confirmButtonText:
-                "CONFIRMAR ENTREGA",
-
-            cancelButtonText:
-                "CANCELAR",
-
-            confirmButtonColor:
-                "#7CFC00",
-
-            cancelButtonColor:
-                "#444",
-
-            background:
-                "#181818",
-
-            color:
-                "#ffffff"
-
-        });
-
-
-    if (!resultado.isConfirmed) {
-
-        return;
-
-    }
-
-
-    /*
-       Depois da confirmação, pergunta quem está retirando.
-    */
-
-    const tipoRetirada =
-        await Swal.fire({
-
-            title:
-                "Quem está retirando?",
-
-            input:
-                "radio",
-
-            inputOptions: {
-
-                proprio:
-                    "O próprio atleta",
-
-                terceiro:
-                    "Terceiro"
-
-            },
-
-            inputValidator:
-                (value) => {
-
-                    if (!value) {
-
-                        return "Selecione uma opção.";
-
-                    }
-
-                },
-
-            confirmButtonText:
-                "CONTINUAR",
-
-            cancelButtonText:
-                "CANCELAR",
-
-            showCancelButton:
-                true,
-
-            confirmButtonColor:
-                "#7CFC00",
-
-            cancelButtonColor:
-                "#444",
-
-            background:
-                "#181818",
-
-            color:
-                "#ffffff"
-
-        });
-
-
-    if (
-        !tipoRetirada.isConfirmed
-    ) {
-
-        return;
-
-    }
+function gerarHistoricoEntrega(atleta){
+
+    const dataEntrega =
+        atleta.data_retirada
+        ?
+        new Date(atleta.data_retirada)
+            .toLocaleString(
+                "pt-BR",
+                {
+                    timeZone:"America/Sao_Paulo"
+                }
+            )
+        :
+        "Não informada";
 
 
     let retiradoPor =
-        "Retirado pelo próprio atleta";
-
-
-    let tipo =
-        "proprio";
-
-
-    let observacao =
-        null;
+        atleta.retirado_por ||
+        "";
 
 
     /*
-       Se for terceiro, pede o nome.
-    */
+     * Se a estrutura antiga gravou o próprio atendente
+     * no campo retirado_por, tentamos manter o histórico.
+     */
 
-    if (
-        tipoRetirada.value === "terceiro"
-    ) {
+    if(!retiradoPor){
 
-        tipo =
-            "terceiro";
-
-
-        const terceiro =
-            await Swal.fire({
-
-                title:
-                    "Quem está retirando?",
-
-                input:
-                    "text",
-
-                inputLabel:
-                    "Nome de quem está retirando",
-
-                inputPlaceholder:
-                    "Digite o nome completo",
-
-                inputAttributes: {
-
-                    autocomplete:
-                        "off"
-
-                },
-
-                showCancelButton:
-                    true,
-
-                confirmButtonText:
-                    "CONFIRMAR",
-
-                cancelButtonText:
-                    "CANCELAR",
-
-                confirmButtonColor:
-                    "#7CFC00",
-
-                cancelButtonColor:
-                    "#444",
-
-                background:
-                    "#181818",
-
-                color:
-                    "#ffffff",
-
-                inputValidator:
-                    (value) => {
-
-                        if (
-                            !value ||
-                            !value.trim()
-                        ) {
-
-                            return
-                                "Digite o nome de quem está retirando.";
-
-                        }
-
-                    }
-
-            });
-
-
-        if (
-            !terceiro.isConfirmed
-        ) {
-
-            return;
-
-        }
-
-
-        retiradoPor =
-            terceiro.value.trim();
-
-
-        /*
-           Mantemos o nome também como observação,
-           para preservar a informação.
-        */
-
-        observacao =
-            retiradoPor;
+        retiradoPor = "Não informado";
 
     }
 
 
-    /*
-       Confirmação final.
-    */
+    return `
 
-    const finalConfirmacao =
-        await Swal.fire({
-
-            title:
-                "Confirmar entrega?",
-
-            html: `
-
-                <div
-                    style="
-                    font-size:17px;
-                    line-height:1.6;
-                    ">
-
-                    <b>
-                        ${escaparHTML(
-                            atleta.nome
-                        )}
-                    </b>
-
-                    <br>
-
-                    Número:
-                    <b>
-                        ${escaparHTML(
-                            atleta.numero_peito ||
-                            "—"
-                        )}
-                    </b>
-
-                    <br><br>
-
-                    Retirado por:
-
-                    <b>
-                        ${escaparHTML(
-                            retiradoPor
-                        )}
-                    </b>
-
-                </div>
-
-            `,
-
-            icon:
-                "question",
-
-            showCancelButton:
-                true,
-
-            confirmButtonText:
-                "SIM, ENTREGAR",
-
-            cancelButtonText:
-                "VOLTAR",
-
-            confirmButtonColor:
-                "#7CFC00",
-
-            cancelButtonColor:
-                "#444",
-
-            background:
-                "#181818",
-
-            color:
-                "#ffffff"
-
-        });
+        <div class="status status-entregue">
+            ENTREGA REALIZADA
+        </div>
 
 
-    if (
-        !finalConfirmacao.isConfirmed
-    ) {
+        <div class="historico-entrega">
 
-        return;
-
-    }
+            <div class="historico-titulo">
+                Registro da entrega
+            </div>
 
 
-    await registrarEntrega(
-        atleta,
-        retiradoPor,
-        tipo,
-        observacao
-    );
+            <div class="historico-item">
+                <strong>Retirado por:</strong>
+                ${escaparHTML(retiradoPor)}
+            </div>
+
+
+            <div class="historico-item">
+                <strong>Atendente:</strong>
+                ${escaparHTML(
+                    atleta.entregue_por ||
+                    atleta.retirado_login ||
+                    atleta.entregue_por_usuario ||
+                    "Não informado"
+                )}
+            </div>
+
+
+            <div class="historico-item">
+                <strong>Data e horário:</strong>
+                ${escaparHTML(dataEntrega)}
+            </div>
+
+        </div>
+
+    `;
 
 }
 
@@ -2308,86 +1322,33 @@ async function abrirEntrega(id) {
    REGISTRAR ENTREGA
 ========================================================= */
 
-async function registrarEntrega(
-    atleta,
-    retiradoPor,
-    tipoRetirada,
-    observacao
-) {
-
-
-    const agora =
-        new Date().toISOString();
-
+async function entregar(id, nome){
 
     /*
-       NOVA PROTEÇÃO:
+     * Verifica quem vai retirar
+     */
 
-       Só atualiza se o registro ainda estiver
-       pendente.
-
-       Isso impede que dois atendentes entreguem
-       simultaneamente o mesmo registro.
-    */
-
-    const { data: atualizado, error } =
-        await db
-            .from("atletas_v2")
-            .update({
-
-                status_kit:
-                    "entregue",
-
-                retirado_por:
-                    retiradoPor,
-
-                retirado_login:
-                    usuarioLogado
-                        ? usuarioLogado.email
-                        : "Desconhecido",
-
-                entregue_por:
-                    usuarioLogado
-                        ? usuarioLogado.nome
-                        : "Desconhecido",
-
-                entregue_por_usuario:
-                    usuarioLogado
-                        ? usuarioLogado.id
-                        : null,
-
-                data_retirada:
-                    agora
-
-            })
-            .eq("id", atleta.id)
-            .neq("status_kit", "entregue")
-            .select("id");
+    const selecionado =
+        document.querySelector(
+            'input[name="tipoRetirada"]:checked'
+        );
 
 
-    if (error) {
+    if(!selecionado){
 
-        console.error(error);
+        await Swal.fire({
 
-        Swal.fire({
+            title:"Atenção",
 
-            title:
-                "Erro na entrega",
+            text:"Selecione quem está retirando.",
 
-            text:
-                error.message,
+            icon:"warning",
 
-            icon:
-                "error",
+            background:"#101010",
 
-            background:
-                "#181818",
+            color:"#ffffff",
 
-            color:
-                "#ffffff",
-
-            confirmButtonColor:
-                "#7CFC00"
+            confirmButtonColor:"#7CFC00"
 
         });
 
@@ -2396,37 +1357,183 @@ async function registrarEntrega(
     }
 
 
+    let tipoRetirada =
+        selecionado.value;
+
+
+    let retiradoPor = "";
+
+
     /*
-       Se não atualizou nenhuma linha,
-       significa que alguém já entregou.
-    */
+     * PRÓPRIO ATLETA
+     */
 
-    if (
-        !atualizado ||
-        atualizado.length === 0
-    ) {
+    if(tipoRetirada === "proprio"){
 
-        Swal.fire({
+        retiradoPor =
+            "Retirado pelo próprio atleta";
 
-            title:
-                "ATENÇÃO",
+    }
 
-            text:
-                "Este atleta já foi marcado como entregue por outro atendente.",
 
-            icon:
-                "warning",
+    /*
+     * TERCEIRO
+     */
 
-            background:
-                "#181818",
+    if(tipoRetirada === "terceiro"){
 
-            color:
-                "#ffffff",
+        const campo =
+            document.getElementById("nomeTerceiro");
 
-            confirmButtonColor:
-                "#7CFC00"
+
+        const nomeTerceiro =
+            campo
+            ?
+            campo.value.trim()
+            :
+            "";
+
+
+        if(!nomeTerceiro){
+
+            await Swal.fire({
+
+                title:"Informe o responsável",
+
+                text:"Digite o nome de quem está retirando.",
+
+                icon:"warning",
+
+                background:"#101010",
+
+                color:"#ffffff",
+
+                confirmButtonColor:"#7CFC00"
+
+            });
+
+            return;
+
+        }
+
+
+        retiradoPor =
+            nomeTerceiro;
+
+    }
+
+
+    /*
+     * CONFIRMAÇÃO
+     */
+
+    const confirmar =
+        await Swal.fire({
+
+            title:"Confirmar entrega",
+
+            html:`
+                <div style="
+                    font-size:18px;
+                    line-height:1.5;
+                ">
+                    <strong>
+                        ${escaparHTML(nome)}
+                    </strong>
+                    <br><br>
+                    Retirado por:<br>
+                    <strong>
+                        ${escaparHTML(retiradoPor)}
+                    </strong>
+                </div>
+            `,
+
+            icon:"question",
+
+            background:"#101010",
+
+            color:"#ffffff",
+
+            confirmButtonColor:"#7CFC00",
+
+            confirmButtonText:"Confirmar entrega",
+
+            cancelButtonColor:"#444444",
+
+            cancelButtonText:"Cancelar",
+
+            showCancelButton:true
 
         });
+
+
+    if(!confirmar.isConfirmed){
+
+        return;
+
+    }
+
+
+    /*
+     * EVITA DUPLA ENTREGA
+     *
+     * Antes de atualizar, consulta novamente
+     * o registro no banco.
+     */
+
+    const {
+        data: atletaAtual,
+        error: erroConsulta
+    } = await db
+        .from("atletas_v2")
+        .select("id,status_kit")
+        .eq("id",id)
+        .single();
+
+
+    if(erroConsulta){
+
+        await Swal.fire({
+
+            title:"Erro",
+
+            text:
+                "Não foi possível verificar o status atual.",
+
+            icon:"error",
+
+            background:"#101010",
+
+            color:"#ffffff",
+
+            confirmButtonColor:"#7CFC00"
+
+        });
+
+        return;
+
+    }
+
+
+    if(atletaAtual.status_kit === "entregue"){
+
+        await Swal.fire({
+
+            title:"Entrega já realizada",
+
+            text:
+                "Este atleta já consta como entregue no sistema.",
+
+            icon:"warning",
+
+            background:"#101010",
+
+            color:"#ffffff",
+
+            confirmButtonColor:"#7CFC00"
+
+        });
+
 
         buscarAtletas();
 
@@ -2436,21 +1543,101 @@ async function registrarEntrega(
 
 
     /*
-       Registra na tabela entregas.
-    */
+     * DATA/HORA
+     */
+
+    const agora =
+        new Date().toISOString();
+
+
+    /*
+     * ATUALIZA ATLETA
+     */
+
+    const { error: erroAtualizacao } =
+        await db
+            .from("atletas_v2")
+            .update({
+
+                status_kit:"entregue",
+
+                retirado_por:
+                    retiradoPor,
+
+                data_retirada:
+                    agora,
+
+                entregue_por:
+                    usuarioLogado
+                    ?
+                    usuarioLogado.nome
+                    :
+                    "Desconhecido",
+
+                entregue_por_usuario:
+                    usuarioLogado
+                    ?
+                    usuarioLogado.email
+                    :
+                    "Desconhecido",
+
+                retirado_login:
+                    usuarioLogado
+                    ?
+                    usuarioLogado.email
+                    :
+                    "Desconhecido"
+
+            })
+            .eq("id",id)
+            .eq("status_kit","pendente");
+
+
+    if(erroAtualizacao){
+
+        console.error(erroAtualizacao);
+
+
+        await Swal.fire({
+
+            title:"Erro",
+
+            text:
+                "Não foi possível registrar a entrega: " +
+                erroAtualizacao.message,
+
+            icon:"error",
+
+            background:"#101010",
+
+            color:"#ffffff",
+
+            confirmButtonColor:"#7CFC00"
+
+        });
+
+        return;
+
+    }
+
+
+    /*
+     * REGISTRA NA TABELA DE ENTREGAS
+     */
 
     const { error: erroEntrega } =
         await db
             .from("entregas")
             .insert([{
 
-                atleta_id:
-                    atleta.id,
+                atleta_id:id,
 
                 usuario_id:
                     usuarioLogado
-                        ? usuarioLogado.id
-                        : null,
+                    ?
+                    usuarioLogado.id
+                    :
+                    null,
 
                 retirado_por:
                     retiradoPor,
@@ -2459,7 +1646,11 @@ async function registrarEntrega(
                     tipoRetirada,
 
                 observacao:
-                    observacao,
+                    tipoRetirada === "proprio"
+                    ?
+                    "Retirado pelo próprio atleta"
+                    :
+                    "Retirado por terceiro: " + retiradoPor,
 
                 entregue_em:
                     agora
@@ -2467,10 +1658,16 @@ async function registrarEntrega(
             }]);
 
 
-    if (erroEntrega) {
+    /*
+     * Se der erro na tabela de entregas,
+     * não apagamos a entrega principal.
+     * Apenas registramos na auditoria.
+     */
+
+    if(erroEntrega){
 
         console.error(
-            "Erro ao registrar tabela entregas:",
+            "Erro ao registrar histórico em entregas:",
             erroEntrega
         );
 
@@ -2478,35 +1675,8 @@ async function registrarEntrega(
 
 
     /*
-       Auditoria.
-    */
-
-    const detalheAuditoria =
-
-        `Entrega registrada. ` +
-
-        `Atleta: ${atleta.nome}. ` +
-
-        `Número: ${atleta.numero_peito || "não informado"}. ` +
-
-        `Retirado por: ${retiradoPor}. ` +
-
-        `Tipo: ${tipoRetirada}. ` +
-
-        `Atendente: ${
-            usuarioLogado
-                ? usuarioLogado.nome
-                : "Desconhecido"
-        }. ` +
-
-        `Login: ${
-            usuarioLogado
-                ? usuarioLogado.email
-                : "Desconhecido"
-        }. ` +
-
-        `Data: ${agora}.`;
-
+     * AUDITORIA
+     */
 
     const { error: erroAuditoria } =
         await db
@@ -2518,19 +1688,34 @@ async function registrarEntrega(
 
                 usuario:
                     usuarioLogado
-                        ? usuarioLogado.nome
-                        : "Desconhecido",
+                    ?
+                    usuarioLogado.nome
+                    :
+                    "Desconhecido",
 
                 acao:
                     "Entrega de inscrição",
 
                 detalhe:
-                    detalheAuditoria
+                    "Atleta: " +
+                    nome +
+                    " | Retirado por: " +
+                    retiradoPor +
+                    " | Atendente: " +
+                    (
+                        usuarioLogado
+                        ?
+                        usuarioLogado.email
+                        :
+                        "Desconhecido"
+                    ) +
+                    " | ID: " +
+                    id
 
             }]);
 
 
-    if (erroAuditoria) {
+    if(erroAuditoria){
 
         console.error(
             "Erro na auditoria:",
@@ -2541,80 +1726,45 @@ async function registrarEntrega(
 
 
     /*
-       Mensagem de sucesso.
-    */
+     * SUCESSO
+     */
 
     await Swal.fire({
 
-        title:
-            "ENTREGA CONFIRMADA!",
+        title:"Entrega confirmada!",
 
-        html: `
-
-            <div
-                style="
+        html:`
+            <div style="
                 font-size:18px;
-                line-height:1.6;
-                ">
-
-                <b>
-                    ${escaparHTML(
-                        atleta.nome
-                    )}
-                </b>
-
-                <br>
-
-                Número:
-
-                <strong
-                    style="
-                    color:#7CFC00;
-                    font-size:28px;
-                    ">
-
-                    ${escaparHTML(
-                        atleta.numero_peito ||
-                        "—"
-                    )}
-
+                line-height:1.5;
+            ">
+                <strong>
+                    ${escaparHTML(nome)}
                 </strong>
-
                 <br><br>
-
-                Retirado por:
-
-                <b>
-                    ${escaparHTML(
-                        retiradoPor
-                    )}
-                </b>
-
+                Retirado por:<br>
+                <strong>
+                    ${escaparHTML(retiradoPor)}
+                </strong>
             </div>
-
         `,
 
-        icon:
-            "success",
+        icon:"success",
 
-        background:
-            "#181818",
+        background:"#101010",
 
-        color:
-            "#ffffff",
+        color:"#ffffff",
 
-        confirmButtonColor:
-            "#7CFC00",
+        confirmButtonColor:"#7CFC00",
 
-        confirmButtonText:
-            "OK"
+        confirmButtonText:"OK"
 
     });
 
 
     /*
-       Atualiza a pesquisa.
-    */
+     * Retorna para a pesquisa.
+     */
 
     buscarAtletas();
 
@@ -2622,32 +1772,10 @@ async function registrarEntrega(
 
 
 /* =========================================================
-   INICIALIZAÇÃO
+   INICIAR
 ========================================================= */
 
 verificarAcesso();
-
-
-/* =========================================================
-   ENTER NA PESQUISA
-========================================================= */
-
-document
-    .getElementById("busca")
-    .addEventListener(
-        "keydown",
-        function(event) {
-
-            if (
-                event.key === "Enter"
-            ) {
-
-                buscarAtletas();
-
-            }
-
-        }
-    );
 
 </script>
 
