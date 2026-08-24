@@ -1,257 +1,912 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Importar Planilha - Pratini Manager</title>
 
-<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Central de Entrega - Pratini Sports</title>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script>
-const SUPABASE_URL = "https://kchpprimvfnwchztwlsa.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
-
-const db = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
-</script>
 
 <style>
+
 :root{
+
     --verde:#7CFC00;
+
     --grafite:#202326;
+
     --grafite-claro:#2b2f33;
+
     --preto:#050505;
+
     --texto:#f5f5f5;
+
+    --cinza:#b8b8b8;
 }
+
 
 *{
     box-sizing:border-box;
 }
 
+
+html,
 body{
     margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:var(--grafite);
-    color:var(--texto);
+    padding:0;
+    min-height:100%;
 }
+
+
+body{
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        var(--grafite);
+
+    color:
+        var(--texto);
+}
+
+
+/* =========================
+   CABEÇALHO
+========================= */
 
 header{
-    background:#111;
-    border-bottom:1px solid #34383c;
-    padding:22px;
-    text-align:center;
+
+    position:relative;
+
+    min-height:105px;
+
+    background:#101214;
+
+    border-bottom:
+        1px solid #383c40;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:
+        15px 180px;
+}
+
+
+.logo{
+
+    position:absolute;
+
+    left:28px;
+
+    top:50%;
+
+    transform:
+        translateY(-50%);
+
+    width:145px;
+
+    max-height:80px;
+
+    object-fit:contain;
+}
+
+
+.titulo-header{
+
     font-size:26px;
+
     font-weight:700;
+
     letter-spacing:.5px;
+
+    text-align:center;
+
     color:#fff;
 }
+
+
+/* =========================
+   CONTAINER
+========================= */
 
 .container{
-    padding:25px;
-    max-width:900px;
+
+    max-width:950px;
+
     margin:auto;
+
+    padding:25px 20px 40px;
 }
 
-.card{
-    background:#111;
-    border:1px solid #34383c;
-    padding:22px;
-    border-radius:14px;
-    margin-bottom:18px;
-    box-shadow:0 8px 25px rgba(0,0,0,.20);
-}
 
-h2{
-    margin-top:0;
-}
+/* =========================
+   EVENTO
+========================= */
 
-input,
-select,
-button{
-    width:100%;
-    padding:14px;
-    margin:8px 0;
-    border:none;
-    border-radius:9px;
-    font-size:16px;
-    box-sizing:border-box;
-}
+.evento{
 
-input,
-select{
-    background:#222;
+    text-align:center;
+
+    margin-bottom:20px;
+
     color:#fff;
-    border:1px solid #444;
-}
 
-button{
-    background:var(--verde);
-    color:#050505;
+    font-size:23px;
+
     font-weight:bold;
+}
+
+
+/* =========================
+   PESQUISA
+========================= */
+
+.pesquisa{
+
+    background:#111;
+
+    border:
+        1px solid #3a3e42;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    margin-bottom:22px;
+}
+
+
+.pesquisa input{
+
+    width:100%;
+
+    padding:16px 18px;
+
+    background:#202326;
+
+    color:#fff;
+
+    border:
+        1px solid #444;
+
+    border-radius:10px;
+
+    font-size:18px;
+
+    outline:none;
+}
+
+
+.pesquisa input:focus{
+
+    border-color:
+        var(--verde);
+
+    box-shadow:
+        0 0 0 2px
+        rgba(124,252,0,.10);
+}
+
+
+.botao-buscar{
+
+    width:100%;
+
+    margin-top:10px;
+
+    padding:15px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:
+        var(--verde);
+
+    color:#050505;
+
+    font-size:18px;
+
+    font-weight:bold;
+
     cursor:pointer;
-    transition:.2s;
 }
 
-button:hover{
-    filter:brightness(.9);
+
+/* =========================
+   RESULTADOS
+========================= */
+
+#resultado{
+    width:100%;
 }
 
-button:disabled{
-    opacity:.5;
-    cursor:not-allowed;
+
+.card-busca{
+
+    background:#080808;
+
+    border:
+        1px solid #3d4145;
+
+    border-left:
+        4px solid var(--verde);
+
+    border-radius:12px;
+
+    padding:18px 20px;
+
+    margin-bottom:12px;
+
+    cursor:pointer;
+
+    transition:
+        .18s ease;
+
+    box-shadow:
+        0 5px 18px
+        rgba(0,0,0,.25);
 }
+
+
+.card-busca:hover{
+
+    border-color:
+        var(--verde);
+
+    transform:
+        translateY(-1px);
+
+    box-shadow:
+        0 7px 22px
+        rgba(124,252,0,.12);
+}
+
+
+.nome-busca{
+
+    font-size:21px;
+
+    font-weight:bold;
+
+    color:#fff;
+
+    margin-bottom:8px;
+}
+
+
+.nascimento-busca{
+
+    color:#bdbdbd;
+
+    font-size:16px;
+}
+
+
+.nascimento-busca strong{
+
+    color:#fff;
+}
+
+
+/* =========================
+   CARD DETALHES
+========================= */
+
+.card-detalhes{
+
+    background:
+        #050505;
+
+    border:
+        1px solid #4a4f54;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    margin-bottom:25px;
+
+    box-shadow:
+        0 0 0 1px
+        rgba(124,252,0,.10),
+
+        0 12px 35px
+        rgba(0,0,0,.40);
+}
+
+
+/* NOME SOMENTE UMA VEZ */
+
+.nome-detalhe{
+
+    text-align:center;
+
+    font-size:30px;
+
+    line-height:1.15;
+
+    font-weight:800;
+
+    color:#fff;
+
+    margin:
+        0 0 20px;
+
+    word-break:normal;
+}
+
+
+/* =========================
+   NÚMERO DE PEITO
+========================= */
+
+.numero-box{
+
+    text-align:center;
+
+    padding:
+        20px 15px 24px;
+
+    margin-bottom:22px;
+
+    background:#111;
+
+    border:
+        1px solid #383838;
+
+    border-radius:14px;
+}
+
+
+.numero-label{
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+    color:#aaa;
+
+    margin-bottom:5px;
+}
+
+
+.numero{
+
+    font-size:68px;
+
+    line-height:1;
+
+    font-weight:900;
+
+    color:#fff;
+
+    text-shadow:
+        0 0 12px
+        rgba(255,255,255,.18);
+}
+
+
+/* =========================
+   DADOS
+========================= */
+
+.dados{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:12px;
+
+    margin-bottom:20px;
+}
+
+
+.dado{
+
+    background:#111;
+
+    border:
+        1px solid #303438;
+
+    border-radius:11px;
+
+    padding:14px;
+}
+
+
+.dado-label{
+
+    color:#969696;
+
+    font-size:13px;
+
+    text-transform:uppercase;
+
+    font-weight:bold;
+
+    letter-spacing:.5px;
+
+    margin-bottom:6px;
+}
+
+
+.dado-valor{
+
+    color:#fff;
+
+    font-size:19px;
+
+    font-weight:600;
+
+    word-break:break-word;
+}
+
+
+/* =========================
+   PRODUTO
+========================= */
+
+.produto{
+
+    background:#111;
+
+    border:
+        1px solid #303438;
+
+    border-radius:11px;
+
+    padding:15px;
+
+    margin-bottom:18px;
+}
+
+
+.produto .dado-valor{
+
+    font-size:19px;
+}
+
+
+/* =========================
+   RETIRADA
+========================= */
+
+.retirada{
+
+    border-top:
+        1px solid #343434;
+
+    padding-top:20px;
+
+    margin-top:15px;
+}
+
+
+.retirada-titulo{
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    margin-bottom:12px;
+}
+
+
+.opcoes{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:10px;
+
+    margin-bottom:15px;
+}
+
+
+.opcao{
+
+    background:#151515;
+
+    border:
+        1px solid #3a3a3a;
+
+    border-radius:10px;
+
+    padding:15px;
+
+    cursor:pointer;
+
+    font-size:17px;
+
+    text-align:center;
+
+    transition:.15s;
+}
+
+
+.opcao.ativo{
+
+    border-color:
+        var(--verde);
+
+    background:
+        rgba(124,252,0,.08);
+
+    color:
+        var(--verde);
+}
+
+
+.opcao input{
+
+    display:none;
+}
+
+
+.campo-terceiro{
+
+    display:none;
+
+    margin-bottom:15px;
+}
+
+
+.campo-terceiro label{
+
+    display:block;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    margin-bottom:6px;
+
+    color:#ccc;
+}
+
+
+.campo-terceiro input{
+
+    width:100%;
+
+    padding:14px;
+
+    background:#202326;
+
+    border:
+        1px solid #444;
+
+    border-radius:9px;
+
+    color:#fff;
+
+    font-size:17px;
+}
+
+
+.observacao{
+
+    margin-bottom:15px;
+}
+
+
+.observacao label{
+
+    display:block;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    margin-bottom:6px;
+
+    color:#ccc;
+}
+
+
+.observacao textarea{
+
+    width:100%;
+
+    min-height:80px;
+
+    resize:vertical;
+
+    background:#202326;
+
+    color:#fff;
+
+    border:
+        1px solid #444;
+
+    border-radius:9px;
+
+    padding:14px;
+
+    font-family:Arial;
+
+    font-size:16px;
+}
+
+
+/* =========================
+   BOTÃO ENTREGAR
+========================= */
+
+.botao-entregar{
+
+    width:100%;
+
+    border:0;
+
+    border-radius:11px;
+
+    padding:17px;
+
+    margin-top:8px;
+
+    background:
+        var(--verde);
+
+    color:#050505;
+
+    font-size:20px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 6px 18px
+        rgba(124,252,0,.16);
+}
+
+
+.botao-entregar:hover{
+
+    filter:brightness(.92);
+}
+
+
+/* =========================
+   ENTREGUE
+========================= */
+
+.entregue-box{
+
+    background:#111;
+
+    border:
+        1px solid #3b3b3b;
+
+    border-radius:12px;
+
+    padding:18px;
+
+    margin-top:15px;
+}
+
+
+.status-entregue{
+
+    color:
+        var(--verde);
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    margin-bottom:12px;
+}
+
+
+.info-entrega{
+
+    font-size:17px;
+
+    line-height:1.7;
+
+    color:#ddd;
+}
+
+
+/* =========================
+   VOLTAR
+========================= */
 
 .voltar{
+
+    width:100%;
+
+    padding:15px;
+
     background:#333;
-    color:white;
+
+    color:#fff;
+
+    border:0;
+
+    border-radius:10px;
+
+    font-size:17px;
+
+    cursor:pointer;
 }
 
-.ok{
-    color:var(--verde);
-    font-weight:bold;
-}
 
-.erro{
-    color:#ff5252;
-    font-weight:bold;
-}
-
-label{
-    display:block;
-    margin-top:12px;
-    margin-bottom:4px;
-    font-weight:bold;
-}
+/* =========================
+   CARREGANDO
+========================= */
 
 .carregando{
+
     display:flex;
+
     justify-content:center;
+
     align-items:center;
+
     height:100vh;
-    font-size:16px;
-    color:#cfcfcf;
+
+    color:#ccc;
+
+    font-size:17px;
 }
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:650px){
+
+    header{
+
+        min-height:90px;
+
+        padding:
+            15px 120px 15px 120px;
+    }
+
+    .logo{
+
+        left:15px;
+
+        width:105px;
+
+        max-height:65px;
+    }
+
+    .titulo-header{
+
+        font-size:21px;
+    }
+
+    .dados{
+
+        grid-template-columns:1fr;
+    }
+
+    .opcoes{
+
+        grid-template-columns:1fr;
+    }
+
+    .nome-detalhe{
+
+        font-size:25px;
+    }
+
+    .numero{
+
+        font-size:58px;
+    }
+
+    .container{
+
+        padding:
+            18px 12px 30px;
+    }
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<div id="telaCarregando" class="carregando">
+
+<div
+    id="telaCarregando"
+    class="carregando"
+>
     Verificando acesso...
 </div>
 
-<div id="telaPainel" style="display:none;">
+
+<div
+    id="telaPainel"
+    style="display:none;"
+>
+
 
 <header>
-    CENTRAL DE IMPORTAÇÃO
+
+    <img
+        src="Colorida.png"
+        class="logo"
+        alt="Pratini Sports"
+    >
+
+    <div class="titulo-header">
+        CENTRAL DE ENTREGA
+    </div>
+
 </header>
+
 
 <div class="container">
 
-<div class="card">
-    <h2 id="eventoAtivo"></h2>
+
+<div
+    id="eventoAtivo"
+    class="evento"
+>
+    Carregando...
 </div>
 
-<div class="card">
 
-    <h2>Selecionar Planilha</h2>
+<div class="pesquisa">
 
     <input
-        type="file"
-        id="arquivo"
-        accept=".xlsx,.xls,.csv"
+        id="busca"
+        type="text"
+        placeholder="Digite o nome ou número de peito"
+        autocomplete="off"
+        onkeydown="
+            if(event.key==='Enter'){
+                buscarAtletas();
+            }
+        "
     >
 
-    <button onclick="lerArquivo()">
-        Ler Planilha
+    <button
+        class="botao-buscar"
+        onclick="buscarAtletas()"
+    >
+        BUSCAR
     </button>
 
-    <p>
-        Formatos aceitos: Excel (.xlsx/.xls) e CSV.
-    </p>
-
 </div>
 
-<div
-    class="card"
-    id="mapeamento"
-    style="display:none;"
->
 
-<h2>Mapear Colunas</h2>
+<div id="resultado"></div>
 
-<label>Nome do atleta</label>
-<select id="colNome"></select>
-
-<label>CPF</label>
-<select id="colCpf"></select>
-
-<label>Data de nascimento</label>
-<select id="colNascimento"></select>
-
-<label>Número de peito</label>
-<select id="colNumero"></select>
-
-<label>Modalidade</label>
-<select id="colModalidade"></select>
-
-<label>Camiseta</label>
-<select id="colCamiseta"></select>
-
-<label>Equipe</label>
-<select id="colEquipe"></select>
-
-<label>Pelotão</label>
-<select id="colPelotao"></select>
-
-<label>Produto Extra</label>
-<select id="colProduto"></select>
-
-<button onclick="preVisualizar()">
-    Pré-visualizar Importação
-</button>
-
-</div>
-
-<div
-    class="card"
-    id="preview"
-    style="display:none;"
->
-
-<h2>Pré-visualização</h2>
-
-<p id="resumo"></p>
-
-<button
-    id="btnImportar"
-    onclick="importarAtletas()"
->
-    Importar Atletas
-</button>
-
-<p
-    id="progresso"
-    style="display:none;"
-></p>
-
-</div>
-
-<div
-    class="card"
-    id="resultado"
-    style="display:none;"
->
-
-<h2>Resultado</h2>
-
-<p id="resultadoTexto"></p>
-
-</div>
 
 <button
     class="voltar"
@@ -260,60 +915,103 @@ label{
     Voltar ao Painel
 </button>
 
+
 </div>
 
 </div>
+
 
 <script>
 
-let dadosPlanilha = [];
-let colunas = [];
-let nomeArquivo = "";
+
+const SUPABASE_URL =
+    "https://kchpprimvfnwchztwlsa.supabase.co";
+
+const SUPABASE_ANON_KEY =
+    "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
+
+
+const db =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
 let usuarioLogado = null;
 
+
 const eventoId =
-    localStorage.getItem("evento_ativo_id");
+    localStorage.getItem(
+        "evento_ativo_id"
+    );
+
 
 const eventoNome =
-    localStorage.getItem("evento_ativo_nome");
+    localStorage.getItem(
+        "evento_ativo_nome"
+    );
 
+
+let atletaSelecionado = null;
+
+
+/* =========================
+   ACESSO
+========================= */
 
 async function verificarAcesso(){
 
-    const { data: sessao } =
+    const {
+        data: sessao
+    } =
         await db.auth.getSession();
 
-    if(!sessao || !sessao.session){
-        window.location.href = "login.html";
+
+    if(
+        !sessao ||
+        !sessao.session
+    ){
+
+        window.location.href =
+            "login.html";
+
         return;
     }
+
 
     const usuario =
         sessao.session.user;
 
-    const { data: perfil, error } =
+
+    const {
+        data: perfil,
+        error
+    } =
         await db
         .from("perfis")
         .select("role,nome")
         .eq("id",usuario.id)
         .single();
 
+
     if(
         error ||
-        !perfil ||
-        perfil.role !== "admin"
+        !perfil
     ){
-        alert(
-            "Acesso restrito ao administrador."
-        );
 
         window.location.href =
-            "dashboard.html";
+            "login.html";
 
         return;
     }
 
+
     usuarioLogado = {
+
+        id:
+            usuario.id,
+
         nome:
             perfil.nome ||
             usuario.email,
@@ -322,890 +1020,1154 @@ async function verificarAcesso(){
             usuario.email
     };
 
+
     document.getElementById(
         "eventoAtivo"
     ).innerText =
         eventoNome ||
         "Nenhum evento selecionado.";
 
+
     document.getElementById(
         "telaCarregando"
-    ).style.display = "none";
+    ).style.display =
+        "none";
+
 
     document.getElementById(
         "telaPainel"
-    ).style.display = "block";
+    ).style.display =
+        "block";
 }
 
 
-function normalizarTexto(txt){
+/* =========================
+   NORMALIZAR
+========================= */
+
+function normalizar(txt){
 
     return (txt || "")
         .toString()
-        .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g,"")
+        .replace(
+            /[\u0300-\u036f]/g,
+            ""
+        )
+        .toLowerCase()
         .trim();
 }
 
 
-function sugerirColuna(palavras){
+/* =========================
+   ESCAPAR HTML
+========================= */
 
-    for(const coluna of colunas){
+function escaparHTML(texto){
 
-        const c =
-            normalizarTexto(coluna);
-
-        for(const palavra of palavras){
-
-            if(
-                c.includes(
-                    normalizarTexto(palavra)
-                )
-            ){
-                return coluna;
-            }
-        }
-    }
-
-    return "";
+    return (texto || "")
+        .toString()
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 }
 
 
-function preencherSelects(){
+/* =========================
+   DATA
+========================= */
 
-    const campos = [
+function formatarData(data){
 
-        [
-            "colNome",
-            [
-                "nome completo",
-                "nome",
-                "atleta"
-            ]
-        ],
-
-        [
-            "colCpf",
-            [
-                "cpf",
-                "documento"
-            ]
-        ],
-
-        [
-            "colNascimento",
-            [
-                "nascimento",
-                "data nascimento",
-                "data de nascimento"
-            ]
-        ],
-
-        [
-            "colNumero",
-            [
-                "numero de peito",
-                "numero peito",
-                "numero",
-                "peito",
-                "bib"
-            ]
-        ],
-
-        [
-            "colModalidade",
-            [
-                "modalidade",
-                "distancia",
-                "distância",
-                "prova"
-            ]
-        ],
-
-        [
-            "colCamiseta",
-            [
-                "camiseta",
-                "tamanho"
-            ]
-        ],
-
-        [
-            "colEquipe",
-            [
-                "equipe ou assessoria",
-                "nome da equipe",
-                "equipe",
-                "assessoria"
-            ]
-        ],
-
-        [
-            "colPelotao",
-            [
-                "pelotao",
-                "pelotão",
-                "pace"
-            ]
-        ],
-
-        [
-            "colProduto",
-            [
-                "produto extra",
-                "produto",
-                "extra",
-                "brinde"
-            ]
-        ]
-    ];
+    if(!data){
+        return "Não informada";
+    }
 
 
-    campos.forEach(
-        ([id,sugestoes])=>{
+    // Caso seja YYYY-MM-DD
+    const somenteData =
+        data.toString().split("T")[0];
 
-            const select =
-                document.getElementById(id);
 
-            select.innerHTML =
-                "<option value=''>Não importar</option>";
+    const partes =
+        somenteData.split("-");
 
-            colunas.forEach(col=>{
 
-                const option =
-                    document.createElement("option");
+    if(
+        partes.length === 3
+    ){
 
-                option.value = col;
-                option.textContent = col;
+        return (
+            partes[2] +
+            "/" +
+            partes[1] +
+            "/" +
+            partes[0]
+        );
+    }
 
-                select.appendChild(option);
-            });
 
-            const sugestao =
-                sugerirColuna(sugestoes);
+    const d =
+        new Date(data);
 
-            if(sugestao){
-                select.value = sugestao;
-            }
+
+    if(
+        isNaN(d.getTime())
+    ){
+
+        return "Não informada";
+    }
+
+
+    return d.toLocaleDateString(
+        "pt-BR",
+        {
+            timeZone:
+                "America/Sao_Paulo"
         }
     );
 }
 
 
-function lerArquivo(){
+/* =========================
+   BUSCAR
+========================= */
+
+async function buscarAtletas(){
+
+    const termo =
+        document
+        .getElementById("busca")
+        .value
+        .trim();
+
+
+    const resultado =
+        document
+        .getElementById("resultado");
+
 
     if(!eventoId){
 
-        alert(
-            "Selecione um evento antes de importar."
-        );
+        resultado.innerHTML = `
+            <div class="card-busca">
+                Nenhum evento foi selecionado.
+            </div>
+        `;
 
         return;
     }
 
-    const arquivo =
-        document.getElementById(
-            "arquivo"
-        ).files[0];
 
-    if(!arquivo){
+    if(!termo){
 
-        alert(
-            "Selecione uma planilha."
-        );
+        resultado.innerHTML = `
+            <div class="card-busca">
+                Digite o nome ou número de peito.
+            </div>
+        `;
 
         return;
     }
 
-    nomeArquivo =
-        arquivo.name;
 
-    if(
-        nomeArquivo
-        .toLowerCase()
-        .endsWith(".csv")
-    ){
-
-        lerComoCsv(arquivo);
-
-    }else{
-
-        lerComoExcel(arquivo);
-
-    }
-}
-
-
-function finalizarLeitura(dados){
-
-    if(
-        !dados ||
-        dados.length === 0
-    ){
-
-        alert(
-            "A planilha está vazia."
-        );
-
-        return;
-    }
-
-    dadosPlanilha = dados;
-
-    colunas =
-        Object.keys(
-            dadosPlanilha[0]
-        );
-
-    preencherSelects();
-
-    document.getElementById(
-        "mapeamento"
-    ).style.display = "block";
-
-    alert(
-        "Planilha lida com sucesso! " +
-        dadosPlanilha.length +
-        " linhas encontradas."
-    );
-}
-
-
-function lerComoCsv(arquivo){
-
-    Papa.parse(
-        arquivo,
-        {
-            header:true,
-            delimiter:";",
-            skipEmptyLines:true,
-            encoding:"UTF-8",
-
-            complete:function(resultado){
-
-                finalizarLeitura(
-                    resultado.data
-                );
-            },
-
-            error:function(erro){
-
-                alert(
-                    "Erro ao ler CSV: " +
-                    erro.message
-                );
-            }
-        }
-    );
-}
-
-
-function lerComoExcel(arquivo){
-
-    const leitor =
-        new FileReader();
-
-    leitor.onload =
-        function(e){
-
-            try{
-
-                const data =
-                    new Uint8Array(
-                        e.target.result
-                    );
-
-                const workbook =
-                    XLSX.read(
-                        data,
-                        {
-                            type:"array",
-                            cellDates:true
-                        }
-                    );
-
-                const primeiraAba =
-                    workbook.SheetNames[0];
-
-                const planilha =
-                    workbook.Sheets[
-                        primeiraAba
-                    ];
-
-                const dados =
-                    XLSX.utils.sheet_to_json(
-                        planilha,
-                        {
-                            defval:""
-                        }
-                    );
-
-                finalizarLeitura(dados);
-
-            }catch(erro){
-
-                alert(
-                    "Erro ao ler planilha: " +
-                    erro.message
-                );
-            }
-        };
-
-    leitor.readAsArrayBuffer(
-        arquivo
-    );
-}
-
-
-function valor(linha,campo){
-
-    const coluna =
-        document.getElementById(
-            campo
-        ).value;
-
-    if(!coluna){
-        return "";
-    }
-
-    const valorOriginal =
-        linha[coluna];
-
-    if(
-        valorOriginal === null ||
-        valorOriginal === undefined
-    ){
-        return "";
-    }
-
-    if(
-        valorOriginal instanceof Date
-    ){
-
-        return valorOriginal
-            .toISOString()
-            .split("T")[0];
-    }
-
-    return valorOriginal
-        .toString()
-        .trim();
-}
-
-
-function converterData(valorData){
-
-    if(!valorData){
-        return null;
-    }
-
-    let valor =
-        valorData
-        .toString()
-        .trim();
-
-    // dd/mm/yyyy
-    const br =
-        valor.match(
-            /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/
-        );
-
-    if(br){
-
-        return (
-            br[3] + "-" +
-            br[2].padStart(2,"0") + "-" +
-            br[1].padStart(2,"0")
-        );
-    }
-
-    // yyyy-mm-dd
-    const iso =
-        valor.match(
-            /^(\d{4})-(\d{1,2})-(\d{1,2})$/
-        );
-
-    if(iso){
-
-        return (
-            iso[1] + "-" +
-            iso[2].padStart(2,"0") + "-" +
-            iso[3].padStart(2,"0")
-        );
-    }
-
-    return null;
-}
-
-
-function preVisualizar(){
-
-    const total =
-        dadosPlanilha.length;
-
-    const campoNome =
-        document.getElementById(
-            "colNome"
-        ).value;
-
-    if(!campoNome){
-
-        alert(
-            "A coluna Nome do atleta é obrigatória."
-        );
-
-        return;
-    }
-
-    let validos = 0;
-
-    dadosPlanilha.forEach(
-        linha=>{
-
-            if(
-                valor(
-                    linha,
-                    "colNome"
-                )
-            ){
-
-                validos++;
-            }
-        }
-    );
-
-    document.getElementById(
-        "preview"
-    ).style.display = "block";
-
-    document.getElementById(
-        "resumo"
-    ).innerHTML = `
-
-        Evento:
-        <b>${eventoNome}</b>
-        <br><br>
-
-        Arquivo:
-        <b>${nomeArquivo}</b>
-        <br><br>
-
-        Linhas encontradas:
-        <b>${total}</b>
-        <br>
-
-        Atletas válidos:
-        <b>${validos}</b>
-        <br>
-
-        Registros sem nome:
-        <b>${total-validos}</b>
-
-        <br><br>
-
-        Clique em importar para gravar no banco.
+    resultado.innerHTML = `
+        <div class="card-busca">
+            Pesquisando...
+        </div>
     `;
-}
 
 
-async function buscarAtletaExistente(
-    cpf,
-    numero
-){
+    const {
+        data,
+        error
+    } =
+        await db
+        .from("atletas_v2")
+        .select(`
+            id,
+            nome,
+            data_nascimento,
+            numero_peito,
+            modalidade,
+            camiseta,
+            equipe,
+            pelotao,
+            produto_extra,
+            status_kit,
+            retirado_por,
+            cpf_retirada,
+            data_retirada,
+            entregue_por,
+            entregue_por_usuario,
+            retirado_login
+        `)
+        .eq(
+            "evento_id",
+            eventoId
+        )
+        .limit(2000);
 
-    if(cpf){
 
-        const {data} =
-            await db
-            .from("atletas_v2")
-            .select("*")
-            .eq("evento_id",eventoId)
-            .eq("cpf",cpf)
-            .limit(1);
+    if(error){
 
-        if(
-            data &&
-            data.length > 0
-        ){
+        resultado.innerHTML = `
+            <div class="card-busca">
+                Erro ao buscar atletas:
+                ${escaparHTML(error.message)}
+            </div>
+        `;
 
-            return data[0];
-        }
+        return;
     }
 
 
-    if(numero){
+    const busca =
+        normalizar(termo);
 
-        const {data} =
-            await db
-            .from("atletas_v2")
-            .select("*")
-            .eq("evento_id",eventoId)
-            .eq("numero_peito",numero)
-            .limit(1);
 
-        if(
-            data &&
-            data.length > 0
-        ){
+    const encontrados =
+        (data || []).filter(
+            atleta =>
 
-            return data[0];
-        }
+                normalizar(
+                    atleta.nome
+                ).includes(busca)
+
+                ||
+
+                normalizar(
+                    atleta.numero_peito
+                ).includes(busca)
+        );
+
+
+    if(
+        encontrados.length === 0
+    ){
+
+        resultado.innerHTML = `
+            <div class="card-busca">
+                Nenhum atleta encontrado.
+            </div>
+        `;
+
+        return;
     }
 
-    return null;
-}
+
+    resultado.innerHTML = "";
 
 
-async function importarAtletas(){
+    encontrados.forEach(
+        atleta => {
 
-    const botao =
-        document.getElementById(
-            "btnImportar"
-        );
-
-    const progresso =
-        document.getElementById(
-            "progresso"
-        );
-
-    botao.disabled = true;
-
-    botao.innerText =
-        "Importando...";
-
-    progresso.style.display =
-        "block";
-
-    let novos = 0;
-    let atualizados = 0;
-    let ignorados = 0;
-    let erros = 0;
-
-    let ultimoErro = "";
-
-    try{
-
-        const total =
-            dadosPlanilha.length;
-
-        let processados = 0;
-
-        for(
-            const linha of dadosPlanilha
-        ){
-
-            processados++;
-
-            progresso.innerText =
-                `Importando ${processados} de ${total}...`;
-
-            const nome =
-                valor(linha,"colNome");
-
-            const cpf =
-                valor(linha,"colCpf");
-
-            const data_nascimento =
-                converterData(
-                    valor(
-                        linha,
-                        "colNascimento"
-                    )
-                );
-
-            const numero_peito =
-                valor(
-                    linha,
-                    "colNumero"
-                );
-
-            const modalidade =
-                valor(
-                    linha,
-                    "colModalidade"
-                );
-
-            const camiseta =
-                valor(
-                    linha,
-                    "colCamiseta"
-                );
-
-            const equipe =
-                valor(
-                    linha,
-                    "colEquipe"
-                );
-
-            const pelotao =
-                valor(
-                    linha,
-                    "colPelotao"
-                );
-
-            const produto_extra =
-                valor(
-                    linha,
-                    "colProduto"
+            const card =
+                document.createElement(
+                    "div"
                 );
 
 
-            if(!nome){
-
-                ignorados++;
-                continue;
-            }
+            card.className =
+                "card-busca";
 
 
-            try{
+            card.innerHTML = `
 
-                const existente =
-                    await buscarAtletaExistente(
-                        cpf,
-                        numero_peito
+                <div class="nome-busca">
+
+                    ${escaparHTML(
+                        atleta.nome
+                    )}
+
+                </div>
+
+                <div class="nascimento-busca">
+
+                    Nascimento:
+                    <strong>
+                        ${formatarData(
+                            atleta.data_nascimento
+                        )}
+                    </strong>
+
+                </div>
+            `;
+
+
+            card.onclick =
+                function(){
+
+                    abrirDetalhes(
+                        atleta
                     );
-
-
-                const dadosAtleta = {
-
-                    evento_id: eventoId,
-
-                    nome,
-
-                    cpf:
-                        cpf || null,
-
-                    data_nascimento,
-
-                    numero_peito:
-                        numero_peito || null,
-
-                    modalidade:
-                        modalidade || null,
-
-                    camiseta:
-                        camiseta || null,
-
-                    equipe:
-                        equipe || null,
-
-                    pelotao:
-                        pelotao || null,
-
-                    produto_extra:
-                        produto_extra || null
                 };
 
 
-                if(existente){
-
-                    const {error} =
-                        await db
-                        .from("atletas_v2")
-                        .update(
-                            dadosAtleta
-                        )
-                        .eq(
-                            "id",
-                            existente.id
-                        );
-
-                    if(error){
-
-                        erros++;
-
-                        ultimoErro =
-                            error.message;
-
-                    }else{
-
-                        atualizados++;
-                    }
-
-
-                }else{
-
-                    const {error} =
-                        await db
-                        .from("atletas_v2")
-                        .insert([{
-
-                            ...dadosAtleta,
-
-                            origem_importacao:
-                                nomeArquivo,
-
-                            importacao_id:
-                                null,
-
-                            status_kit:
-                                "pendente"
-                        }]);
-
-
-                    if(error){
-
-                        erros++;
-
-                        ultimoErro =
-                            error.message;
-
-                    }else{
-
-                        novos++;
-                    }
-                }
-
-
-            }catch(e){
-
-                erros++;
-
-                ultimoErro =
-                    e.message;
-            }
+            resultado.appendChild(
+                card
+            );
         }
+    );
+}
 
 
-        await db
-        .from("importacoes_v2")
-        .insert([{
+/* =========================
+   ABRIR DETALHES
+========================= */
 
-            evento_id:
-                eventoId,
+function abrirDetalhes(atleta){
 
-            nome_arquivo:
-                nomeArquivo,
-
-            usuario:
-                usuarioLogado
-                ? usuarioLogado.nome
-                : "Desconhecido",
-
-            total_linhas:
-                dadosPlanilha.length,
-
-            novos,
-
-            atualizados,
-
-            ignorados,
-
-            erros
-        }]);
+    atletaSelecionado =
+        atleta;
 
 
-        await db
-        .from("auditoria_v2")
-        .insert([{
-
-            evento_id:
-                eventoId,
-
-            usuario:
-                usuarioLogado
-                ? usuarioLogado.nome
-                : "Desconhecido",
-
-            acao:
-                "Importação de planilha",
-
-            detalhe:
-                `${nomeArquivo} | Novos: ${novos} | Atualizados: ${atualizados} | Ignorados: ${ignorados} | Erros: ${erros}`
-        }]);
-
-
-        progresso.style.display =
-            "none";
-
-        document.getElementById(
+    const resultado =
+        document
+        .getElementById(
             "resultado"
-        ).style.display = "block";
-
-        document.getElementById(
-            "resultadoTexto"
-        ).innerHTML = `
-
-            <span class="ok">
-                Importação concluída!
-            </span>
-
-            <br><br>
-
-            Novos atletas:
-            <b>${novos}</b>
-
-            <br>
-
-            Atualizados:
-            <b>${atualizados}</b>
-
-            <br>
-
-            Ignorados:
-            <b>${ignorados}</b>
-
-            <br>
-
-            Erros:
-            <b>${erros}</b>
-
-            ${
-                erros > 0
-                ?
-                `<br><br>
-                <span class="erro">
-                    Último erro:
-                    ${ultimoErro}
-                </span>`
-                :
-                ""
-            }
-        `;
-
-
-    }catch(erroGeral){
-
-        progresso.style.display =
-            "none";
-
-        document.getElementById(
-            "resultado"
-        ).style.display = "block";
-
-        document.getElementById(
-            "resultadoTexto"
-        ).innerHTML = `
-
-            <span class="erro">
-                A importação encontrou um erro.
-            </span>
-
-            <br><br>
-
-            ${erroGeral.message}
-
-        `;
-
-        console.error(
-            erroGeral
         );
 
 
-    }finally{
+    resultado.innerHTML = `
 
-        botao.disabled = false;
+<div class="card-detalhes">
 
-        botao.innerText =
-            "Importar Atletas";
+
+    <div class="nome-detalhe">
+
+        ${escaparHTML(
+            atleta.nome
+        )}
+
+    </div>
+
+
+    <div class="numero-box">
+
+        <div class="numero-label">
+            NÚMERO DE PEITO
+        </div>
+
+        <div class="numero">
+
+            ${escaparHTML(
+                atleta.numero_peito ||
+                "—"
+            )}
+
+        </div>
+
+    </div>
+
+
+    <div class="dados">
+
+
+        <div class="dado">
+
+            <div class="dado-label">
+                Data de nascimento
+            </div>
+
+            <div class="dado-valor">
+
+                ${formatarData(
+                    atleta.data_nascimento
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="dado">
+
+            <div class="dado-label">
+                Modalidade
+            </div>
+
+            <div class="dado-valor">
+
+                ${escaparHTML(
+                    atleta.modalidade ||
+                    "Não informada"
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="dado">
+
+            <div class="dado-label">
+                Camiseta
+            </div>
+
+            <div class="dado-valor">
+
+                ${escaparHTML(
+                    atleta.camiseta ||
+                    "Não informada"
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="dado">
+
+            <div class="dado-label">
+                Equipe
+            </div>
+
+            <div class="dado-valor">
+
+                ${escaparHTML(
+                    atleta.equipe ||
+                    "Não informada"
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="dado">
+
+            <div class="dado-label">
+                Pelotão
+            </div>
+
+            <div class="dado-valor">
+
+                ${escaparHTML(
+                    atleta.pelotao ||
+                    "Não informado"
+                )}
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="produto">
+
+        <div class="dado-label">
+            Produto
+        </div>
+
+        <div class="dado-valor">
+
+            ${escaparHTML(
+                atleta.produto_extra ||
+                "Nenhum produto"
+            )}
+
+        </div>
+
+    </div>
+
+
+    ${
+        atleta.status_kit === "entregue"
+
+        ?
+
+        `
+
+        <div class="entregue-box">
+
+            <div class="status-entregue">
+                ENTREGA REALIZADA
+            </div>
+
+            <div class="info-entrega">
+
+                <b>Retirado por:</b>
+                ${escaparHTML(
+                    atleta.retirado_por ||
+                    "Não informado"
+                )}
+
+                <br>
+
+                <b>Atendente:</b>
+                ${escaparHTML(
+                    atleta.entregue_por ||
+                    atleta.retirado_login ||
+                    "Não informado"
+                )}
+
+                <br>
+
+                <b>Data e horário:</b>
+                ${
+                    atleta.data_retirada
+                    ?
+                    new Date(
+                        atleta.data_retirada
+                    ).toLocaleString(
+                        "pt-BR",
+                        {
+                            timeZone:
+                                "America/Sao_Paulo"
+                        }
+                    )
+                    :
+                    "Não informado"
+                }
+
+            </div>
+
+        </div>
+
+        `
+
+        :
+
+        `
+
+        <div class="retirada">
+
+            <div class="retirada-titulo">
+                Quem está retirando?
+            </div>
+
+
+            <div class="opcoes">
+
+
+                <label
+                    class="opcao ativo"
+                    id="opcaoProprio"
+                    onclick="selecionarTipo('proprio')"
+                >
+
+                    <input
+                        type="radio"
+                        name="tipoRetirada"
+                        value="proprio"
+                        checked
+                    >
+
+                    Próprio atleta
+
+                </label>
+
+
+                <label
+                    class="opcao"
+                    id="opcaoTerceiro"
+                    onclick="selecionarTipo('terceiro')"
+                >
+
+                    <input
+                        type="radio"
+                        name="tipoRetirada"
+                        value="terceiro"
+                    >
+
+                    Terceiro
+
+                </label>
+
+
+            </div>
+
+
+            <div
+                id="campoTerceiro"
+                class="campo-terceiro"
+            >
+
+                <label>
+                    Nome de quem está retirando
+                </label>
+
+                <input
+                    id="nomeTerceiro"
+                    type="text"
+                    placeholder="Digite o nome da pessoa"
+                >
+
+            </div>
+
+
+            <div class="observacao">
+
+                <label>
+                    Observação
+                </label>
+
+                <textarea
+                    id="observacao"
+                    placeholder="Ex.: mãe do atleta, pai, esposa, amigo..."
+                ></textarea>
+
+            </div>
+
+
+            <button
+                class="botao-entregar"
+                onclick="entregarAtleta()"
+            >
+                ENTREGAR
+            </button>
+
+        </div>
+
+        `
+    }
+
+
+</div>
+
+`;
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* =========================
+   TIPO RETIRADA
+========================= */
+
+function selecionarTipo(tipo){
+
+    const proprio =
+        document.getElementById(
+            "opcaoProprio"
+        );
+
+    const terceiro =
+        document.getElementById(
+            "opcaoTerceiro"
+        );
+
+    const campo =
+        document.getElementById(
+            "campoTerceiro"
+        );
+
+
+    if(tipo === "proprio"){
+
+        proprio.classList.add(
+            "ativo"
+        );
+
+        terceiro.classList.remove(
+            "ativo"
+        );
+
+        campo.style.display =
+            "none";
+
+    }else{
+
+        terceiro.classList.add(
+            "ativo"
+        );
+
+        proprio.classList.remove(
+            "ativo"
+        );
+
+        campo.style.display =
+            "block";
     }
 }
 
+
+/* =========================
+   ENTREGAR
+========================= */
+
+async function entregarAtleta(){
+
+    if(!atletaSelecionado){
+
+        return;
+    }
+
+
+    const tipoSelecionado =
+        document.querySelector(
+            'input[name="tipoRetirada"]:checked'
+        );
+
+
+    if(!tipoSelecionado){
+
+        Swal.fire({
+
+            title:"Atenção",
+
+            text:
+                "Selecione quem está retirando.",
+
+            icon:"warning",
+
+            background:"#111",
+
+            color:"#fff",
+
+            confirmButtonColor:
+                "#7CFC00"
+        });
+
+        return;
+    }
+
+
+    const tipo =
+        tipoSelecionado.value;
+
+
+    let retiradoPor =
+        "Retirado pelo próprio atleta";
+
+
+    if(
+        tipo === "terceiro"
+    ){
+
+        const nomeTerceiro =
+            document
+            .getElementById(
+                "nomeTerceiro"
+            )
+            .value
+            .trim();
+
+
+        if(!nomeTerceiro){
+
+            Swal.fire({
+
+                title:"Atenção",
+
+                text:
+                    "Informe o nome de quem está retirando.",
+
+                icon:"warning",
+
+                background:"#111",
+
+                color:"#fff",
+
+                confirmButtonColor:
+                    "#7CFC00"
+            });
+
+            return;
+        }
+
+
+        retiradoPor =
+            nomeTerceiro;
+    }
+
+
+    const observacao =
+        document
+        .getElementById(
+            "observacao"
+        )
+        .value
+        .trim();
+
+
+    const confirmar =
+        await Swal.fire({
+
+            title:
+                "Confirmar entrega",
+
+            html:
+                `
+                <div style="font-size:17px;line-height:1.6">
+
+                <b>
+                ${escaparHTML(
+                    atletaSelecionado.nome
+                )}
+                </b>
+
+                <br>
+
+                Número:
+                <b>
+                ${escaparHTML(
+                    atletaSelecionado.numero_peito ||
+                    "—"
+                )}
+                </b>
+
+                <br><br>
+
+                Retirado por:
+                <b>
+                ${escaparHTML(
+                    retiradoPor
+                )}
+                </b>
+
+                </div>
+                `,
+
+            icon:
+                "question",
+
+            background:
+                "#111",
+
+            color:
+                "#fff",
+
+            confirmButtonColor:
+                "#7CFC00",
+
+            cancelButtonColor:
+                "#444",
+
+            confirmButtonText:
+                "CONFIRMAR ENTREGA",
+
+            cancelButtonText:
+                "CANCELAR",
+
+            reverseButtons:true
+        });
+
+
+    if(
+        !confirmar.isConfirmed
+    ){
+
+        return;
+    }
+
+
+    /*
+       PRIMEIRA PROTEÇÃO:
+       verifica novamente no banco
+       antes de entregar.
+    */
+
+    const {
+        data: verificacao,
+        error: erroVerificacao
+    } =
+        await db
+        .from("atletas_v2")
+        .select(
+            "id,status_kit"
+        )
+        .eq(
+            "id",
+            atletaSelecionado.id
+        )
+        .single();
+
+
+    if(erroVerificacao){
+
+        Swal.fire({
+
+            title:"Erro",
+
+            text:
+                erroVerificacao.message,
+
+            icon:"error",
+
+            background:"#111",
+
+            color:"#fff",
+
+            confirmButtonColor:
+                "#7CFC00"
+        });
+
+        return;
+    }
+
+
+    if(
+        verificacao.status_kit ===
+        "entregue"
+    ){
+
+        Swal.fire({
+
+            title:
+                "ENTREGA JÁ REALIZADA",
+
+            text:
+                "Este atleta já possui uma entrega registrada.",
+
+            icon:
+                "warning",
+
+            background:
+                "#111",
+
+            color:
+                "#fff",
+
+            confirmButtonColor:
+                "#7CFC00"
+        });
+
+        buscarAtletas();
+
+        return;
+    }
+
+
+    /*
+       REGISTRA A ENTREGA
+    */
+
+    const agora =
+        new Date().toISOString();
+
+
+    const {
+        error
+    } =
+        await db
+        .from("atletas_v2")
+        .update({
+
+            status_kit:
+                "entregue",
+
+            retirado_por:
+                retiradoPor,
+
+            cpf_retirada:
+                null,
+
+            data_retirada:
+                agora,
+
+            entregue_por:
+                usuarioLogado
+                ? usuarioLogado.nome
+                : "Desconhecido",
+
+            entregue_por_usuario:
+                usuarioLogado
+                ? usuarioLogado.email
+                : "Desconhecido",
+
+            retirado_login:
+                usuarioLogado
+                ? usuarioLogado.email
+                : "Desconhecido"
+
+        })
+        .eq(
+            "id",
+            atletaSelecionado.id
+        )
+        .eq(
+            "status_kit",
+            "pendente"
+        );
+
+
+    if(error){
+
+        Swal.fire({
+
+            title:
+                "Erro na entrega",
+
+            text:
+                error.message,
+
+            icon:
+                "error",
+
+            background:
+                "#111",
+
+            color:
+                "#fff",
+
+            confirmButtonColor:
+                "#7CFC00"
+        });
+
+        return;
+    }
+
+
+    /*
+       GRAVA HISTÓRICO
+    */
+
+    const {
+        error:
+            erroHistorico
+    } =
+        await db
+        .from("entregas")
+        .insert([{
+
+            atleta_id:
+                atletaSelecionado.id,
+
+            usuario_id:
+                usuarioLogado
+                ? usuarioLogado.id
+                : null,
+
+            retirado_por:
+                retiradoPor,
+
+            cpf_retirada:
+                null,
+
+            tipo_retirada:
+                tipo,
+
+            observacao:
+                observacao || null,
+
+            entregue_em:
+                agora
+        }]);
+
+
+    if(
+        erroHistorico
+    ){
+
+        console.error(
+            "Erro no histórico:",
+            erroHistorico
+        );
+    }
+
+
+    /*
+       AUDITORIA
+    */
+
+    await db
+    .from("auditoria_v2")
+    .insert([{
+
+        evento_id:
+            eventoId,
+
+        usuario:
+            usuarioLogado
+            ? usuarioLogado.nome
+            : "Desconhecido",
+
+        acao:
+            "Entrega",
+
+        detalhe:
+            `Atleta: ${atletaSelecionado.nome} | Número: ${atletaSelecionado.numero_peito || "N/I"} | Retirado por: ${retiradoPor} | Tipo: ${tipo} | Observação: ${observacao || "Nenhuma"}`
+    }]);
+
+
+    await Swal.fire({
+
+        title:
+            "ENTREGA REALIZADA!",
+
+        html:
+            `
+            <div style="font-size:18px;line-height:1.6">
+
+            <b>
+            ${escaparHTML(
+                atletaSelecionado.nome
+            )}
+            </b>
+
+            <br>
+
+            Número:
+            <b>
+            ${escaparHTML(
+                atletaSelecionado.numero_peito ||
+                "—"
+            )}
+            </b>
+
+            <br><br>
+
+            ${escaparHTML(
+                retiradoPor
+            )}
+
+            </div>
+            `,
+
+        icon:
+            "success",
+
+        background:
+            "#111",
+
+        color:
+            "#fff",
+
+        confirmButtonColor:
+            "#7CFC00",
+
+        confirmButtonText:
+            "OK"
+    });
+
+
+    buscarAtletas();
+}
+
+
+/* =========================
+   INICIAR
+========================= */
 
 verificarAcesso();
 
 </script>
 
 </body>
+
 </html>
