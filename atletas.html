@@ -497,8 +497,7 @@ small{
     <h2>Planilha para Cronometragem</h2>
 
     <p>
-        Baixe a relação atualizada dos atletas do evento ativo
-        para enviar à empresa de cronometragem.
+        Baixe a relação atualizada dos atletas.
     </p>
 
     <button
@@ -860,12 +859,12 @@ function criarCardAtleta(atleta){
 
 
             <p>
-                <b>Status Kit:</b>
+                <b>Status:</b>
 
                 <span class="status">
                     ${escapeHtml(
                         atleta.status_kit ||
-                        "pendente"
+                        "PENDNETE"
                     )}
                 </span>
 
@@ -1514,7 +1513,7 @@ async function salvarAtleta(){
                 observacao || null,
 
             status_kit:
-                "pendente"
+                "PENDENTE"
 
         }]);
 
@@ -1780,7 +1779,7 @@ function baixarPlanilha(){
             "OBSERVAÇÃO":
                 atleta.observacao || "",
 
-            "STATUS KIT":
+            "STATUS":
                 atleta.status_kit || ""
 
         }));
