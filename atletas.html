@@ -46,12 +46,37 @@ body{
 header{
     background:#111;
     border-bottom:1px solid #34383c;
-    padding:22px;
-    text-align:center;
+    padding:18px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
     font-size:26px;
     font-weight:700;
     letter-spacing:.5px;
     color:#fff;
+}
+
+header .btn-voltar-topo{
+    width:auto;
+    margin:0;
+    padding:12px 18px;
+    font-size:14px;
+    font-weight:bold;
+    background:#333;
+    color:#fff;
+    border-radius:9px;
+    white-space:nowrap;
+}
+
+@media(max-width:600px){
+    header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+    header .btn-voltar-topo{
+        align-self:flex-end;
+    }
 }
 
 .container{
@@ -297,7 +322,13 @@ small{
 <div id="telaPainel" style="display:none;">
 
 <header>
-    ATLETAS
+    <span>ATLETAS</span>
+    <button
+        class="btn-voltar-topo"
+        onclick="location.href='dashboard.html'"
+    >
+        ← VOLTAR AO PAINEL
+    </button>
 </header>
 
 
@@ -332,6 +363,10 @@ small{
         placeholder="Pesquisar por nome, CPF ou número de peito"
         oninput="filtrarAtletas()"
     >
+
+    <button onclick="filtrarAtletas()">
+        BUSCAR
+    </button>
 
 </div>
 
@@ -538,14 +573,6 @@ small{
     </div>
 
 </div>
-
-
-<button
-    class="voltar"
-    onclick="location.href='dashboard.html'"
->
-    VOLTAR AO PAINEL
-</button>
 
 
 </div>
