@@ -1,298 +1,1165 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pratini Sports</title>
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Central Pratini Sports</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="supabase.js"></script>
 
+
 <style>
+
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
+
 :root{
-    --bg:#1F1F1F;
-    --card:#2E2E2E;
-    --card-hover:#383838;
-    --primary:#73C46B;
-    --primary-hover:#8AD982;
-    --text:#FFFFFF;
-    --text-secondary:#CFCFCF;
-    --border:#4A4A4A;
+
+    --verde:#7CFC00;
+
+    --grafite:#202326;
+
+    --grafite-claro:#2b2f33;
+
+    --preto:#050505;
+
+    --texto:#f5f5f5;
+
+    --cinza:#b8b8b8;
+
+    --borda:#3a3e42;
+
 }
-*{margin:0;padding:0;box-sizing:border-box;}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
 body{
-    font-family:'Segoe UI', Arial, sans-serif;
-    background:linear-gradient(135deg,#1A1A1A,#222222,#2A2A2A);
-    color:var(--text);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        var(--grafite);
+
+    color:
+        var(--texto);
+
     min-height:100vh;
-    display:flex;
-    flex-direction:column;
+
 }
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
 header{
-    padding:25px 20px;
+
+    position:relative;
+
+    min-height:105px;
+
+    background:#101214;
+
+    border-bottom:
+        1px solid #383c40;
+
     display:flex;
-    justify-content:center;
+
     align-items:center;
-    border-bottom:3px solid rgba(115,196,107,.25);
-    background:#252525;
+
+    justify-content:center;
+
+    padding:
+        15px 180px;
+
 }
-.logo img{height:95px;width:auto;}
-.evento-ativo{
-    margin:25px;
-    background:var(--primary);
-    color:#111;
-    padding:20px;
-    border-radius:15px;
-    text-align:center;
+
+
+/* LOGO */
+
+.logo{
+
+    position:absolute;
+
+    left:28px;
+
+    top:50%;
+
+    transform:
+        translateY(-50%);
+
+    width:145px;
+
+    max-height:80px;
+
+    object-fit:contain;
+
+}
+
+
+/* TÍTULO */
+
+.titulo-header{
+
+    font-size:26px;
+
     font-weight:700;
-    box-shadow:0 8px 20px rgba(115,196,107,.20);
-}
-.contador{
-    margin:0 25px 25px 25px;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-top:4px solid var(--primary);
-    border-radius:16px;
-    padding:25px;
+
+    letter-spacing:.5px;
+
     text-align:center;
+
+    color:#fff;
+
 }
-.contador .numero{
-    font-size:48px;
-    font-weight:800;
-    color:var(--primary);
-    line-height:1;
-    margin-bottom:6px;
-}
-.contador .rotulo{
-    color:var(--text-secondary);
-    font-size:14px;
-    text-transform:uppercase;
-    letter-spacing:1px;
-}
-main{flex:1;}
+
+
+/* =========================================================
+   CONTAINER PRINCIPAL
+========================================================= */
+
 .container{
-    padding:25px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
-    gap:22px;
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:
+        25px 20px 40px;
+
 }
-.card{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-top:4px solid var(--primary);
-    border-radius:16px;
-    padding:30px 25px;
-    cursor:pointer;
-    transition:all .25s ease;
-}
-.card:hover{
-    background:var(--card-hover);
-    border-color:var(--primary);
-    transform:translateY(-4px);
-    box-shadow:0 10px 25px rgba(115,196,107,.12);
-}
-.card h2{font-size:22px;margin-bottom:12px;color:var(--text);}
-.card p{color:var(--text-secondary);line-height:1.6;}
-footer{
-    margin-top:30px;
-    background:#252525;
-    border-top:2px solid rgba(115,196,107,.30);
+
+
+/* =========================================================
+   EVENTO ATIVO
+========================================================= */
+
+.evento-ativo{
+
+    background:#111;
+
+    border:
+        1px solid #3a3e42;
+
+    border-left:
+        4px solid var(--verde);
+
+    border-radius:14px;
+
+    padding:18px 20px;
+
+    margin-bottom:22px;
+
     text-align:center;
-    padding:18px;
-    color:#BFBFBF;
+
+    box-shadow:
+        0 6px 20px
+        rgba(0,0,0,.25);
+
+}
+
+
+.evento-ativo-titulo{
+
+    color:#999;
+
     font-size:13px;
+
+    font-weight:bold;
+
+    letter-spacing:1.5px;
+
+    margin-bottom:7px;
+
 }
-.carregando{
+
+
+.evento-ativo-nome{
+
+    color:#fff;
+
+    font-size:22px;
+
+    font-weight:800;
+
+}
+
+
+/* =========================================================
+   CONTADOR
+========================================================= */
+
+.contador{
+
+    background:#111;
+
+    border:
+        1px solid #3a3e42;
+
+    border-top:
+        4px solid var(--verde);
+
+    border-radius:15px;
+
+    padding:25px;
+
+    margin-bottom:22px;
+
+    text-align:center;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.22);
+
+}
+
+
+.contador .numero{
+
+    font-size:52px;
+
+    font-weight:900;
+
+    line-height:1;
+
+    color:
+        var(--verde);
+
+    margin-bottom:8px;
+
+}
+
+
+.contador .rotulo{
+
+    color:#aaa;
+
+    font-size:14px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+}
+
+
+/* =========================================================
+   GRID DOS CARDS
+========================================================= */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(250px,1fr)
+        );
+
+    gap:18px;
+
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.card{
+
+    background:#111;
+
+    border:
+        1px solid #3a3e42;
+
+    border-radius:14px;
+
+    padding:25px;
+
+    cursor:pointer;
+
+    transition:
+        .18s ease;
+
+    box-shadow:
+        0 6px 20px
+        rgba(0,0,0,.20);
+
+}
+
+
+.card:hover{
+
+    border-color:
+        var(--verde);
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 9px 25px
+        rgba(124,252,0,.10);
+
+}
+
+
+/* ÍCONE */
+
+.card-icone{
+
+    width:48px;
+
+    height:48px;
+
     display:flex;
-    justify-content:center;
+
     align-items:center;
+
+    justify-content:center;
+
+    background:
+        rgba(124,252,0,.08);
+
+    border:
+        1px solid
+        rgba(124,252,0,.25);
+
+    border-radius:11px;
+
+    margin-bottom:17px;
+
+    color:
+        var(--verde);
+
+    font-size:24px;
+
+    font-weight:bold;
+
+}
+
+
+/* TÍTULO */
+
+.card h2{
+
+    color:#fff;
+
+    font-size:21px;
+
+    font-weight:700;
+
+    margin-bottom:8px;
+
+}
+
+
+/* DESCRIÇÃO */
+
+.card p{
+
+    color:#aaa;
+
+    font-size:15px;
+
+    line-height:1.5;
+
+}
+
+
+/* =========================================================
+   RODAPÉ
+========================================================= */
+
+footer{
+
+    margin-top:25px;
+
+    background:#101214;
+
+    border-top:
+        1px solid #383c40;
+
+    text-align:center;
+
+    padding:18px;
+
+    color:#888;
+
+    font-size:13px;
+
+}
+
+
+/* =========================================================
+   CARREGANDO
+========================================================= */
+
+.carregando{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
     height:100vh;
-    font-size:16px;
-    color:#cfcfcf;
+
+    color:#ccc;
+
+    font-size:17px;
+
 }
-@media(max-width:768px){
-    .logo img{height:85px;}
-    .container{padding:20px;}
-    .card{padding:25px 20px;}
-    .card h2{font-size:20px;}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:650px){
+
+    header{
+
+        min-height:90px;
+
+        padding:
+            15px 120px 15px 120px;
+
+    }
+
+
+    .logo{
+
+        left:15px;
+
+        width:105px;
+
+        max-height:65px;
+
+    }
+
+
+    .titulo-header{
+
+        font-size:21px;
+
+    }
+
+
+    .container{
+
+        padding:
+            18px 12px 30px;
+
+    }
+
+
+    .evento-ativo{
+
+        padding:16px;
+
+    }
+
+
+    .evento-ativo-nome{
+
+        font-size:19px;
+
+    }
+
+
+    .contador{
+
+        padding:22px 15px;
+
+    }
+
+
+    .contador .numero{
+
+        font-size:45px;
+
+    }
+
+
+    .cards{
+
+        grid-template-columns:1fr;
+
+        gap:12px;
+
+    }
+
+
+    .card{
+
+        padding:20px;
+
+    }
+
+
+    .card h2{
+
+        font-size:20px;
+
+    }
+
 }
+
 </style>
+
 </head>
+
+
 <body>
 
-<div id="telaCarregando" class="carregando">
+
+<!-- =====================================================
+     TELA DE CARREGAMENTO
+===================================================== -->
+
+<div
+    id="telaCarregando"
+    class="carregando"
+>
+
     Verificando acesso...
+
 </div>
 
-<div id="telaPainel" style="display:none;">
+
+<!-- =====================================================
+     PAINEL
+===================================================== -->
+
+<div
+    id="telaPainel"
+    style="display:none;"
+>
+
+
+<!-- =====================================================
+     CABEÇALHO
+===================================================== -->
 
 <header>
-    <div class="logo">
-        <img src="Colorida.png" alt="Pratini Sports">
+
+    <img
+        src="Colorida.png"
+        class="logo"
+        alt="Pratini Sports"
+    >
+
+    <div class="titulo-header">
+
+        CENTRAL PRATINI SPORTS
+
     </div>
+
 </header>
+
+
+<!-- =====================================================
+     CONTEÚDO
+===================================================== -->
 
 <main>
 
-<div id="containerContador"></div>
+<div class="container">
 
-<div class="container" id="containerCards">
 
-    <div class="card" onclick="location.href='eventos.html'">
-        <h2>Eventos</h2>
-        <p>Cadastrar e gerenciar eventos.</p>
+<!-- =====================================================
+     EVENTO ATIVO
+===================================================== -->
+
+<div
+    id="eventoAtivo"
+    class="evento-ativo"
+>
+
+    <div class="evento-ativo-titulo">
+
+        EVENTO ATIVO
+
     </div>
 
-    <div class="card" onclick="location.href='atletas.html'">
-        <h2>Atletas</h2>
-        <p>Lista completa dos inscritos.</p>
-    </div>
+    <div
+        id="eventoAtivoNome"
+        class="evento-ativo-nome"
+    >
 
-    <div class="card" onclick="location.href='importar.html'">
-        <h2>Importar</h2>
-        <p>Importar atletas por planilha.</p>
-    </div>
+        Nenhum evento selecionado.
 
-    <div class="card" onclick="location.href='entrega.html'">
-        <h2>Entrega de Inscrição</h2>
-        <p>Pesquisar e entregar inscrição.</p>
-    </div>
-
-    <div class="card">
-        <h2>QR Code</h2>
-        <p>Leitor pelo celular.</p>
-    </div>
-
-    <div class="card">
-        <h2>Relatórios</h2>
-        <p>Acompanhe tudo em tempo real.</p>
-    </div>
-
-    <div class="card">
-        <h2>Configurações</h2>
-        <p>Configurações do sistema.</p>
     </div>
 
 </div>
+
+
+<!-- =====================================================
+     CONTADOR
+===================================================== -->
+
+<div
+    id="containerContador"
+></div>
+
+
+<!-- =====================================================
+     CARDS
+===================================================== -->
+
+<div
+    class="cards"
+    id="containerCards"
+>
+
+
+<!-- EVENTOS -->
+
+<div
+    class="card card-admin"
+    onclick="location.href='eventos.html'"
+>
+
+    <div class="card-icone">
+
+        📅
+
+    </div>
+
+    <h2>
+
+        Eventos
+
+    </h2>
+
+    <p>
+
+        Cadastrar, selecionar e
+        gerenciar os eventos da Pratini Sports.
+
+    </p>
+
+</div>
+
+
+<!-- ATLETAS -->
+
+<div
+    class="card card-admin"
+    onclick="location.href='atletas.html'"
+>
+
+    <div class="card-icone">
+
+        👤
+
+    </div>
+
+    <h2>
+
+        Atletas
+
+    </h2>
+
+    <p>
+
+        Consultar e gerenciar a lista
+        completa de atletas inscritos.
+
+    </p>
+
+</div>
+
+
+<!-- IMPORTAR -->
+
+<div
+    class="card card-admin"
+    onclick="location.href='importar.html'"
+>
+
+    <div class="card-icone">
+
+        ⇧
+
+    </div>
+
+    <h2>
+
+        Importar
+
+    </h2>
+
+    <p>
+
+        Importar ou atualizar atletas
+        através de planilhas Excel ou CSV.
+
+    </p>
+
+</div>
+
+
+<!-- ENTREGA -->
+
+<div
+    class="card"
+    onclick="location.href='entrega.html'"
+>
+
+    <div class="card-icone">
+
+        ✓
+
+    </div>
+
+    <h2>
+
+        Entrega de Inscrição
+
+    </h2>
+
+    <p>
+
+        Pesquisar atletas e registrar
+        a entrega dos kits.
+
+    </p>
+
+</div>
+
+
+<!-- RELATÓRIOS -->
+
+<div
+    class="card card-admin"
+    onclick="location.href='relatorios.html'"
+>
+
+    <div class="card-icone">
+
+        ▤
+
+    </div>
+
+    <h2>
+
+        Relatórios
+
+    </h2>
+
+    <p>
+
+        Acompanhar informações,
+        entregas e dados do evento.
+
+    </p>
+
+</div>
+
+
+</div>
+
+
+</div>
+
 </main>
 
+
+<!-- =====================================================
+     RODAPÉ
+===================================================== -->
+
 <footer>
+
     © 2026 Pratini Sports
+
 </footer>
 
+
 </div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 
 <script>
 
-const eventoId = localStorage.getItem("evento_ativo_id");
+
+/* =========================================================
+   EVENTO ATIVO
+========================================================= */
+
+const eventoId =
+    localStorage.getItem(
+        "evento_ativo_id"
+    );
+
+
 let canalRealtime = null;
+
+
+/* =========================================================
+   VERIFICAR ACESSO
+========================================================= */
 
 async function verificarAcesso(){
 
-    const { data: sessao } = await db.auth.getSession();
+    const {
+        data: sessao
+    } =
+        await db.auth.getSession();
 
-    if(!sessao || !sessao.session){
-        window.location.href = "login.html";
+
+    /* -----------------------------------------
+       SEM LOGIN
+    ----------------------------------------- */
+
+    if(
+        !sessao ||
+        !sessao.session
+    ){
+
+        window.location.href =
+            "login.html";
+
         return;
+
     }
 
-    const usuario = sessao.session.user;
 
-    const { data: perfil, error } = await db
+    const usuario =
+        sessao.session.user;
+
+
+    /* -----------------------------------------
+       BUSCAR PERFIL
+    ----------------------------------------- */
+
+    const {
+        data: perfil,
+        error
+    } =
+        await db
+
         .from("perfis")
-        .select("role, nome")
-        .eq("id", usuario.id)
+
+        .select(
+            "role,nome"
+        )
+
+        .eq(
+            "id",
+            usuario.id
+        )
+
         .single();
 
-    if(error || !perfil){
-        window.location.href = "login.html";
+
+    /* -----------------------------------------
+       PERFIL NÃO ENCONTRADO
+    ----------------------------------------- */
+
+    if(
+        error ||
+        !perfil
+    ){
+
+        window.location.href =
+            "login.html";
+
         return;
+
     }
 
-    // Mostra o evento ativo, se houver
-    const eventoAtivoNome = localStorage.getItem("evento_ativo_nome");
-    if(eventoAtivoNome){
-        const aviso = document.createElement("div");
-        aviso.className = "evento-ativo";
-        aviso.innerHTML = "EVENTO ATIVO<br><br>" + eventoAtivoNome;
-        document.querySelector("main").insertAdjacentElement("beforebegin", aviso);
-    }
 
-    // Esconde cards se for atendente
-    if(perfil.role === "atendente"){
-        document.querySelectorAll(".card").forEach(card => {
-            const titulo = card.querySelector("h2");
-            if(!titulo) return;
-            const nome = titulo.innerText.trim();
-            if(nome !== "Entrega de Inscrição" && nome !== "QR Code"){
-                card.style.display = "none";
+    /* =====================================================
+       EVENTO ATIVO
+    ===================================================== */
+
+    const eventoAtivoNome =
+        localStorage.getItem(
+            "evento_ativo_nome"
+        );
+
+
+    document.getElementById(
+        "eventoAtivoNome"
+    ).innerText =
+        eventoAtivoNome ||
+        "Nenhum evento selecionado.";
+
+
+    /* =====================================================
+       PERMISSÕES
+    ===================================================== */
+
+    if(
+        perfil.role === "atendente"
+    ){
+
+        /*
+         * ATENDENTE:
+         * somente Entrega de Inscrição
+         */
+
+        document
+        .querySelectorAll(
+            ".card-admin"
+        )
+        .forEach(
+            card => {
+
+                card.style.display =
+                    "none";
+
             }
-        });
+        );
+
     }
 
-    document.getElementById("telaCarregando").style.display = "none";
-    document.getElementById("telaPainel").style.display = "block";
+
+    /* =====================================================
+       MOSTRAR PAINEL
+    ===================================================== */
+
+    document.getElementById(
+        "telaCarregando"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "telaPainel"
+    ).style.display =
+        "block";
+
+
+    /* =====================================================
+       CARREGAR CONTADOR
+    ===================================================== */
 
     carregarContador();
+
+
+    /* =====================================================
+       REALTIME
+    ===================================================== */
+
     escutarNovosInscritos();
+
 }
+
+
+/* =========================================================
+   CONTADOR DE INSCRITOS
+========================================================= */
 
 async function carregarContador(){
 
-    const containerContador = document.getElementById("containerContador");
+    const container =
+        document.getElementById(
+            "containerContador"
+        );
+
+
+    /* -----------------------------------------
+       SEM EVENTO
+    ----------------------------------------- */
 
     if(!eventoId){
-        containerContador.innerHTML = "";
+
+        container.innerHTML = "";
+
         return;
+
     }
 
-    const { count, error } = await db
+
+    /* -----------------------------------------
+       CONSULTA
+    ----------------------------------------- */
+
+    const {
+        count,
+        error
+    } =
+        await db
+
         .from("atletas_v2")
-        .select("*", { count: "exact", head: true })
-        .eq("evento_id", eventoId);
+
+        .select(
+            "*",
+            {
+                count:"exact",
+                head:true
+            }
+        )
+
+        .eq(
+            "evento_id",
+            eventoId
+        );
+
+
+    /* -----------------------------------------
+       ERRO
+    ----------------------------------------- */
 
     if(error){
-        containerContador.innerHTML = "";
-        console.error(error);
+
+        container.innerHTML = "";
+
+        console.error(
+            "Erro ao carregar contador:",
+            error
+        );
+
         return;
+
     }
 
-    containerContador.innerHTML = `
-    <div class="contador">
-        <div class="numero" id="numeroInscritos">${count ?? 0}</div>
-        <div class="rotulo">Inscritos no evento ativo</div>
-    </div>
+
+    /* -----------------------------------------
+       EXIBIR
+    ----------------------------------------- */
+
+    container.innerHTML = `
+
+        <div class="contador">
+
+            <div class="numero">
+
+                ${count ?? 0}
+
+            </div>
+
+            <div class="rotulo">
+
+                Inscritos no evento ativo
+
+            </div>
+
+        </div>
+
     `;
+
 }
+
+
+/* =========================================================
+   REALTIME
+========================================================= */
 
 function escutarNovosInscritos(){
 
-    if(!eventoId) return;
+    if(!eventoId){
 
-    // evita duplicar o canal se a função rodar mais de uma vez
-    if(canalRealtime){
-        db.removeChannel(canalRealtime);
+        return;
+
     }
 
-    canalRealtime = db
-        .channel("contador-atletas-" + eventoId)
-        .on(
-            "postgres_changes",
-            {
-                event: "*",
-                schema: "public",
-                table: "atletas_v2",
-                filter: "evento_id=eq." + eventoId
-            },
-            () => {
-                carregarContador();
-            }
+
+    /* -----------------------------------------
+       EVITAR CANAIS DUPLICADOS
+    ----------------------------------------- */
+
+    if(canalRealtime){
+
+        db.removeChannel(
+            canalRealtime
+        );
+
+    }
+
+
+    /* -----------------------------------------
+       CRIAR CANAL
+    ----------------------------------------- */
+
+    canalRealtime =
+
+        db
+
+        .channel(
+            "contador-atletas-" +
+            eventoId
         )
+
+        .on(
+
+            "postgres_changes",
+
+            {
+
+                event:"*",
+
+                schema:"public",
+
+                table:"atletas_v2",
+
+                filter:
+                    "evento_id=eq." +
+                    eventoId
+
+            },
+
+            () => {
+
+                carregarContador();
+
+            }
+
+        )
+
         .subscribe();
+
 }
 
+
+/* =========================================================
+   INICIAR
+========================================================= */
+
 verificarAcesso();
+
+
 </script>
 
+
 </body>
+
 </html>
