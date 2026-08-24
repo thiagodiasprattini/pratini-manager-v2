@@ -16,32 +16,21 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <style>
 
 :root{
-
     --verde:#7CFC00;
-
-    --verde-hover:#9CFF38;
-
+    --verde-suave:#9CFF3D;
     --grafite:#202326;
-
     --grafite-claro:#2b2f33;
-
     --preto:#050505;
-
     --texto:#f5f5f5;
-
     --cinza:#b8b8b8;
-
 }
-
 
 *{
     box-sizing:border-box;
 }
-
 
 html,
 body{
@@ -50,9 +39,7 @@ body{
     min-height:100%;
 }
 
-
 body{
-
     font-family:
         Arial,
         Helvetica,
@@ -72,9 +59,9 @@ body{
 
 header{
 
-    position:relative;
+    width:100%;
 
-    min-height:115px;
+    min-height:125px;
 
     background:#101214;
 
@@ -87,41 +74,18 @@ header{
 
     justify-content:center;
 
-    padding:
-        15px 200px;
+    padding:15px 20px;
 }
-
 
 .logo{
 
-    position:absolute;
+    width:190px;
 
-    right:30px;
+    height:auto;
 
-    top:50%;
-
-    transform:
-        translateY(-50%);
-
-    width:175px;
-
-    max-height:95px;
+    max-height:100px;
 
     object-fit:contain;
-}
-
-
-.titulo-header{
-
-    font-size:26px;
-
-    font-weight:700;
-
-    letter-spacing:.5px;
-
-    text-align:center;
-
-    color:#fff;
 }
 
 
@@ -175,7 +139,6 @@ header{
     margin-bottom:22px;
 }
 
-
 .pesquisa input{
 
     width:100%;
@@ -196,7 +159,6 @@ header{
     outline:none;
 }
 
-
 .pesquisa input:focus{
 
     border-color:
@@ -206,7 +168,6 @@ header{
         0 0 0 2px
         rgba(124,252,0,.10);
 }
-
 
 .botao-buscar{
 
@@ -233,13 +194,6 @@ header{
 }
 
 
-.botao-buscar:hover{
-
-    background:
-        var(--verde-hover);
-}
-
-
 /* =========================
    RESULTADOS
 ========================= */
@@ -247,7 +201,6 @@ header{
 #resultado{
     width:100%;
 }
-
 
 .card-busca{
 
@@ -267,14 +220,12 @@ header{
 
     cursor:pointer;
 
-    transition:
-        .18s ease;
+    transition:.18s ease;
 
     box-shadow:
         0 5px 18px
         rgba(0,0,0,.25);
 }
-
 
 .card-busca:hover{
 
@@ -289,7 +240,6 @@ header{
         rgba(124,252,0,.12);
 }
 
-
 .nome-busca{
 
     font-size:21px;
@@ -301,14 +251,12 @@ header{
     margin-bottom:8px;
 }
 
-
 .nascimento-busca{
 
     color:#bdbdbd;
 
     font-size:16px;
 }
-
 
 .nascimento-busca strong{
 
@@ -387,7 +335,6 @@ header{
     border-radius:14px;
 }
 
-
 .numero-label{
 
     font-size:15px;
@@ -400,7 +347,6 @@ header{
 
     margin-bottom:5px;
 }
-
 
 .numero{
 
@@ -434,7 +380,6 @@ header{
     margin-bottom:20px;
 }
 
-
 .dado{
 
     background:#111;
@@ -448,7 +393,6 @@ header{
 
     min-width:0;
 }
-
 
 .dado-label{
 
@@ -465,7 +409,6 @@ header{
     margin-bottom:6px;
 }
 
-
 .dado-valor{
 
     color:#fff;
@@ -479,6 +422,135 @@ header{
 
 
 /* =========================
+   EDITAR
+========================= */
+
+.linha-edicao{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    flex-wrap:wrap;
+}
+
+.link-editar{
+
+    color:
+        var(--verde);
+
+    font-size:13px;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    opacity:.85;
+
+    transition:.15s;
+}
+
+.link-editar:hover{
+
+    opacity:1;
+
+    text-decoration:underline;
+}
+
+
+/* =========================
+   ÁREA DE EDIÇÃO
+========================= */
+
+.edicao-campo{
+
+    margin-top:10px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+}
+
+.edicao-campo input,
+.edicao-campo select{
+
+    width:100%;
+
+    padding:11px 12px;
+
+    background:#202326;
+
+    color:#fff;
+
+    border:
+        1px solid #4a4a4a;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    outline:none;
+}
+
+.edicao-campo input:focus,
+.edicao-campo select:focus{
+
+    border-color:
+        var(--verde);
+}
+
+.botoes-edicao{
+
+    display:flex;
+
+    gap:8px;
+}
+
+.botao-salvar-edicao{
+
+    background:
+        var(--verde);
+
+    color:#050505;
+
+    border:0;
+
+    border-radius:7px;
+
+    padding:9px 14px;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.botao-cancelar-edicao{
+
+    background:#333;
+
+    color:#fff;
+
+    border:0;
+
+    border-radius:7px;
+
+    padding:9px 14px;
+
+    font-size:14px;
+
+    cursor:pointer;
+}
+
+
+/* =========================
    ORGANIZAÇÃO DOS CAMPOS
 ========================= */
 
@@ -487,30 +559,25 @@ header{
     grid-row:1;
 }
 
-
-.dado-sexo{
+.dado-modalidade{
     grid-column:2;
     grid-row:1;
 }
 
-
-.dado-modalidade{
+.dado-camiseta{
     grid-column:1;
     grid-row:2;
 }
 
-
-.dado-camiseta{
+.dado-equipe{
     grid-column:2;
     grid-row:2;
 }
 
-
-.dado-equipe{
+.dado-sexo{
     grid-column:1;
     grid-row:3;
 }
-
 
 .dado-pelotao{
     grid-column:2;
@@ -542,208 +609,9 @@ header{
     min-width:0;
 }
 
-
 .produto .dado-valor{
 
     font-size:19px;
-}
-
-
-/* =========================
-   BOTÃO EDITAR
-========================= */
-
-.area-edicao{
-
-    margin-top:10px;
-
-    margin-bottom:20px;
-
-    padding-top:18px;
-
-    border-top:
-        1px solid #343434;
-}
-
-
-.botao-editar{
-
-    width:100%;
-
-    border:
-        1px solid #555;
-
-    border-radius:10px;
-
-    padding:15px;
-
-    background:#222;
-
-    color:#fff;
-
-    font-size:17px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    transition:.15s;
-}
-
-
-.botao-editar:hover{
-
-    background:#303030;
-
-    border-color:
-        var(--verde);
-
-    color:
-        var(--verde);
-}
-
-
-/* =========================
-   FORMULÁRIO DE EDIÇÃO
-========================= */
-
-.edicao-box{
-
-    display:none;
-
-    background:#111;
-
-    border:
-        1px solid #3b3f43;
-
-    border-radius:13px;
-
-    padding:18px;
-
-    margin-top:12px;
-}
-
-
-.edicao-titulo{
-
-    font-size:19px;
-
-    font-weight:bold;
-
-    margin-bottom:15px;
-
-    color:#fff;
-}
-
-
-.edicao-campo{
-
-    margin-bottom:14px;
-}
-
-
-.edicao-campo label{
-
-    display:block;
-
-    color:#aaa;
-
-    font-size:13px;
-
-    text-transform:uppercase;
-
-    font-weight:bold;
-
-    margin-bottom:7px;
-}
-
-
-.edicao-campo input,
-.edicao-campo select{
-
-    width:100%;
-
-    padding:14px;
-
-    background:#202326;
-
-    color:#fff;
-
-    border:
-        1px solid #444;
-
-    border-radius:9px;
-
-    font-size:17px;
-
-    outline:none;
-}
-
-
-.edicao-campo input:focus,
-.edicao-campo select:focus{
-
-    border-color:
-        var(--verde);
-
-    box-shadow:
-        0 0 0 2px
-        rgba(124,252,0,.08);
-}
-
-
-.edicao-botoes{
-
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:10px;
-
-    margin-top:15px;
-}
-
-
-.botao-salvar-edicao{
-
-    border:0;
-
-    border-radius:9px;
-
-    padding:14px;
-
-    background:
-        var(--verde);
-
-    color:#050505;
-
-    font-size:16px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-
-.botao-cancelar-edicao{
-
-    border:
-        1px solid #444;
-
-    border-radius:9px;
-
-    padding:14px;
-
-    background:#222;
-
-    color:#fff;
-
-    font-size:16px;
-
-    font-weight:bold;
-
-    cursor:pointer;
 }
 
 
@@ -761,7 +629,6 @@ header{
     margin-top:15px;
 }
 
-
 .retirada-titulo{
 
     font-size:20px;
@@ -770,7 +637,6 @@ header{
 
     margin-bottom:12px;
 }
-
 
 .opcoes{
 
@@ -783,7 +649,6 @@ header{
 
     margin-bottom:15px;
 }
-
 
 .opcao{
 
@@ -805,7 +670,6 @@ header{
     transition:.15s;
 }
 
-
 .opcao.ativo{
 
     border-color:
@@ -818,12 +682,10 @@ header{
         var(--verde);
 }
 
-
 .opcao input{
 
     display:none;
 }
-
 
 .campo-terceiro{
 
@@ -831,7 +693,6 @@ header{
 
     margin-bottom:15px;
 }
-
 
 .campo-terceiro label{
 
@@ -845,7 +706,6 @@ header{
 
     color:#ccc;
 }
-
 
 .campo-terceiro input{
 
@@ -865,12 +725,10 @@ header{
     font-size:17px;
 }
 
-
 .observacao{
 
     margin-bottom:15px;
 }
-
 
 .observacao label{
 
@@ -884,7 +742,6 @@ header{
 
     color:#ccc;
 }
-
 
 .observacao textarea{
 
@@ -943,7 +800,6 @@ header{
         rgba(124,252,0,.16);
 }
 
-
 .botao-entregar:hover{
 
     filter:brightness(.92);
@@ -968,7 +824,6 @@ header{
     margin-top:15px;
 }
 
-
 .status-entregue{
 
     color:
@@ -980,7 +835,6 @@ header{
 
     margin-bottom:12px;
 }
-
 
 .info-entrega{
 
@@ -1044,28 +898,17 @@ header{
 
     header{
 
-        min-height:90px;
+        min-height:100px;
 
-        padding:
-            15px 120px 15px 20px;
+        padding:15px 20px;
     }
-
 
     .logo{
 
-        right:15px;
+        width:155px;
 
-        width:115px;
-
-        max-height:65px;
+        max-height:80px;
     }
-
-
-    .titulo-header{
-
-        font-size:21px;
-    }
-
 
     .dados{
 
@@ -1074,12 +917,11 @@ header{
         gap:10px;
     }
 
-
     .dado-nascimento,
-    .dado-sexo,
     .dado-modalidade,
     .dado-camiseta,
     .dado-equipe,
+    .dado-sexo,
     .dado-pelotao,
     .produto{
 
@@ -1088,70 +930,53 @@ header{
         grid-row:auto;
     }
 
-
     .dado-nascimento{
         order:1;
     }
 
-
-    .dado-sexo{
+    .dado-modalidade{
         order:2;
     }
 
-
-    .dado-modalidade{
+    .dado-camiseta{
         order:3;
     }
 
-
-    .dado-camiseta{
+    .dado-equipe{
         order:4;
     }
 
-
-    .dado-equipe{
+    .dado-sexo{
         order:5;
     }
-
 
     .dado-pelotao{
         order:6;
     }
 
-
     .produto{
         order:7;
     }
-
 
     .opcoes{
 
         grid-template-columns:1fr;
     }
 
-
     .nome-detalhe{
 
         font-size:25px;
     }
-
 
     .numero{
 
         font-size:58px;
     }
 
-
     .container{
 
         padding:
             18px 12px 30px;
-    }
-
-
-    .edicao-botoes{
-
-        grid-template-columns:1fr;
     }
 }
 
@@ -1178,10 +1003,6 @@ header{
 
 
 <header>
-
-    <div class="titulo-header">
-        CENTRAL DE ENTREGA
-    </div>
 
     <img
         src="Colorida.png"
@@ -1246,10 +1067,6 @@ header{
 <script>
 
 
-/* =========================
-   SUPABASE
-========================= */
-
 const SUPABASE_URL =
     "https://kchpprimvfnwchztwlsa.supabase.co";
 
@@ -1264,10 +1081,6 @@ const db =
         SUPABASE_ANON_KEY
     );
 
-
-/* =========================
-   VARIÁVEIS
-========================= */
 
 let usuarioLogado = null;
 
@@ -1322,10 +1135,7 @@ async function verificarAcesso(){
         await db
         .from("perfis")
         .select("role,nome")
-        .eq(
-            "id",
-            usuario.id
-        )
+        .eq("id",usuario.id)
         .single();
 
 
@@ -1401,31 +1211,16 @@ function escaparHTML(texto){
 
     return (texto || "")
         .toString()
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 }
 
 
 /* =========================
-   DATA - EXIBIÇÃO
+   DATA
 ========================= */
 
 function formatarData(data){
@@ -1481,7 +1276,7 @@ function formatarData(data){
 
 
 /* =========================
-   DATA - PARA EDIÇÃO
+   DATA PARA INPUT
 ========================= */
 
 function dataParaInput(data){
@@ -1519,93 +1314,71 @@ function dataParaInput(data){
 
 
 /* =========================
-   DATA - VALIDAR
+   CONVERTER DATA
 ========================= */
 
-function validarDataBrasileira(valor){
+function converterDataParaBanco(data){
 
-    const regex =
-        /^(\d{2})\/(\d{2})\/(\d{4})$/;
+    const valor =
+        data.trim();
 
-
-    const resultado =
-        valor.match(regex);
-
-
-    if(!resultado){
-
-        return false;
-    }
-
-
-    const dia =
-        parseInt(
-            resultado[1],
-            10
-        );
-
-
-    const mes =
-        parseInt(
-            resultado[2],
-            10
-        );
-
-
-    const ano =
-        parseInt(
-            resultado[3],
-            10
-        );
-
-
-    if(
-        mes < 1 ||
-        mes > 12
-    ){
-
-        return false;
-    }
-
-
-    const data =
-        new Date(
-            ano,
-            mes - 1,
-            dia
-        );
-
-
-    if(
-        data.getFullYear() !== ano ||
-        data.getMonth() !== mes - 1 ||
-        data.getDate() !== dia
-    ){
-
-        return false;
-    }
-
-
-    return true;
-}
-
-
-/* =========================
-   DATA - CONVERTER PARA BANCO
-========================= */
-
-function converterDataParaBanco(valor){
 
     const partes =
         valor.split("/");
 
 
+    if(
+        partes.length !== 3
+    ){
+
+        return null;
+    }
+
+
+    const dia =
+        partes[0];
+
+    const mes =
+        partes[1];
+
+    const ano =
+        partes[2];
+
+
+    if(
+        dia.length !== 2 ||
+        mes.length !== 2 ||
+        ano.length !== 4
+    ){
+
+        return null;
+    }
+
+
+    const dataTeste =
+        new Date(
+            Number(ano),
+            Number(mes) - 1,
+            Number(dia)
+        );
+
+
+    if(
+        dataTeste.getFullYear() !== Number(ano) ||
+        dataTeste.getMonth() !== Number(mes) - 1 ||
+        dataTeste.getDate() !== Number(dia)
+    ){
+
+        return null;
+    }
+
+
     return (
-        partes[2] +
+        ano +
         "-" +
-        partes[1] +
+        mes +
         "-" +
-        partes[0]
+        dia
     );
 }
 
@@ -1672,10 +1445,10 @@ async function buscarAtletas(){
             data_nascimento,
             numero_peito,
             modalidade,
-            sexo,
             camiseta,
             equipe,
             pelotao,
+            sexo,
             produto_extra,
             observacao,
             status_kit,
@@ -1698,9 +1471,7 @@ async function buscarAtletas(){
         resultado.innerHTML = `
             <div class="card-busca">
                 Erro ao buscar atletas:
-                ${escaparHTML(
-                    error.message
-                )}
+                ${escaparHTML(error.message)}
             </div>
         `;
 
@@ -1776,19 +1547,7 @@ async function buscarAtletas(){
 
                 <div class="nascimento-busca">
 
-                    Nº de peito:
-
-                    <strong>
-                        ${escaparHTML(
-                            atleta.numero_peito ||
-                            "Não informado"
-                        )}
-                    </strong>
-
-                    &nbsp;&nbsp; | &nbsp;&nbsp;
-
                     Nascimento:
-
                     <strong>
                         ${formatarData(
                             atleta.data_nascimento
@@ -1838,8 +1597,6 @@ function abrirDetalhes(atleta){
 <div class="card-detalhes">
 
 
-    <!-- NOME -->
-
     <div class="nome-detalhe">
 
         ${escaparHTML(
@@ -1848,8 +1605,6 @@ function abrirDetalhes(atleta){
 
     </div>
 
-
-    <!-- NÚMERO DE PEITO -->
 
     <div class="numero-box">
 
@@ -1869,8 +1624,6 @@ function abrirDetalhes(atleta){
     </div>
 
 
-    <!-- DADOS -->
-
     <div class="dados">
 
 
@@ -1882,31 +1635,26 @@ function abrirDetalhes(atleta){
                 Data de nascimento
             </div>
 
-            <div class="dado-valor">
+            <div
+                id="campoNascimento"
+                class="linha-edicao"
+            >
 
-                ${formatarData(
-                    atleta.data_nascimento
-                )}
+                <span
+                    class="dado-valor"
+                    id="valorNascimento"
+                >
+                    ${formatarData(
+                        atleta.data_nascimento
+                    )}
+                </span>
 
-            </div>
-
-        </div>
-
-
-        <!-- SEXO -->
-
-        <div class="dado dado-sexo">
-
-            <div class="dado-label">
-                Sexo
-            </div>
-
-            <div class="dado-valor">
-
-                ${escaparHTML(
-                    atleta.sexo ||
-                    "Não informado"
-                )}
+                <a
+                    class="link-editar"
+                    onclick="editarNascimento(event)"
+                >
+                    Editar
+                </a>
 
             </div>
 
@@ -1973,6 +1721,41 @@ function abrirDetalhes(atleta){
         </div>
 
 
+        <!-- SEXO -->
+
+        <div class="dado dado-sexo">
+
+            <div class="dado-label">
+                Sexo
+            </div>
+
+            <div
+                id="campoSexo"
+                class="linha-edicao"
+            >
+
+                <span
+                    class="dado-valor"
+                    id="valorSexo"
+                >
+                    ${escaparHTML(
+                        atleta.sexo ||
+                        "Não informado"
+                    )}
+                </span>
+
+                <a
+                    class="link-editar"
+                    onclick="editarSexo(event)"
+                >
+                    Editar
+                </a>
+
+            </div>
+
+        </div>
+
+
         <!-- PELOTÃO -->
 
         <div class="dado dado-pelotao">
@@ -2016,131 +1799,12 @@ function abrirDetalhes(atleta){
     </div>
 
 
-    <!-- =========================
-         EDIÇÃO
-    ========================== -->
-
-    <div class="area-edicao">
-
-        <button
-            class="botao-editar"
-            onclick="mostrarEdicao()"
-        >
-            EDITAR SEXO / DATA DE NASCIMENTO
-        </button>
-
-
-        <div
-            id="edicaoBox"
-            class="edicao-box"
-        >
-
-            <div class="edicao-titulo">
-
-                Corrigir dados do participante
-
-            </div>
-
-
-            <div class="edicao-campo">
-
-                <label>
-                    Data de nascimento
-                </label>
-
-                <input
-                    id="edicaoDataNascimento"
-                    type="text"
-                    inputmode="numeric"
-                    maxlength="10"
-                    placeholder="DD/MM/AAAA"
-                    value="${escaparHTML(
-                        dataParaInput(
-                            atleta.data_nascimento
-                        )
-                    )}"
-                >
-
-            </div>
-
-
-            <div class="edicao-campo">
-
-                <label>
-                    Sexo
-                </label>
-
-                <select
-                    id="edicaoSexo"
-                >
-
-                    <option value="">
-                        Não informado
-                    </option>
-
-                    <option
-                        value="MASCULINO"
-                        ${
-                            normalizar(
-                                atleta.sexo
-                            ) === "masculino"
-                            ? "selected"
-                            : ""
-                        }
-                    >
-                        MASCULINO
-                    </option>
-
-                    <option
-                        value="FEMININO"
-                        ${
-                            normalizar(
-                                atleta.sexo
-                            ) === "feminino"
-                            ? "selected"
-                            : ""
-                        }
-                    >
-                        FEMININO
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="edicao-botoes">
-
-                <button
-                    class="botao-salvar-edicao"
-                    onclick="salvarEdicao()"
-                >
-                    SALVAR CORREÇÃO
-                </button>
-
-
-                <button
-                    class="botao-cancelar-edicao"
-                    onclick="cancelarEdicao()"
-                >
-                    CANCELAR
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
     ${
         atleta.status_kit === "entregue"
 
         ?
 
         `
-
-        <!-- ENTREGA JÁ REALIZADA -->
 
         <div class="entregue-box">
 
@@ -2200,8 +1864,6 @@ function abrirDetalhes(atleta){
         :
 
         `
-
-        <!-- RETIRADA -->
 
         <div class="retirada">
 
@@ -2305,25 +1967,6 @@ function abrirDetalhes(atleta){
 `;
 
 
-    /* =========================
-       MÁSCARA DE DATA
-    ========================== */
-
-    const campoData =
-        document.getElementById(
-            "edicaoDataNascimento"
-        );
-
-
-    if(campoData){
-
-        campoData.addEventListener(
-            "input",
-            aplicarMascaraData
-        );
-    }
-
-
     window.scrollTo({
 
         top:0,
@@ -2335,14 +1978,81 @@ function abrirDetalhes(atleta){
 
 
 /* =========================
+   EDITAR NASCIMENTO
+========================= */
+
+function editarNascimento(event){
+
+    event.stopPropagation();
+
+
+    const campo =
+        document.getElementById(
+            "campoNascimento"
+        );
+
+
+    const valorAtual =
+        dataParaInput(
+            atletaSelecionado.data_nascimento
+        );
+
+
+    campo.innerHTML = `
+
+        <div class="edicao-campo">
+
+            <input
+                id="novoNascimento"
+                type="text"
+                inputmode="numeric"
+                maxlength="10"
+                placeholder="DD/MM/AAAA"
+                value="${escaparHTML(
+                    valorAtual
+                )}"
+                oninput="mascaraData(this)"
+            >
+
+            <div class="botoes-edicao">
+
+                <button
+                    class="botao-salvar-edicao"
+                    onclick="salvarNascimento(event)"
+                >
+                    Salvar
+                </button>
+
+                <button
+                    class="botao-cancelar-edicao"
+                    onclick="abrirDetalhes(atletaSelecionado); event.stopPropagation();"
+                >
+                    Cancelar
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document
+        .getElementById(
+            "novoNascimento"
+        )
+        .focus();
+}
+
+
+/* =========================
    MÁSCARA DATA
 ========================= */
 
-function aplicarMascaraData(event){
+function mascaraData(input){
 
     let valor =
-        event.target.value
-        .replace(
+        input.value.replace(
             /\D/g,
             ""
         );
@@ -2361,288 +2071,81 @@ function aplicarMascaraData(event){
     if(valor.length >= 5){
 
         valor =
-            valor.substring(0,2)
-            + "/"
-            + valor.substring(2,4)
-            + "/"
-            + valor.substring(4);
+            valor.substring(0,2) +
+            "/" +
+            valor.substring(2,4) +
+            "/" +
+            valor.substring(4);
 
-    }
-
-    else if(valor.length >= 3){
+    }else if(valor.length >= 3){
 
         valor =
-            valor.substring(0,2)
-            + "/"
-            + valor.substring(2);
+            valor.substring(0,2) +
+            "/" +
+            valor.substring(2);
+
     }
 
 
-    event.target.value =
+    input.value =
         valor;
 }
 
 
 /* =========================
-   MOSTRAR EDIÇÃO
+   SALVAR NASCIMENTO
 ========================= */
 
-function mostrarEdicao(){
+async function salvarNascimento(event){
 
-    const box =
+    event.stopPropagation();
+
+
+    const input =
         document.getElementById(
-            "edicaoBox"
+            "novoNascimento"
         );
 
 
-    if(!box){
-
-        return;
-    }
+    const valor =
+        input.value.trim();
 
 
-    box.style.display =
-        "block";
-
-
-    box.scrollIntoView({
-
-        behavior:"smooth",
-
-        block:"center"
-
-    });
-}
-
-
-/* =========================
-   CANCELAR EDIÇÃO
-========================= */
-
-function cancelarEdicao(){
-
-    const box =
-        document.getElementById(
-            "edicaoBox"
+    const dataBanco =
+        converterDataParaBanco(
+            valor
         );
 
 
-    if(box){
+    if(!dataBanco){
 
-        box.style.display =
-            "none";
-    }
-}
+        Swal.fire({
 
+            title:"Data inválida",
 
-/* =========================
-   SALVAR EDIÇÃO
-========================= */
+            text:
+                "Digite a data no formato DD/MM/AAAA.",
 
-async function salvarEdicao(){
+            icon:"warning",
 
-    if(!atletaSelecionado){
+            background:"#111",
 
-        return;
-    }
-
-
-    const campoData =
-        document.getElementById(
-            "edicaoDataNascimento"
-        );
-
-
-    const campoSexo =
-        document.getElementById(
-            "edicaoSexo"
-        );
-
-
-    if(!campoData || !campoSexo){
-
-        return;
-    }
-
-
-    const dataDigitada =
-        campoData.value.trim();
-
-
-    const sexo =
-        campoSexo.value;
-
-
-    /* =========================
-       VALIDAR DATA
-    ========================== */
-
-    if(dataDigitada){
-
-        if(
-            !validarDataBrasileira(
-                dataDigitada
-            )
-        ){
-
-            Swal.fire({
-
-                title:
-                    "Data inválida",
-
-                text:
-                    "Digite a data no formato DD/MM/AAAA.",
-
-                icon:
-                    "warning",
-
-                background:
-                    "#111",
-
-                color:
-                    "#fff",
-
-                confirmButtonColor:
-                    "#7CFC00"
-
-            });
-
-            return;
-        }
-    }
-
-
-    const novaData =
-        dataDigitada
-        ? converterDataParaBanco(
-            dataDigitada
-        )
-        : null;
-
-
-    const dataAnterior =
-        atletaSelecionado.data_nascimento
-        ? formatarData(
-            atletaSelecionado.data_nascimento
-        )
-        : "Não informada";
-
-
-    const sexoAnterior =
-        atletaSelecionado.sexo ||
-        "Não informado";
-
-
-    const novaDataTexto =
-        novaData
-        ? formatarData(
-            novaData
-        )
-        : "Não informada";
-
-
-    const novoSexo =
-        sexo ||
-        "Não informado";
-
-
-    /* =========================
-       CONFIRMAÇÃO
-    ========================== */
-
-    const confirmar =
-        await Swal.fire({
-
-            title:
-                "Salvar correção?",
-
-            html:
-                `
-
-                <div style="
-                    font-size:16px;
-                    line-height:1.7;
-                    text-align:left;
-                ">
-
-                    <b>Atleta:</b>
-                    ${escaparHTML(
-                        atletaSelecionado.nome
-                    )}
-
-                    <br><br>
-
-                    <b>Data de nascimento:</b><br>
-
-                    ${escaparHTML(
-                        dataAnterior
-                    )}
-
-                    &nbsp;→&nbsp;
-
-                    <strong>
-                        ${escaparHTML(
-                            novaDataTexto
-                        )}
-                    </strong>
-
-                    <br><br>
-
-                    <b>Sexo:</b><br>
-
-                    ${escaparHTML(
-                        sexoAnterior
-                    )}
-
-                    &nbsp;→&nbsp;
-
-                    <strong>
-                        ${escaparHTML(
-                            novoSexo
-                        )}
-                    </strong>
-
-                </div>
-
-                `,
-
-            icon:
-                "question",
-
-            background:
-                "#111",
-
-            color:
-                "#fff",
+            color:"#fff",
 
             confirmButtonColor:
-                "#7CFC00",
-
-            cancelButtonColor:
-                "#444",
-
-            confirmButtonText:
-                "SALVAR",
-
-            cancelButtonText:
-                "CANCELAR",
-
-            reverseButtons:true
+                "#7CFC00"
 
         });
 
-
-    if(
-        !confirmar.isConfirmed
-    ){
-
         return;
     }
 
 
-    /* =========================
-       ATUALIZAR BANCO
-    ========================== */
+    const dataAnterior =
+        formatarData(
+            atletaSelecionado.data_nascimento
+        );
+
 
     const {
         error
@@ -2652,10 +2155,7 @@ async function salvarEdicao(){
         .update({
 
             data_nascimento:
-                novaData,
-
-            sexo:
-                sexo || null
+                dataBanco
 
         })
         .eq(
@@ -2668,20 +2168,16 @@ async function salvarEdicao(){
 
         Swal.fire({
 
-            title:
-                "Erro ao salvar",
+            title:"Erro",
 
             text:
                 error.message,
 
-            icon:
-                "error",
+            icon:"error",
 
-            background:
-                "#111",
+            background:"#111",
 
-            color:
-                "#fff",
+            color:"#fff",
 
             confirmButtonColor:
                 "#7CFC00"
@@ -2692,18 +2188,220 @@ async function salvarEdicao(){
     }
 
 
-    /* =========================
-       AUDITORIA
-    ========================== */
+    atletaSelecionado.data_nascimento =
+        dataBanco;
 
-    const detalheAuditoria =
-        `Correção de dados | Atleta: ${atletaSelecionado.nome} | Número: ${atletaSelecionado.numero_peito || "N/I"} | Data nascimento: ${dataAnterior} → ${novaDataTexto} | Sexo: ${sexoAnterior} → ${novoSexo}`;
+
+    await registrarAuditoria(
+        "Correção de data de nascimento",
+        `Atleta: ${atletaSelecionado.nome} | Número: ${atletaSelecionado.numero_peito || "N/I"} | De: ${dataAnterior} | Para: ${formatarData(dataBanco)}`
+    );
+
+
+    abrirDetalhes(
+        atletaSelecionado
+    );
+}
+
+
+/* =========================
+   EDITAR SEXO
+========================= */
+
+function editarSexo(event){
+
+    event.stopPropagation();
+
+
+    const campo =
+        document.getElementById(
+            "campoSexo"
+        );
+
+
+    const sexoAtual =
+        normalizar(
+            atletaSelecionado.sexo
+        );
+
+
+    let masculino =
+        sexoAtual === "masculino"
+        ? "selected"
+        : "";
+
+    let feminino =
+        sexoAtual === "feminino"
+        ? "selected"
+        : "";
+
+
+    campo.innerHTML = `
+
+        <div class="edicao-campo">
+
+            <select id="novoSexo">
+
+                <option value="">
+                    Selecione
+                </option>
+
+                <option
+                    value="MASCULINO"
+                    ${masculino}
+                >
+                    MASCULINO
+                </option>
+
+                <option
+                    value="FEMININO"
+                    ${feminino}
+                >
+                    FEMININO
+                </option>
+
+            </select>
+
+            <div class="botoes-edicao">
+
+                <button
+                    class="botao-salvar-edicao"
+                    onclick="salvarSexo(event)"
+                >
+                    Salvar
+                </button>
+
+                <button
+                    class="botao-cancelar-edicao"
+                    onclick="abrirDetalhes(atletaSelecionado); event.stopPropagation();"
+                >
+                    Cancelar
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+
+/* =========================
+   SALVAR SEXO
+========================= */
+
+async function salvarSexo(event){
+
+    event.stopPropagation();
+
+
+    const select =
+        document.getElementById(
+            "novoSexo"
+        );
+
+
+    const novoSexo =
+        select.value;
+
+
+    if(!novoSexo){
+
+        Swal.fire({
+
+            title:"Atenção",
+
+            text:
+                "Selecione o sexo do atleta.",
+
+            icon:"warning",
+
+            background:"#111",
+
+            color:"#fff",
+
+            confirmButtonColor:
+                "#7CFC00"
+
+        });
+
+        return;
+    }
+
+
+    const sexoAnterior =
+        atletaSelecionado.sexo ||
+        "Não informado";
 
 
     const {
-        error:
-            erroAuditoria
+        error
     } =
+        await db
+        .from("atletas_v2")
+        .update({
+
+            sexo:
+                novoSexo
+
+        })
+        .eq(
+            "id",
+            atletaSelecionado.id
+        );
+
+
+    if(error){
+
+        Swal.fire({
+
+            title:"Erro",
+
+            text:
+                error.message,
+
+            icon:"error",
+
+            background:"#111",
+
+            color:"#fff",
+
+            confirmButtonColor:
+                "#7CFC00"
+
+        });
+
+        return;
+    }
+
+
+    atletaSelecionado.sexo =
+        novoSexo;
+
+
+    await registrarAuditoria(
+        "Correção de sexo",
+        `Atleta: ${atletaSelecionado.nome} | Número: ${atletaSelecionado.numero_peito || "N/I"} | De: ${sexoAnterior} | Para: ${novoSexo}`
+    );
+
+
+    abrirDetalhes(
+        atletaSelecionado
+    );
+}
+
+
+/* =========================
+   AUDITORIA
+========================= */
+
+async function registrarAuditoria(
+    acao,
+    detalhe
+){
+
+    try{
+
         await db
         .from("auditoria_v2")
         .insert([{
@@ -2717,91 +2415,20 @@ async function salvarEdicao(){
                 : "Desconhecido",
 
             acao:
-                "Correção de dados",
+                acao,
 
             detalhe:
-                detalheAuditoria
+                detalhe
 
         }]);
 
-
-    if(erroAuditoria){
+    }catch(error){
 
         console.error(
-            "Erro ao registrar auditoria:",
-            erroAuditoria
+            "Erro na auditoria:",
+            error
         );
     }
-
-
-    /* =========================
-       ATUALIZA OBJETO LOCAL
-    ========================== */
-
-    atletaSelecionado.data_nascimento =
-        novaData;
-
-
-    atletaSelecionado.sexo =
-        sexo || null;
-
-
-    /* =========================
-       SUCESSO
-    ========================== */
-
-    await Swal.fire({
-
-        title:
-            "DADOS CORRIGIDOS!",
-
-        html:
-            `
-
-            <div style="
-                font-size:17px;
-                line-height:1.7;
-            ">
-
-                Os dados de
-
-                <b>
-                    ${escaparHTML(
-                        atletaSelecionado.nome
-                    )}
-                </b>
-
-                foram atualizados com sucesso.
-
-            </div>
-
-            `,
-
-        icon:
-            "success",
-
-        background:
-            "#111",
-
-        color:
-            "#fff",
-
-        confirmButtonColor:
-            "#7CFC00",
-
-        confirmButtonText:
-            "OK"
-
-    });
-
-
-    /* =========================
-       REABRIR CARD ATUALIZADO
-    ========================== */
-
-    abrirDetalhes(
-        atletaSelecionado
-    );
 }
 
 
@@ -2882,20 +2509,16 @@ async function entregarAtleta(){
 
         Swal.fire({
 
-            title:
-                "Atenção",
+            title:"Atenção",
 
             text:
                 "Selecione quem está retirando.",
 
-            icon:
-                "warning",
+            icon:"warning",
 
-            background:
-                "#111",
+            background:"#111",
 
-            color:
-                "#fff",
+            color:"#fff",
 
             confirmButtonColor:
                 "#7CFC00"
@@ -2931,20 +2554,16 @@ async function entregarAtleta(){
 
             Swal.fire({
 
-                title:
-                    "Atenção",
+                title:"Atenção",
 
                 text:
                     "Informe o nome de quem está retirando.",
 
-                icon:
-                    "warning",
+                icon:"warning",
 
-                background:
-                    "#111",
+                background:"#111",
 
-                color:
-                    "#fff",
+                color:"#fff",
 
                 confirmButtonColor:
                     "#7CFC00"
@@ -3046,9 +2665,10 @@ async function entregarAtleta(){
     }
 
 
-    /* =========================
+    /*
        VERIFICA NOVAMENTE
-    ========================== */
+       NO BANCO
+    */
 
     const {
         data: verificacao,
@@ -3070,20 +2690,16 @@ async function entregarAtleta(){
 
         Swal.fire({
 
-            title:
-                "Erro",
+            title:"Erro",
 
             text:
                 erroVerificacao.message,
 
-            icon:
-                "error",
+            icon:"error",
 
-            background:
-                "#111",
+            background:"#111",
 
-            color:
-                "#fff",
+            color:"#fff",
 
             confirmButtonColor:
                 "#7CFC00"
@@ -3127,9 +2743,9 @@ async function entregarAtleta(){
     }
 
 
-    /* =========================
+    /*
        REGISTRA ENTREGA
-    ========================== */
+    */
 
     const agora =
         new Date().toISOString();
@@ -3208,9 +2824,9 @@ async function entregarAtleta(){
     }
 
 
-    /* =========================
+    /*
        HISTÓRICO
-    ========================== */
+    */
 
     const {
         error:
@@ -3257,34 +2873,15 @@ async function entregarAtleta(){
     }
 
 
-    /* =========================
+    /*
        AUDITORIA
-    ========================== */
+    */
 
-    await db
-    .from("auditoria_v2")
-    .insert([{
+    await registrarAuditoria(
+        "Entrega",
+        `Atleta: ${atletaSelecionado.nome} | Número: ${atletaSelecionado.numero_peito || "N/I"} | Retirado por: ${retiradoPor} | Tipo: ${tipo} | Observação: ${observacao || "Nenhuma"}`
+    );
 
-        evento_id:
-            eventoId,
-
-        usuario:
-            usuarioLogado
-            ? usuarioLogado.nome
-            : "Desconhecido",
-
-        acao:
-            "Entrega",
-
-        detalhe:
-            `Atleta: ${atletaSelecionado.nome} | Número: ${atletaSelecionado.numero_peito || "N/I"} | Retirado por: ${retiradoPor} | Tipo: ${tipo} | Observação: ${observacao || "Nenhuma"}`
-
-    }]);
-
-
-    /* =========================
-       MENSAGEM FINAL
-    ========================== */
 
     await Swal.fire({
 
@@ -3353,7 +2950,6 @@ async function entregarAtleta(){
 verificarAcesso();
 
 </script>
-
 
 </body>
 
