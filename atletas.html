@@ -720,17 +720,71 @@ function renderizarAtletas(listaDados){
     }
 
 
-    lista.innerHTML = "";
-
+    let html = "";
 
     listaDados.forEach(
         atleta => {
 
-            lista.innerHTML +=
+            html +=
                 criarCardAtleta(atleta);
 
         }
     );
+
+    lista.innerHTML = html;
+
+    // Os <select> de edição (Modalidade, Sexo, Pelotão) precisam
+    // ser preenchidos por aqui, em vez de um <script> dentro do HTML:
+    // <script> inserido via innerHTML nunca é executado pelo navegador,
+    // então o valor atual do atleta nunca aparecia selecionado.
+    listaDados.forEach(
+        atleta => {
+
+            selecionarValorIgnorandoCaixa(
+                document.getElementById("edit_modalidade_" + atleta.id),
+                atleta.modalidade
+            );
+
+            selecionarValorIgnorandoCaixa(
+                document.getElementById("edit_sexo_" + atleta.id),
+                atleta.sexo
+            );
+
+            selecionarValorIgnorandoCaixa(
+                document.getElementById("edit_pelotao_" + atleta.id),
+                atleta.pelotao
+            );
+
+        }
+    );
+}
+
+
+/* =========================
+   SELECIONAR VALOR NO <select>
+   (ignorando maiúsculas/minúsculas,
+   já que atletas importados por planilha
+   podem vir com grafia diferente das opções fixas)
+========================= */
+
+function selecionarValorIgnorandoCaixa(select, valor){
+
+    if(!select || !valor) return;
+
+    const valorNormalizado =
+        valor.toString().trim().toLowerCase();
+
+    for(const opcao of select.options){
+
+        if(opcao.value.toLowerCase() === valorNormalizado){
+
+            select.value = opcao.value;
+            return;
+        }
+    }
+
+    // Se não achar nenhuma opção com esse texto (ex: veio de importação
+    // com grafia diferente), deixa como "Selecione" mesmo, sem travar nada.
 }
 
 
@@ -864,7 +918,7 @@ function criarCardAtleta(atleta){
                 <span class="status">
                     ${escapeHtml(
                         atleta.status_kit ||
-                        "PENDNETE"
+                        "PENDENTE"
                     )}
                 </span>
 
@@ -1069,52 +1123,6 @@ function formularioEdicao(atleta){
         </button>
 
     </div>
-
-    <script>
-
-    setTimeout(function(){
-
-        const modalidade =
-            document.getElementById(
-                "edit_modalidade_${atleta.id}"
-            );
-
-        if(modalidade){
-
-            modalidade.value =
-                "${escapeJs(atleta.modalidade || "")}";
-
-        }
-
-
-        const sexo =
-            document.getElementById(
-                "edit_sexo_${atleta.id}"
-            );
-
-        if(sexo){
-
-            sexo.value =
-                "${escapeJs(atleta.sexo || "")}";
-
-        }
-
-
-        const pelotao =
-            document.getElementById(
-                "edit_pelotao_${atleta.id}"
-            );
-
-        if(pelotao){
-
-            pelotao.value =
-                "${escapeJs(atleta.pelotao || "")}";
-
-        }
-
-    },10);
-
-    <\/script>
 
     `;
 }
@@ -1669,6 +1677,8 @@ function limparFormulario(){
 
 /* =========================
    FILTRAR
+   (agora comparando só nome, CPF e número de peito,
+   em vez do texto inteiro do card)
 ========================= */
 
 function filtrarAtletas(){
@@ -1689,24 +1699,24 @@ function filtrarAtletas(){
 
     cards.forEach(card => {
 
-        const conteudo =
-            card.innerText
-            .toLowerCase();
+        const nome =
+            (card.dataset.nome || "").toLowerCase();
+
+        const cpf =
+            (card.dataset.cpf || "").toLowerCase();
+
+        const numero =
+            (card.dataset.numero || "").toLowerCase();
+
+        const bate =
+            !texto ||
+            nome.includes(texto) ||
+            cpf.includes(texto) ||
+            numero.includes(texto);
 
 
-        if(
-            conteudo.includes(texto)
-        ){
-
-            card.style.display =
-                "";
-
-        }else{
-
-            card.style.display =
-                "none";
-
-        }
+        card.style.display =
+            bate ? "" : "none";
 
     });
 }
@@ -2047,30 +2057,6 @@ function escapeHtml(valor){
 function escapeAttr(valor){
 
     return escapeHtml(valor);
-}
-
-
-function escapeJs(valor){
-
-    return String(
-        valor ?? ""
-    )
-    .replace(
-        /\\/g,
-        "\\\\"
-    )
-    .replace(
-        /"/g,
-        '\\"'
-    )
-    .replace(
-        /'/g,
-        "\\'"
-    )
-    .replace(
-        /\r?\n/g,
-        "\\n"
-    );
 }
 
 
