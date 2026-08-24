@@ -45,7 +45,7 @@ button{background:#ffc400;font-weight:bold;cursor:pointer}
 
 <div id="telaPainel" style="display:none;">
 
-<header>ENTREGA DE KITS</header>
+<header>ENTREGA DE INSCRIÇÃO</header>
 
 <div class="container">
 
@@ -170,14 +170,14 @@ ${entregue ? `
 <p><b>Login de quem entregou:</b> ${atleta.retirado_login || "Não informado"}</p>
 <p><b>Data retirada:</b> ${atleta.data_retirada ? new Date(atleta.data_retirada).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }) : "Não informada"}</p>
 ` : `
-<button onclick="entregarKit('${atleta.id}', '${atleta.nome.replace(/'/g,"")}')">Entregar Kit</button>
+<button onclick="entregar('${atleta.id}', '${atleta.nome.replace(/'/g,"")}')">Entregar</button>
 `}
 </div>
 `;
     });
 }
 
-async function entregarKit(id, nome){
+async function entregar(id, nome){
 
     const confirmar = await Swal.fire({
         title: "Confirmar entrega",
@@ -218,13 +218,13 @@ async function entregarKit(id, nome){
     await db.from("auditoria_v2").insert([{
         evento_id: eventoId,
         usuario: usuarioLogado ? usuarioLogado.nome : "Desconhecido",
-        acao: "Entrega de kit",
+        acao: "Entrega de Inscrição",
         detalhe: `Kit entregue para ${nome} por ${usuarioLogado ? usuarioLogado.email : "login desconhecido"} (id: ${id})`
     }]);
 
     await Swal.fire({
         title: "Entrega confirmada!",
-        text: nome + " recebeu o kit.",
+        text: nome + " recebeu a Inscrição.",
         icon: "success",
         background: "#1f1f1f",
         color: "#ffffff",
