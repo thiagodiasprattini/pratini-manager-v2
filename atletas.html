@@ -1,1366 +1,391 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Atletas - Pratini Sports</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<script>
+const SUPABASE_URL = "https://kchpprimvfnwchztwlsa.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
+
+const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
+</script>
 
 <style>
 
-/* =========================
-   CORES PADRÃO PRATINI
-========================= */
-
 :root{
-
     --verde:#7CFC00;
-
     --grafite:#202326;
-
     --grafite-claro:#2b2f33;
-
     --preto:#050505;
-
     --texto:#f5f5f5;
-
-    --cinza:#b8b8b8;
-
-    --borda:#3a3e42;
-
-    --erro:#ff5252;
-
+    --cinza:#cfcfcf;
+    --borda:#3d4247;
+    --vermelho:#ff5252;
 }
-
-
-/* =========================
-   RESET
-========================= */
 
 *{
-
     box-sizing:border-box;
-
 }
 
-
-html,
 body{
-
     margin:0;
-
-    padding:0;
-
-    min-height:100%;
-
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--grafite);
+    color:var(--texto);
 }
-
-
-body{
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    background:
-        var(--grafite);
-
-    color:
-        var(--texto);
-
-}
-
-
-/* =========================
-   CABEÇALHO
-========================= */
 
 header{
-
-    position:relative;
-
-    min-height:105px;
-
-    background:#101214;
-
-    border-bottom:
-        1px solid #383c40;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:
-        15px 180px;
-
-}
-
-
-.logo{
-
-    position:absolute;
-
-    left:28px;
-
-    top:50%;
-
-    transform:
-        translateY(-50%);
-
-    width:145px;
-
-    max-height:80px;
-
-    object-fit:contain;
-
-}
-
-
-.titulo-header{
-
-    font-size:26px;
-
-    font-weight:700;
-
-    letter-spacing:.5px;
-
+    background:#111;
+    border-bottom:1px solid #34383c;
+    padding:22px;
     text-align:center;
-
+    font-size:26px;
+    font-weight:700;
+    letter-spacing:.5px;
     color:#fff;
-
 }
-
-
-/* =========================
-   CONTAINER
-========================= */
 
 .container{
-
-    max-width:1000px;
-
+    padding:25px;
+    max-width:1200px;
     margin:auto;
-
-    padding:
-        25px 20px 40px;
-
 }
-
-
-/* =========================
-   EVENTO
-========================= */
-
-.evento{
-
-    text-align:center;
-
-    margin-bottom:20px;
-
-    color:#fff;
-
-    font-size:23px;
-
-    font-weight:bold;
-
-}
-
-
-/* =========================
-   CARDS
-========================= */
 
 .card{
-
     background:#111;
-
-    border:
-        1px solid var(--borda);
-
-    border-radius:15px;
-
-    padding:20px;
-
+    border:1px solid #34383c;
+    padding:22px;
+    border-radius:14px;
     margin-bottom:18px;
-
-    box-shadow:
-        0 5px 18px
-        rgba(0,0,0,.20);
-
+    box-shadow:0 8px 25px rgba(0,0,0,.20);
 }
 
-
-.card h2{
-
-    margin:
-        0 0 15px;
-
-    color:#fff;
-
-    font-size:21px;
-
+h2{
+    margin-top:0;
 }
 
-
-/* =========================
-   PESQUISA
-========================= */
-
-.pesquisa{
-
-    background:#111;
-
-    border:
-        1px solid var(--borda);
-
-    border-radius:15px;
-
-    padding:20px;
-
-    margin-bottom:20px;
-
+h3{
+    margin-top:0;
 }
 
-
-.pesquisa input{
-
+input,
+select,
+button,
+textarea{
     width:100%;
-
-    padding:15px 16px;
-
-    background:#202326;
-
-    color:#fff;
-
-    border:
-        1px solid #444;
-
-    border-radius:10px;
-
-    font-size:17px;
-
-    outline:none;
-
-}
-
-
-.pesquisa input:focus{
-
-    border-color:
-        var(--verde);
-
-    box-shadow:
-        0 0 0 2px
-        rgba(124,252,0,.10);
-
-}
-
-
-/* =========================
-   FORMULÁRIO
-========================= */
-
-.form-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:14px;
-
-}
-
-
-.campo{
-
-    width:100%;
-
-}
-
-
-.campo-completo{
-
-    grid-column:
-        1 / -1;
-
-}
-
-
-.campo label{
-
-    display:block;
-
-    margin-bottom:6px;
-
-    color:#ccc;
-
-    font-size:14px;
-
-    font-weight:bold;
-
-}
-
-
-.campo input,
-.campo select,
-.campo textarea{
-
-    width:100%;
-
     padding:14px;
-
-    background:#202326;
-
-    color:#fff;
-
-    border:
-        1px solid #444;
-
+    margin:8px 0;
     border-radius:9px;
-
     font-size:16px;
-
-    outline:none;
-
-    font-family:Arial,
-        Helvetica,
-        sans-serif;
-
+    box-sizing:border-box;
 }
 
-
-.campo input:focus,
-.campo select:focus,
-.campo textarea:focus{
-
-    border-color:
-        var(--verde);
-
-    box-shadow:
-        0 0 0 2px
-        rgba(124,252,0,.10);
-
-}
-
-
-.campo textarea{
-
-    min-height:90px;
-
-    resize:vertical;
-
-}
-
-
-/* =========================
-   BOTÕES
-========================= */
-
-.botao{
-
-    width:100%;
-
-    padding:16px;
-
-    margin-top:18px;
-
-    border:0;
-
-    border-radius:10px;
-
-    background:
-        var(--verde);
-
-    color:#050505;
-
-    font-size:18px;
-
-    font-weight:900;
-
-    cursor:pointer;
-
-}
-
-
-.botao:hover{
-
-    filter:
-        brightness(.92);
-
-}
-
-
-.botao-secundario{
-
-    width:100%;
-
-    padding:14px;
-
-    border:0;
-
-    border-radius:10px;
-
-    background:#333;
-
-    color:#fff;
-
-    font-size:16px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-}
-
-
-.botao-secundario:hover{
-
-    background:#444;
-
-}
-
-
-/* =========================
-   LISTA DE ATLETAS
-========================= */
-
-.atleta{
-
-    background:#080808;
-
-    border:
-        1px solid #3d4145;
-
-    border-left:
-        4px solid var(--verde);
-
-    border-radius:12px;
-
-    padding:18px 20px;
-
-    margin-bottom:12px;
-
-    transition:
-        .18s ease;
-
-}
-
-
-.atleta:hover{
-
-    border-color:
-        var(--verde);
-
-    box-shadow:
-        0 7px 22px
-        rgba(124,252,0,.10);
-
-}
-
-
-.atleta-topo{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:flex-start;
-
-    gap:15px;
-
-    margin-bottom:12px;
-
-}
-
-
-.atleta-nome{
-
-    font-size:21px;
-
-    font-weight:bold;
-
-    color:#fff;
-
-}
-
-
-.atleta-numero{
-
-    background:#111;
-
-    border:
-        1px solid #444;
-
-    border-radius:8px;
-
-    padding:8px 12px;
-
-    font-size:18px;
-
-    font-weight:bold;
-
-    white-space:nowrap;
-
-}
-
-
-.atleta-dados{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:8px 20px;
-
-}
-
-
-.atleta-dado{
-
-    color:#bbb;
-
-    font-size:15px;
-
-    line-height:1.5;
-
-}
-
-
-.atleta-dado strong{
-
-    color:#fff;
-
-}
-
-
-.status{
-
-    display:inline-block;
-
-    margin-top:12px;
-
-    padding:6px 10px;
-
-    border-radius:7px;
-
+input,
+select,
+textarea{
     background:#222;
-
-    color:var(--verde);
-
-    font-size:13px;
-
-    font-weight:bold;
-
-}
-
-
-/* =========================
-   BOTÃO EDITAR
-========================= */
-
-.botao-editar{
-
-    width:100%;
-
-    margin-top:15px;
-
-    padding:13px;
-
-    border:
-        1px solid var(--verde);
-
-    border-radius:9px;
-
-    background:
-        rgba(124,252,0,.08);
-
-    color:
-        var(--verde);
-
-    font-size:16px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-}
-
-
-.botao-editar:hover{
-
-    background:
-        rgba(124,252,0,.15);
-
-}
-
-
-/* =========================
-   MODAL
-========================= */
-
-.modal{
-
-    position:fixed;
-
-    inset:0;
-
-    background:
-        rgba(0,0,0,.78);
-
-    display:none;
-
-    justify-content:center;
-
-    align-items:flex-start;
-
-    overflow-y:auto;
-
-    padding:30px 15px;
-
-    z-index:9999;
-
-}
-
-
-.modal.ativo{
-
-    display:flex;
-
-}
-
-
-.modal-conteudo{
-
-    width:100%;
-
-    max-width:900px;
-
-    background:#111;
-
-    border:
-        1px solid #444;
-
-    border-radius:17px;
-
-    padding:25px;
-
-    box-shadow:
-        0 20px 60px
-        rgba(0,0,0,.60);
-
-}
-
-
-.modal-cabecalho{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:15px;
-
-    margin-bottom:20px;
-
-}
-
-
-.modal-cabecalho h2{
-
-    margin:0;
-
     color:#fff;
-
+    border:1px solid #444;
 }
 
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
 
-.fechar{
-
-    width:42px;
-
-    height:42px;
-
-    padding:0;
-
-    margin:0;
-
-    border:0;
-
-    border-radius:9px;
-
-    background:#333;
-
-    color:#fff;
-
-    font-size:25px;
-
+button{
+    border:none;
+    background:var(--verde);
+    color:#050505;
+    font-weight:bold;
     cursor:pointer;
-
+    transition:.2s;
 }
 
-
-/* =========================
-   MENSAGENS
-========================= */
-
-.mensagem{
-
-    padding:15px;
-
-    border-radius:10px;
-
-    margin-bottom:15px;
-
-    background:#151515;
-
-    border:
-        1px solid #333;
-
-    color:#ccc;
-
+button:hover{
+    filter:brightness(.9);
 }
 
-
-.sucesso{
-
-    border-color:
-        var(--verde);
-
-    color:
-        var(--verde);
-
+button:disabled{
+    opacity:.5;
+    cursor:not-allowed;
 }
-
-
-.erro{
-
-    border-color:
-        var(--erro);
-
-    color:
-        var(--erro);
-
-}
-
-
-/* =========================
-   CARREGANDO
-========================= */
-
-.carregando{
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    height:100vh;
-
-    color:#ccc;
-
-    font-size:17px;
-
-}
-
-
-/* =========================
-   VOLTAR
-========================= */
 
 .voltar{
-
-    width:100%;
-
-    padding:15px;
-
     background:#333;
-
-    color:#fff;
-
-    border:0;
-
-    border-radius:10px;
-
-    font-size:17px;
-
-    cursor:pointer;
-
-    margin-top:10px;
-
+    color:white;
 }
 
+.btn-editar{
+    background:var(--verde);
+    color:#050505;
+}
 
-.voltar:hover{
+.btn-salvar{
+    background:var(--verde);
+    color:#050505;
+}
 
+.btn-cancelar{
     background:#444;
-
+    color:white;
 }
 
+.btn-baixar{
+    background:var(--verde);
+    color:#050505;
+    font-size:17px;
+    padding:16px;
+}
 
-/* =========================
-   MOBILE
-========================= */
+.btn-excluir{
+    background:#ff5252;
+    color:white;
+}
 
-@media(max-width:650px){
+label{
+    display:block;
+    margin-top:12px;
+    margin-bottom:4px;
+    font-weight:bold;
+}
 
-    header{
+small{
+    color:#aaa;
+}
 
-        min-height:90px;
+.evento{
+    border-left:5px solid var(--verde);
+}
 
-        padding:
-            15px 120px 15px 120px;
+.evento-nome{
+    color:var(--verde);
+    font-size:20px;
+    font-weight:bold;
+}
 
-    }
+.acoes{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
 
+.atleta{
+    border-left:5px solid var(--verde);
+}
 
-    .logo{
+.atleta-topo{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:12px;
+}
 
-        left:15px;
+.atleta-topo h2{
+    margin:0;
+}
 
-        width:105px;
+.numero{
+    background:var(--verde);
+    color:#050505;
+    padding:7px 12px;
+    border-radius:8px;
+    font-weight:bold;
+    white-space:nowrap;
+}
 
-        max-height:65px;
+.info{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px 20px;
+}
 
-    }
+.info p{
+    margin:5px 0;
+    color:#ddd;
+}
 
+.info b{
+    color:#fff;
+}
 
-    .titulo-header{
+.edicao{
+    margin-top:18px;
+    padding-top:18px;
+    border-top:1px solid #34383c;
+}
 
-        font-size:21px;
+.oculto{
+    display:none;
+}
 
-    }
+.status{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:6px;
+    background:#333;
+    font-size:13px;
+}
 
+.carregando{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-size:16px;
+    color:#cfcfcf;
+}
+
+.mensagem{
+    padding:15px;
+    border-radius:9px;
+    background:#222;
+    color:#ccc;
+}
+
+.sucesso{
+    color:var(--verde);
+    font-weight:bold;
+}
+
+.erro{
+    color:var(--vermelho);
+    font-weight:bold;
+}
+
+@media(max-width:700px){
 
     .container{
-
-        padding:
-            18px 12px 30px;
-
+        padding:15px;
     }
 
-
-    .form-grid{
-
+    .info{
         grid-template-columns:1fr;
-
     }
 
-
-    .campo-completo{
-
-        grid-column:auto;
-
-    }
-
-
-    .atleta-dados{
-
+    .acoes{
         grid-template-columns:1fr;
-
     }
-
 
     .atleta-topo{
-
         flex-direction:column;
-
-    }
-
-
-    .modal{
-
-        padding:
-            15px 10px;
-
-    }
-
-
-    .modal-conteudo{
-
-        padding:18px;
-
+        align-items:flex-start;
     }
 
 }
 
 </style>
-
 </head>
-
 
 <body>
 
-
-<div
-    id="telaCarregando"
-    class="carregando"
->
+<div id="telaCarregando" class="carregando">
     Verificando acesso...
 </div>
 
 
-<div
-    id="telaPainel"
-    style="display:none;"
->
-
+<div id="telaPainel" style="display:none;">
 
 <header>
-
-    <img
-        src="Colorida.png"
-        class="logo"
-        alt="Pratini Sports"
-    >
-
-    <div class="titulo-header">
-        ATLETAS
-    </div>
-
+    ATLETAS
 </header>
 
 
 <div class="container">
 
 
-<div
-    id="eventoAtivo"
-    class="evento"
->
-    Carregando...
+<!-- EVENTO ATIVO -->
+
+<div class="card evento">
+
+    <h2>Evento Ativo</h2>
+
+    <div
+        id="eventoAtivo"
+        class="evento-nome"
+    >
+        Carregando...
+    </div>
+
 </div>
 
 
-<!-- =========================
-     PESQUISA
-========================= -->
+<!-- PESQUISA -->
 
-<div class="pesquisa">
+<div class="card">
+
+    <h2>Pesquisar Atleta</h2>
 
     <input
         id="busca"
         type="text"
         placeholder="Pesquisar por nome, CPF ou número de peito"
-        autocomplete="off"
         oninput="filtrarAtletas()"
     >
 
 </div>
 
 
-<!-- =========================
-     NOVO ATLETA
-========================= -->
+<!-- NOVO ATLETA -->
 
 <div class="card">
 
-    <h2>
-        Novo Atleta
-    </h2>
+    <h2>Novo Atleta</h2>
 
-
-    <div class="form-grid">
-
-
-        <div class="campo campo-completo">
-
-            <label>
-                Nome completo *
-            </label>
-
-            <input
-                id="nome"
-                type="text"
-                placeholder="Digite o nome completo"
-            >
-
-        </div>
-
-
-        <div class="campo">
-
-            <label>
-                CPF
-            </label>
-
-            <input
-                id="cpf"
-                type="text"
-                placeholder="Digite o CPF"
-            >
-
-        </div>
-
-
-        <div class="campo">
-
-            <label>
-                Data de nascimento
-            </label>
-
-            <input
-                id="data_nascimento"
-                type="text"
-                placeholder="DD/MM/AAAA"
-                maxlength="10"
-                inputmode="numeric"
-                oninput="mascaraData(this)"
-            >
-
-        </div>
-
-
-        <div class="campo">
-
-            <label>
-                Número de peito
-            </label>
-
-            <input
-                id="numero_peito"
-                type="text"
-                placeholder="Número de peito"
-            >
-
-        </div>
-
-
-        <div class="campo">
-
-            <label>
-                Sexo
-            </label>
-
-            <select id="sexo">
-
-                <option value="">
-                    Selecione
-                </option>
-
-                <option value="MASCULINO">
-                    MASCULINO
-                </option>
-
-                <option value="FEMININO">
-                    FEMININO
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div class="campo">
-
-            <label>
-                Modalidade
-            </label>
-
-            <select id="modalidade">
-
-                <option value="">
-                    Selecione
-                </option>
-
-                <option value="CORRIDA 5KM">
-                    CORRIDA 5KM
-                </option>
-
-                <option value="CORRIDA 10KM">
-                    CORRIDA 10KM
-                </option>
-
-                <option value="CAMINHADA">
-                    CAMINHADA
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div class="campo">
-
-            <label>
-                Camiseta
-            </label>
-
-            <input
-                id="camiseta"
-                type="text"
-                placeholder="Ex.: M, G, GG..."
-            >
-
-        </div>
-
-
-        <div class="campo">
-
-            <label>
-                Equipe ou Assessoria
-            </label>
-
-            <input
-                id="equipe"
-                type="text"
-                placeholder="Equipe ou Assessoria"
-            >
-
-        </div>
-
-
-        <div class="campo">
-
-            <label>
-                Pelotão
-            </label>
-
-            <select id="pelotao">
-
-                <option value="">
-                    Selecione
-                </option>
-
-                <option value="PELOTÃO A: ABAIXO DE 04:10">
-                    PELOTÃO A: ABAIXO DE 04:10
-                </option>
-
-                <option value="PELOTÃO B: DE 04:10 A 04:59">
-                    PELOTÃO B: DE 04:10 A 04:59
-                </option>
-
-                <option value="PELOTÃO C: 05:00 OU ACIMA">
-                    PELOTÃO C: 05:00 OU ACIMA
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div class="campo">
-
-            <label>
-                Produto Extra
-            </label>
-
-            <input
-                id="produto_extra"
-                type="text"
-                placeholder="Ex.: Gravação de medalha"
-            >
-
-        </div>
-
-
-        <div class="campo campo-completo">
-
-            <label>
-                Observação
-            </label>
-
-            <textarea
-                id="observacao"
-                placeholder="Digite uma observação sobre o atleta..."
-            ></textarea>
-
-        </div>
-
-
-    </div>
-
-
-    <button
-        class="botao"
-        onclick="salvarAtleta()"
-    >
-        SALVAR ATLETA
-    </button>
-
-
-</div>
-
-
-<!-- =========================
-     LISTA
-========================= -->
-
-<div
-    id="mensagemLista"
-    class="mensagem"
-    style="display:none;"
-></div>
-
-
-<div
-    id="listaAtletas"
->
-    Carregando atletas...
-</div>
-
-
-<button
-    class="voltar"
-    onclick="location.href='dashboard.html'"
->
-    Voltar ao Painel
-</button>
-
-
-</div>
-
-
-</div>
-
-
-<!-- =========================
-     MODAL DE EDIÇÃO
-========================= -->
-
-<div
-    id="modalEdicao"
-    class="modal"
->
-
-
-<div class="modal-conteudo">
-
-
-<div class="modal-cabecalho">
-
-    <h2>
-        Editar Atleta
-    </h2>
-
-    <button
-        class="fechar"
-        onclick="fecharEdicao()"
-    >
-        ×
-    </button>
-
-</div>
-
-
-<input
-    id="editarId"
-    type="hidden"
->
-
-
-<div class="form-grid">
-
-
-<div class="campo campo-completo">
-
-    <label>
-        Nome completo
-    </label>
+    <label>Nome completo</label>
 
     <input
-        id="editarNome"
+        id="nome"
         type="text"
+        placeholder="Nome completo do atleta"
     >
 
-</div>
 
-
-<div class="campo">
-
-    <label>
-        CPF
-    </label>
+    <label>CPF</label>
 
     <input
-        id="editarCpf"
+        id="cpf"
         type="text"
+        placeholder="CPF"
     >
 
-</div>
 
-
-<div class="campo">
-
-    <label>
-        Data de nascimento
-    </label>
+    <label>Data de nascimento</label>
 
     <input
-        id="editarDataNascimento"
+        id="data_nascimento"
         type="text"
         placeholder="DD/MM/AAAA"
         maxlength="10"
-        inputmode="numeric"
         oninput="mascaraData(this)"
     >
 
-</div>
 
-
-<div class="campo">
-
-    <label>
-        Número de peito
-    </label>
+    <label>Número de peito</label>
 
     <input
-        id="editarNumero"
+        id="numero_peito"
         type="text"
+        placeholder="Número de peito"
     >
 
-</div>
 
+    <label>Modalidade</label>
 
-<div class="campo">
-
-    <label>
-        Sexo
-    </label>
-
-    <select id="editarSexo">
+    <select id="modalidade">
 
         <option value="">
-            Selecione
-        </option>
-
-        <option value="MASCULINO">
-            MASCULINO
-        </option>
-
-        <option value="FEMININO">
-            FEMININO
-        </option>
-
-    </select>
-
-</div>
-
-
-<div class="campo">
-
-    <label>
-        Modalidade
-    </label>
-
-    <select id="editarModalidade">
-
-        <option value="">
-            Selecione
+            Selecione a modalidade
         </option>
 
         <option value="CORRIDA 5KM">
@@ -1377,47 +402,50 @@ header{
 
     </select>
 
-</div>
 
+    <label>Sexo</label>
 
-<div class="campo">
-
-    <label>
-        Camiseta
-    </label>
-
-    <input
-        id="editarCamiseta"
-        type="text"
-    >
-
-</div>
-
-
-<div class="campo">
-
-    <label>
-        Equipe ou Assessoria
-    </label>
-
-    <input
-        id="editarEquipe"
-        type="text"
-    >
-
-</div>
-
-
-<div class="campo">
-
-    <label>
-        Pelotão
-    </label>
-
-    <select id="editarPelotao">
+    <select id="sexo">
 
         <option value="">
             Selecione
+        </option>
+
+        <option value="MASCULINO">
+            MASCULINO
+        </option>
+
+        <option value="FEMININO">
+            FEMININO
+        </option>
+
+    </select>
+
+
+    <label>Camiseta</label>
+
+    <input
+        id="camiseta"
+        type="text"
+        placeholder="Ex.: P, M, G, GG"
+    >
+
+
+    <label>Equipe ou Assessoria</label>
+
+    <input
+        id="equipe"
+        type="text"
+        placeholder="Equipe ou Assessoria"
+    >
+
+
+    <label>Pelotão</label>
+
+    <select id="pelotao">
+
+        <option value="">
+            Selecione o pelotão
         </option>
 
         <option value="PELOTÃO A: ABAIXO DE 04:10">
@@ -1434,52 +462,72 @@ header{
 
     </select>
 
-</div>
 
-
-<div class="campo">
-
-    <label>
-        Produto Extra
-    </label>
+    <label>Produto Extra</label>
 
     <input
-        id="editarProduto"
+        id="produto_extra"
         type="text"
+        placeholder="Ex.: Gravação de medalha"
     >
 
-</div>
 
-
-<div class="campo campo-completo">
-
-    <label>
-        Observação
-    </label>
+    <label>Observação</label>
 
     <textarea
-        id="editarObservacao"
+        id="observacao"
+        placeholder="Digite uma observação, se necessário"
     ></textarea>
 
+
+    <button
+        onclick="salvarAtleta()"
+        id="btnSalvar"
+    >
+        SALVAR ATLETA
+    </button>
+
 </div>
 
+
+<!-- EXPORTAÇÃO -->
+
+<div class="card">
+
+    <h2>Planilha para Cronometragem</h2>
+
+    <p>
+        Baixe a relação atualizada dos atletas do evento ativo
+        para enviar à empresa de cronometragem.
+    </p>
+
+    <button
+        class="btn-baixar"
+        onclick="baixarPlanilha()"
+        id="btnBaixar"
+    >
+        ⬇ BAIXAR PLANILHA ATUALIZADA
+    </button>
+
+</div>
+
+
+<!-- LISTA -->
+
+<div id="listaAtletas">
+
+    <div class="mensagem">
+        Carregando atletas...
+    </div>
 
 </div>
 
 
 <button
-    class="botao"
-    onclick="salvarEdicao()"
+    class="voltar"
+    onclick="location.href='dashboard.html'"
 >
-    SALVAR ALTERAÇÕES
-</button>
-
-
-<button
-    class="botao-secundario"
-    onclick="fecharEdicao()"
->
-    CANCELAR
+    VOLTAR AO PAINEL
 </button>
 
 
@@ -1490,43 +538,15 @@ header{
 
 <script>
 
-
-/* =========================
-   SUPABASE
-========================= */
-
-const SUPABASE_URL =
-    "https://kchpprimvfnwchztwlsa.supabase.co";
-
-
-const SUPABASE_ANON_KEY =
-    "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
-
-
-const db =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-    );
-
-
-/* =========================
-   EVENTO
-========================= */
-
 const eventoId =
-    localStorage.getItem(
-        "evento_ativo_id"
-    );
-
+    localStorage.getItem("evento_ativo_id");
 
 const eventoNome =
-    localStorage.getItem(
-        "evento_ativo_nome"
-    );
-
+    localStorage.getItem("evento_ativo_nome");
 
 let atletas = [];
+
+let atletaEditando = null;
 
 
 /* =========================
@@ -1535,11 +555,8 @@ let atletas = [];
 
 async function verificarAcesso(){
 
-    const {
-        data: sessao
-    } =
+    const { data: sessao } =
         await db.auth.getSession();
-
 
     if(
         !sessao ||
@@ -1557,17 +574,11 @@ async function verificarAcesso(){
         sessao.session.user;
 
 
-    const {
-        data: perfil,
-        error
-    } =
+    const { data: perfil, error } =
         await db
         .from("perfis")
         .select("role,nome")
-        .eq(
-            "id",
-            usuario.id
-        )
+        .eq("id",usuario.id)
         .single();
 
 
@@ -1608,197 +619,6 @@ async function verificarAcesso(){
 
 
     carregarAtletas();
-
-}
-
-
-/* =========================
-   ESCAPAR HTML
-========================= */
-
-function escaparHTML(texto){
-
-    return (
-        texto ??
-        ""
-    )
-    .toString()
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* =========================
-   DATA
-========================= */
-
-function converterDataParaBanco(valor){
-
-    if(!valor){
-
-        return null;
-
-    }
-
-
-    const partes =
-        valor
-        .trim()
-        .split("/");
-
-
-    if(
-        partes.length !== 3
-    ){
-
-        return null;
-
-    }
-
-
-    const dia =
-        partes[0].padStart(2,"0");
-
-
-    const mes =
-        partes[1].padStart(2,"0");
-
-
-    const ano =
-        partes[2];
-
-
-    if(
-        ano.length !== 4
-    ){
-
-        return null;
-
-    }
-
-
-    const data =
-        new Date(
-            Number(ano),
-            Number(mes) - 1,
-            Number(dia)
-        );
-
-
-    if(
-        data.getFullYear() !== Number(ano) ||
-        data.getMonth() !== Number(mes) - 1 ||
-        data.getDate() !== Number(dia)
-    ){
-
-        return null;
-
-    }
-
-
-    return (
-        ano +
-        "-" +
-        mes +
-        "-" +
-        dia
-    );
-
-}
-
-
-/* =========================
-   DATA PARA TELA
-========================= */
-
-function formatarData(data){
-
-    if(!data){
-
-        return "Não informada";
-
-    }
-
-
-    const texto =
-        data
-        .toString()
-        .split("T")[0];
-
-
-    const partes =
-        texto.split("-");
-
-
-    if(
-        partes.length === 3
-    ){
-
-        return (
-            partes[2] +
-            "/" +
-            partes[1] +
-            "/" +
-            partes[0]
-        );
-
-    }
-
-
-    return data;
-
-}
-
-
-/* =========================
-   MÁSCARA DATA
-========================= */
-
-function mascaraData(input){
-
-    let valor =
-        input.value
-        .replace(/\D/g,"");
-
-
-    if(valor.length > 8){
-
-        valor =
-            valor.substring(
-                0,
-                8
-            );
-
-    }
-
-
-    if(valor.length >= 5){
-
-        input.value =
-            valor.substring(0,2) +
-            "/" +
-            valor.substring(2,4) +
-            "/" +
-            valor.substring(4);
-
-    }else if(valor.length >= 3){
-
-        input.value =
-            valor.substring(0,2) +
-            "/" +
-            valor.substring(2);
-
-    }else{
-
-        input.value =
-            valor;
-
-    }
-
 }
 
 
@@ -1817,35 +637,30 @@ async function carregarAtletas(){
     if(!eventoId){
 
         lista.innerHTML = `
-            <div class="mensagem erro">
-                Selecione um evento ativo antes
-                de cadastrar atletas.
+            <div class="card">
+                <p>
+                    Selecione um evento ativo
+                    antes de cadastrar atletas.
+                </p>
             </div>
         `;
 
         return;
-
     }
 
 
     lista.innerHTML = `
-        <div class="mensagem">
+        <div class="card">
             Carregando atletas...
         </div>
     `;
 
 
-    const {
-        data,
-        error
-    } =
+    const { data, error } =
         await db
         .from("atletas_v2")
         .select("*")
-        .eq(
-            "evento_id",
-            eventoId
-        )
+        .eq("evento_id",eventoId)
         .order(
             "created_at",
             {
@@ -1857,14 +672,15 @@ async function carregarAtletas(){
     if(error){
 
         lista.innerHTML = `
-            <div class="mensagem erro">
-                Erro ao carregar atletas:
-                ${escaparHTML(error.message)}
+            <div class="card">
+                <p class="erro">
+                    Erro ao carregar atletas:
+                    ${escapeHtml(error.message)}
+                </p>
             </div>
         `;
 
         return;
-
     }
 
 
@@ -1872,10 +688,7 @@ async function carregarAtletas(){
         data || [];
 
 
-    renderizarAtletas(
-        atletas
-    );
-
+    renderizarAtletas(atletas);
 }
 
 
@@ -1883,7 +696,7 @@ async function carregarAtletas(){
    RENDERIZAR
 ========================= */
 
-function renderizarAtletas(listaAtletas){
+function renderizarAtletas(listaDados){
 
     const lista =
         document.getElementById(
@@ -1892,373 +705,651 @@ function renderizarAtletas(listaAtletas){
 
 
     if(
-        !listaAtletas ||
-        listaAtletas.length === 0
+        !listaDados ||
+        listaDados.length === 0
     ){
 
         lista.innerHTML = `
-            <div class="mensagem">
-                Nenhum atleta cadastrado ainda.
+            <div class="card">
+                <p>
+                    Nenhum atleta cadastrado ainda.
+                </p>
             </div>
         `;
 
         return;
-
     }
 
 
     lista.innerHTML = "";
 
 
-    listaAtletas.forEach(
+    listaDados.forEach(
         atleta => {
 
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-
-            div.className =
-                "atleta";
-
-
-            div.dataset.nome =
-                (atleta.nome || "")
-                .toLowerCase();
-
-
-            div.dataset.cpf =
-                (atleta.cpf || "")
-                .toLowerCase();
-
-
-            div.dataset.numero =
-                (atleta.numero_peito || "")
-                .toLowerCase();
-
-
-            div.innerHTML = `
-
-                <div class="atleta-topo">
-
-                    <div class="atleta-nome">
-
-                        ${escaparHTML(
-                            atleta.nome
-                        )}
-
-                    </div>
-
-                    <div class="atleta-numero">
-
-                        Nº
-                        ${escaparHTML(
-                            atleta.numero_peito ||
-                            "—"
-                        )}
-
-                    </div>
-
-                </div>
-
-
-                <div class="atleta-dados">
-
-                    <div class="atleta-dado">
-
-                        <strong>CPF:</strong>
-
-                        ${escaparHTML(
-                            atleta.cpf ||
-                            "Não informado"
-                        )}
-
-                    </div>
-
-
-                    <div class="atleta-dado">
-
-                        <strong>
-                            Nascimento:
-                        </strong>
-
-                        ${formatarData(
-                            atleta.data_nascimento
-                        )}
-
-                    </div>
-
-
-                    <div class="atleta-dado">
-
-                        <strong>
-                            Modalidade:
-                        </strong>
-
-                        ${escaparHTML(
-                            atleta.modalidade ||
-                            "Não informada"
-                        )}
-
-                    </div>
-
-
-                    <div class="atleta-dado">
-
-                        <strong>
-                            Sexo:
-                        </strong>
-
-                        ${escaparHTML(
-                            atleta.sexo ||
-                            "Não informado"
-                        )}
-
-                    </div>
-
-
-                    <div class="atleta-dado">
-
-                        <strong>
-                            Camiseta:
-                        </strong>
-
-                        ${escaparHTML(
-                            atleta.camiseta ||
-                            "Não informada"
-                        )}
-
-                    </div>
-
-
-                    <div class="atleta-dado">
-
-                        <strong>
-                            Equipe ou Assessoria:
-                        </strong>
-
-                        ${escaparHTML(
-                            atleta.equipe ||
-                            "Não informada"
-                        )}
-
-                    </div>
-
-
-                    <div class="atleta-dado">
-
-                        <strong>
-                            Pelotão:
-                        </strong>
-
-                        ${escaparHTML(
-                            atleta.pelotao ||
-                            "Não informado"
-                        )}
-
-                    </div>
-
-
-                    <div class="atleta-dado">
-
-                        <strong>
-                            Produto Extra:
-                        </strong>
-
-                        ${escaparHTML(
-                            atleta.produto_extra ||
-                            "Nenhum"
-                        )}
-
-                    </div>
-
-
-                    <div class="atleta-dado">
-
-                        <strong>
-                            Observação:
-                        </strong>
-
-                        ${escaparHTML(
-                            atleta.observacao ||
-                            "Nenhuma"
-                        )}
-
-                    </div>
-
-                </div>
-
-
-                <div class="status">
-
-                    STATUS:
-                    ${escaparHTML(
-                        atleta.status_kit ||
-                        "pendente"
-                    )}
-
-                </div>
-
-
-                <button
-                    class="botao-editar"
-                    onclick="abrirEdicao('${atleta.id}')"
-                >
-
-                    EDITAR ATLETA
-
-                </button>
-
-            `;
-
-
-            lista.appendChild(
-                div
-            );
+            lista.innerHTML +=
+                criarCardAtleta(atleta);
 
         }
     );
-
 }
 
 
 /* =========================
-   FILTRAR
+   CARD DO ATLETA
 ========================= */
 
-function filtrarAtletas(){
+function criarCardAtleta(atleta){
 
-    const texto =
-        document
-        .getElementById(
-            "busca"
-        )
-        .value
-        .toLowerCase()
-        .trim();
+    const id =
+        atleta.id;
 
 
-    if(!texto){
+    return `
 
-        renderizarAtletas(
-            atletas
-        );
+    <div
+        class="card atleta"
+        id="atleta-${id}"
+        data-nome="${escapeHtml(atleta.nome || "")}"
+        data-cpf="${escapeHtml(atleta.cpf || "")}"
+        data-numero="${escapeHtml(atleta.numero_peito || "")}"
+    >
 
-        return;
+        <div class="atleta-topo">
+
+            <h2>
+                ${escapeHtml(
+                    atleta.nome ||
+                    "Sem nome"
+                )}
+            </h2>
+
+            <div class="numero">
+
+                Nº
+                ${escapeHtml(
+                    atleta.numero_peito ||
+                    "-"
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            <p>
+                <b>CPF:</b>
+                ${escapeHtml(
+                    atleta.cpf ||
+                    "Não informado"
+                )}
+            </p>
+
+
+            <p>
+                <b>Data nascimento:</b>
+                ${formatarDataBR(
+                    atleta.data_nascimento
+                )}
+            </p>
+
+
+            <p>
+                <b>Modalidade:</b>
+                ${escapeHtml(
+                    atleta.modalidade ||
+                    "Não informada"
+                )}
+            </p>
+
+
+            <p>
+                <b>Sexo:</b>
+                ${escapeHtml(
+                    atleta.sexo ||
+                    "Não informado"
+                )}
+            </p>
+
+
+            <p>
+                <b>Camiseta:</b>
+                ${escapeHtml(
+                    atleta.camiseta ||
+                    "Não informada"
+                )}
+            </p>
+
+
+            <p>
+                <b>Equipe/Assessoria:</b>
+                ${escapeHtml(
+                    atleta.equipe ||
+                    "Não informada"
+                )}
+            </p>
+
+
+            <p>
+                <b>Pelotão:</b>
+                ${escapeHtml(
+                    atleta.pelotao ||
+                    "Não informado"
+                )}
+            </p>
+
+
+            <p>
+                <b>Produto Extra:</b>
+                ${escapeHtml(
+                    atleta.produto_extra ||
+                    "Nenhum"
+                )}
+            </p>
+
+
+            <p>
+                <b>Observação:</b>
+                ${escapeHtml(
+                    atleta.observacao ||
+                    "Nenhuma"
+                )}
+            </p>
+
+
+            <p>
+                <b>Status Kit:</b>
+
+                <span class="status">
+                    ${escapeHtml(
+                        atleta.status_kit ||
+                        "pendente"
+                    )}
+                </span>
+
+            </p>
+
+        </div>
+
+
+        <div class="acoes">
+
+            <button
+                class="btn-editar"
+                onclick="editarAtleta('${id}')"
+            >
+                ✏ EDITAR
+            </button>
+
+            <button
+                class="btn-excluir"
+                onclick="excluirAtleta('${id}')"
+            >
+                EXCLUIR
+            </button>
+
+        </div>
+
+
+        <div
+            id="edicao-${id}"
+            class="edicao oculto"
+        >
+
+            ${formularioEdicao(atleta)}
+
+        </div>
+
+    </div>
+
+    `;
+}
+
+
+/* =========================
+   FORMULÁRIO DE EDIÇÃO
+========================= */
+
+function formularioEdicao(atleta){
+
+    return `
+
+    <h3>
+        Editar atleta
+    </h3>
+
+
+    <label>Nome completo</label>
+
+    <input
+        id="edit_nome_${atleta.id}"
+        value="${escapeAttr(atleta.nome || "")}"
+    >
+
+
+    <label>CPF</label>
+
+    <input
+        id="edit_cpf_${atleta.id}"
+        value="${escapeAttr(atleta.cpf || "")}"
+    >
+
+
+    <label>Data de nascimento</label>
+
+    <input
+        id="edit_data_${atleta.id}"
+        value="${formatarDataBR(atleta.data_nascimento,true)}"
+        maxlength="10"
+        placeholder="DD/MM/AAAA"
+        oninput="mascaraData(this)"
+    >
+
+
+    <label>Número de peito</label>
+
+    <input
+        id="edit_numero_${atleta.id}"
+        value="${escapeAttr(atleta.numero_peito || "")}"
+    >
+
+
+    <label>Modalidade</label>
+
+    <select id="edit_modalidade_${atleta.id}">
+
+        <option value="">
+            Selecione
+        </option>
+
+        <option value="CORRIDA 5KM">
+            CORRIDA 5KM
+        </option>
+
+        <option value="CORRIDA 10KM">
+            CORRIDA 10KM
+        </option>
+
+        <option value="CAMINHADA">
+            CAMINHADA
+        </option>
+
+    </select>
+
+
+    <label>Sexo</label>
+
+    <select id="edit_sexo_${atleta.id}">
+
+        <option value="">
+            Selecione
+        </option>
+
+        <option value="MASCULINO">
+            MASCULINO
+        </option>
+
+        <option value="FEMININO">
+            FEMININO
+        </option>
+
+    </select>
+
+
+    <label>Camiseta</label>
+
+    <input
+        id="edit_camiseta_${atleta.id}"
+        value="${escapeAttr(atleta.camiseta || "")}"
+    >
+
+
+    <label>Equipe ou Assessoria</label>
+
+    <input
+        id="edit_equipe_${atleta.id}"
+        value="${escapeAttr(atleta.equipe || "")}"
+    >
+
+
+    <label>Pelotão</label>
+
+    <select id="edit_pelotao_${atleta.id}">
+
+        <option value="">
+            Selecione
+        </option>
+
+        <option value="PELOTÃO A: ABAIXO DE 04:10">
+            PELOTÃO A: ABAIXO DE 04:10
+        </option>
+
+        <option value="PELOTÃO B: DE 04:10 A 04:59">
+            PELOTÃO B: DE 04:10 A 04:59
+        </option>
+
+        <option value="PELOTÃO C: 05:00 OU ACIMA">
+            PELOTÃO C: 05:00 OU ACIMA
+        </option>
+
+    </select>
+
+
+    <label>Produto Extra</label>
+
+    <input
+        id="edit_produto_${atleta.id}"
+        value="${escapeAttr(atleta.produto_extra || "")}"
+    >
+
+
+    <label>Observação</label>
+
+    <textarea
+        id="edit_observacao_${atleta.id}"
+    >${escapeHtml(atleta.observacao || "")}</textarea>
+
+
+    <div class="acoes">
+
+        <button
+            class="btn-salvar"
+            onclick="salvarEdicao('${atleta.id}')"
+        >
+            💾 SALVAR ALTERAÇÕES
+        </button>
+
+
+        <button
+            class="btn-cancelar"
+            onclick="cancelarEdicao('${atleta.id}')"
+        >
+            CANCELAR
+        </button>
+
+    </div>
+
+    <script>
+
+    setTimeout(function(){
+
+        const modalidade =
+            document.getElementById(
+                "edit_modalidade_${atleta.id}"
+            );
+
+        if(modalidade){
+
+            modalidade.value =
+                "${escapeJs(atleta.modalidade || "")}";
+
+        }
+
+
+        const sexo =
+            document.getElementById(
+                "edit_sexo_${atleta.id}"
+            );
+
+        if(sexo){
+
+            sexo.value =
+                "${escapeJs(atleta.sexo || "")}";
+
+        }
+
+
+        const pelotao =
+            document.getElementById(
+                "edit_pelotao_${atleta.id}"
+            );
+
+        if(pelotao){
+
+            pelotao.value =
+                "${escapeJs(atleta.pelotao || "")}";
+
+        }
+
+    },10);
+
+    <\/script>
+
+    `;
+}
+
+
+/* =========================
+   EDITAR
+========================= */
+
+function editarAtleta(id){
+
+    if(atletaEditando && atletaEditando !== id){
+
+        cancelarEdicao(atletaEditando);
 
     }
 
 
-    const filtrados =
-        atletas.filter(
-            atleta => {
-
-                const nome =
-                    (
-                        atleta.nome ||
-                        ""
-                    )
-                    .toLowerCase();
-
-
-                const cpf =
-                    (
-                        atleta.cpf ||
-                        ""
-                    )
-                    .toLowerCase();
-
-
-                const numero =
-                    (
-                        atleta.numero_peito ||
-                        ""
-                    )
-                    .toLowerCase();
-
-
-                return (
-
-                    nome.includes(texto) ||
-
-                    cpf.includes(texto) ||
-
-                    numero.includes(texto)
-
-                );
-
-            }
+    const area =
+        document.getElementById(
+            "edicao-" + id
         );
 
 
-    renderizarAtletas(
-        filtrados
+    if(!area) return;
+
+
+    area.classList.remove(
+        "oculto"
     );
+
+
+    atletaEditando = id;
+
+
+    area.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+}
+
+
+/* =========================
+   CANCELAR
+========================= */
+
+function cancelarEdicao(id){
+
+    const area =
+        document.getElementById(
+            "edicao-" + id
+        );
+
+
+    if(area){
+
+        area.classList.add(
+            "oculto"
+        );
+
+    }
+
+
+    if(atletaEditando === id){
+
+        atletaEditando = null;
+
+    }
 
 }
 
 
 /* =========================
-   LIMPAR FORMULÁRIO
+   SALVAR EDIÇÃO
 ========================= */
 
-function limparFormulario(){
+async function salvarEdicao(id){
 
-    document.getElementById(
-        "nome"
-    ).value = "";
-
-
-    document.getElementById(
-        "cpf"
-    ).value = "";
+    const nome =
+        document.getElementById(
+            "edit_nome_" + id
+        ).value.trim();
 
 
-    document.getElementById(
-        "data_nascimento"
-    ).value = "";
+    const cpf =
+        document.getElementById(
+            "edit_cpf_" + id
+        ).value.trim();
 
 
-    document.getElementById(
-        "numero_peito"
-    ).value = "";
+    const dataTexto =
+        document.getElementById(
+            "edit_data_" + id
+        ).value.trim();
 
 
-    document.getElementById(
-        "sexo"
-    ).value = "";
+    const numero_peito =
+        document.getElementById(
+            "edit_numero_" + id
+        ).value.trim();
 
 
-    document.getElementById(
-        "modalidade"
-    ).value = "";
+    const modalidade =
+        document.getElementById(
+            "edit_modalidade_" + id
+        ).value;
 
 
-    document.getElementById(
-        "camiseta"
-    ).value = "";
+    const sexo =
+        document.getElementById(
+            "edit_sexo_" + id
+        ).value;
 
 
-    document.getElementById(
-        "equipe"
-    ).value = "";
+    const camiseta =
+        document.getElementById(
+            "edit_camiseta_" + id
+        ).value.trim();
 
 
-    document.getElementById(
-        "pelotao"
-    ).value = "";
+    const equipe =
+        document.getElementById(
+            "edit_equipe_" + id
+        ).value.trim();
 
 
-    document.getElementById(
-        "produto_extra"
-    ).value = "";
+    const pelotao =
+        document.getElementById(
+            "edit_pelotao_" + id
+        ).value;
 
 
-    document.getElementById(
-        "observacao"
-    ).value = "";
+    const produto_extra =
+        document.getElementById(
+            "edit_produto_" + id
+        ).value.trim();
 
+
+    const observacao =
+        document.getElementById(
+            "edit_observacao_" + id
+        ).value.trim();
+
+
+    if(!nome){
+
+        alert(
+            "O nome do atleta é obrigatório."
+        );
+
+        return;
+    }
+
+
+    const data_nascimento =
+        converterData(dataTexto);
+
+
+    if(
+        dataTexto &&
+        !data_nascimento
+    ){
+
+        alert(
+            "Data de nascimento inválida. Use DD/MM/AAAA."
+        );
+
+        return;
+    }
+
+
+    const { error } =
+        await db
+        .from("atletas_v2")
+        .update({
+
+            nome,
+
+            cpf:
+                cpf || null,
+
+            data_nascimento,
+
+            numero_peito:
+                numero_peito || null,
+
+            modalidade:
+                modalidade || null,
+
+            sexo:
+                sexo || null,
+
+            camiseta:
+                camiseta || null,
+
+            equipe:
+                equipe || null,
+
+            pelotao:
+                pelotao || null,
+
+            produto_extra:
+                produto_extra || null,
+
+            observacao:
+                observacao || null
+
+        })
+        .eq("id",id)
+        .eq("evento_id",eventoId);
+
+
+    if(error){
+
+        alert(
+            "Erro ao salvar alterações: " +
+            error.message
+        );
+
+        console.error(error);
+
+        return;
+    }
+
+
+    alert(
+        "Atleta atualizado com sucesso!"
+    );
+
+
+    atletaEditando = null;
+
+
+    carregarAtletas();
 }
 
 
@@ -2275,202 +1366,175 @@ async function salvarAtleta(){
         );
 
         return;
-
     }
 
 
     const nome =
-        document
-        .getElementById(
+        document.getElementById(
             "nome"
-        )
-        .value
-        .trim();
+        ).value.trim();
 
 
     const cpf =
-        document
-        .getElementById(
+        document.getElementById(
             "cpf"
-        )
-        .value
-        .trim();
+        ).value.trim();
 
 
-    const dataNascimentoTexto =
-        document
-        .getElementById(
+    const dataTexto =
+        document.getElementById(
             "data_nascimento"
-        )
-        .value
-        .trim();
-
-
-    const data_nascimento =
-        converterDataParaBanco(
-            dataNascimentoTexto
-        );
+        ).value.trim();
 
 
     const numero_peito =
-        document
-        .getElementById(
+        document.getElementById(
             "numero_peito"
-        )
-        .value
-        .trim();
-
-
-    const sexo =
-        document
-        .getElementById(
-            "sexo"
-        )
-        .value;
+        ).value.trim();
 
 
     const modalidade =
-        document
-        .getElementById(
+        document.getElementById(
             "modalidade"
-        )
-        .value;
+        ).value;
+
+
+    const sexo =
+        document.getElementById(
+            "sexo"
+        ).value;
 
 
     const camiseta =
-        document
-        .getElementById(
+        document.getElementById(
             "camiseta"
-        )
-        .value
-        .trim();
+        ).value.trim();
 
 
     const equipe =
-        document
-        .getElementById(
+        document.getElementById(
             "equipe"
-        )
-        .value
-        .trim();
+        ).value.trim();
 
 
     const pelotao =
-        document
-        .getElementById(
+        document.getElementById(
             "pelotao"
-        )
-        .value;
+        ).value;
 
 
     const produto_extra =
-        document
-        .getElementById(
+        document.getElementById(
             "produto_extra"
-        )
-        .value
-        .trim();
+        ).value.trim();
 
 
     const observacao =
-        document
-        .getElementById(
+        document.getElementById(
             "observacao"
-        )
-        .value
-        .trim();
+        ).value.trim();
 
 
     if(!nome){
 
         alert(
-            "Digite o nome completo do atleta."
+            "Digite o nome do atleta."
         );
 
         return;
-
     }
 
 
+    const data_nascimento =
+        converterData(dataTexto);
+
+
     if(
-        dataNascimentoTexto &&
+        dataTexto &&
         !data_nascimento
     ){
 
         alert(
-            "A data de nascimento deve ser válida e estar no formato DD/MM/AAAA."
+            "Data de nascimento inválida. Use DD/MM/AAAA."
         );
 
         return;
-
     }
 
 
-    const dadosAtleta = {
-
-        evento_id:
-            eventoId,
-
-        nome,
-
-        cpf:
-            cpf || null,
-
-        data_nascimento,
-
-        numero_peito:
-            numero_peito || null,
-
-        sexo:
-            sexo || null,
-
-        modalidade:
-            modalidade || null,
-
-        camiseta:
-            camiseta || null,
-
-        equipe:
-            equipe || null,
-
-        pelotao:
-            pelotao || null,
-
-        produto_extra:
-            produto_extra || null,
-
-        observacao:
-            observacao || null,
-
-        status_kit:
-            "pendente"
-
-    };
+    const botao =
+        document.getElementById(
+            "btnSalvar"
+        );
 
 
-    const {
-        error
-    } =
+    botao.disabled = true;
+
+    botao.innerText =
+        "SALVANDO...";
+
+
+    const { error } =
         await db
         .from("atletas_v2")
-        .insert([
-            dadosAtleta
-        ]);
+        .insert([{
+
+            evento_id:
+                eventoId,
+
+            nome,
+
+            cpf:
+                cpf || null,
+
+            data_nascimento,
+
+            numero_peito:
+                numero_peito || null,
+
+            modalidade:
+                modalidade || null,
+
+            sexo:
+                sexo || null,
+
+            camiseta:
+                camiseta || null,
+
+            equipe:
+                equipe || null,
+
+            pelotao:
+                pelotao || null,
+
+            produto_extra:
+                produto_extra || null,
+
+            observacao:
+                observacao || null,
+
+            status_kit:
+                "pendente"
+
+        }]);
+
+
+    botao.disabled = false;
+
+    botao.innerText =
+        "SALVAR ATLETA";
 
 
     if(error){
 
         alert(
-            "Erro ao salvar atleta:\n\n" +
+            "Erro ao salvar atleta: " +
             error.message
         );
 
-        console.error(
-            error
-        );
+        console.error(error);
 
         return;
-
     }
 
 
@@ -2483,21 +1547,18 @@ async function salvarAtleta(){
 
 
     carregarAtletas();
-
 }
 
 
 /* =========================
-   ABRIR EDIÇÃO
+   EXCLUIR ATLETA
 ========================= */
 
-function abrirEdicao(id){
+async function excluirAtleta(id){
 
     const atleta =
         atletas.find(
-            item =>
-                String(item.id) ===
-                String(id)
+            a => String(a.id) === String(id)
         );
 
 
@@ -2508,352 +1569,509 @@ function abrirEdicao(id){
         );
 
         return;
-
     }
 
 
-    document.getElementById(
-        "editarId"
-    ).value =
-        atleta.id;
-
-
-    document.getElementById(
-        "editarNome"
-    ).value =
-        atleta.nome || "";
-
-
-    document.getElementById(
-        "editarCpf"
-    ).value =
-        atleta.cpf || "";
-
-
-    document.getElementById(
-        "editarDataNascimento"
-    ).value =
-        atleta.data_nascimento
-        ?
-        formatarData(
-            atleta.data_nascimento
-        )
-        :
-        "";
-
-
-    document.getElementById(
-        "editarNumero"
-    ).value =
-        atleta.numero_peito || "";
-
-
-    document.getElementById(
-        "editarSexo"
-    ).value =
-        atleta.sexo || "";
-
-
-    document.getElementById(
-        "editarModalidade"
-    ).value =
-        atleta.modalidade || "";
-
-
-    document.getElementById(
-        "editarCamiseta"
-    ).value =
-        atleta.camiseta || "";
-
-
-    document.getElementById(
-        "editarEquipe"
-    ).value =
-        atleta.equipe || "";
-
-
-    document.getElementById(
-        "editarPelotao"
-    ).value =
-        atleta.pelotao || "";
-
-
-    document.getElementById(
-        "editarProduto"
-    ).value =
-        atleta.produto_extra || "";
-
-
-    document.getElementById(
-        "editarObservacao"
-    ).value =
-        atleta.observacao || "";
-
-
-    document
-    .getElementById(
-        "modalEdicao"
-    )
-    .classList
-    .add("ativo");
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-}
-
-
-/* =========================
-   FECHAR EDIÇÃO
-========================= */
-
-function fecharEdicao(){
-
-    document
-    .getElementById(
-        "modalEdicao"
-    )
-    .classList
-    .remove("ativo");
-
-}
-
-
-/* =========================
-   SALVAR EDIÇÃO
-========================= */
-
-async function salvarEdicao(){
-
-    const id =
-        document
-        .getElementById(
-            "editarId"
-        )
-        .value;
-
-
-    if(!id){
-
-        alert(
-            "Atleta inválido."
+    const confirmar =
+        confirm(
+            "Tem certeza que deseja excluir o atleta:\n\n" +
+            atleta.nome +
+            "?"
         );
+
+
+    if(!confirmar){
 
         return;
-
     }
 
 
-    const nome =
-        document
-        .getElementById(
-            "editarNome"
-        )
-        .value
-        .trim();
-
-
-    const cpf =
-        document
-        .getElementById(
-            "editarCpf"
-        )
-        .value
-        .trim();
-
-
-    const dataTexto =
-        document
-        .getElementById(
-            "editarDataNascimento"
-        )
-        .value
-        .trim();
-
-
-    const data_nascimento =
-        converterDataParaBanco(
-            dataTexto
-        );
-
-
-    const numero_peito =
-        document
-        .getElementById(
-            "editarNumero"
-        )
-        .value
-        .trim();
-
-
-    const sexo =
-        document
-        .getElementById(
-            "editarSexo"
-        )
-        .value;
-
-
-    const modalidade =
-        document
-        .getElementById(
-            "editarModalidade"
-        )
-        .value;
-
-
-    const camiseta =
-        document
-        .getElementById(
-            "editarCamiseta"
-        )
-        .value
-        .trim();
-
-
-    const equipe =
-        document
-        .getElementById(
-            "editarEquipe"
-        )
-        .value
-        .trim();
-
-
-    const pelotao =
-        document
-        .getElementById(
-            "editarPelotao"
-        )
-        .value;
-
-
-    const produto_extra =
-        document
-        .getElementById(
-            "editarProduto"
-        )
-        .value
-        .trim();
-
-
-    const observacao =
-        document
-        .getElementById(
-            "editarObservacao"
-        )
-        .value
-        .trim();
-
-
-    if(!nome){
-
-        alert(
-            "O nome do atleta é obrigatório."
-        );
-
-        return;
-
-    }
-
-
-    if(
-        dataTexto &&
-        !data_nascimento
-    ){
-
-        alert(
-            "A data de nascimento deve ser válida e estar no formato DD/MM/AAAA."
-        );
-
-        return;
-
-    }
-
-
-    const dadosAtualizados = {
-
-        nome,
-
-        cpf:
-            cpf || null,
-
-        data_nascimento,
-
-        numero_peito:
-            numero_peito || null,
-
-        sexo:
-            sexo || null,
-
-        modalidade:
-            modalidade || null,
-
-        camiseta:
-            camiseta || null,
-
-        equipe:
-            equipe || null,
-
-        pelotao:
-            pelotao || null,
-
-        produto_extra:
-            produto_extra || null,
-
-        observacao:
-            observacao || null
-
-    };
-
-
-    const {
-        error
-    } =
+    const { error } =
         await db
         .from("atletas_v2")
-        .update(
-            dadosAtualizados
-        )
-        .eq(
-            "id",
-            id
-        )
-        .eq(
-            "evento_id",
-            eventoId
-        );
+        .delete()
+        .eq("id",id)
+        .eq("evento_id",eventoId);
 
 
     if(error){
 
         alert(
-            "Erro ao salvar alterações:\n\n" +
+            "Erro ao excluir atleta: " +
             error.message
         );
 
-        console.error(
-            error
-        );
+        console.error(error);
 
         return;
-
     }
 
 
     alert(
-        "Alterações salvas com sucesso!"
+        "Atleta excluído com sucesso."
     );
 
 
-    fecharEdicao();
-
-
     carregarAtletas();
+}
 
+
+/* =========================
+   LIMPAR FORMULÁRIO
+========================= */
+
+function limparFormulario(){
+
+    document.getElementById(
+        "nome"
+    ).value = "";
+
+    document.getElementById(
+        "cpf"
+    ).value = "";
+
+    document.getElementById(
+        "data_nascimento"
+    ).value = "";
+
+    document.getElementById(
+        "numero_peito"
+    ).value = "";
+
+    document.getElementById(
+        "modalidade"
+    ).value = "";
+
+    document.getElementById(
+        "sexo"
+    ).value = "";
+
+    document.getElementById(
+        "camiseta"
+    ).value = "";
+
+    document.getElementById(
+        "equipe"
+    ).value = "";
+
+    document.getElementById(
+        "pelotao"
+    ).value = "";
+
+    document.getElementById(
+        "produto_extra"
+    ).value = "";
+
+    document.getElementById(
+        "observacao"
+    ).value = "";
+}
+
+
+/* =========================
+   FILTRAR
+========================= */
+
+function filtrarAtletas(){
+
+    const texto =
+        document
+        .getElementById("busca")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const cards =
+        document.querySelectorAll(
+            ".atleta"
+        );
+
+
+    cards.forEach(card => {
+
+        const conteudo =
+            card.innerText
+            .toLowerCase();
+
+
+        if(
+            conteudo.includes(texto)
+        ){
+
+            card.style.display =
+                "";
+
+        }else{
+
+            card.style.display =
+                "none";
+
+        }
+
+    });
+}
+
+
+/* =========================
+   BAIXAR PLANILHA
+========================= */
+
+function baixarPlanilha(){
+
+    if(!eventoId){
+
+        alert(
+            "Não existe evento ativo selecionado."
+        );
+
+        return;
+    }
+
+
+    if(
+        !atletas ||
+        atletas.length === 0
+    ){
+
+        alert(
+            "Não há atletas para exportar."
+        );
+
+        return;
+    }
+
+
+    const dadosExportacao =
+        atletas.map(atleta => ({
+
+            "NÚMERO DE PEITO":
+                atleta.numero_peito || "",
+
+            "NOME COMPLETO":
+                atleta.nome || "",
+
+            "CPF":
+                atleta.cpf || "",
+
+            "DATA DE NASCIMENTO":
+                formatarDataBR(
+                    atleta.data_nascimento
+                ),
+
+            "MODALIDADE":
+                atleta.modalidade || "",
+
+            "SEXO":
+                atleta.sexo || "",
+
+            "CAMISETA":
+                atleta.camiseta || "",
+
+            "EQUIPE OU ASSESSORIA":
+                atleta.equipe || "",
+
+            "PELOTÃO":
+                atleta.pelotao || "",
+
+            "PRODUTO EXTRA":
+                atleta.produto_extra || "",
+
+            "OBSERVAÇÃO":
+                atleta.observacao || "",
+
+            "STATUS KIT":
+                atleta.status_kit || ""
+
+        }));
+
+
+    const planilha =
+        XLSX.utils.json_to_sheet(
+            dadosExportacao
+        );
+
+
+    planilha["!cols"] = [
+
+        {wch:18},
+        {wch:35},
+        {wch:18},
+        {wch:20},
+        {wch:20},
+        {wch:15},
+        {wch:15},
+        {wch:30},
+        {wch:35},
+        {wch:30},
+        {wch:40},
+        {wch:18}
+
+    ];
+
+
+    const workbook =
+        XLSX.utils.book_new();
+
+
+    XLSX.utils.book_append_sheet(
+        workbook,
+        planilha,
+        "Atletas"
+    );
+
+
+    const nomeSeguro =
+        (eventoNome || "evento")
+        .replace(
+            /[\\/:*?"<>|]/g,
+            ""
+        )
+        .replace(
+            /\s+/g,
+            "_"
+        );
+
+
+    const dataAtual =
+        new Date();
+
+
+    const dataArquivo =
+        dataAtual
+        .toLocaleDateString(
+            "pt-BR"
+        )
+        .replace(
+            /\//g,
+            "-"
+        );
+
+
+    const nomeArquivo =
+        `Atletas_${nomeSeguro}_${dataArquivo}.xlsx`;
+
+
+    XLSX.writeFile(
+        workbook,
+        nomeArquivo
+    );
+}
+
+
+/* =========================
+   DATA
+========================= */
+
+function mascaraData(input){
+
+    let valor =
+        input.value
+        .replace(/\D/g,"")
+        .slice(0,8);
+
+
+    if(valor.length >= 5){
+
+        valor =
+            valor.slice(0,2) +
+            "/" +
+            valor.slice(2,4) +
+            "/" +
+            valor.slice(4);
+
+    }else if(valor.length >= 3){
+
+        valor =
+            valor.slice(0,2) +
+            "/" +
+            valor.slice(2);
+
+    }
+
+
+    input.value =
+        valor;
+}
+
+
+function converterData(valor){
+
+    if(!valor){
+
+        return null;
+    }
+
+
+    valor =
+        valor
+        .toString()
+        .trim();
+
+
+    const br =
+        valor.match(
+            /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/
+        );
+
+
+    if(br){
+
+        const dia =
+            br[1].padStart(2,"0");
+
+        const mes =
+            br[2].padStart(2,"0");
+
+        const ano =
+            br[3];
+
+
+        const data =
+            new Date(
+                `${ano}-${mes}-${dia}T00:00:00`
+            );
+
+
+        if(
+            data.getFullYear() != ano ||
+            data.getMonth()+1 != Number(mes) ||
+            data.getDate() != Number(dia)
+        ){
+
+            return null;
+        }
+
+
+        return `${ano}-${mes}-${dia}`;
+    }
+
+
+    const iso =
+        valor.match(
+            /^(\d{4})-(\d{1,2})-(\d{1,2})$/
+        );
+
+
+    if(iso){
+
+        return (
+            iso[1] +
+            "-" +
+            iso[2].padStart(2,"0") +
+            "-" +
+            iso[3].padStart(2,"0")
+        );
+    }
+
+
+    return null;
+}
+
+
+function formatarDataBR(valor,paraEdicao=false){
+
+    if(!valor){
+
+        return "";
+    }
+
+
+    const texto =
+        valor
+        .toString()
+        .trim();
+
+
+    if(
+        /^\d{2}\/\d{2}\/\d{4}$/.test(texto)
+    ){
+
+        return texto;
+    }
+
+
+    const iso =
+        texto.match(
+            /^(\d{4})-(\d{2})-(\d{2})/
+        );
+
+
+    if(iso){
+
+        return (
+            iso[3] +
+            "/" +
+            iso[2] +
+            "/" +
+            iso[1]
+        );
+    }
+
+
+    return texto;
+}
+
+
+/* =========================
+   SEGURANÇA HTML
+========================= */
+
+function escapeHtml(valor){
+
+    return String(
+        valor ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+}
+
+
+function escapeAttr(valor){
+
+    return escapeHtml(valor);
+}
+
+
+function escapeJs(valor){
+
+    return String(
+        valor ?? ""
+    )
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+    .replace(
+        /"/g,
+        '\\"'
+    )
+    .replace(
+        /'/g,
+        "\\'"
+    )
+    .replace(
+        /\r?\n/g,
+        "\\n"
+    );
 }
 
 
@@ -2866,5 +2084,4 @@ verificarAcesso();
 </script>
 
 </body>
-
 </html>
