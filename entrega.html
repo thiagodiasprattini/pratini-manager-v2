@@ -10,13 +10,10 @@
 
 <title>Central de Entrega | Pratini Sports</title>
 
-<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- SWEET ALERT -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- GOOGLE FONT -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link rel="preconnect"
@@ -46,53 +43,74 @@ window.supabase.createClient(
 
 <style>
 
-/* ==========================================================
-   RESET
-========================================================== */
+/* =========================================================
+   CORES PRINCIPAIS
+========================================================= */
 
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+:root{
+
+    --verde: #20b56b;
+
+    --verde-hover: #27c879;
+
+    --verde-suave: rgba(32,181,107,.10);
+
+    --grafite: #101214;
+
+    --grafite-2: #151719;
+
+    --grafite-3: #1b1e21;
+
+    --cinza: #8f959b;
+
+    --cinza-claro: #c5c9cd;
+
+    --branco: #f5f6f7;
+
+    --borda: rgba(255,255,255,.075);
+
 }
 
 
-/* ==========================================================
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+
+    box-sizing:border-box;
+
+    margin:0;
+
+    padding:0;
+
+}
+
+
+/* =========================================================
    BODY
-========================================================== */
+========================================================= */
 
 body{
 
     min-height:100vh;
 
-    font-family:"Inter",
+    background:
+    var(--grafite);
+
+    color:var(--branco);
+
+    font-family:
+    "Inter",
     Arial,
     sans-serif;
-
-    color:#f5f5f5;
-
-    background:
-
-    radial-gradient(
-        circle at 50% -10%,
-        rgba(255,196,0,.12),
-        transparent 38%
-    ),
-
-    radial-gradient(
-        circle at 100% 100%,
-        rgba(255,170,0,.06),
-        transparent 35%
-    ),
-
-    #08090b;
 
 }
 
 
-/* ==========================================================
-   LOADING
-========================================================== */
+/* =========================================================
+   CARREGAMENTO
+========================================================= */
 
 .carregando{
 
@@ -100,104 +118,109 @@ body{
 
     display:flex;
 
-    justify-content:center;
-
     align-items:center;
 
-    color:#aaa;
+    justify-content:center;
+
+    color:var(--cinza);
 
     font-size:15px;
 
 }
 
 
-/* ==========================================================
-   HEADER
-========================================================== */
+/* =========================================================
+   CABEÇALHO
+========================================================= */
 
 .header{
 
+    position:relative;
+
     width:100%;
 
-    padding:
+    min-height:170px;
 
-    28px 20px
-    24px;
+    display:flex;
 
-    text-align:center;
+    align-items:center;
+
+    justify-content:center;
+
+    padding:30px 150px 25px;
 
     background:
-
-    linear-gradient(
-        180deg,
-        rgba(255,196,0,.08),
-        rgba(255,196,0,.015)
-    );
+    var(--grafite-2);
 
     border-bottom:
-    1px solid
-    rgba(255,255,255,.06);
+    1px solid var(--borda);
 
 }
 
 
-/* LOGO */
+/* =========================================================
+   LOGO
+========================================================= */
 
 .logo{
 
-    width:190px;
+    position:absolute;
 
-    max-width:65vw;
+    top:25px;
+
+    right:32px;
+
+    width:150px;
 
     height:auto;
 
     display:block;
 
-    margin:0 auto 22px auto;
+}
 
-    filter:
 
-    drop-shadow(
-        0 10px 30px
-        rgba(0,0,0,.45)
-    );
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.titulo-area{
+
+    text-align:center;
 
 }
 
 
-/* TITULO */
-
 .titulo{
 
-    font-size:25px;
+    font-size:29px;
+
+    line-height:1.2;
 
     font-weight:700;
 
     letter-spacing:-.7px;
 
-    color:#fff;
+    color:#ffffff;
 
 }
 
 
-/* SUBTITULO */
-
 .subtitulo{
 
-    margin-top:7px;
+    margin-top:8px;
 
     font-size:13px;
 
     font-weight:500;
 
-    color:#8e9299;
+    color:var(--cinza);
 
 }
 
 
-/* ==========================================================
+/* =========================================================
    CONTAINER
-========================================================== */
+========================================================= */
 
 .container{
 
@@ -207,33 +230,28 @@ body{
 
     margin:0 auto;
 
-    padding:25px 18px 45px;
+    padding:28px 18px 50px;
 
 }
 
 
-/* ==========================================================
+/* =========================================================
    EVENTO
-========================================================== */
+========================================================= */
 
 .evento-card{
 
-    padding:18px 20px;
+    padding:19px 21px;
 
     margin-bottom:18px;
 
-    border-radius:18px;
-
     background:
-    rgba(255,255,255,.035);
+    var(--grafite-2);
 
     border:
-    1px solid
-    rgba(255,255,255,.07);
+    1px solid var(--borda);
 
-    box-shadow:
-    0 15px 40px
-    rgba(0,0,0,.22);
+    border-radius:14px;
 
 }
 
@@ -244,11 +262,11 @@ body{
 
     font-weight:700;
 
-    letter-spacing:1.2px;
-
     text-transform:uppercase;
 
-    color:#a7a7aa;
+    letter-spacing:1px;
+
+    color:#70767c;
 
     margin-bottom:7px;
 
@@ -257,48 +275,45 @@ body{
 
 .evento-nome{
 
-    font-size:18px;
+    font-size:17px;
 
-    font-weight:700;
+    font-weight:600;
 
-    color:#fff;
+    color:#e9eaeb;
 
 }
 
 
-/* ==========================================================
+/* =========================================================
    PESQUISA
-========================================================== */
+========================================================= */
 
 .pesquisa{
 
-    padding:20px;
+    padding:21px;
 
-    margin-bottom:22px;
-
-    border-radius:20px;
+    margin-bottom:20px;
 
     background:
-    rgba(255,255,255,.035);
+    var(--grafite-2);
 
     border:
-    1px solid
-    rgba(255,255,255,.07);
+    1px solid var(--borda);
 
-    box-shadow:
-    0 18px 45px
-    rgba(0,0,0,.25);
+    border-radius:14px;
 
 }
 
 
 .pesquisa-titulo{
 
-    font-size:18px;
+    font-size:16px;
 
     font-weight:700;
 
-    margin-bottom:14px;
+    margin-bottom:13px;
+
+    color:#e8e9ea;
 
 }
 
@@ -318,27 +333,25 @@ body{
 
     min-width:0;
 
-    height:54px;
+    height:52px;
 
-    padding:
-    0 17px;
+    padding:0 16px;
 
-    border-radius:13px;
+    border-radius:10px;
 
     border:
-    1px solid
-    rgba(255,255,255,.10);
-
-    outline:none;
+    1px solid rgba(255,255,255,.09);
 
     background:
-    rgba(255,255,255,.055);
+    #0e1012;
 
     color:#fff;
 
     font-family:inherit;
 
-    font-size:16px;
+    font-size:15px;
+
+    outline:none;
 
     transition:.2s;
 
@@ -347,7 +360,7 @@ body{
 
 #busca::placeholder{
 
-    color:#777c84;
+    color:#646a70;
 
 }
 
@@ -355,72 +368,60 @@ body{
 #busca:focus{
 
     border-color:
-    rgba(255,196,0,.65);
-
-    background:
-    rgba(255,255,255,.075);
+    rgba(32,181,107,.55);
 
     box-shadow:
-    0 0 0 4px
-    rgba(255,196,0,.08);
+    0 0 0 3px
+    rgba(32,181,107,.08);
 
 }
 
 
+/* =========================================================
+   BOTÃO PESQUISAR
+========================================================= */
+
 .btn-buscar{
 
-    width:135px;
+    width:130px;
+
+    height:52px;
 
     border:none;
 
-    border-radius:13px;
+    border-radius:10px;
+
+    background:
+    var(--verde);
+
+    color:#07150e;
 
     font-family:inherit;
 
-    font-size:15px;
+    font-size:14px;
 
-    font-weight:700;
+    font-weight:800;
 
     cursor:pointer;
 
-    color:#151515;
-
-    background:
-
-    linear-gradient(
-        135deg,
-        #ffe16b,
-        #ffc400 55%,
-        #e7a900
-    );
-
-    box-shadow:
-
-    0 8px 25px
-    rgba(255,190,0,.18);
-
-    transition:
-    transform .18s,
-    box-shadow .18s;
+    transition:.18s;
 
 }
 
 
 .btn-buscar:hover{
 
+    background:
+    var(--verde-hover);
+
     transform:translateY(-1px);
-
-    box-shadow:
-
-    0 12px 30px
-    rgba(255,190,0,.25);
 
 }
 
 
-/* ==========================================================
+/* =========================================================
    RESULTADOS
-========================================================== */
+========================================================= */
 
 #resultado{
 
@@ -433,137 +434,82 @@ body{
 }
 
 
-/* ==========================================================
-   CARD DO ATLETA
-========================================================== */
+/* =========================================================
+   CARD ATLETA
+========================================================= */
 
 .atleta-card{
 
-    position:relative;
-
-    overflow:hidden;
-
-    padding:23px;
-
-    border-radius:22px;
-
     background:
-
-    linear-gradient(
-        145deg,
-        rgba(255,255,255,.055),
-        rgba(255,255,255,.025)
-    );
+    var(--grafite-2);
 
     border:
-    1px solid
-    rgba(255,255,255,.08);
+    1px solid var(--borda);
+
+    border-radius:16px;
+
+    padding:24px;
 
     box-shadow:
-
-    0 20px 55px
-    rgba(0,0,0,.28);
-
-}
-
-
-/* linha superior */
-
-.atleta-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-    left:0;
-    right:0;
-
-    height:3px;
-
-    background:
-
-    linear-gradient(
-        90deg,
-        #ffe16b,
-        #ffc400,
-        #e7a900
-    );
+    0 12px 30px
+    rgba(0,0,0,.18);
 
 }
 
 
-/* CARD ENTREGUE */
-
-.atleta-card.entregue{
-
-    border-color:
-    rgba(0,210,106,.18);
-
-}
-
-
-.atleta-card.entregue::before{
-
-    background:
-    linear-gradient(
-        90deg,
-        #00d26a,
-        #00a957
-    );
-
-}
-
-
-/* ==========================================================
-   NOME
-========================================================== */
+/* =========================================================
+   NOME DO ATLETA
+========================================================= */
 
 .atleta-nome{
 
     font-size:25px;
 
-    line-height:1.15;
+    line-height:1.2;
 
     font-weight:800;
 
-    letter-spacing:-.7px;
+    letter-spacing:-.6px;
 
     color:#fff;
 
-    margin-bottom:18px;
+    margin-bottom:20px;
 
 }
 
 
-/* ==========================================================
-   DADOS
-========================================================== */
+/* =========================================================
+   GRID DE DADOS
+========================================================= */
 
 .dados-grid{
 
     display:grid;
 
     grid-template-columns:
-    repeat(2, minmax(0,1fr));
+    repeat(2,minmax(0,1fr));
 
     gap:10px;
 
 }
 
 
+/* =========================================================
+   DADO
+========================================================= */
+
 .dado{
 
-    padding:13px 14px;
-
-    border-radius:13px;
+    padding:13px 15px;
 
     background:
-    rgba(0,0,0,.20);
+    var(--grafite-3);
 
     border:
     1px solid
-    rgba(255,255,255,.045);
+    rgba(255,255,255,.055);
+
+    border-radius:10px;
 
 }
 
@@ -574,7 +520,7 @@ body{
 
     margin-bottom:5px;
 
-    font-size:11px;
+    font-size:10px;
 
     font-weight:700;
 
@@ -582,7 +528,7 @@ body{
 
     letter-spacing:.8px;
 
-    color:#858a91;
+    color:#70767c;
 
 }
 
@@ -593,34 +539,42 @@ body{
 
     font-size:17px;
 
-    line-height:1.3;
+    line-height:1.35;
 
     font-weight:600;
 
-    color:#f3f3f3;
+    color:#e9eaeb;
 
 }
 
 
-/* NÚMERO DE PEITO */
+/* =========================================================
+   NÚMERO
+========================================================= */
 
 .dado.numero{
 
-    background:
-
-    linear-gradient(
-        135deg,
-        rgba(255,196,0,.13),
-        rgba(255,196,0,.035)
-    );
-
     border-color:
-    rgba(255,196,0,.15);
+    rgba(32,181,107,.20);
+
+    background:
+    rgba(32,181,107,.055);
+
+}
+
+
+.dado.numero .dado-label{
+
+    color:
+    rgba(32,181,107,.80);
 
 }
 
 
 .dado.numero .dado-valor{
+
+    color:
+    var(--verde);
 
     font-size:22px;
 
@@ -629,44 +583,98 @@ body{
 }
 
 
-/* ==========================================================
-   PRODUTO
-========================================================== */
+/* =========================================================
+   PRODUTOS
+========================================================= */
 
 .produto{
 
-    margin-top:12px;
+    margin-top:10px;
 
     padding:15px;
 
-    border-radius:14px;
-
     background:
-    rgba(255,196,0,.055);
+    var(--grafite-3);
 
     border:
     1px solid
-    rgba(255,196,0,.10);
+    rgba(255,255,255,.055);
+
+    border-radius:10px;
 
 }
 
 
 .produto .dado-valor{
 
-    color:#ffe16b;
+    color:#e7e9ea;
 
 }
 
 
-/* ==========================================================
-   RETIRADA
-========================================================== */
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    margin-top:17px;
+
+    padding:8px 12px;
+
+    border-radius:7px;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:.7px;
+
+}
+
+
+.status.pendente{
+
+    color:#9ca2a8;
+
+    background:
+    rgba(255,255,255,.045);
+
+    border:
+    1px solid
+    rgba(255,255,255,.06);
+
+}
+
+
+.status.entregue{
+
+    color:
+    var(--verde);
+
+    background:
+    var(--verde-suave);
+
+    border:
+    1px solid
+    rgba(32,181,107,.16);
+
+}
+
+
+/* =========================================================
+   ÁREA DE RETIRADA
+========================================================= */
 
 .retirada-area{
 
-    margin-top:18px;
+    margin-top:19px;
 
-    padding-top:18px;
+    padding-top:19px;
 
     border-top:
     1px solid
@@ -677,18 +685,20 @@ body{
 
 .retirada-titulo{
 
+    margin-bottom:12px;
+
     font-size:14px;
 
     font-weight:700;
 
-    margin-bottom:12px;
-
-    color:#ddd;
+    color:#d9dcde;
 
 }
 
 
-/* OPÇÕES */
+/* =========================================================
+   OPÇÕES
+========================================================= */
 
 .opcoes{
 
@@ -697,7 +707,7 @@ body{
     grid-template-columns:
     1fr 1fr;
 
-    gap:10px;
+    gap:9px;
 
 }
 
@@ -720,54 +730,65 @@ body{
 
 .opcao label{
 
+    min-height:48px;
+
     display:flex;
 
     align-items:center;
 
     justify-content:center;
 
-    min-height:50px;
-
     padding:10px;
-
-    border-radius:12px;
 
     border:
     1px solid
-    rgba(255,255,255,.08);
+    rgba(255,255,255,.075);
+
+    border-radius:9px;
 
     background:
-    rgba(255,255,255,.035);
+    var(--grafite-3);
 
-    cursor:pointer;
+    color:#92979c;
 
-    font-size:14px;
+    font-size:13px;
 
     font-weight:600;
 
-    color:#aaa;
+    cursor:pointer;
 
-    transition:.2s;
+    transition:.18s;
+
+}
+
+
+.opcao label:hover{
+
+    border-color:
+    rgba(255,255,255,.14);
+
+    color:#d8dbdd;
 
 }
 
 
 .opcao input:checked + label{
 
-    color:#fff;
-
     border-color:
-    rgba(255,196,0,.55);
+    rgba(32,181,107,.55);
 
     background:
-    rgba(255,196,0,.10);
+    rgba(32,181,107,.09);
+
+    color:
+    var(--verde);
 
 }
 
 
-/* ==========================================================
-   CAMPOS DE TERCEIRO / OBSERVAÇÃO
-========================================================== */
+/* =========================================================
+   CAMPOS
+========================================================= */
 
 .campo-retirada{
 
@@ -782,11 +803,11 @@ body{
 
     margin-bottom:6px;
 
-    font-size:12px;
+    font-size:11px;
 
     font-weight:700;
 
-    color:#91959c;
+    color:#777d83;
 
 }
 
@@ -796,31 +817,31 @@ body{
 
     width:100%;
 
+    padding:13px;
+
     border:
     1px solid
-    rgba(255,255,255,.09);
+    rgba(255,255,255,.08);
 
-    border-radius:12px;
+    border-radius:9px;
 
     background:
-    rgba(255,255,255,.045);
+    #0e1012;
 
     color:#fff;
 
-    outline:none;
-
-    padding:13px;
-
     font-family:inherit;
 
-    font-size:15px;
+    font-size:14px;
+
+    outline:none;
 
 }
 
 
 .campo-retirada textarea{
 
-    min-height:75px;
+    min-height:72px;
 
     resize:vertical;
 
@@ -831,145 +852,77 @@ body{
 .campo-retirada textarea:focus{
 
     border-color:
-    rgba(255,196,0,.55);
+    rgba(32,181,107,.55);
 
     box-shadow:
-    0 0 0 4px
-    rgba(255,196,0,.06);
+    0 0 0 3px
+    rgba(32,181,107,.07);
 
 }
 
 
-/* ==========================================================
+/* =========================================================
    BOTÃO ENTREGAR
-========================================================== */
+========================================================= */
 
 .btn-entregar{
 
     width:100%;
 
-    height:56px;
+    height:54px;
 
-    margin-top:16px;
+    margin-top:15px;
 
     border:none;
 
-    border-radius:14px;
+    border-radius:10px;
 
-    cursor:pointer;
+    background:
+    var(--verde);
+
+    color:#07150e;
 
     font-family:inherit;
 
-    font-size:16px;
+    font-size:14px;
 
     font-weight:800;
 
-    letter-spacing:.1px;
+    cursor:pointer;
 
-    color:#151515;
-
-    background:
-
-    linear-gradient(
-        135deg,
-        #ffe477 0%,
-        #ffc400 52%,
-        #e8aa00 100%
-    );
-
-    box-shadow:
-
-    0 12px 30px
-    rgba(255,190,0,.20);
-
-    transition:
-    transform .18s,
-    box-shadow .18s;
+    transition:.18s;
 
 }
 
 
 .btn-entregar:hover{
 
+    background:
+    var(--verde-hover);
+
     transform:translateY(-1px);
 
-    box-shadow:
-
-    0 16px 35px
-    rgba(255,190,0,.28);
-
 }
 
 
-/* ==========================================================
-   STATUS
-========================================================== */
-
-.status{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:7px;
-
-    margin-top:18px;
-
-    padding:9px 13px;
-
-    border-radius:999px;
-
-    font-size:12px;
-
-    font-weight:800;
-
-    letter-spacing:.5px;
-
-}
-
-
-.status.pendente{
-
-    color:#ffe16b;
-
-    background:
-    rgba(255,196,0,.09);
-
-    border:
-    1px solid
-    rgba(255,196,0,.14);
-
-}
-
-
-.status.entregue{
-
-    color:#52e991;
-
-    background:
-    rgba(0,210,106,.08);
-
-    border:
-    1px solid
-    rgba(0,210,106,.14);
-
-}
-
-
-/* ==========================================================
+/* =========================================================
    HISTÓRICO
-========================================================== */
+========================================================= */
 
 .historico{
 
     margin-top:16px;
 
-    padding:15px;
-
-    border-radius:14px;
+    padding:14px 16px;
 
     background:
-    rgba(0,0,0,.20);
+    var(--grafite-3);
+
+    border:
+    1px solid
+    rgba(255,255,255,.055);
+
+    border-radius:10px;
 
 }
 
@@ -980,15 +933,17 @@ body{
 
     justify-content:space-between;
 
-    gap:15px;
+    align-items:flex-start;
 
-    padding:7px 0;
+    gap:20px;
 
-    font-size:14px;
+    padding:8px 0;
 
     border-bottom:
     1px solid
     rgba(255,255,255,.045);
+
+    font-size:13px;
 
 }
 
@@ -1002,14 +957,14 @@ body{
 
 .historico-label{
 
-    color:#858a91;
+    color:#777d83;
 
 }
 
 
 .historico-valor{
 
-    color:#eee;
+    color:#e5e7e8;
 
     font-weight:600;
 
@@ -1018,9 +973,9 @@ body{
 }
 
 
-/* ==========================================================
+/* =========================================================
    MENSAGENS
-========================================================== */
+========================================================= */
 
 .mensagem{
 
@@ -1028,54 +983,53 @@ body{
 
     text-align:center;
 
-    border-radius:18px;
-
     background:
-    rgba(255,255,255,.035);
+    var(--grafite-2);
 
     border:
-    1px solid
-    rgba(255,255,255,.06);
+    1px solid var(--borda);
 
-    color:#969ba3;
+    border-radius:14px;
+
+    color:#858b91;
 
     font-size:14px;
 
 }
 
 
-/* ==========================================================
+/* =========================================================
    VOLTAR
-========================================================== */
+========================================================= */
 
 .btn-voltar{
 
     width:100%;
 
-    height:50px;
+    height:48px;
 
-    margin-top:24px;
+    margin-top:22px;
 
     border:
     1px solid
-    rgba(255,255,255,.08);
+    rgba(255,255,255,.07);
 
-    border-radius:13px;
+    border-radius:9px;
 
     background:
-    rgba(255,255,255,.035);
+    transparent;
 
-    color:#aeb2b8;
+    color:#81878d;
 
     font-family:inherit;
 
-    font-size:14px;
+    font-size:13px;
 
     font-weight:600;
 
     cursor:pointer;
 
-    transition:.2s;
+    transition:.18s;
 
 }
 
@@ -1083,45 +1037,61 @@ body{
 .btn-voltar:hover{
 
     background:
-    rgba(255,255,255,.07);
+    rgba(255,255,255,.035);
 
-    color:#fff;
+    color:#d5d8da;
 
 }
 
 
-/* ==========================================================
-   RESPONSIVO
-========================================================== */
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media(max-width:650px){
 
     .header{
 
-        padding-top:24px;
+        min-height:150px;
+
+        padding:
+        25px 100px 22px 25px;
 
     }
+
 
     .logo{
 
-        width:165px;
+        width:105px;
 
-        margin-bottom:18px;
+        right:18px;
+
+        top:22px;
 
     }
+
 
     .titulo{
 
-        font-size:22px;
+        font-size:23px;
 
     }
+
+
+    .subtitulo{
+
+        font-size:11px;
+
+    }
+
 
     .container{
 
         padding:
-        18px 13px 35px;
+        20px 13px 35px;
 
     }
+
 
     .busca-area{
 
@@ -1129,13 +1099,13 @@ body{
 
     }
 
+
     .btn-buscar{
 
         width:100%;
 
-        height:52px;
-
     }
+
 
     .dados-grid{
 
@@ -1143,44 +1113,73 @@ body{
 
     }
 
+
     .opcoes{
 
         grid-template-columns:1fr;
 
     }
 
+
     .atleta-card{
 
-        padding:19px;
+        padding:20px;
 
     }
 
+
     .atleta-nome{
 
-        font-size:23px;
+        font-size:22px;
+
+    }
+
+
+    .historico-linha{
+
+        flex-direction:column;
+
+        gap:3px;
+
+    }
+
+
+    .historico-valor{
+
+        text-align:left;
 
     }
 
 }
 
 
-/* ==========================================================
-   DESKTOP GRANDE
-========================================================== */
+/* =========================================================
+   TELAS GRANDES
+========================================================= */
 
-@media(min-width:1000px){
+@media(min-width:1100px){
 
     .header{
 
-        padding-top:35px;
-
-        padding-bottom:30px;
+        min-height:185px;
 
     }
 
+
     .logo{
 
-        width:220px;
+        width:165px;
+
+        right:45px;
+
+        top:28px;
+
+    }
+
+
+    .titulo{
+
+        font-size:31px;
 
     }
 
@@ -1194,12 +1193,13 @@ body{
 <body>
 
 
-<!-- ==========================================================
+<!-- =======================================================
      CARREGANDO
-========================================================== -->
+======================================================= -->
 
-<div id="telaCarregando"
-     class="carregando">
+<div
+    id="telaCarregando"
+    class="carregando">
 
     Verificando acesso...
 
@@ -1207,17 +1207,23 @@ body{
 
 
 
-<!-- ==========================================================
+<!-- =======================================================
      PAINEL
-========================================================== -->
+======================================================= -->
 
-<div id="telaPainel"
-     style="display:none;">
+<div
+    id="telaPainel"
+    style="display:none;">
 
 
-    <!-- HEADER -->
+    <!-- ===================================================
+         HEADER
+    =================================================== -->
 
     <header class="header">
+
+
+        <!-- LOGO NO CANTO SUPERIOR DIREITO -->
 
         <img
             src="Colorida.png"
@@ -1225,19 +1231,29 @@ body{
             class="logo"
         >
 
-        <div class="titulo">
-            Central de Entrega
+
+        <!-- TÍTULO CENTRAL -->
+
+        <div class="titulo-area">
+
+            <div class="titulo">
+                Central de Entrega
+            </div>
+
+            <div class="subtitulo">
+                Atendimento e controle de retiradas
+            </div>
+
         </div>
 
-        <div class="subtitulo">
-            Atendimento e controle de retiradas
-        </div>
 
     </header>
 
 
 
-    <!-- CONTEÚDO -->
+    <!-- ===================================================
+         CONTEÚDO
+    =================================================== -->
 
     <main class="container">
 
@@ -1270,6 +1286,7 @@ body{
                 Localizar atleta
             </div>
 
+
             <div class="busca-area">
 
                 <input
@@ -1277,8 +1294,12 @@ body{
                     type="text"
                     autocomplete="off"
                     placeholder="Nome ou número de peito"
-                    onkeydown="if(event.key==='Enter') buscarAtletas()"
+                    onkeydown="
+                    if(event.key==='Enter')
+                    buscarAtletas()
+                    "
                 >
+
 
                 <button
                     class="btn-buscar"
@@ -1304,7 +1325,9 @@ body{
 
         <button
             class="btn-voltar"
-            onclick="location.href='dashboard.html'">
+            onclick="
+            location.href='dashboard.html'
+            ">
 
             ← Voltar ao Painel
 
@@ -1319,20 +1342,21 @@ body{
 
 <script>
 
-/* ==========================================================
+/* =========================================================
    VARIÁVEIS
-========================================================== */
+========================================================= */
 
 let usuarioLogado = null;
 
 const eventoId =
-localStorage.getItem("evento_ativo_id");
+localStorage.getItem(
+    "evento_ativo_id"
+);
 
 
-
-/* ==========================================================
-   ACESSO
-========================================================== */
+/* =========================================================
+   VERIFICAR ACESSO
+========================================================= */
 
 async function verificarAcesso(){
 
@@ -1386,7 +1410,8 @@ async function verificarAcesso(){
 
         usuarioLogado = {
 
-            id: usuario.id,
+            id:
+            usuario.id,
 
             nome:
             perfil.nome ||
@@ -1435,10 +1460,9 @@ async function verificarAcesso(){
 }
 
 
-
-/* ==========================================================
-   NORMALIZAR PESQUISA
-========================================================== */
+/* =========================================================
+   NORMALIZAR
+========================================================= */
 
 function normalizar(txt){
 
@@ -1446,16 +1470,18 @@ function normalizar(txt){
         .toString()
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g,"")
+        .replace(
+            /[\u0300-\u036f]/g,
+            ""
+        )
         .trim();
 
 }
 
 
-
-/* ==========================================================
+/* =========================================================
    ESCAPAR HTML
-========================================================== */
+========================================================= */
 
 function escaparHTML(valor){
 
@@ -1469,39 +1495,43 @@ function escaparHTML(valor){
 }
 
 
-
-/* ==========================================================
-   FORMATA DATA
-========================================================== */
+/* =========================================================
+   DATA DE NASCIMENTO
+========================================================= */
 
 function formatarDataNascimento(data){
 
     if(!data)
         return "Não informada";
 
+
     const partes =
     String(data).split("-");
 
+
     if(partes.length === 3){
 
-        return `${partes[2]}/${partes[1]}/${partes[0]}`;
+        return `
+            ${partes[2]}/${partes[1]}/${partes[0]}
+        `;
 
     }
+
 
     return data;
 
 }
 
 
-
-/* ==========================================================
-   FORMATA DATA/HORA
-========================================================== */
+/* =========================================================
+   DATA/HORA
+========================================================= */
 
 function formatarDataHora(data){
 
     if(!data)
         return "Não informada";
+
 
     return new Date(data)
         .toLocaleString(
@@ -1515,10 +1545,9 @@ function formatarDataHora(data){
 }
 
 
-
-/* ==========================================================
-   PESQUISAR
-========================================================== */
+/* =========================================================
+   PESQUISAR ATLETAS
+========================================================= */
 
 async function buscarAtletas(){
 
@@ -1594,6 +1623,7 @@ async function buscarAtletas(){
         numero_peito,
         modalidade,
         camiseta,
+        pelotao,
         produto_extra,
         status_kit,
         retirado_por,
@@ -1609,6 +1639,7 @@ async function buscarAtletas(){
     if(error){
 
         console.error(error);
+
 
         resultado.innerHTML = `
 
@@ -1681,10 +1712,9 @@ async function buscarAtletas(){
 }
 
 
-
-/* ==========================================================
+/* =========================================================
    CRIAR CARD
-========================================================== */
+========================================================= */
 
 function criarCardAtleta(atleta){
 
@@ -1697,19 +1727,16 @@ function criarCardAtleta(atleta){
 
 
     card.className =
-    "atleta-card " +
-    (entregue ? "entregue" : "");
-
-
-    const idSeguro =
-    escaparHTML(atleta.id);
+    "atleta-card";
 
 
     card.innerHTML = `
 
         <div class="atleta-nome">
 
-            ${escaparHTML(atleta.nome)}
+            ${escaparHTML(
+                atleta.nome
+            )}
 
         </div>
 
@@ -1724,10 +1751,12 @@ function criarCardAtleta(atleta){
                 </span>
 
                 <span class="dado-valor">
+
                     ${escaparHTML(
                         atleta.numero_peito ||
                         "Não informado"
                     )}
+
                 </span>
 
             </div>
@@ -1740,9 +1769,11 @@ function criarCardAtleta(atleta){
                 </span>
 
                 <span class="dado-valor">
+
                     ${formatarDataNascimento(
                         atleta.data_nascimento
                     )}
+
                 </span>
 
             </div>
@@ -1755,10 +1786,12 @@ function criarCardAtleta(atleta){
                 </span>
 
                 <span class="dado-valor">
+
                     ${escaparHTML(
                         atleta.modalidade ||
                         "Não informada"
                     )}
+
                 </span>
 
             </div>
@@ -1771,10 +1804,12 @@ function criarCardAtleta(atleta){
                 </span>
 
                 <span class="dado-valor">
+
                     ${escaparHTML(
                         atleta.camiseta ||
                         "Não informada"
                     )}
+
                 </span>
 
             </div>
@@ -1787,10 +1822,12 @@ function criarCardAtleta(atleta){
                 </span>
 
                 <span class="dado-valor">
+
                     ${escaparHTML(
                         atleta.pelotao ||
                         "Não informado"
                     )}
+
                 </span>
 
             </div>
@@ -1817,25 +1854,26 @@ function criarCardAtleta(atleta){
         </div>
 
 
-        <div class="status ${entregue ? "entregue" : "pendente"}">
-
+        <div class="
+            status
             ${entregue
+                ? "entregue"
+                : "pendente"}
+        ">
+
+            ${
+                entregue
                 ? "● ENTREGA REALIZADA"
-                : "● AGUARDANDO RETIRADA"}
+                : "● AGUARDANDO RETIRADA"
+            }
 
         </div>
 
 
         ${
             entregue
-
-            ?
-
-            gerarHistorico(atleta)
-
-            :
-
-            gerarFormularioRetirada(atleta)
+            ? gerarHistorico(atleta)
+            : gerarFormularioRetirada(atleta)
         }
 
     `;
@@ -1846,16 +1884,16 @@ function criarCardAtleta(atleta){
 }
 
 
-
-/* ==========================================================
+/* =========================================================
    HISTÓRICO
-========================================================== */
+========================================================= */
 
 function gerarHistorico(atleta){
 
     return `
 
         <div class="historico">
+
 
             <div class="historico-linha">
 
@@ -1864,10 +1902,12 @@ function gerarHistorico(atleta){
                 </span>
 
                 <span class="historico-valor">
+
                     ${escaparHTML(
                         atleta.retirado_por ||
                         "Não informado"
                     )}
+
                 </span>
 
             </div>
@@ -1880,11 +1920,13 @@ function gerarHistorico(atleta){
                 </span>
 
                 <span class="historico-valor">
+
                     ${escaparHTML(
                         atleta.entregue_por ||
                         atleta.retirado_login ||
                         "Não informado"
                     )}
+
                 </span>
 
             </div>
@@ -1897,9 +1939,11 @@ function gerarHistorico(atleta){
                 </span>
 
                 <span class="historico-valor">
+
                     ${formatarDataHora(
                         atleta.data_retirada
                     )}
+
                 </span>
 
             </div>
@@ -1912,10 +1956,9 @@ function gerarHistorico(atleta){
 }
 
 
-
-/* ==========================================================
-   FORMULÁRIO DE RETIRADA
-========================================================== */
+/* =========================================================
+   FORMULÁRIO
+========================================================= */
 
 function gerarFormularioRetirada(atleta){
 
@@ -1926,6 +1969,7 @@ function gerarFormularioRetirada(atleta){
     return `
 
         <div class="retirada-area">
+
 
             <div class="retirada-titulo">
 
@@ -1945,7 +1989,9 @@ function gerarFormularioRetirada(atleta){
                         id="proprio_${id}"
                         value="proprio"
                         checked
-                        onchange="alterarTipoRetirada('${id}')"
+                        onchange="
+                        alterarTipoRetirada('${id}')
+                        "
                     >
 
                     <label for="proprio_${id}">
@@ -1964,7 +2010,9 @@ function gerarFormularioRetirada(atleta){
                         name="retirada_${id}"
                         id="terceiro_${id}"
                         value="terceiro"
-                        onchange="alterarTipoRetirada('${id}')"
+                        onchange="
+                        alterarTipoRetirada('${id}')
+                        "
                     >
 
                     <label for="terceiro_${id}">
@@ -1982,7 +2030,8 @@ function gerarFormularioRetirada(atleta){
             <div
                 id="terceiroArea_${id}"
                 class="campo-retirada"
-                style="display:none;">
+                style="display:none;"
+            >
 
                 <label>
                     Nome de quem está retirando
@@ -2005,7 +2054,7 @@ function gerarFormularioRetirada(atleta){
 
                 <textarea
                     id="observacao_${id}"
-                    placeholder="Ex.: mãe do atleta, esposa, irmão, amigo..."
+                    placeholder="Digite uma observação, se necessário"
                 ></textarea>
 
             </div>
@@ -2013,11 +2062,18 @@ function gerarFormularioRetirada(atleta){
 
             <button
                 class="btn-entregar"
-                onclick="entregar('${id}', ${JSON.stringify(atleta.nome)})">
+                onclick="
+                entregar(
+                    '${id}',
+                    ${JSON.stringify(atleta.nome)}
+                )
+                "
+            >
 
                 CONFIRMAR ENTREGA
 
             </button>
+
 
         </div>
 
@@ -2026,23 +2082,20 @@ function gerarFormularioRetirada(atleta){
 }
 
 
-
-/* ==========================================================
-   ALTERAR TIPO
-========================================================== */
+/* =========================================================
+   TIPO DE RETIRADA
+========================================================= */
 
 function alterarTipoRetirada(id){
 
     const terceiro =
-    document
-    .getElementById(
+    document.getElementById(
         "terceiro_" + id
     );
 
 
     const area =
-    document
-    .getElementById(
+    document.getElementById(
         "terceiroArea_" + id
     );
 
@@ -2065,37 +2118,26 @@ function alterarTipoRetirada(id){
 }
 
 
+/* =========================================================
+   ENTREGA
+========================================================= */
 
-/* ==========================================================
-   REGISTRAR ENTREGA
-========================================================== */
-
-async function entregar(id, nome){
-
-    const radioProprio =
-    document
-    .getElementById(
-        "proprio_" + id
-    );
-
+async function entregar(id,nome){
 
     const radioTerceiro =
-    document
-    .getElementById(
+    document.getElementById(
         "terceiro_" + id
     );
 
 
     const nomeTerceiro =
-    document
-    .getElementById(
+    document.getElementById(
         "nomeTerceiro_" + id
     );
 
 
     const observacao =
-    document
-    .getElementById(
+    document.getElementById(
         "observacao_" + id
     );
 
@@ -2103,8 +2145,8 @@ async function entregar(id, nome){
     const tipo =
     radioTerceiro &&
     radioTerceiro.checked
-        ? "terceiro"
-        : "proprio";
+    ? "terceiro"
+    : "proprio";
 
 
     let retiradoPor =
@@ -2121,20 +2163,25 @@ async function entregar(id, nome){
 
         if(!retiradoPor){
 
-            Swal.fire({
+            await Swal.fire({
 
-                title:"Informe o nome",
+                title:
+                "Informe o nome",
 
                 text:
                 "Digite o nome de quem está realizando a retirada.",
 
-                icon:"warning",
+                icon:
+                "warning",
 
-                background:"#151619",
+                background:
+                "#151719",
 
-                color:"#fff",
+                color:
+                "#ffffff",
 
-                confirmButtonColor:"#ffc400"
+                confirmButtonColor:
+                "#20b56b"
 
             });
 
@@ -2160,38 +2207,54 @@ async function entregar(id, nome){
         html:`
 
             <div style="
-                font-size:15px;
+                color:#bfc3c7;
                 line-height:1.7;
-                color:#ddd;
             ">
 
-                <strong style="color:#fff;">
+                <strong style="
+                    color:#fff;
+                    font-size:18px;
+                ">
+
                     ${escaparHTML(nome)}
+
                 </strong>
 
                 <br><br>
 
-                Retirada por:
+                Retirado por:
 
-                <strong style="color:#ffe16b;">
-                    ${escaparHTML(retiradoPor)}
+                <strong style="
+                    color:#20b56b;
+                ">
+
+                    ${escaparHTML(
+                        retiradoPor
+                    )}
+
                 </strong>
 
             </div>
 
         `,
 
-        icon:"question",
+        icon:
+        "question",
 
-        background:"#151619",
+        background:
+        "#151719",
 
-        color:"#fff",
+        color:
+        "#fff",
 
-        showCancelButton:true,
+        showCancelButton:
+        true,
 
-        confirmButtonColor:"#ffc400",
+        confirmButtonColor:
+        "#20b56b",
 
-        cancelButtonColor:"#303238",
+        cancelButtonColor:
+        "#303438",
 
         confirmButtonText:
         "Confirmar",
@@ -2206,11 +2269,9 @@ async function entregar(id, nome){
         return;
 
 
-
-    /* ======================================================
-       SEGURANÇA:
-       VERIFICA NOVAMENTE SE JÁ EXISTE ENTREGA
-    ====================================================== */
+    /* =====================================================
+       VERIFICA NOVAMENTE
+    ===================================================== */
 
     const {
         data: atual,
@@ -2224,26 +2285,31 @@ async function entregar(id, nome){
         retirado_por,
         data_retirada
     `)
-    .eq("id", id)
+    .eq("id",id)
     .single();
 
 
     if(erroBusca){
 
-        Swal.fire({
+        await Swal.fire({
 
-            title:"Erro",
+            title:
+            "Erro",
 
             text:
-            "Não foi possível verificar o status do atleta.",
+            "Não foi possível verificar o status atual.",
 
-            icon:"error",
+            icon:
+            "error",
 
-            background:"#151619",
+            background:
+            "#151719",
 
-            color:"#fff",
+            color:
+            "#fff",
 
-            confirmButtonColor:"#ffc400"
+            confirmButtonColor:
+            "#20b56b"
 
         });
 
@@ -2252,17 +2318,21 @@ async function entregar(id, nome){
     }
 
 
-    if(atual.status_kit === "entregue"){
+    if(
+        atual.status_kit ===
+        "entregue"
+    ){
 
-        Swal.fire({
+        await Swal.fire({
 
-            title:"Entrega já realizada",
+            title:
+            "Entrega já realizada",
 
             html:`
 
                 <div style="
-                    line-height:1.7;
-                    color:#ddd;
+                    color:#bfc3c7;
+                    line-height:1.8;
                 ">
 
                     Esta retirada já foi
@@ -2270,11 +2340,15 @@ async function entregar(id, nome){
 
                     <br><br>
 
-                    <strong>
+                    <strong style="
+                        color:#20b56b;
+                    ">
+
                         ${escaparHTML(
                             atual.retirado_por ||
                             "Não informado"
                         )}
+
                     </strong>
 
                     <br>
@@ -2287,15 +2361,20 @@ async function entregar(id, nome){
 
             `,
 
-            icon:"warning",
+            icon:
+            "warning",
 
-            background:"#151619",
+            background:
+            "#151719",
 
-            color:"#fff",
+            color:
+            "#fff",
 
-            confirmButtonColor:"#ffc400"
+            confirmButtonColor:
+            "#20b56b"
 
         });
+
 
         buscarAtletas();
 
@@ -2304,15 +2383,13 @@ async function entregar(id, nome){
     }
 
 
-
     const agora =
     new Date().toISOString();
 
 
-
-    /* ======================================================
+    /* =====================================================
        ATUALIZA ATLETA
-    ====================================================== */
+    ===================================================== */
 
     const {
         error: erroAtualizacao
@@ -2346,9 +2423,11 @@ async function entregar(id, nome){
         : "Desconhecido"
 
     })
-    .eq("id", id)
-    .neq("status_kit", "entregue");
-
+    .eq("id",id)
+    .neq(
+        "status_kit",
+        "entregue"
+    );
 
 
     if(erroAtualizacao){
@@ -2358,20 +2437,25 @@ async function entregar(id, nome){
         );
 
 
-        Swal.fire({
+        await Swal.fire({
 
-            title:"Não foi possível concluir",
+            title:
+            "Não foi possível concluir",
 
             text:
             erroAtualizacao.message,
 
-            icon:"error",
+            icon:
+            "error",
 
-            background:"#151619",
+            background:
+            "#151719",
 
-            color:"#fff",
+            color:
+            "#fff",
 
-            confirmButtonColor:"#ffc400"
+            confirmButtonColor:
+            "#20b56b"
 
         });
 
@@ -2380,10 +2464,9 @@ async function entregar(id, nome){
     }
 
 
-
-    /* ======================================================
-       REGISTRA HISTÓRICO EM ENTREGAS
-    ====================================================== */
+    /* =====================================================
+       HISTÓRICO
+    ===================================================== */
 
     const {
         error: erroEntrega
@@ -2407,7 +2490,8 @@ async function entregar(id, nome){
         tipo,
 
         observacao:
-        observacaoTexto || null,
+        observacaoTexto ||
+        null,
 
         entregue_em:
         agora
@@ -2415,26 +2499,19 @@ async function entregar(id, nome){
     }]);
 
 
-
-    /*
-       Se já houver um registro concorrente,
-       não deixa a tela quebrar.
-    */
-
     if(erroEntrega){
 
         console.warn(
-            "Histórico:",
+            "Erro no histórico:",
             erroEntrega.message
         );
 
     }
 
 
-
-    /* ======================================================
+    /* =====================================================
        AUDITORIA
-    ====================================================== */
+    ===================================================== */
 
     await db
     .from("auditoria_v2")
@@ -2475,28 +2552,29 @@ async function entregar(id, nome){
     }]);
 
 
-
-    /* ======================================================
+    /* =====================================================
        SUCESSO
-    ====================================================== */
+    ===================================================== */
 
     await Swal.fire({
 
         title:
-        "Entrega confirmada!",
+        "Entrega confirmada",
 
         html:`
 
             <div style="
+                color:#bfc3c7;
                 line-height:1.8;
-                color:#ddd;
             ">
 
                 <strong style="
                     color:#fff;
                     font-size:18px;
                 ">
+
                     ${escaparHTML(nome)}
+
                 </strong>
 
                 <br>
@@ -2504,22 +2582,30 @@ async function entregar(id, nome){
                 Retirado por:
 
                 <strong style="
-                    color:#ffe16b;
+                    color:#20b56b;
                 ">
-                    ${escaparHTML(retiradoPor)}
+
+                    ${escaparHTML(
+                        retiradoPor
+                    )}
+
                 </strong>
 
             </div>
 
         `,
 
-        icon:"success",
+        icon:
+        "success",
 
-        background:"#151619",
+        background:
+        "#151719",
 
-        color:"#fff",
+        color:
+        "#fff",
 
-        confirmButtonColor:"#ffc400",
+        confirmButtonColor:
+        "#20b56b",
 
         confirmButtonText:
         "Concluído"
@@ -2527,17 +2613,14 @@ async function entregar(id, nome){
     });
 
 
-    /* Atualiza a pesquisa */
-
     buscarAtletas();
 
 }
 
 
-
-/* ==========================================================
-   INICIAR
-========================================================== */
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
 
 verificarAcesso();
 
