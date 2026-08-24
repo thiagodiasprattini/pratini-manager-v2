@@ -17,11 +17,47 @@
 
 <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* =========================
+   CORES PADRÃO PRATINI SPORTS
+========================= */
+
+:root{
+
+    --verde:#7CFC00;
+
+    --verde-hover:#8CFF20;
+
+    --preto:#050505;
+
+    --grafite:#202326;
+
+    --grafite-claro:#2b2f33;
+
+    --cinza:#b8b8b8;
+
+    --cinza-claro:#f5f5f5;
+
 }
+
+
+/* =========================
+   RESET
+========================= */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+/* =========================
+   BODY
+========================= */
 
 body{
 
@@ -34,21 +70,21 @@ body{
     align-items:center;
 
     font-family:
-        'Segoe UI',
-        Tahoma,
-        Geneva,
-        Verdana,
+        Arial,
+        Helvetica,
         sans-serif;
 
     background:
+
         linear-gradient(
             135deg,
-            #1f1f1f 0%,
-            #252525 50%,
-            #171717 100%
+            #050505 0%,
+            #202326 50%,
+            #2b2f33 100%
         );
 
-    color:#fff;
+    color:
+        var(--cinza-claro);
 
 }
 
@@ -63,19 +99,19 @@ body{
 
     max-width:430px;
 
-    background:#303030;
+    background:
+        var(--grafite);
 
     padding:40px;
 
     border-radius:20px;
 
+    border:
+        1px solid #3a3e42;
+
     box-shadow:
         0 15px 40px
-        rgba(0,0,0,.40);
-
-    border:
-        1px solid
-        rgba(115,196,107,.18);
+        rgba(0,0,0,.45);
 
     text-align:center;
 
@@ -121,7 +157,8 @@ h1{
 
 .subtitulo{
 
-    color:#cfcfcf;
+    color:
+        var(--cinza);
 
     font-size:14px;
 
@@ -150,31 +187,38 @@ h1{
 
 .tipo-botao{
 
-    padding:12px 8px;
+    padding:13px 8px;
 
-    border-radius:9px;
+    border-radius:10px;
 
     border:
-        1px solid #4a4a4a;
+        1px solid #414549;
 
-    background:#252525;
+    background:
+        #111;
 
-    color:#cfcfcf;
+    color:
+        var(--cinza);
 
     font-size:14px;
 
-    font-weight:600;
+    font-weight:700;
 
     cursor:pointer;
 
-    transition:.2s;
+    transition:
+        .2s ease;
 
 }
 
 
 .tipo-botao:hover{
 
-    border-color:#73C46B;
+    border-color:
+        var(--verde);
+
+    color:
+        #fff;
 
 }
 
@@ -182,13 +226,17 @@ h1{
 .tipo-botao.ativo{
 
     background:
-        rgba(115,196,107,.12);
+        rgba(124,252,0,.08);
 
     border-color:
-        #73C46B;
+        var(--verde);
 
     color:
-        #73C46B;
+        var(--verde);
+
+    box-shadow:
+        0 0 0 1px
+        rgba(124,252,0,.05);
 
 }
 
@@ -216,13 +264,13 @@ label{
 
     font-size:14px;
 
-    font-weight:600;
+    font-weight:700;
 
 }
 
 
 /* =========================
-   INPUT
+   CAMPOS
 ========================= */
 
 input[type="text"],
@@ -247,7 +295,8 @@ input[type="password"]{
 
     font-size:16px;
 
-    transition:.3s;
+    transition:
+        .25s ease;
 
 }
 
@@ -264,17 +313,17 @@ input:focus{
     outline:none;
 
     border-color:
-        #73C46B;
+        var(--verde);
 
     box-shadow:
-        0 0 0 4px
-        rgba(115,196,107,.18);
+        0 0 0 3px
+        rgba(124,252,0,.16);
 
 }
 
 
 /* =========================
-   OPÇÕES
+   OPÇÕES DE LOGIN
 ========================= */
 
 .opcoes-login{
@@ -315,11 +364,14 @@ input:focus{
 
     margin:0;
 
+    accent-color:
+        var(--verde);
+
 }
 
 
 /* =========================
-   BOTÃO
+   BOTÃO ENTRAR
 ========================= */
 
 button{
@@ -334,31 +386,35 @@ button{
 
     margin-top:10px;
 
-    background:#73C46B;
+    background:
+        var(--verde);
 
-    color:#050505;
+    color:
+        var(--preto);
 
     font-size:17px;
 
-    font-weight:700;
+    font-weight:900;
 
     cursor:pointer;
 
-    transition:.3s;
+    transition:
+        .2s ease;
 
 }
 
 
 button:hover{
 
-    background:#8AD982;
+    background:
+        var(--verde-hover);
 
     transform:
         translateY(-2px);
 
     box-shadow:
         0 8px 20px
-        rgba(115,196,107,.30);
+        rgba(124,252,0,.25);
 
 }
 
@@ -394,7 +450,7 @@ button:disabled{
 
     min-height:20px;
 
-    font-weight:600;
+    font-weight:700;
 
     color:#fff;
 
@@ -411,7 +467,8 @@ button:disabled{
 
     margin-top:25px;
 
-    color:#bdbdbd;
+    color:
+        var(--cinza);
 
     font-size:12px;
 
@@ -426,15 +483,18 @@ button:disabled{
 
     .container{
 
-        padding:30px 22px;
+        padding:
+            30px 22px;
 
     }
+
 
     .logo img{
 
         width:190px;
 
     }
+
 
     h1{
 
@@ -455,7 +515,9 @@ button:disabled{
 <div class="container">
 
 
-    <!-- LOGO -->
+    <!-- =========================
+         LOGO
+    ========================== -->
 
     <div class="logo">
 
@@ -466,6 +528,10 @@ button:disabled{
 
     </div>
 
+
+    <!-- =========================
+         TITULO
+    ========================== -->
 
     <h1>
         Acesso ao Painel
@@ -483,12 +549,15 @@ button:disabled{
 
     <div class="tipo-acesso">
 
+
         <div
             id="botaoAdmin"
             class="tipo-botao ativo"
             onclick="selecionarTipo('admin')"
         >
+
             ADMINISTRADOR
+
         </div>
 
 
@@ -497,8 +566,11 @@ button:disabled{
             class="tipo-botao"
             onclick="selecionarTipo('atendente')"
         >
+
             ATENDENTE
+
         </div>
+
 
     </div>
 
@@ -508,6 +580,7 @@ button:disabled{
     ========================== -->
 
     <div class="form-group">
+
 
         <label id="labelUsuario">
 
@@ -528,6 +601,7 @@ button:disabled{
             "
         >
 
+
     </div>
 
 
@@ -537,8 +611,11 @@ button:disabled{
 
     <div class="form-group">
 
+
         <label for="senha">
+
             Senha
+
         </label>
 
 
@@ -554,11 +631,12 @@ button:disabled{
             "
         >
 
+
     </div>
 
 
     <!-- =========================
-         OPÇÕES
+         OPÇÕES ADMINISTRADOR
     ========================== -->
 
     <div
@@ -566,34 +644,42 @@ button:disabled{
         id="opcoesAdmin"
     >
 
+
         <label class="checkbox-item">
+
 
             <input
                 type="checkbox"
                 id="lembrarUsuario"
             >
 
+
             Lembrar e-mail
+
 
         </label>
 
 
         <label class="checkbox-item">
 
+
             <input
                 type="checkbox"
                 id="manterConectado"
             >
 
+
             Manter-me conectado
 
+
         </label>
+
 
     </div>
 
 
     <!-- =========================
-         ENTRAR
+         BOTÃO
     ========================== -->
 
     <button
@@ -612,6 +698,10 @@ button:disabled{
 
     <p id="mensagem"></p>
 
+
+    <!-- =========================
+         RODAPÉ
+    ========================== -->
 
     <div class="footer">
 
@@ -632,27 +722,37 @@ button:disabled{
 
 
 /*
-   As contas das atendentes usarão
-   internamente este domínio.
+    DOMÍNIO INTERNO DAS ATENDENTES
 
-   A atendente NÃO precisa saber
-   nem digitar esse endereço.
+    A atendente não precisa conhecer
+    esse e-mail.
+
+    Exemplo:
+
+    JULIANA
+
+    será transformado internamente em:
+
+    juliana@atendentes.pratinisports.local
 */
 
 const DOMINIO_ATENDENTES =
     "@atendentes.pratinisports.local";
 
 
-let tipoAcesso = "admin";
+let tipoAcesso =
+    "admin";
 
 
 /* =========================
-   SELECIONAR TIPO
+   SELECIONAR TIPO DE ACESSO
 ========================= */
 
 function selecionarTipo(tipo){
 
-    tipoAcesso = tipo;
+
+    tipoAcesso =
+        tipo;
 
 
     const botaoAdmin =
@@ -685,11 +785,17 @@ function selecionarTipo(tipo){
         );
 
 
+    /* =========================
+       ADMINISTRADOR
+    ========================== */
+
     if(tipo === "admin"){
+
 
         botaoAdmin.classList.add(
             "ativo"
         );
+
 
         botaoAtendente.classList.remove(
             "ativo"
@@ -724,23 +830,34 @@ function selecionarTipo(tipo){
 
         if(emailSalvo){
 
+
             usuario.value =
                 emailSalvo;
 
+
             document.getElementById(
                 "lembrarUsuario"
-            ).checked = true;
+            ).checked =
+                true;
+
 
         }
+
 
     }
 
 
+    /* =========================
+       ATENDENTE
+    ========================== */
+
     else{
+
 
         botaoAtendente.classList.add(
             "ativo"
         );
+
 
         botaoAdmin.classList.remove(
             "ativo"
@@ -767,23 +884,29 @@ function selecionarTipo(tipo){
             "none";
 
 
-        usuario.value = "";
+        usuario.value =
+            "";
+
 
     }
 
 
     document.getElementById(
         "mensagem"
-    ).innerHTML = "";
+    ).innerHTML =
+        "";
+
 
 }
 
 
 /* =========================
-   CARREGAR LOGIN SALVO
+   CARREGAR DADOS SALVOS
 ========================= */
 
-window.onload = function(){
+window.onload =
+function(){
+
 
     const emailSalvo =
         localStorage.getItem(
@@ -793,6 +916,7 @@ window.onload = function(){
 
     if(emailSalvo){
 
+
         document.getElementById(
             "usuario"
         ).value =
@@ -801,7 +925,9 @@ window.onload = function(){
 
         document.getElementById(
             "lembrarUsuario"
-        ).checked = true;
+        ).checked =
+            true;
+
 
     }
 
@@ -814,49 +940,63 @@ window.onload = function(){
 
     if(manter === "sim"){
 
+
         document.getElementById(
             "manterConectado"
-        ).checked = true;
+        ).checked =
+            true;
+
 
     }
+
 
 };
 
 
 /* =========================
-   TRANSFORMAR NOME DA
-   ATENDENTE EM LOGIN INTERNO
+   GERAR LOGIN INTERNO
+   DA ATENDENTE
 ========================= */
 
 function gerarEmailAtendente(nome){
 
+
     return nome
+
         .normalize("NFD")
+
         .replace(
             /[\u0300-\u036f]/g,
             ""
         )
+
         .toLowerCase()
+
         .trim()
+
         .replace(
             /\s+/g,
             "."
         )
+
         .replace(
             /[^a-z0-9.]/g,
             ""
         )
+
         +
         DOMINIO_ATENDENTES;
+
 
 }
 
 
 /* =========================
-   ENTRAR
+   LOGIN
 ========================= */
 
 async function entrar(){
+
 
     const campoMensagem =
         document.getElementById(
@@ -894,13 +1034,19 @@ async function entrar(){
         "Verificando acesso...";
 
 
+    /* =========================
+       VALIDAÇÃO
+    ========================== */
+
     if(!usuario || !senha){
+
 
         campoMensagem.style.color =
             "#ff6b6b";
 
 
         campoMensagem.innerHTML =
+
             tipoAcesso === "admin"
 
             ?
@@ -917,7 +1063,12 @@ async function entrar(){
     }
 
 
+    /* =========================
+       VERIFICAR SUPABASE
+    ========================== */
+
     if(typeof db === "undefined"){
+
 
         campoMensagem.style.color =
             "#ff6b6b";
@@ -940,49 +1091,26 @@ async function entrar(){
 
 
         /* =========================
-           ADMINISTRADOR
-        ========================== */
-
-        if(tipoAcesso === "admin"){
-
-            /*
-               Administrador continua
-               usando o e-mail normal.
-            */
-
-        }
-
-
-        /* =========================
            ATENDENTE
         ========================== */
 
-        else{
+        if(
+            tipoAcesso ===
+            "atendente"
+        ){
 
-            /*
-               A atendente digita somente
-               o nome.
-
-               Exemplo:
-
-               JULIANA
-
-               vira internamente:
-
-               juliana@atendentes.
-               pratinisports.local
-            */
 
             usuario =
                 gerarEmailAtendente(
                     usuario
                 );
 
+
         }
 
 
         /* =========================
-           LOGIN SUPABASE
+           AUTENTICAÇÃO
         ========================== */
 
         const {
@@ -1000,7 +1128,12 @@ async function entrar(){
             });
 
 
+        /* =========================
+           ERRO
+        ========================== */
+
         if(error){
+
 
             console.error(
                 "Erro de login:",
@@ -1012,19 +1145,17 @@ async function entrar(){
                 "#ff6b6b";
 
 
-            if(tipoAcesso === "admin"){
+            campoMensagem.innerHTML =
 
-                campoMensagem.innerHTML =
-                    "E-mail ou senha inválidos.";
+                tipoAcesso === "admin"
 
-            }
+                ?
 
-            else{
+                "E-mail ou senha inválidos."
 
-                campoMensagem.innerHTML =
-                    "Nome de usuário ou senha inválidos.";
+                :
 
-            }
+                "Nome de usuário ou senha inválidos.";
 
 
             botao.disabled =
@@ -1036,19 +1167,23 @@ async function entrar(){
         }
 
 
+        /* =========================
+           SESSÃO
+        ========================== */
+
         if(
             data &&
             data.session
         ){
 
 
-            /* =========================
-               VERIFICAR PERFIL
-            ========================== */
-
             const usuarioId =
                 data.session.user.id;
 
+
+            /* =========================
+               BUSCAR PERFIL
+            ========================== */
 
             const {
                 data: perfil,
@@ -1056,21 +1191,30 @@ async function entrar(){
                     erroPerfil
             } =
                 await db
+
                 .from("perfis")
+
                 .select(
                     "id,nome,role"
                 )
+
                 .eq(
                     "id",
                     usuarioId
                 )
+
                 .single();
 
+
+            /* =========================
+               PERFIL NÃO ENCONTRADO
+            ========================== */
 
             if(
                 erroPerfil ||
                 !perfil
             ){
+
 
                 await db.auth.signOut();
 
@@ -1093,13 +1237,21 @@ async function entrar(){
 
 
             /* =========================
-               CONFERÊNCIA DE ACESSO
+               VALIDAR ADMINISTRADOR
             ========================== */
 
             if(
-                tipoAcesso === "admin" &&
-                perfil.role !== "admin"
+
+                tipoAcesso ===
+                "admin"
+
+                &&
+
+                perfil.role !==
+                "admin"
+
             ){
+
 
                 await db.auth.signOut();
 
@@ -1121,10 +1273,22 @@ async function entrar(){
             }
 
 
+            /* =========================
+               VALIDAR ATENDENTE
+            ========================== */
+
             if(
-                tipoAcesso === "atendente" &&
-                perfil.role !== "atendente"
+
+                tipoAcesso ===
+                "atendente"
+
+                &&
+
+                perfil.role !==
+                "atendente"
+
             ){
+
 
                 await db.auth.signOut();
 
@@ -1147,10 +1311,14 @@ async function entrar(){
 
 
             /* =========================
-               SALVAR PREFERÊNCIAS
+               PREFERÊNCIAS DO ADMIN
             ========================== */
 
-            if(tipoAcesso === "admin"){
+            if(
+                tipoAcesso ===
+                "admin"
+            ){
+
 
                 const lembrar =
                     document.getElementById(
@@ -1166,71 +1334,99 @@ async function entrar(){
 
                 if(lembrar){
 
+
                     localStorage.setItem(
+
                         "email_salvo",
+
                         usuario
+
                     );
+
 
                 }
 
                 else{
 
+
                     localStorage.removeItem(
+
                         "email_salvo"
+
                     );
+
 
                 }
 
 
                 if(manter){
 
+
                     localStorage.setItem(
+
                         "manter_conectado",
+
                         "sim"
+
                     );
+
 
                 }
 
                 else{
 
+
                     localStorage.removeItem(
+
                         "manter_conectado"
+
                     );
 
+
                 }
+
 
             }
 
 
             /* =========================
-               GUARDAR DADOS DO USUÁRIO
+               SALVAR DADOS DO USUÁRIO
             ========================== */
 
             localStorage.setItem(
+
                 "usuario_id",
+
                 perfil.id
+
             );
 
 
             localStorage.setItem(
+
                 "usuario_nome",
+
                 perfil.nome ||
                 data.session.user.email
+
             );
 
 
             localStorage.setItem(
+
                 "usuario_role",
+
                 perfil.role
+
             );
 
 
             /* =========================
-               SUCESSO
+               LOGIN CONCLUÍDO
             ========================== */
 
             campoMensagem.style.color =
-                "#73C46B";
+                var(--verde);
 
 
             campoMensagem.innerHTML =
@@ -1250,12 +1446,14 @@ async function entrar(){
 
             );
 
+
         }
 
 
     }
 
     catch(err){
+
 
         console.error(err);
 
@@ -1270,6 +1468,7 @@ async function entrar(){
 
         botao.disabled =
             false;
+
 
     }
 
