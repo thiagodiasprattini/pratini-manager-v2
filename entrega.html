@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Entrega - Portal Pratini</title>
+
+<title>Central de Entrega - Pratini Sports</title>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -11,230 +12,1968 @@
 <script>
 const SUPABASE_URL = "https://kchpprimvfnwchztwlsa.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_TT9qEWZX65Xl3prYCwqMtw_t7kA7lf4";
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const db = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+);
 </script>
 
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#111;color:white}
-header{background:#ffc400;color:#000;padding:20px;text-align:center;font-size:26px;font-weight:bold}
-.container{padding:20px;max-width:900px;margin:auto}
-.card{background:#1f1f1f;padding:20px;border-radius:15px;margin-bottom:15px}
-input,button{width:100%;padding:16px;margin:8px 0;border:none;border-radius:8px;font-size:18px;box-sizing:border-box}
-button{background:#ffc400;font-weight:bold;cursor:pointer}
-.voltar{background:#333;color:white}
-.entregue{background:#145c2e}
-.pendente{border-left:6px solid #ffc400}
-.status-entregue{color:#00d26a;font-weight:bold;font-size:22px}
-.status-pendente{color:#ffc400;font-weight:bold;font-size:22px}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#111;
+    color:#fff;
+}
+
+/* =========================
+   TOPO
+========================= */
+
+.topo{
+    background:#ffc400;
+    color:#000;
+    min-height:86px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 25px;
+    box-shadow:0 3px 12px rgba(0,0,0,.35);
+}
+
+.topo-esquerda{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.topo-titulo{
+    font-size:22px;
+    font-weight:800;
+    text-transform:uppercase;
+}
+
+.topo-subtitulo{
+    font-size:13px;
+    opacity:.75;
+    margin-top:3px;
+}
+
+.logo{
+    height:58px;
+    max-width:180px;
+    object-fit:contain;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container{
+    width:100%;
+    max-width:950px;
+    margin:0 auto;
+    padding:25px 18px 50px;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+    background:#1d1d1d;
+    border:1px solid #2d2d2d;
+    padding:22px;
+    border-radius:15px;
+    margin-bottom:18px;
+    box-shadow:0 5px 18px rgba(0,0,0,.20);
+}
+
+.card h2{
+    margin-top:0;
+}
+
+.evento-card{
+    border-left:5px solid #ffc400;
+}
+
+.evento-label{
+    color:#aaa;
+    font-size:13px;
+    text-transform:uppercase;
+    margin-bottom:5px;
+}
+
+.evento-nome{
+    font-size:21px;
+    font-weight:bold;
+}
+
+/* =========================
+   BUSCA
+========================= */
+
+.titulo-secao{
+    font-size:21px;
+    margin:0 0 15px;
+}
+
+.input-busca{
+    width:100%;
+    padding:17px;
+    background:#fff;
+    color:#111;
+    border:none;
+    border-radius:10px;
+    font-size:18px;
+    outline:none;
+}
+
+.input-busca:focus{
+    box-shadow:0 0 0 3px rgba(255,196,0,.25);
+}
+
+.btn{
+    width:100%;
+    border:none;
+    border-radius:10px;
+    padding:16px;
+    margin-top:12px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+}
+
+.btn-amarelo{
+    background:#ffc400;
+    color:#000;
+}
+
+.btn-cinza{
+    background:#333;
+    color:#fff;
+}
+
+.btn-verde{
+    background:#0d9b4d;
+    color:#fff;
+}
+
+/* =========================
+   ATLETA
+========================= */
+
+.atleta-card{
+    position:relative;
+    overflow:hidden;
+}
+
+.atleta-card.pendente{
+    border-left:6px solid #ffc400;
+}
+
+.atleta-card.entregue{
+    border-left:6px solid #00d26a;
+}
+
+.nome-atleta{
+    font-size:25px;
+    font-weight:800;
+    margin:0 0 20px;
+    text-transform:uppercase;
+}
+
+.dados-atleta{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:12px;
+}
+
+.dado{
+    background:#292929;
+    padding:13px;
+    border-radius:9px;
+}
+
+.dado-label{
+    display:block;
+    color:#999;
+    font-size:12px;
+    text-transform:uppercase;
+    margin-bottom:5px;
+}
+
+.dado-valor{
+    font-size:17px;
+    font-weight:bold;
+}
+
+.produto{
+    margin-top:14px;
+    background:#292929;
+    padding:14px;
+    border-radius:9px;
+}
+
+.produto-label{
+    color:#999;
+    font-size:12px;
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:5px;
+}
+
+.produto-valor{
+    font-size:17px;
+    font-weight:bold;
+}
+
+/* =========================
+   RETIRADA
+========================= */
+
+.retirada-box{
+    margin-top:22px;
+    padding:18px;
+    background:#151515;
+    border-radius:12px;
+    border:1px solid #333;
+}
+
+.retirada-titulo{
+    font-weight:bold;
+    font-size:17px;
+    margin-bottom:14px;
+}
+
+.opcoes-retirada{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.opcao-retirada{
+    background:#292929;
+    border:2px solid #444;
+    border-radius:10px;
+    padding:15px;
+    cursor:pointer;
+    text-align:center;
+    transition:.2s;
+}
+
+.opcao-retirada:hover{
+    border-color:#ffc400;
+}
+
+.opcao-retirada.ativa{
+    border-color:#ffc400;
+    background:#3a3200;
+}
+
+.opcao-retirada input{
+    display:none;
+}
+
+.opcao-titulo{
+    font-weight:bold;
+    font-size:15px;
+}
+
+.opcao-descricao{
+    color:#999;
+    font-size:12px;
+    margin-top:4px;
+}
+
+.campo-terceiro,
+.campo-observacao{
+    margin-top:14px;
+}
+
+.campo-terceiro label,
+.campo-observacao label{
+    display:block;
+    color:#aaa;
+    font-size:13px;
+    margin-bottom:6px;
+}
+
+.campo-terceiro input,
+.campo-observacao textarea{
+    width:100%;
+    padding:14px;
+    border-radius:9px;
+    border:1px solid #444;
+    background:#fff;
+    color:#111;
+    font-size:16px;
+}
+
+.campo-observacao textarea{
+    min-height:80px;
+    resize:vertical;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status{
+    display:inline-block;
+    padding:8px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:18px;
+}
+
+.status-pendente{
+    background:#3d3200;
+    color:#ffc400;
+}
+
+.status-entregue{
+    background:#073b20;
+    color:#00d26a;
+}
+
+/* =========================
+   ENTREGA JÁ REALIZADA
+========================= */
+
+.entrega-realizada{
+    margin-top:20px;
+    background:#073b20;
+    border:1px solid #126b3c;
+    border-radius:10px;
+    padding:17px;
+}
+
+.entrega-realizada-titulo{
+    color:#00d26a;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.entrega-info{
+    margin:6px 0;
+    color:#ddd;
+}
+
+/* =========================
+   CARREGANDO
+========================= */
+
 .carregando{
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
-    font-size:16px;
-    color:#cfcfcf;
+    background:#111;
+    color:#ccc;
+    font-size:17px;
 }
+
+.spinner{
+    width:35px;
+    height:35px;
+    border:4px solid #333;
+    border-top-color:#ffc400;
+    border-radius:50%;
+    animation:girar 1s linear infinite;
+    margin:0 auto 15px;
+}
+
+@keyframes girar{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* =========================
+   SEM RESULTADO
+========================= */
+
+.mensagem{
+    text-align:center;
+    color:#aaa;
+    padding:25px;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media(max-width:650px){
+
+    .topo{
+        min-height:75px;
+        padding:12px 15px;
+    }
+
+    .topo-titulo{
+        font-size:16px;
+    }
+
+    .topo-subtitulo{
+        font-size:11px;
+    }
+
+    .logo{
+        height:45px;
+        max-width:120px;
+    }
+
+    .container{
+        padding:18px 12px 40px;
+    }
+
+    .dados-atleta{
+        grid-template-columns:1fr;
+    }
+
+    .opcoes-retirada{
+        grid-template-columns:1fr;
+    }
+
+    .nome-atleta{
+        font-size:21px;
+    }
+
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- =========================================================
+     CARREGAMENTO
+========================================================= -->
+
 <div id="telaCarregando" class="carregando">
-    Verificando acesso...
+
+    <div style="text-align:center">
+
+        <div class="spinner"></div>
+
+        Verificando acesso...
+
+    </div>
+
 </div>
+
+
+<!-- =========================================================
+     PAINEL
+========================================================= -->
 
 <div id="telaPainel" style="display:none;">
 
-<header>ENTREGA DE INSCRIÇÃO</header>
+    <!-- TOPO -->
 
-<div class="container">
+    <header class="topo">
 
-<div class="card">
-<h2>Evento Ativo</h2>
-<p id="eventoAtivo">Carregando...</p>
+        <div class="topo-esquerda">
+
+            <div>
+
+                <div class="topo-titulo">
+                    Central de Entrega
+                </div>
+
+                <div class="topo-subtitulo">
+                    Pratini Sports & Eventos
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--
+            COLOQUE SUA LOGO COMO:
+            logo-pratini.png
+
+            na mesma pasta deste HTML.
+        -->
+
+        <img
+            src="logo-pratini.png"
+            class="logo"
+            alt="Pratini Sports"
+            onerror="this.style.display='none';"
+        >
+
+    </header>
+
+
+    <div class="container">
+
+
+        <!-- =================================================
+             EVENTO
+        ================================================== -->
+
+        <div class="card evento-card">
+
+            <div class="evento-label">
+                Evento ativo
+            </div>
+
+            <div
+                id="eventoAtivo"
+                class="evento-nome"
+            >
+                Carregando...
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PESQUISA
+        ================================================== -->
+
+        <div class="card">
+
+            <h2 class="titulo-secao">
+                🔎 Pesquisar atleta
+            </h2>
+
+            <input
+                id="busca"
+                class="input-busca"
+                type="text"
+                placeholder="Digite o nome ou número de peito"
+                autocomplete="off"
+            >
+
+            <button
+                class="btn btn-amarelo"
+                onclick="buscarAtletas()"
+            >
+                PESQUISAR
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             RESULTADO
+        ================================================== -->
+
+        <div id="resultado"></div>
+
+
+        <!-- =================================================
+             VOLTAR
+        ================================================== -->
+
+        <button
+            class="btn btn-cinza"
+            onclick="location.href='dashboard.html'"
+        >
+            ← Voltar ao Painel
+        </button>
+
+
+    </div>
+
 </div>
 
-<div class="card">
-<h2>Pesquisar Atleta</h2>
-<input id="busca" placeholder="Digite nome, CPF ou número de peito">
-<button onclick="buscarAtletas()">Buscar</button>
-</div>
-
-<div id="resultado"></div>
-
-<button class="voltar" onclick="location.href='dashboard.html'">Voltar ao Painel</button>
-
-</div>
-
-</div>
 
 <script>
 
+/* ==========================================================
+   VARIÁVEIS
+========================================================== */
+
 let usuarioLogado = null;
-const eventoId = localStorage.getItem("evento_ativo_id");
+
+const eventoId =
+    localStorage.getItem("evento_ativo_id");
+
+const eventoNome =
+    localStorage.getItem("evento_ativo_nome");
+
+
+/* ==========================================================
+   VERIFICAR ACESSO
+========================================================== */
 
 async function verificarAcesso(){
 
-    const { data: sessao } = await db.auth.getSession();
+    try{
 
-    if(!sessao || !sessao.session){
+        const { data: sessaoData, error: sessaoError } =
+            await db.auth.getSession();
+
+        if(
+            sessaoError ||
+            !sessaoData ||
+            !sessaoData.session
+        ){
+
+            window.location.href = "login.html";
+            return;
+
+        }
+
+
+        const usuario =
+            sessaoData.session.user;
+
+
+        /* ----------------------------------------------
+           PERFIL DO USUÁRIO
+        ---------------------------------------------- */
+
+        const { data: perfil, error: perfilError } =
+            await db
+                .from("perfis")
+                .select("role, nome")
+                .eq("id", usuario.id)
+                .single();
+
+
+        if(perfilError || !perfil){
+
+            window.location.href = "index.html";
+            return;
+
+        }
+
+
+        usuarioLogado = {
+
+            id: usuario.id,
+
+            nome:
+                perfil.nome ||
+                usuario.email,
+
+            email:
+                usuario.email
+
+        };
+
+
+        /* ----------------------------------------------
+           EVENTO
+        ---------------------------------------------- */
+
+        document.getElementById(
+            "eventoAtivo"
+        ).textContent =
+            eventoNome ||
+            "Nenhum evento ativo selecionado.";
+
+
+        document.getElementById(
+            "telaCarregando"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "telaPainel"
+        ).style.display = "block";
+
+
+        /* ----------------------------------------------
+           ENTER NO CAMPO DE PESQUISA
+        ---------------------------------------------- */
+
+        document
+            .getElementById("busca")
+            .addEventListener("keydown", function(e){
+
+                if(e.key === "Enter"){
+
+                    buscarAtletas();
+
+                }
+
+            });
+
+
+    }catch(error){
+
+        console.error(error);
+
         window.location.href = "login.html";
-        return;
+
     }
 
-    const usuario = sessao.session.user;
-
-    const { data: perfil, error } = await db
-        .from("perfis")
-        .select("role, nome")
-        .eq("id", usuario.id)
-        .single();
-
-    if(error || !perfil){
-        window.location.href = "index.html";
-        return;
-    }
-
-    usuarioLogado = {
-        nome: perfil.nome || usuario.email,
-        email: usuario.email
-    };
-
-    const eventoNome = localStorage.getItem("evento_ativo_nome");
-    document.getElementById("eventoAtivo").innerHTML = eventoNome || "Nenhum evento ativo selecionado.";
-
-    document.getElementById("telaCarregando").style.display = "none";
-    document.getElementById("telaPainel").style.display = "block";
 }
+
+
+/* ==========================================================
+   NORMALIZAR TEXTO
+========================================================== */
 
 function normalizar(txt){
-    return (txt || "").toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();
+
+    return (
+        txt || ""
+    )
+    .toString()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .trim();
+
 }
 
+
+/* ==========================================================
+   ESCAPAR HTML
+   Evita problemas quando nomes possuem caracteres especiais.
+========================================================== */
+
+function escaparHTML(valor){
+
+    if(valor === null || valor === undefined){
+
+        return "";
+
+    }
+
+    return String(valor)
+
+        .replace(/&/g,"&amp;")
+
+        .replace(/</g,"&lt;")
+
+        .replace(/>/g,"&gt;")
+
+        .replace(/"/g,"&quot;")
+
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* ==========================================================
+   FORMATAR DATA DE NASCIMENTO
+========================================================== */
+
+function formatarNascimento(data){
+
+    if(!data){
+
+        return "Não informado";
+
+    }
+
+    try{
+
+        const partes =
+            String(data).split("-");
+
+        if(partes.length === 3){
+
+            return (
+                partes[2] +
+                "/" +
+                partes[1] +
+                "/" +
+                partes[0]
+            );
+
+        }
+
+        return data;
+
+    }catch(e){
+
+        return data;
+
+    }
+
+}
+
+
+/* ==========================================================
+   FORMATAR DATA/HORA
+========================================================== */
+
+function formatarDataHora(data){
+
+    if(!data){
+
+        return "Não informada";
+
+    }
+
+    try{
+
+        return new Date(data).toLocaleString(
+            "pt-BR",
+            {
+                timeZone:"America/Sao_Paulo"
+            }
+        );
+
+    }catch(e){
+
+        return data;
+
+    }
+
+}
+
+
+/* ==========================================================
+   PESQUISAR ATLETAS
+========================================================== */
+
 async function buscarAtletas(){
-    const termo = document.getElementById("busca").value.trim();
-    const resultado = document.getElementById("resultado");
+
+    const termoOriginal =
+        document
+            .getElementById("busca")
+            .value
+            .trim();
+
+
+    const resultado =
+        document.getElementById("resultado");
+
 
     if(!eventoId){
-        resultado.innerHTML = "<div class='card'>Selecione um evento ativo primeiro.</div>";
+
+        resultado.innerHTML = `
+
+            <div class="card">
+
+                <div class="mensagem">
+
+                    ⚠️ Nenhum evento ativo foi selecionado.
+
+                </div>
+
+            </div>
+
+        `;
+
         return;
+
     }
 
-    if(!termo){
-        resultado.innerHTML = "<div class='card'>Digite algo para pesquisar.</div>";
+
+    if(!termoOriginal){
+
+        resultado.innerHTML = `
+
+            <div class="card">
+
+                <div class="mensagem">
+
+                    Digite o nome ou número de peito.
+
+                </div>
+
+            </div>
+
+        `;
+
         return;
+
     }
 
-    resultado.innerHTML = "<div class='card'>Buscando...</div>";
 
-    const { data, error } = await db
-        .from("atletas_v2")
-        .select("*")
-        .eq("evento_id", eventoId)
-        .limit(1000);
+    resultado.innerHTML = `
+
+        <div class="card">
+
+            <div class="spinner"></div>
+
+            <div class="mensagem">
+                Pesquisando atleta...
+            </div>
+
+        </div>
+
+    `;
+
+
+    /* ======================================================
+       BUSCA NO BANCO
+
+       Aqui NÃO buscamos CPF.
+       A Central trabalha somente com:
+       - nome
+       - número de peito
+    ====================================================== */
+
+    const { data, error } =
+        await db
+
+            .from("atletas_v2")
+
+            .select(`
+                id,
+                evento_id,
+                nome,
+                numero_peito,
+                data_nascimento,
+                modalidade,
+                camiseta,
+                pelotao,
+                produto_extra,
+                status_kit,
+                retirado_por,
+                data_retirada,
+                entregue_por,
+                entregue_por_usuario,
+                retirado_login
+            `)
+
+            .eq("evento_id", eventoId)
+
+            .limit(1000);
+
 
     if(error){
-        resultado.innerHTML = "<div class='card'>Erro na busca: " + error.message + "</div>";
+
+        console.error(error);
+
+        resultado.innerHTML = `
+
+            <div class="card">
+
+                <div class="mensagem">
+
+                    ❌ Erro ao pesquisar:
+                    ${escaparHTML(error.message)}
+
+                </div>
+
+            </div>
+
+        `;
+
         return;
+
     }
 
-    const busca = normalizar(termo);
 
-    const encontrados = data.filter(a =>
-        normalizar(a.nome).includes(busca) ||
-        normalizar(a.cpf).includes(busca) ||
-        normalizar(a.numero_peito).includes(busca)
-    );
+    const busca =
+        normalizar(termoOriginal);
+
+
+    const encontrados =
+        (data || []).filter(atleta => {
+
+            const nome =
+                normalizar(atleta.nome);
+
+            const numero =
+                normalizar(atleta.numero_peito);
+
+            return (
+                nome.includes(busca) ||
+                numero === busca
+            );
+
+        });
+
 
     if(encontrados.length === 0){
-        resultado.innerHTML = "<div class='card'>Nenhum atleta encontrado.</div>";
+
+        resultado.innerHTML = `
+
+            <div class="card">
+
+                <div class="mensagem">
+
+                    ❌ Nenhum atleta encontrado.
+
+                    <br><br>
+
+                    Confira o nome ou número de peito.
+
+                </div>
+
+            </div>
+
+        `;
+
         return;
+
     }
+
 
     resultado.innerHTML = "";
 
-    encontrados.forEach(atleta=>{
-        const entregue = atleta.status_kit === "entregue";
 
-        resultado.innerHTML += `
-<div class="card ${entregue ? 'entregue' : 'pendente'}">
-<h2>${atleta.nome}</h2>
-<p><b>Número de peito:</b> ${atleta.numero_peito || "Não informado"}</p>
-<p><b>Modalidade:</b> ${atleta.modalidade || "Não informada"}</p>
-<p><b>Camiseta:</b> ${atleta.camiseta || "Não informada"}</p>
-<p><b>Equipe:</b> ${atleta.equipe || "Não informada"}</p>
-<p><b>Produto Extra:</b> ${atleta.produto_extra || "Nenhum"}</p>
-<p><b>Status:</b> <span class="${entregue ? 'status-entregue' : 'status-pendente'}">${entregue ? 'ENTREGUE' : 'PENDENTE'}</span></p>
-${entregue ? `
-<p><b>Retirado por:</b> ${atleta.retirado_por || "Não informado"}</p>
-<p><b>Login de quem entregou:</b> ${atleta.retirado_login || "Não informado"}</p>
-<p><b>Data retirada:</b> ${atleta.data_retirada ? new Date(atleta.data_retirada).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }) : "Não informada"}</p>
-` : `
-<button onclick="entregar('${atleta.id}', '${atleta.nome.replace(/'/g,"")}')">Entregar</button>
-`}
-</div>
-`;
+    encontrados.forEach(atleta => {
+
+        resultado.innerHTML +=
+            criarCardAtleta(atleta);
+
     });
+
 }
 
-async function entregar(id, nome){
 
-    const confirmar = await Swal.fire({
-        title: "Confirmar entrega",
-        text: "Deseja realmente entregar o kit para " + nome + "?",
-        icon: "question",
-        background: "#1f1f1f",
-        color: "#ffffff",
-        confirmButtonColor: "#ffc400",
-        cancelButtonColor: "#555",
-        confirmButtonText: "Entregar",
-        cancelButtonText: "Cancelar"
-    });
+/* ==========================================================
+   CRIAR CARD DO ATLETA
+========================================================== */
 
-    if(!confirmar.isConfirmed) return;
+function criarCardAtleta(atleta){
 
-    const { error } = await db
-        .from("atletas_v2")
-        .update({
-            status_kit: "entregue",
-            retirado_por: usuarioLogado ? usuarioLogado.nome : "Desconhecido",
-            retirado_login: usuarioLogado ? usuarioLogado.email : "Desconhecido",
-            data_retirada: new Date().toISOString()
-        })
-        .eq("id", id);
+    const entregue =
+        atleta.status_kit === "entregue";
 
-    if(error){
-        Swal.fire({
-            title: "Erro",
-            text: "Não foi possível registrar a entrega: " + error.message,
-            icon: "error",
-            background: "#1f1f1f",
-            color: "#ffffff",
-            confirmButtonColor: "#ffc400"
-        });
-        return;
+
+    const id =
+        escaparHTML(atleta.id);
+
+
+    const nome =
+        escaparHTML(atleta.nome);
+
+
+    const numero =
+        escaparHTML(
+            atleta.numero_peito ||
+            "Não informado"
+        );
+
+
+    const nascimento =
+        escaparHTML(
+            formatarNascimento(
+                atleta.data_nascimento
+            )
+        );
+
+
+    const modalidade =
+        escaparHTML(
+            atleta.modalidade ||
+            "Não informada"
+        );
+
+
+    const camiseta =
+        escaparHTML(
+            atleta.camiseta ||
+            "Não informada"
+        );
+
+
+    const pelotao =
+        escaparHTML(
+            atleta.pelotao ||
+            "Não informado"
+        );
+
+
+    const produto =
+        escaparHTML(
+            atleta.produto_extra ||
+            "Nenhum"
+        );
+
+
+    let html = `
+
+        <div
+            class="card atleta-card
+            ${entregue ? "entregue" : "pendente"}"
+        >
+
+            <span class="status
+                ${entregue ? "status-entregue" : "status-pendente"}">
+
+                ${entregue
+                    ? "✓ KIT ENTREGUE"
+                    : "KIT PENDENTE"
+                }
+
+            </span>
+
+
+            <h2 class="nome-atleta">
+                ${nome}
+            </h2>
+
+
+            <div class="dados-atleta">
+
+
+                <div class="dado">
+
+                    <span class="dado-label">
+                        Número de peito
+                    </span>
+
+                    <span class="dado-valor">
+                        ${numero}
+                    </span>
+
+                </div>
+
+
+                <div class="dado">
+
+                    <span class="dado-label">
+                        Data de nascimento
+                    </span>
+
+                    <span class="dado-valor">
+                        ${nascimento}
+                    </span>
+
+                </div>
+
+
+                <div class="dado">
+
+                    <span class="dado-label">
+                        Modalidade
+                    </span>
+
+                    <span class="dado-valor">
+                        ${modalidade}
+                    </span>
+
+                </div>
+
+
+                <div class="dado">
+
+                    <span class="dado-label">
+                        Camiseta
+                    </span>
+
+                    <span class="dado-valor">
+                        ${camiseta}
+                    </span>
+
+                </div>
+
+
+                <div class="dado">
+
+                    <span class="dado-label">
+                        Pelotão
+                    </span>
+
+                    <span class="dado-valor">
+                        ${pelotao}
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="produto">
+
+                <span class="produto-label">
+                    Produtos
+                </span>
+
+                <span class="produto-valor">
+                    ${produto}
+                </span>
+
+            </div>
+
+    `;
+
+
+    /* ======================================================
+       SE JÁ FOI ENTREGUE
+    ====================================================== */
+
+    if(entregue){
+
+        html += `
+
+            <div class="entrega-realizada">
+
+                <div class="entrega-realizada-titulo">
+
+                    ✓ KIT JÁ ENTREGUE
+
+                </div>
+
+
+                <div class="entrega-info">
+
+                    <b>Retirado por:</b>
+                    ${escaparHTML(
+                        atleta.retirado_por ||
+                        "Não informado"
+                    )}
+
+                </div>
+
+
+                <div class="entrega-info">
+
+                    <b>Atendente:</b>
+                    ${escaparHTML(
+                        atleta.entregue_por ||
+                        atleta.retirado_login ||
+                        "Não informado"
+                    )}
+
+                </div>
+
+
+                <div class="entrega-info">
+
+                    <b>Data e horário:</b>
+                    ${escaparHTML(
+                        formatarDataHora(
+                            atleta.data_retirada
+                        )
+                    )}
+
+                </div>
+
+            </div>
+
+        `;
+
     }
 
-    await db.from("auditoria_v2").insert([{
-        evento_id: eventoId,
-        usuario: usuarioLogado ? usuarioLogado.nome : "Desconhecido",
-        acao: "Entrega de Inscrição",
-        detalhe: `Kit entregue para ${nome} por ${usuarioLogado ? usuarioLogado.email : "login desconhecido"} (id: ${id})`
-    }]);
+    /* ======================================================
+       SE ESTÁ PENDENTE
+    ====================================================== */
 
-    await Swal.fire({
-        title: "Entrega confirmada!",
-        text: nome + " recebeu a Inscrição.",
-        icon: "success",
-        background: "#1f1f1f",
-        color: "#ffffff",
-        confirmButtonColor: "#ffc400"
-    });
+    else{
 
-    buscarAtletas();
+        html += `
+
+            <div
+                id="retirada-${id}"
+                class="retirada-box"
+            >
+
+                <div class="retirada-titulo">
+
+                    Quem está retirando?
+
+                </div>
+
+
+                <div class="opcoes-retirada">
+
+
+                    <label
+                        class="opcao-retirada"
+                        id="opcao-proprio-${id}"
+                        onclick="selecionarRetirada('${id}', 'PROPRIO_ATLETA')"
+                    >
+
+                        <input
+                            type="radio"
+                            name="retirada-${id}"
+                            value="PROPRIO_ATLETA"
+                        >
+
+                        <div class="opcao-titulo">
+                            👤 Próprio atleta
+                        </div>
+
+                        <div class="opcao-descricao">
+                            O atleta está presente
+                        </div>
+
+                    </label>
+
+
+                    <label
+                        class="opcao-retirada"
+                        id="opcao-terceiro-${id}"
+                        onclick="selecionarRetirada('${id}', 'TERCEIRO')"
+                    >
+
+                        <input
+                            type="radio"
+                            name="retirada-${id}"
+                            value="TERCEIRO"
+                        >
+
+                        <div class="opcao-titulo">
+                            👥 Terceiro
+                        </div>
+
+                        <div class="opcao-descricao">
+                            Outra pessoa está retirando
+                        </div>
+
+                    </label>
+
+
+                </div>
+
+
+                <div
+                    id="terceiro-${id}"
+                    class="campo-terceiro"
+                    style="display:none;"
+                >
+
+                    <label>
+                        Nome de quem está retirando *
+                    </label>
+
+                    <input
+                        id="nome-terceiro-${id}"
+                        type="text"
+                        placeholder="Digite o nome completo"
+                    >
+
+                </div>
+
+
+                <div class="campo-observacao">
+
+                    <label>
+                        Observação
+                    </label>
+
+                    <textarea
+                        id="observacao-${id}"
+                        placeholder="Ex.: mãe do atleta, esposa, amigo..."
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    class="btn btn-verde"
+                    onclick="entregar('${id}')"
+                >
+
+                    ✓ ENTREGAR KIT
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+    html += `
+
+        </div>
+
+    `;
+
+
+    return html;
+
 }
 
+
+/* ==========================================================
+   SELECIONAR PRÓPRIO / TERCEIRO
+========================================================== */
+
+function selecionarRetirada(id, tipo){
+
+    const proprio =
+        document.getElementById(
+            "opcao-proprio-" + id
+        );
+
+    const terceiro =
+        document.getElementById(
+            "opcao-terceiro-" + id
+        );
+
+    const campoTerceiro =
+        document.getElementById(
+            "terceiro-" + id
+        );
+
+
+    if(tipo === "PROPRIO_ATLETA"){
+
+        proprio.classList.add("ativa");
+
+        terceiro.classList.remove("ativa");
+
+        campoTerceiro.style.display =
+            "none";
+
+    }
+
+
+    if(tipo === "TERCEIRO"){
+
+        terceiro.classList.add("ativa");
+
+        proprio.classList.remove("ativa");
+
+        campoTerceiro.style.display =
+            "block";
+
+
+        setTimeout(() => {
+
+            const campo =
+                document.getElementById(
+                    "nome-terceiro-" + id
+                );
+
+            if(campo){
+
+                campo.focus();
+
+            }
+
+        },100);
+
+    }
+
+}
+
+
+/* ==========================================================
+   PEGAR TIPO DE RETIRADA
+========================================================== */
+
+function obterTipoRetirada(id){
+
+    const radio =
+        document.querySelector(
+            `input[name="retirada-${id}"]:checked`
+        );
+
+    return radio
+        ? radio.value
+        : null;
+
+}
+
+
+/* ==========================================================
+   ENCONTRAR USUÁRIO NA TABELA USUARIOS_V2
+========================================================== */
+
+async function encontrarUsuarioV2(){
+
+    if(!usuarioLogado){
+
+        return null;
+
+    }
+
+
+    /* Tenta pelo e-mail/login */
+
+    const { data, error } =
+        await db
+            .from("usuarios_v2")
+            .select("id,nome,usuario,ativo")
+            .or(
+                `usuario.eq.${usuarioLogado.email},usuario.eq.${usuarioLogado.nome}`
+            )
+            .eq("ativo", true)
+            .limit(1);
+
+
+    if(!error && data && data.length){
+
+        return data[0];
+
+    }
+
+
+    return null;
+
+}
+
+
+/* ==========================================================
+   ENTREGAR
+========================================================== */
+
+async function entregar(id){
+
+    const tipo =
+        obterTipoRetirada(id);
+
+
+    if(!tipo){
+
+        await Swal.fire({
+
+            title:"Quem está retirando?",
+
+            text:
+                "Selecione se o kit será retirado pelo próprio atleta ou por um terceiro.",
+
+            icon:"warning",
+
+            background:"#1f1f1f",
+
+            color:"#fff",
+
+            confirmButtonColor:"#ffc400"
+
+        });
+
+        return;
+
+    }
+
+
+    let nomeRetirante =
+        null;
+
+
+    if(tipo === "PROPRIO_ATLETA"){
+
+        nomeRetirante =
+            "Retirado pelo próprio atleta";
+
+    }
+
+
+    if(tipo === "TERCEIRO"){
+
+        const campo =
+            document.getElementById(
+                "nome-terceiro-" + id
+            );
+
+
+        nomeRetirante =
+            campo
+                ? campo.value.trim()
+                : "";
+
+
+        if(!nomeRetirante){
+
+            await Swal.fire({
+
+                title:
+                    "Informe o nome",
+
+                text:
+                    "Digite o nome da pessoa que está retirando o kit.",
+
+                icon:"warning",
+
+                background:"#1f1f1f",
+
+                color:"#fff",
+
+                confirmButtonColor:"#ffc400"
+
+            });
+
+            return;
+
+        }
+
+    }
+
+
+    const campoObservacao =
+        document.getElementById(
+            "observacao-" + id
+        );
+
+
+    const observacao =
+        campoObservacao
+            ? campoObservacao.value.trim()
+            : null;
+
+
+    /* ======================================================
+       CONFIRMAÇÃO
+    ====================================================== */
+
+    const confirmacao =
+        await Swal.fire({
+
+            title:"Confirmar entrega?",
+
+            html:`
+
+                <div style="text-align:left">
+
+                    <p>
+                        <b>Retirada:</b>
+                        ${
+                            tipo === "PROPRIO_ATLETA"
+                            ? "Próprio atleta"
+                            : "Terceiro"
+                        }
+                    </p>
+
+                    <p>
+                        <b>Retirado por:</b>
+                        ${escaparHTML(nomeRetirante)}
+                    </p>
+
+                    ${
+                        observacao
+                        ? `
+                        <p>
+                            <b>Observação:</b>
+                            ${escaparHTML(observacao)}
+                        </p>
+                        `
+                        : ""
+                    }
+
+                </div>
+
+            `,
+
+            icon:"question",
+
+            background:"#1f1f1f",
+
+            color:"#fff",
+
+            showCancelButton:true,
+
+            confirmButtonColor:"#0d9b4d",
+
+            cancelButtonColor:"#555",
+
+            confirmButtonText:"SIM, ENTREGAR",
+
+            cancelButtonText:"CANCELAR"
+
+        });
+
+
+    if(!confirmacao.isConfirmed){
+
+        return;
+
+    }
+
+
+    /* ======================================================
+       DESABILITAR BOTÕES ENQUANTO PROCESSA
+    ====================================================== */
+
+    const botoes =
+        document.querySelectorAll(
+            `button[onclick="entregar('${id}')"]`
+        );
+
+
+    botoes.forEach(botao => {
+
+        botao.disabled = true;
+
+        botao.innerText =
+            "REGISTRANDO...";
+
+    });
+
+
+    try{
+
+
+        /* ==================================================
+           ENCONTRA USUÁRIO V2
+        ================================================== */
+
+        const usuarioV2 =
+            await encontrarUsuarioV2();
+
+
+        /*
+          Caso exista usuário correspondente:
+          usamos o ID.
+
+          Caso não exista:
+          a função do banco aceita NULL e ainda registra
+          o nome do atendente disponível no histórico.
+        */
+
+        const usuarioId =
+            usuarioV2
+                ? usuarioV2.id
+                : null;
+
+
+        /* ==================================================
+           REGISTRA A ENTREGA NO BANCO
+
+           IMPORTANTE:
+           estamos usando a função criada no SQL anterior.
+           Ela possui proteção contra entrega duplicada.
+        ================================================== */
+
+        const { data, error } =
+            await db.rpc(
+                "registrar_entrega",
+                {
+                    p_atleta_id: id,
+
+                    p_usuario_id: usuarioId,
+
+                    p_tipo_retirada: tipo,
+
+                    p_retirado_por: nomeRetirante,
+
+                    p_observacao:
+                        observacao || null
+                }
+            );
+
+
+        if(error){
+
+            console.error(error);
+
+            throw new Error(
+                error.message ||
+                "Erro ao registrar entrega."
+            );
+
+        }
+
+
+        /* ==================================================
+           RESULTADO DA FUNÇÃO
+        ================================================== */
+
+        if(!data){
+
+            throw new Error(
+                "O sistema não retornou confirmação da entrega."
+            );
+
+        }
+
+
+        if(data.sucesso === false){
+
+            if(
+                data.erro ===
+                "KIT_JA_ENTREGUE"
+            ){
+
+                await Swal.fire({
+
+                    title:
+                        "⚠️ KIT JÁ ENTREGUE",
+
+                    html:`
+
+                        <div style="text-align:left">
+
+                            <p>
+                                Este kit já foi registrado como entregue.
+                            </p>
+
+                            ${
+                                data.entregue_em
+                                ? `
+                                <p>
+                                    <b>Data:</b>
+                                    ${escaparHTML(
+                                        formatarDataHora(
+                                            data.entregue_em
+                                        )
+                                    )}
+                                </p>
+                                `
+                                : ""
+                            }
+
+                            ${
+                                data.retirado_por
+                                ? `
+                                <p>
+                                    <b>Retirado por:</b>
+                                    ${escaparHTML(
+                                        data.retirado_por
+                                    )}
+                                </p>
+                                `
+                                : ""
+                            }
+
+                            ${
+                                data.atendente
+                                ? `
+                                <p>
+                                    <b>Atendente:</b>
+                                    ${escaparHTML(
+                                        data.atendente
+                                    )}
+                                </p>
+                                `
+                                : ""
+                            }
+
+                        </div>
+
+                    `,
+
+                    icon:"warning",
+
+                    background:"#1f1f1f",
+
+                    color:"#fff",
+
+                    confirmButtonColor:"#ffc400"
+
+                });
+
+                buscarAtletas();
+
+                return;
+
+            }
+
+
+            if(
+                data.erro ===
+                "NOME_TERCEIRO_OBRIGATORIO"
+            ){
+
+                throw new Error(
+                    "O nome do terceiro é obrigatório."
+                );
+
+            }
+
+
+            throw new Error(
+                data.erro ||
+                "Não foi possível registrar a entrega."
+            );
+
+        }
+
+
+        /* ==================================================
+           SUCESSO
+        ================================================== */
+
+        await Swal.fire({
+
+            title:
+                "✓ Kit entregue!",
+
+            html:`
+
+                <div style="text-align:center">
+
+                    <p>
+                        A entrega foi registrada com sucesso.
+                    </p>
+
+                    <p>
+                        <b>Retirado por:</b><br>
+                        ${escaparHTML(nomeRetirante)}
+                    </p>
+
+                </div>
+
+            `,
+
+            icon:"success",
+
+            background:"#1f1f1f",
+
+            color:"#fff",
+
+            confirmButtonColor:"#ffc400",
+
+            confirmButtonText:"OK"
+
+        });
+
+
+        /* ==================================================
+           ATUALIZA RESULTADO
+        ================================================== */
+
+        document
+            .getElementById("busca")
+            .value =
+                id ? document.getElementById("busca").value : "";
+
+
+        buscarAtletas();
+
+
+    }catch(error){
+
+        console.error(error);
+
+
+        await Swal.fire({
+
+            title:
+                "Erro na entrega",
+
+            text:
+                error.message ||
+                "Não foi possível registrar a entrega.",
+
+            icon:"error",
+
+            background:"#1f1f1f",
+
+            color:"#fff",
+
+            confirmButtonColor:"#ffc400"
+
+        });
+
+
+        botoes.forEach(botao => {
+
+            botao.disabled = false;
+
+            botao.innerText =
+                "✓ ENTREGAR";
+
+        });
+
+    }
+
+}
+
+
+/* ==========================================================
+   INICIAR
+========================================================== */
+
 verificarAcesso();
+
 </script>
+
 </body>
 </html>
