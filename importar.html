@@ -6,6 +6,7 @@
 <title>Importar Planilha - Pratini Manager</title>
 
 <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
@@ -56,7 +57,7 @@ button{background:#ffc400;font-weight:bold;cursor:pointer}
 <h2>Selecionar Planilha</h2>
 <input type="file" id="arquivo" accept=".xlsx,.xls,.csv">
 <button onclick="lerArquivo()">Ler Planilha</button>
-<p>Formatos aceitos: Excel e CSV.</p>
+<p>Formatos aceitos: Excel (.xlsx/.xls) e CSV (separado por ; ou ,).</p>
 </div>
 
 <div class="card" id="mapeamento" style="display:none">
@@ -165,9 +166,9 @@ const campos = [
 ["colNome", ["nome completo","nome","atleta","colaborador"]],
 ["colCpf", ["cpf","documento"]],
 ["colNumero", ["numero","número","peito","bib"]],
-["colModalidade", ["modalidade","distancia","distância","prova","categoria"]],
+["colModalidade", ["modalidade","distancia","distância","prova"]],
 ["colCamiseta", ["camiseta","tamanho","camisas"]],
-["colEquipe", ["equipe","assessoria","grupo"]],
+["colEquipe", ["equipe ou assessoria","nome da equipe","equipe","assessoria","grupo"]],
 ["colProduto", ["produto","extra","brinde"]]
 ];
 
@@ -199,6 +200,49 @@ return;
 
 nomeArquivo = arquivo.name;
 
+const ehCsv = nomeArquivo.toLowerCase().endsWith(".csv");
+
+if(ehCsv){
+lerComoCsv(arquivo);
+}else{
+lerComoExcel(arquivo);
+}
+}
+
+function finalizarLeitura(dados){
+if(!dados || dados.length === 0){
+alert("A planilha está vazia.");
+return;
+}
+
+dadosPlanilha = dados;
+colunas = Object.keys(dadosPlanilha[0]);
+
+preencherSelects();
+
+document.getElementById("mapeamento").style.display = "block";
+alert("Planilha lida com sucesso! " + dadosPlanilha.length + " linhas encontradas.");
+}
+
+function lerComoCsv(arquivo){
+// Lê o CSV com o Papa Parse, forçando ; como separador
+// (arquivos da Ticket Sports usam ; e vírgula decimal nos valores,
+// o que confunde detectores automáticos de separador)
+Papa.parse(arquivo, {
+header: true,
+delimiter: ";",
+skipEmptyLines: true,
+encoding: "UTF-8",
+complete: function(resultado){
+finalizarLeitura(resultado.data);
+},
+error: function(erro){
+alert("Erro ao ler CSV: " + erro.message);
+}
+});
+}
+
+function lerComoExcel(arquivo){
 const leitor = new FileReader();
 
 leitor.onload = function(e){
@@ -208,19 +252,9 @@ const workbook = XLSX.read(data, {type:"array"});
 const primeiraAba = workbook.SheetNames[0];
 const planilha = workbook.Sheets[primeiraAba];
 
-dadosPlanilha = XLSX.utils.sheet_to_json(planilha, {defval:""});
+const dados = XLSX.utils.sheet_to_json(planilha, {defval:""});
 
-if(dadosPlanilha.length === 0){
-alert("A planilha está vazia.");
-return;
-}
-
-colunas = Object.keys(dadosPlanilha[0]);
-
-preencherSelects();
-
-document.getElementById("mapeamento").style.display = "block";
-alert("Planilha lida com sucesso!");
+finalizarLeitura(dados);
 
 }catch(erro){
 alert("Erro ao ler planilha: " + erro.message);
