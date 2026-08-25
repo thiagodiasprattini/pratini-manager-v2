@@ -10,12 +10,11 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>Portal Pratini Sports</title>
+<title>Pratini Sports - Painel</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="supabase.js"></script>
-
 
 <style>
 
@@ -38,7 +37,6 @@
     --cinza:#b8b8b8;
 
     --borda:#3a3e42;
-
 }
 
 
@@ -53,7 +51,6 @@
     padding:0;
 
     box-sizing:border-box;
-
 }
 
 
@@ -62,8 +59,6 @@
 ========================= */
 
 body{
-
-    min-height:100vh;
 
     font-family:
         Arial,
@@ -76,80 +71,120 @@ body{
     color:
         var(--texto);
 
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    overflow-x:hidden;
-
-}
-
-
-/* =========================
-   PÁGINA
-========================= */
-
-.pagina{
-
-    width:100%;
-
     min-height:100vh;
 
     display:flex;
 
     flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:
-        30px 20px;
-
 }
 
 
 /* =========================
-   LOGO
+   CABEÇALHO
 ========================= */
 
-.logo-area{
+header{
+
+    min-height:105px;
+
+    background:#101214;
+
+    border-bottom:
+        1px solid #383c40;
 
     display:flex;
 
-    justify-content:center;
-
     align-items:center;
 
-    margin-bottom:28px;
+    justify-content:center;
 
+    padding:15px 20px;
 }
 
 
-.logo-area img{
+.logo img{
 
-    width:180px;
+    width:145px;
 
-    max-width:80vw;
-
-    height:auto;
+    max-height:80px;
 
     object-fit:contain;
-
 }
 
 
 /* =========================
-   CARD PRINCIPAL
+   EVENTO ATIVO
 ========================= */
 
-.container{
+.evento-ativo{
 
-    width:100%;
+    margin:
+        25px auto 20px;
 
-    max-width:430px;
+    width:
+        calc(100% - 40px);
+
+    max-width:950px;
+
+    background:#111;
+
+    color:#fff;
+
+    padding:20px;
+
+    border:
+        1px solid #3a3e42;
+
+    border-left:
+        4px solid var(--verde);
+
+    border-radius:14px;
+
+    text-align:center;
+
+    font-weight:700;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.25);
+}
+
+
+.evento-ativo-titulo{
+
+    color:#aaa;
+
+    font-size:13px;
+
+    letter-spacing:1.5px;
+
+    margin-bottom:8px;
+}
+
+
+.evento-ativo-nome{
+
+    color:#fff;
+
+    font-size:21px;
+
+    font-weight:800;
+}
+
+
+/* =========================
+   CONTADOR
+========================= */
+
+.contador{
+
+    margin:
+        0 auto 25px;
+
+    width:
+        calc(100% - 40px);
+
+    max-width:950px;
 
     background:#111;
 
@@ -159,306 +194,107 @@ body{
     border-top:
         4px solid var(--verde);
 
-    border-radius:18px;
+    border-radius:16px;
 
-    padding:35px 30px;
+    padding:25px;
+
+    text-align:center;
 
     box-shadow:
-        0 15px 40px
-        rgba(0,0,0,.35);
-
+        0 8px 25px
+        rgba(0,0,0,.20);
 }
 
 
-/* =========================
-   TÍTULO
-========================= */
+.contador .numero{
 
-h1{
+    font-size:48px;
 
-    text-align:center;
+    font-weight:900;
 
-    color:#fff;
+    color:var(--verde);
 
-    font-size:27px;
-
-    font-weight:800;
+    line-height:1;
 
     margin-bottom:8px;
-
 }
 
 
-.subtitulo{
-
-    text-align:center;
+.contador .rotulo{
 
     color:#aaa;
 
     font-size:14px;
 
-    line-height:1.5;
+    text-transform:uppercase;
 
-    margin-bottom:30px;
-
+    letter-spacing:1px;
 }
 
 
 /* =========================
-   ESCOLHA DO TIPO DE ACESSO
+   CONTAINER
 ========================= */
 
-.escolha-acesso{
+main{
 
-    display:flex;
-
-    flex-direction:column;
-
-    gap:12px;
-
+    flex:1;
 }
 
 
-.botao-acesso{
+.container{
 
     width:100%;
 
-    min-height:56px;
+    max-width:950px;
 
-    border:
-        1px solid
-        var(--verde);
-
-    border-radius:11px;
-
-    background:
-        var(--verde);
-
-    color:#050505;
-
-    font-size:17px;
-
-    font-weight:800;
-
-    cursor:pointer;
-
-    transition:
-        .2s ease;
-
-}
-
-
-.botao-acesso:hover{
-
-    filter:
-        brightness(.94);
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 8px 20px
-        rgba(124,252,0,.15);
-
-}
-
-
-.botao-acesso:active{
-
-    transform:
-        translateY(0);
-
-}
-
-
-/* =========================
-   FORMULÁRIO
-========================= */
-
-.formulario{
-
-    display:none;
-
-}
-
-
-.form-group{
-
-    margin-bottom:18px;
-
-}
-
-
-.form-group label{
-
-    display:block;
-
-    margin-bottom:8px;
-
-    color:#fff;
-
-    font-size:14px;
-
-    font-weight:700;
-
-}
-
-
-.form-group input{
-
-    width:100%;
-
-    height:54px;
-
-    background:#202326;
-
-    color:#fff;
-
-    border:
-        1px solid #444;
-
-    border-radius:10px;
+    margin:auto;
 
     padding:
-        0 15px;
+        0 20px 30px;
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    display:grid;
 
-    font-size:16px;
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(270px,1fr)
+        );
 
-    outline:none;
-
-    transition:
-        .2s ease;
-
-}
-
-
-.form-group input::placeholder{
-
-    color:#888;
-
-}
-
-
-.form-group input:focus{
-
-    border-color:
-        var(--verde);
-
-    box-shadow:
-        0 0 0 3px
-        rgba(124,252,0,.10);
-
+    gap:18px;
 }
 
 
 /* =========================
-   BOTÃO ENTRAR
+   CARDS
 ========================= */
 
-.botao-entrar{
+.card{
 
-    width:100%;
-
-    height:55px;
+    background:#111;
 
     border:
-        1px solid var(--verde);
+        1px solid var(--borda);
 
-    border-radius:10px;
+    border-top:
+        4px solid var(--verde);
 
-    background:
-        var(--verde);
+    border-radius:15px;
 
-    color:#050505;
-
-    font-size:17px;
-
-    font-weight:800;
-
-    cursor:pointer;
-
-    margin-top:4px;
-
-    transition:
-        .2s ease;
-
-}
-
-
-.botao-entrar:hover{
-
-    filter:
-        brightness(.94);
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 8px 20px
-        rgba(124,252,0,.15);
-
-}
-
-
-.botao-entrar:active{
-
-    transform:
-        translateY(0);
-
-}
-
-
-.botao-entrar:disabled{
-
-    opacity:.65;
-
-    cursor:
-        not-allowed;
-
-    transform:none;
-
-}
-
-
-/* =========================
-   VOLTAR
-========================= */
-
-.botao-voltar{
-
-    width:100%;
-
-    height:48px;
-
-    margin-top:15px;
-
-    border:
-        1px solid #444;
-
-    border-radius:10px;
-
-    background:#202326;
-
-    color:#ddd;
-
-    font-size:15px;
-
-    font-weight:600;
+    padding:25px;
 
     cursor:pointer;
 
     transition:
         .2s ease;
 
+    box-shadow:
+        0 6px 20px
+        rgba(0,0,0,.20);
 }
 
 
-.botao-voltar:hover{
+.card:hover{
 
     background:
         var(--grafite-claro);
@@ -466,46 +302,101 @@ h1{
     border-color:
         var(--verde);
 
-    color:#fff;
+    transform:
+        translateY(-3px);
 
+    box-shadow:
+        0 10px 25px
+        rgba(124,252,0,.10);
 }
 
 
-/* =========================
-   MENSAGEM
-========================= */
+.card h2{
 
-#mensagem{
+    font-size:21px;
 
-    min-height:22px;
+    margin-bottom:9px;
 
-    margin-top:17px;
+    color:#fff;
+}
 
-    text-align:center;
 
-    font-size:14px;
+.card p{
 
-    font-weight:700;
+    color:#aaa;
 
     line-height:1.5;
 
+    font-size:15px;
 }
 
 
 /* =========================
-   RODAPÉ
+   ÍCONE DO CARD
 ========================= */
 
-.footer{
+.card-topo{
 
-    text-align:center;
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:10px;
+}
+
+
+.card-icone{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:10px;
+
+    background:
+        rgba(124,252,0,.08);
+
+    border:
+        1px solid
+        rgba(124,252,0,.25);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:
+        var(--verde);
+
+    font-size:21px;
+
+    font-weight:bold;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
 
     margin-top:20px;
 
-    color:#777;
+    background:#101214;
 
-    font-size:12px;
+    border-top:
+        1px solid #383c40;
 
+    text-align:center;
+
+    padding:17px;
+
+    color:#888;
+
+    font-size:13px;
 }
 
 
@@ -515,14 +406,20 @@ h1{
 
 .carregando{
 
-    display:none;
+    display:flex;
 
-    text-align:center;
+    justify-content:center;
+
+    align-items:center;
+
+    height:100vh;
+
+    background:
+        var(--grafite);
 
     color:#ccc;
 
-    font-size:15px;
-
+    font-size:16px;
 }
 
 
@@ -532,103 +429,62 @@ h1{
 
 @media(max-width:650px){
 
-    .pagina{
+    header{
 
-        padding:
-            25px 15px;
-
-        justify-content:center;
-
+        min-height:90px;
     }
 
 
-    .logo-area{
+    .logo img{
 
-        margin-bottom:22px;
+        width:115px;
 
+        max-height:65px;
     }
 
 
-    .logo-area img{
+    .evento-ativo{
 
-        width:155px;
+        margin-top:18px;
 
+        width:
+            calc(100% - 24px);
     }
 
 
-    .container{
+    .contador{
 
-        max-width:430px;
-
-        padding:
-            30px 22px;
-
-        border-radius:16px;
-
-    }
-
-
-    h1{
-
-        font-size:24px;
-
-    }
-
-
-    .subtitulo{
-
-        font-size:13px;
-
-        margin-bottom:25px;
-
-    }
-
-
-    .botao-acesso{
-
-        min-height:54px;
-
-        font-size:16px;
-
-    }
-
-}
-
-
-/* =========================
-   TELAS MUITO PEQUENAS
-========================= */
-
-@media(max-height:650px){
-
-    .pagina{
-
-        justify-content:flex-start;
-
-        padding-top:20px;
-
-    }
-
-
-    .logo-area{
-
-        margin-bottom:15px;
-
-    }
-
-
-    .logo-area img{
-
-        width:130px;
-
+        width:
+            calc(100% - 24px);
     }
 
 
     .container{
 
         padding:
-            25px 20px;
+            0 12px 25px;
 
+        grid-template-columns:1fr;
+
+        gap:14px;
+    }
+
+
+    .card{
+
+        padding:22px;
+    }
+
+
+    .card h2{
+
+        font-size:20px;
+    }
+
+
+    .contador .numero{
+
+        font-size:42px;
     }
 
 }
@@ -641,14 +497,33 @@ h1{
 <body>
 
 
-<div class="pagina">
+<!-- =========================
+     TELA DE CARREGAMENTO
+========================= -->
+
+<div
+    id="telaCarregando"
+    class="carregando"
+>
+
+    Verificando acesso...
+
+</div>
 
 
-    <!-- =========================
-         LOGO FORA DO QUADRO
-    ========================= -->
+<!-- =========================
+     PAINEL
+========================= -->
 
-    <div class="logo-area">
+<div
+    id="telaPainel"
+    style="display:none;"
+>
+
+
+<header>
+
+    <div class="logo">
 
         <img
             src="Colorida.png"
@@ -657,192 +532,128 @@ h1{
 
     </div>
 
-
-    <!-- =========================
-         CARD
-    ========================= -->
-
-    <div class="container">
+</header>
 
 
-        <!-- =========================
-             ESCOLHA INICIAL
-        ========================= -->
-
-        <div
-            id="escolhaAcesso"
-        >
-
-            <h1>
-                Portal Pratini Sports
-            </h1>
+<main>
 
 
-            <p class="subtitulo">
+<!-- EVENTO ATIVO -->
 
-                Selecione o tipo de acesso
-                para continuar.
-
-            </p>
+<div id="containerEvento"></div>
 
 
-            <div class="escolha-acesso">
+<!-- CONTADOR -->
+
+<div id="containerContador"></div>
 
 
-                <button
-                    type="button"
-                    class="botao-acesso"
-                    onclick="abrirLogin('administrador')"
-                >
+<!-- =========================
+     OPÇÕES
+========================= -->
 
-                    ADMINISTRADOR
-
-                </button>
-
-
-                <button
-                    type="button"
-                    class="botao-acesso"
-                    onclick="abrirLogin('atendente')"
-                >
-
-                    ATENDENTE
-
-                </button>
+<div
+    class="container"
+    id="containerCards"
+>
 
 
+    <!-- EVENTOS -->
+
+    <div
+        class="card"
+        onclick="location.href='eventos.html'"
+    >
+
+        <div class="card-topo">
+
+            <div class="card-icone">
+                E
             </div>
 
-
-            <div class="footer">
-
-                © 2026 Pratini Sports
-
-            </div>
+            <h2>Eventos</h2>
 
         </div>
 
+        <p>
+            Cadastrar e gerenciar
+            eventos.
+        </p>
 
-        <!-- =========================
-             FORMULÁRIO DE LOGIN
-        ========================= -->
-
-        <div
-            id="formularioLogin"
-            class="formulario"
-        >
+    </div>
 
 
-            <h1
-                id="tituloLogin"
-            >
-                Portal Pratini Sports
-            </h1>
+    <!-- ATLETAS -->
 
+    <div
+        class="card"
+        onclick="location.href='atletas.html'"
+    >
 
-            <p
-                class="subtitulo"
-                id="subtituloLogin"
-            >
-                Acesso ao sistema
-            </p>
+        <div class="card-topo">
 
-
-            <!-- CAMPO DE LOGIN -->
-
-            <div class="form-group">
-
-
-                <label
-                    id="labelUsuario"
-                    for="usuario"
-                >
-                    Usuário
-                </label>
-
-
-                <input
-                    id="usuario"
-                    type="text"
-                    autocomplete="username"
-                    placeholder="Digite seu usuário"
-                >
-
-
+            <div class="card-icone">
+                A
             </div>
 
-
-            <!-- SENHA -->
-
-            <div class="form-group">
-
-
-                <label
-                    for="senha"
-                >
-                    Senha
-                </label>
-
-
-                <input
-                    id="senha"
-                    type="password"
-                    autocomplete="current-password"
-                    placeholder="Digite sua senha"
-                    onkeydown="
-                        if(event.key==='Enter'){
-                            entrar();
-                        }
-                    "
-                >
-
-
-            </div>
-
-
-            <!-- ENTRAR -->
-
-            <button
-                id="botaoEntrar"
-                type="button"
-                class="botao-entrar"
-                onclick="entrar()"
-            >
-
-                ENTRAR
-
-            </button>
-
-
-            <!-- VOLTAR -->
-
-            <button
-                type="button"
-                class="botao-voltar"
-                onclick="voltarInicio()"
-            >
-
-                Voltar
-
-            </button>
-
-
-            <!-- MENSAGEM -->
-
-            <p
-                id="mensagem"
-            ></p>
-
-
-            <div class="footer">
-
-                © 2026 Pratini Sports
-
-            </div>
-
+            <h2>Atletas</h2>
 
         </div>
 
+        <p>
+            Consultar e cadastrar
+            atletas do evento.
+        </p>
+
+    </div>
+
+
+    <!-- IMPORTAÇÃO -->
+
+    <div
+        class="card"
+        onclick="location.href='importar.html'"
+    >
+
+        <div class="card-topo">
+
+            <div class="card-icone">
+                I
+            </div>
+
+            <h2>Importar</h2>
+
+        </div>
+
+        <p>
+            Importar atletas através
+            de planilha Excel ou CSV.
+        </p>
+
+    </div>
+
+
+    <!-- ENTREGA -->
+
+    <div
+        class="card"
+        onclick="location.href='entrega.html'"
+    >
+
+        <div class="card-topo">
+
+            <div class="card-icone">
+                ✓
+            </div>
+
+            <h2>Entrega de Inscrição</h2>
+
+        </div>
+
+        <p>
+            Pesquisar atletas e
+            registrar a entrega dos kits.
+        </p>
 
     </div>
 
@@ -850,803 +661,404 @@ h1{
 </div>
 
 
+</main>
+
+
+<footer>
+
+    © 2026 Pratini Sports
+
+</footer>
+
+
+</div>
+
+
 <script>
 
-/* =========================
-   VARIÁVEL DO TIPO DE LOGIN
-========================= */
-
-let tipoLogin = null;
-
 
 /* =========================
-   ABRIR LOGIN
+   EVENTO ATIVO
 ========================= */
 
-function abrirLogin(tipo){
-
-    tipoLogin = tipo;
-
-
-    const escolha =
-        document.getElementById(
-            "escolhaAcesso"
-        );
+const eventoId =
+    localStorage.getItem(
+        "evento_ativo_id"
+    );
 
 
-    const formulario =
-        document.getElementById(
-            "formularioLogin"
-        );
+let canalRealtime = null;
 
 
-    const titulo =
-        document.getElementById(
-            "tituloLogin"
-        );
+/* =========================
+   VERIFICAR ACESSO
+========================= */
+
+async function verificarAcesso(){
 
 
-    const subtitulo =
-        document.getElementById(
-            "subtituloLogin"
-        );
+    const {
+        data: sessao
+    } =
+        await db.auth.getSession();
 
 
-    const labelUsuario =
-        document.getElementById(
-            "labelUsuario"
-        );
+    if(
+        !sessao ||
+        !sessao.session
+    ){
+
+        window.location.href =
+            "login.html";
+
+        return;
+    }
 
 
     const usuario =
-        document.getElementById(
-            "usuario"
-        );
-
-
-    const mensagem =
-        document.getElementById(
-            "mensagem"
-        );
-
-
-    escolha.style.display =
-        "none";
-
-
-    formulario.style.display =
-        "block";
-
-
-    mensagem.innerHTML =
-        "";
-
-
-    usuario.value =
-        "";
-
-
-    document.getElementById(
-        "senha"
-    ).value =
-        "";
-
-
-    if(tipo === "administrador"){
-
-        titulo.innerText =
-            "Acesso do Administrador";
-
-
-        subtitulo.innerText =
-            "Entre com seu e-mail e senha.";
-
-
-        labelUsuario.innerText =
-            "E-mail";
-
-
-        usuario.type =
-            "email";
-
-
-        usuario.placeholder =
-            "Digite seu e-mail";
-
-
-        usuario.autocomplete =
-            "username";
-
-    }
-
-
-    else{
-
-        titulo.innerText =
-            "Acesso da Atendente";
-
-
-        subtitulo.innerText =
-            "Entre com seu usuário e senha.";
-
-
-        labelUsuario.innerText =
-            "Usuário";
-
-
-        usuario.type =
-            "text";
-
-
-        usuario.placeholder =
-            "Digite seu usuário";
-
-
-        usuario.autocomplete =
-            "username";
-
-    }
-
-
-    setTimeout(function(){
-
-        usuario.focus();
-
-    },100);
-
-}
-
-
-/* =========================
-   VOLTAR PARA INÍCIO
-========================= */
-
-function voltarInicio(){
-
-    tipoLogin =
-        null;
-
-
-    document.getElementById(
-        "formularioLogin"
-    ).style.display =
-        "none";
-
-
-    document.getElementById(
-        "escolhaAcesso"
-    ).style.display =
-        "block";
-
-
-    document.getElementById(
-        "usuario"
-    ).value =
-        "";
-
-
-    document.getElementById(
-        "senha"
-    ).value =
-        "";
-
-
-    document.getElementById(
-        "mensagem"
-    ).innerHTML =
-        "";
-
-}
-
-
-/* =========================
-   LOGIN
-========================= */
-
-async function entrar(){
-
-
-    const campoUsuario =
-        document.getElementById(
-            "usuario"
-        );
-
-
-    const campoSenha =
-        document.getElementById(
-            "senha"
-        );
-
-
-    const mensagem =
-        document.getElementById(
-            "mensagem"
-        );
-
-
-    const botao =
-        document.getElementById(
-            "botaoEntrar"
-        );
-
-
-    const usuario =
-        campoUsuario.value.trim();
-
-
-    const senha =
-        campoSenha.value.trim();
-
-
-    /* =========================
-       VERIFICA TIPO
-    ========================= */
-
-    if(!tipoLogin){
+        sessao.session.user;
+
+
+    const {
+        data: perfil,
+        error
+    } =
+        await db
+        .from("perfis")
+        .select(
+            "role,nome"
+        )
+        .eq(
+            "id",
+            usuario.id
+        )
+        .single();
+
+
+    if(
+        error ||
+        !perfil
+    ){
+
+        window.location.href =
+            "login.html";
 
         return;
-
     }
 
 
     /* =========================
-       VALIDA CAMPOS
+       EVENTO ATIVO
     ========================= */
 
-    if(!usuario || !senha){
-
-        mensagem.style.color =
-            "#ff7777";
-
-
-        mensagem.innerText =
-            tipoLogin === "administrador"
-
-            ?
-
-            "Digite seu e-mail e senha."
-
-            :
-
-            "Digite seu usuário e senha.";
+    const eventoAtivoNome =
+        localStorage.getItem(
+            "evento_ativo_nome"
+        );
 
 
-        return;
+    const containerEvento =
+        document.getElementById(
+            "containerEvento"
+        );
 
+
+    if(eventoAtivoNome){
+
+        containerEvento.innerHTML = `
+
+            <div class="evento-ativo">
+
+                <div class="evento-ativo-titulo">
+                    EVENTO ATIVO
+                </div>
+
+                <div class="evento-ativo-nome">
+                    ${escaparHTML(
+                        eventoAtivoNome
+                    )}
+                </div>
+
+            </div>
+
+        `;
+
+    }else{
+
+        containerEvento.innerHTML = `
+
+            <div class="evento-ativo">
+
+                <div class="evento-ativo-titulo">
+                    EVENTO ATIVO
+                </div>
+
+                <div class="evento-ativo-nome">
+                    Nenhum evento selecionado
+                </div>
+
+            </div>
+
+        `;
     }
 
 
     /* =========================
-       VERIFICA SUPABASE
+       ACESSO DO ATENDENTE
     ========================= */
 
     if(
-        typeof db ===
-        "undefined"
+        perfil.role === "atendente"
     ){
 
-        mensagem.style.color =
-            "#ff7777";
+        document
+        .querySelectorAll(".card")
+        .forEach(
+            card => {
+
+                const titulo =
+                    card.querySelector(
+                        "h2"
+                    );
 
 
-        mensagem.innerText =
-            "Erro: Supabase não carregado.";
+                if(!titulo){
+                    return;
+                }
 
 
-        return;
+                const nome =
+                    titulo.innerText
+                    .trim();
 
+
+                /*
+                   ATENDENTE SÓ PODE
+                   ACESSAR ENTREGA
+                */
+
+                if(
+                    nome !==
+                    "Entrega de Inscrição"
+                ){
+
+                    card.style.display =
+                        "none";
+                }
+
+            }
+        );
     }
 
 
-    botao.disabled =
-        true;
+    /* =========================
+       MOSTRAR PAINEL
+    ========================= */
 
+    document.getElementById(
+        "telaCarregando"
+    ).style.display =
+        "none";
 
-    botao.innerText =
-        "ENTRANDO...";
 
+    document.getElementById(
+        "telaPainel"
+    ).style.display =
+        "block";
 
-    mensagem.style.color =
-        "#ccc";
 
+    /* =========================
+       CONTADOR
+    ========================= */
 
-    mensagem.innerText =
-        "Verificando acesso...";
+    carregarContador();
 
 
-    try{
+    /* =========================
+       REALTIME
+    ========================= */
 
+    escutarNovosInscritos();
 
-        /* =========================
-           LOGIN ADMINISTRADOR
-        ========================= */
+}
 
-        if(
-            tipoLogin ===
-            "administrador"
-        ){
 
+/* =========================
+   ESCAPAR HTML
+========================= */
 
-            const {
-                data,
-                error
-            } =
-                await db.auth.signInWithPassword({
+function escaparHTML(texto){
 
-                    email:
-                        usuario,
+    return (texto || "")
+        .toString()
 
-                    password:
-                        senha
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
-                });
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
-            if(error){
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-                mensagem.style.color =
-                    "#ff7777";
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
 
 
-                mensagem.innerText =
-                    "E-mail ou senha inválidos.";
+/* =========================
+   CONTADOR DE ATLETAS
+========================= */
 
+async function carregarContador(){
 
-                botao.disabled =
-                    false;
 
-
-                botao.innerText =
-                    "ENTRAR";
-
-
-                return;
-
-            }
-
-
-            if(
-                !data ||
-                !data.session
-            ){
-
-                mensagem.style.color =
-                    "#ff7777";
-
-
-                mensagem.innerText =
-                    "Não foi possível iniciar a sessão.";
-
-
-                botao.disabled =
-                    false;
-
-
-                botao.innerText =
-                    "ENTRAR";
-
-
-                return;
-
-            }
-
-
-            /* =========================
-               VERIFICA PERFIL
-            ========================= */
-
-            const usuarioAuth =
-                data.session.user;
-
-
-            const {
-                data: perfil,
-                error: erroPerfil
-            } =
-                await db
-                .from("perfis")
-                .select(
-                    "id,nome,role"
-                )
-                .eq(
-                    "id",
-                    usuarioAuth.id
-                )
-                .single();
-
-
-            if(
-                erroPerfil ||
-                !perfil
-            ){
-
-                await db.auth.signOut();
-
-
-                mensagem.style.color =
-                    "#ff7777";
-
-
-                mensagem.innerText =
-                    "Perfil de administrador não encontrado.";
-
-
-                botao.disabled =
-                    false;
-
-
-                botao.innerText =
-                    "ENTRAR";
-
-
-                return;
-
-            }
-
-
-            if(
-                perfil.role !==
-                "admin"
-            ){
-
-                await db.auth.signOut();
-
-
-                mensagem.style.color =
-                    "#ff7777";
-
-
-                mensagem.innerText =
-                    "Este acesso não possui permissão de administrador.";
-
-
-                botao.disabled =
-                    false;
-
-
-                botao.innerText =
-                    "ENTRAR";
-
-
-                return;
-
-            }
-
-
-            /* =========================
-               LOGIN ADMINISTRADOR OK
-            ========================= */
-
-            mensagem.style.color =
-                "var(--verde)";
-
-
-            mensagem.innerText =
-                "Login realizado com sucesso!";
-
-
-            setTimeout(function(){
-
-                window.location.href =
-                    "dashboard.html";
-
-            },700);
-
-
-            return;
-
-        }
-
-
-        /* =========================
-           LOGIN ATENDENTE
-        ========================= */
-
-        if(
-            tipoLogin ===
-            "atendente"
-        ){
-
-
-            /*
-               PRIMEIRO LOCALIZA
-               O USUÁRIO NA TABELA
-               usuarios_login
-            */
-
-            const {
-                data: atendente,
-                error: erroAtendente
-            } =
-                await db
-                .from("usuarios_login")
-                .select(
-                    "id,usuario_id,login,nome,tipo,ativo,email_interno"
-                )
-                .eq(
-                    "login",
-                    usuario
-                )
-                .eq(
-                    "ativo",
-                    true
-                )
-                .single();
-
-
-            if(
-                erroAtendente ||
-                !atendente
-            ){
-
-                mensagem.style.color =
-                    "#ff7777";
-
-
-                mensagem.innerText =
-                    "Usuário ou senha inválidos.";
-
-
-                botao.disabled =
-                    false;
-
-
-                botao.innerText =
-                    "ENTRAR";
-
-
-                return;
-
-            }
-
-
-            /*
-               O USUÁRIO ATENDENTE
-               POSSUI UM EMAIL INTERNO
-               PARA AUTENTICAÇÃO NO
-               SUPABASE.
-            */
-
-            const emailInterno =
-                atendente.email_interno;
-
-
-            if(
-                !emailInterno
-            ){
-
-                mensagem.style.color =
-                    "#ff7777";
-
-
-                mensagem.innerText =
-                    "Este atendente ainda não possui acesso configurado.";
-
-
-                botao.disabled =
-                    false;
-
-
-                botao.innerText =
-                    "ENTRAR";
-
-
-                return;
-
-            }
-
-
-            /*
-               LOGIN NO SUPABASE
-            */
-
-            const {
-                data,
-                error
-            } =
-                await db.auth.signInWithPassword({
-
-                    email:
-                        emailInterno,
-
-                    password:
-                        senha
-
-                });
-
-
-            if(error){
-
-                mensagem.style.color =
-                    "#ff7777";
-
-
-                mensagem.innerText =
-                    "Usuário ou senha inválidos.";
-
-
-                botao.disabled =
-                    false;
-
-
-                botao.innerText =
-                    "ENTRAR";
-
-
-                return;
-
-            }
-
-
-            if(
-                !data ||
-                !data.session
-            ){
-
-                mensagem.style.color =
-                    "#ff7777";
-
-
-                mensagem.innerText =
-                    "Não foi possível iniciar a sessão.";
-
-
-                botao.disabled =
-                    false;
-
-
-                botao.innerText =
-                    "ENTRAR";
-
-
-                return;
-
-            }
-
-
-            /*
-               CONFIRMA QUE A CONTA
-               LOGADA CORRESPONDE
-               AO ATENDENTE.
-            */
-
-            if(
-                atendente.usuario_id !==
-                data.session.user.id
-            ){
-
-                await db.auth.signOut();
-
-
-                mensagem.style.color =
-                    "#ff7777";
-
-
-                mensagem.innerText =
-                    "Erro na configuração deste acesso.";
-
-
-                botao.disabled =
-                    false;
-
-
-                botao.innerText =
-                    "ENTRAR";
-
-
-                return;
-
-            }
-
-
-            /*
-               CONFIRMA O TIPO
-            */
-
-            if(
-                atendente.tipo !==
-                "atendente"
-            ){
-
-                await db.auth.signOut();
-
-
-                mensagem.style.color =
-                    "#ff7777";
-
-
-                mensagem.innerText =
-                    "Este usuário não está configurado como atendente.";
-
-
-                botao.disabled =
-                    false;
-
-
-                botao.innerText =
-                    "ENTRAR";
-
-
-                return;
-
-            }
-
-
-            /* =========================
-               LOGIN ATENDENTE OK
-            ========================= */
-
-            mensagem.style.color =
-                "var(--verde)";
-
-
-            mensagem.innerText =
-                "Login realizado com sucesso!";
-
-
-            /*
-               SALVA IDENTIFICAÇÃO
-               LOCAL DO ATENDENTE
-               PARA O SISTEMA PODER
-               IDENTIFICÁ-LO.
-            */
-
-            localStorage.setItem(
-                "atendente_login",
-                atendente.login
-            );
-
-
-            localStorage.setItem(
-                "atendente_nome",
-                atendente.nome
-            );
-
-
-            localStorage.setItem(
-                "atendente_id",
-                atendente.id
-            );
-
-
-            setTimeout(function(){
-
-                window.location.href =
-                    "dashboard.html";
-
-            },700);
-
-
-            return;
-
-        }
-
-
-    }catch(erro){
-
-        console.error(
-            erro
+    const containerContador =
+        document.getElementById(
+            "containerContador"
         );
 
 
-        mensagem.style.color =
-            "#ff7777";
+    if(!eventoId){
 
+        containerContador.innerHTML =
+            "";
 
-        mensagem.innerText =
-            "Ocorreu um erro ao realizar o login.";
-
-
-        botao.disabled =
-            false;
-
-
-        botao.innerText =
-            "ENTRAR";
-
+        return;
     }
 
+
+    const {
+        count,
+        error
+    } =
+        await db
+        .from("atletas_v2")
+        .select(
+            "*",
+            {
+                count:"exact",
+                head:true
+            }
+        )
+        .eq(
+            "evento_id",
+            eventoId
+        );
+
+
+    if(error){
+
+        containerContador.innerHTML =
+            "";
+
+        console.error(
+            error
+        );
+
+        return;
+    }
+
+
+    containerContador.innerHTML = `
+
+        <div class="contador">
+
+            <div
+                class="numero"
+                id="numeroInscritos"
+            >
+                ${count ?? 0}
+            </div>
+
+            <div class="rotulo">
+                Inscritos no evento
+            </div>
+
+        </div>
+
+    `;
 }
+
+
+/* =========================
+   REALTIME
+========================= */
+
+function escutarNovosInscritos(){
+
+
+    if(!eventoId){
+
+        return;
+    }
+
+
+    if(canalRealtime){
+
+        db.removeChannel(
+            canalRealtime
+        );
+    }
+
+
+    canalRealtime =
+        db
+
+        .channel(
+            "contador-atletas-" +
+            eventoId
+        )
+
+        .on(
+
+            "postgres_changes",
+
+            {
+
+                event:"*",
+
+                schema:"public",
+
+                table:"atletas_v2",
+
+                filter:
+                    "evento_id=eq." +
+                    eventoId
+
+            },
+
+            () => {
+
+                carregarContador();
+
+            }
+
+        )
+
+        .subscribe();
+
+}
+
+
+/* =========================
+   INICIAR
+========================= */
+
+verificarAcesso();
 
 </script>
 
