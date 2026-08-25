@@ -12,57 +12,37 @@
 
 <title>Portal Pratini Sports</title>
 
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script src="supabase.js"></script>
 
+<!-- FONTE -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
 
 <style>
 
 /* =========================
-   PADRÃO PRATINI SPORTS
+   PADRÃO GERAL
 ========================= */
 
-:root{
-
-    --verde:#7CFC00;
-
-    --verde-hover:#8DFF29;
-
-    --grafite:#202326;
-
-    --grafite-claro:#2b2f33;
-
-    --preto:#050505;
-
-    --texto:#f5f5f5;
-
-    --cinza:#b8b8b8;
-
-    --borda:#3a3e42;
-}
-
-
 *{
-
     margin:0;
-
     padding:0;
-
     box-sizing:border-box;
-
+    font-family:'Inter', sans-serif;
 }
-
 
 html,
 body{
-
     width:100%;
-
     min-height:100%;
-
 }
-
 
 body{
 
@@ -74,27 +54,23 @@ body{
 
     align-items:center;
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
     background:
         linear-gradient(
             135deg,
-            #1a1c1e 0%,
-            #202326 50%,
-            #111315 100%
+            #1A1A1A 0%,
+            #202020 50%,
+            #292929 100%
         );
 
-    color:var(--texto);
+    color:#FFFFFF;
 
     padding:30px 20px;
+
 }
 
 
 /* =========================
-   ESTRUTURA PRINCIPAL
+   ÁREA PRINCIPAL
 ========================= */
 
 .pagina{
@@ -108,11 +84,12 @@ body{
     flex-direction:column;
 
     align-items:center;
+
 }
 
 
 /* =========================
-   LOGO FORA DO QUADRO
+   LOGO
 ========================= */
 
 .logo{
@@ -125,164 +102,167 @@ body{
 
     align-items:center;
 
-    margin-bottom:22px;
+    margin-bottom:28px;
+
 }
 
 
 .logo img{
 
-    width:225px;
+    width:230px;
 
     max-width:80%;
 
     height:auto;
 
-    object-fit:contain;
+    display:block;
 
-    filter:
-        drop-shadow(
-            0 5px 12px
-            rgba(0,0,0,.30)
-        );
 }
 
 
 /* =========================
-   CARD PRINCIPAL
+   QUADRO DE LOGIN
 ========================= */
 
 .container{
 
     width:100%;
 
-    background:#111315;
+    background:#2E2E2E;
 
     border:
-        1px solid #383c40;
+        1px solid #4A4A4A;
 
-    border-radius:20px;
+    border-radius:18px;
 
-    padding:34px;
+    padding:34px 35px 30px;
 
     box-shadow:
+        0 18px 45px
+        rgba(0,0,0,.40);
 
-        0 15px 40px
-        rgba(0,0,0,.45),
-
-        0 0 0 1px
-        rgba(124,252,0,.05);
-
-    text-align:center;
 }
 
 
 /* =========================
-   TITULO
+   TÍTULO
 ========================= */
 
 h1{
 
-    color:#fff;
+    color:#FFFFFF;
 
-    font-size:27px;
+    font-size:25px;
 
-    font-weight:800;
+    font-weight:700;
+
+    text-align:center;
 
     margin-bottom:8px;
+
 }
 
 
 .subtitulo{
 
-    color:#bdbdbd;
+    color:#CFCFCF;
 
-    font-size:14px;
+    font-size:13px;
+
+    text-align:center;
 
     line-height:1.5;
 
     margin-bottom:28px;
+
 }
 
 
 /* =========================
-   SELEÇÃO DE ACESSO
+   ESCOLHA DO ACESSO
 ========================= */
 
-.selecao-acesso{
+.titulo-acesso{
 
-    display:block;
+    color:#FFFFFF;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    text-align:center;
+
+    margin-bottom:14px;
+
 }
 
 
-.titulo-selecao{
+/* =========================
+   BOTÕES ADMIN / ATENDENTE
+========================= */
 
-    color:#fff;
-
-    font-size:18px;
-
-    font-weight:bold;
-
-    margin-bottom:18px;
-}
-
-
-.botoes-acesso{
+.tipo-login{
 
     display:grid;
 
-    grid-template-columns:1fr;
+    grid-template-columns:
+        1fr 1fr;
 
     gap:12px;
+
+    margin-bottom:24px;
+
 }
 
 
-.botao-acesso{
+.tipo-login button{
 
     width:100%;
 
-    min-height:58px;
+    height:52px;
 
-    border:0;
+    border:none;
 
-    border-radius:11px;
+    border-radius:10px;
 
-    background:var(--verde);
+    background:#73C46B;
 
-    color:#050505;
+    color:#111111;
 
-    font-size:17px;
+    font-size:15px;
 
-    font-weight:900;
-
-    letter-spacing:.3px;
+    font-weight:700;
 
     cursor:pointer;
 
-    transition:.18s ease;
+    transition:
+        .2s ease;
 
-    box-shadow:
-        0 5px 16px
-        rgba(124,252,0,.12);
 }
 
 
-.botao-acesso:hover{
+.tipo-login button:hover{
 
-    background:var(--verde-hover);
+    background:#8AD982;
 
     transform:
-        translateY(-2px);
+        translateY(-1px);
 
     box-shadow:
-        0 8px 22px
-        rgba(124,252,0,.20);
+        0 7px 18px
+        rgba(115,196,107,.18);
+
 }
 
 
-.botao-acesso:active{
+.tipo-login button.ativo{
 
-    transform:
-        translateY(0);
+    background:#73C46B;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(115,196,107,.25);
+
 }
 
 
@@ -290,109 +270,85 @@ h1{
    FORMULÁRIO
 ========================= */
 
-.formulario{
+#formularioLogin{
 
     display:none;
 
+}
+
+
+.form-group{
+
     text-align:left;
+
+    margin-bottom:17px;
+
 }
 
 
-.tipo-selecionado{
+label{
 
-    background:#17191b;
+    display:block;
 
-    border:
-        1px solid #363a3e;
+    margin-bottom:7px;
 
-    border-left:
-        4px solid var(--verde);
+    color:#FFFFFF;
 
-    border-radius:10px;
+    font-size:13px;
 
-    padding:13px 15px;
+    font-weight:600;
 
-    margin-bottom:22px;
-
-    color:#fff;
-
-    font-size:14px;
-
-    font-weight:bold;
-
-    text-align:center;
-}
-
-
-.tipo-selecionado span{
-
-    color:var(--verde);
 }
 
 
 /* =========================
-   CAMPOS
+   INPUTS
 ========================= */
-
-.form-group{
-
-    margin-bottom:17px;
-}
-
-
-.form-group label{
-
-    display:block;
-
-    color:#fff;
-
-    font-size:14px;
-
-    font-weight:bold;
-
-    margin-bottom:7px;
-}
-
 
 input{
 
     width:100%;
 
-    height:53px;
+    height:52px;
 
-    padding:0 15px;
+    background:#FFFFFF;
+
+    color:#222222;
 
     border:
-        1px solid #44484c;
+        1px solid #D8D8D8;
 
-    border-radius:10px;
+    border-radius:9px;
 
-    background:#202326;
+    padding:
+        0 14px;
 
-    color:#fff;
-
-    font-size:16px;
+    font-size:15px;
 
     outline:none;
 
-    transition:.18s ease;
+    transition:
+        .2s ease;
+
 }
 
 
 input::placeholder{
 
-    color:#888;
+    color:#888888;
+
 }
 
 
 input:focus{
 
     border-color:
-        var(--verde);
+        #73C46B;
 
     box-shadow:
-        0 0 0 2px
-        rgba(124,252,0,.10);
+        0 0 0 3px
+        rgba(115,196,107,.18);
+
 }
 
 
@@ -402,7 +358,10 @@ input:focus{
 
 .opcoes-login{
 
-    margin-bottom:10px;
+    text-align:left;
+
+    margin-bottom:18px;
+
 }
 
 
@@ -414,13 +373,16 @@ input:focus{
 
     gap:9px;
 
-    color:#ccc;
+    margin-bottom:9px;
 
-    font-size:14px;
+    color:#D5D5D5;
+
+    font-size:12px;
+
+    font-weight:400;
 
     cursor:pointer;
 
-    margin-bottom:10px;
 }
 
 
@@ -432,8 +394,8 @@ input:focus{
 
     margin:0;
 
-    accent-color:
-        var(--verde);
+    accent-color:#73C46B;
+
 }
 
 
@@ -445,42 +407,39 @@ input:focus{
 
     width:100%;
 
-    height:55px;
+    height:53px;
 
-    margin-top:8px;
-
-    border:0;
+    border:none;
 
     border-radius:10px;
 
-    background:var(--verde);
+    background:#73C46B;
 
-    color:#050505;
+    color:#111111;
 
-    font-size:17px;
+    font-size:16px;
 
-    font-weight:900;
+    font-weight:800;
 
     cursor:pointer;
 
-    transition:.18s ease;
+    transition:
+        .2s ease;
 
-    box-shadow:
-        0 6px 18px
-        rgba(124,252,0,.15);
 }
 
 
 .botao-entrar:hover{
 
-    background:var(--verde-hover);
+    background:#8AD982;
 
     transform:
-        translateY(-2px);
+        translateY(-1px);
 
     box-shadow:
-        0 9px 24px
-        rgba(124,252,0,.22);
+        0 8px 20px
+        rgba(115,196,107,.20);
+
 }
 
 
@@ -488,45 +447,7 @@ input:focus{
 
     transform:
         translateY(0);
-}
 
-
-/* =========================
-   BOTÃO VOLTAR
-========================= */
-
-.botao-voltar{
-
-    width:100%;
-
-    height:48px;
-
-    margin-top:11px;
-
-    border:
-        1px solid #444;
-
-    border-radius:10px;
-
-    background:#25282b;
-
-    color:#fff;
-
-    font-size:15px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    transition:.18s ease;
-}
-
-
-.botao-voltar:hover{
-
-    background:#303438;
-
-    border-color:#555;
 }
 
 
@@ -536,17 +457,59 @@ input:focus{
 
 #mensagem{
 
-    min-height:22px;
+    min-height:20px;
 
-    margin-top:17px;
+    margin-top:16px;
 
     text-align:center;
 
-    font-size:14px;
+    font-size:13px;
 
-    font-weight:bold;
+    font-weight:600;
 
     line-height:1.4;
+
+}
+
+
+/* =========================
+   VOLTAR
+========================= */
+
+.botao-voltar{
+
+    width:100%;
+
+    height:45px;
+
+    margin-top:12px;
+
+    border:
+        1px solid #4A4A4A;
+
+    border-radius:9px;
+
+    background:#252525;
+
+    color:#CFCFCF;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    display:none;
+
+}
+
+
+.botao-voltar:hover{
+
+    background:#383838;
+
+    color:#FFFFFF;
+
 }
 
 
@@ -556,13 +519,41 @@ input:focus{
 
 .footer{
 
+    text-align:center;
+
     margin-top:22px;
 
-    color:#777;
+    color:#9F9F9F;
 
-    font-size:12px;
+    font-size:11px;
 
-    text-align:center;
+}
+
+
+/* =========================
+   CARREGANDO
+========================= */
+
+.carregando{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#1F1F1F;
+
+    color:#CFCFCF;
+
+    font-size:15px;
+
+    z-index:9999;
+
 }
 
 
@@ -570,53 +561,98 @@ input:focus{
    MOBILE
 ========================= */
 
-@media(max-width:500px){
+@media(max-width:600px){
 
     body{
 
-        padding:25px 15px;
+        padding:
+            20px 15px;
+
+        align-items:center;
+
+    }
+
+
+    .pagina{
+
+        max-width:390px;
+
     }
 
 
     .logo{
 
-        margin-bottom:18px;
+        margin-bottom:22px;
+
     }
 
 
     .logo img{
 
-        width:195px;
+        width:200px;
+
     }
 
 
     .container{
 
-        padding:28px 22px;
+        padding:
+            30px 24px 25px;
 
-        border-radius:17px;
     }
 
 
     h1{
 
-        font-size:24px;
+        font-size:23px;
+
     }
 
 
-    .subtitulo{
+    .tipo-login{
 
-        font-size:13px;
+        grid-template-columns:1fr;
 
-        margin-bottom:24px;
+        gap:10px;
+
     }
 
 
-    .botao-acesso{
+    .tipo-login button{
 
-        min-height:55px;
+        height:50px;
 
-        font-size:16px;
+    }
+
+}
+
+
+/* =========================
+   CELULARES PEQUENOS
+========================= */
+
+@media(max-width:380px){
+
+    body{
+
+        padding:
+            15px 12px;
+
+    }
+
+
+    .logo img{
+
+        width:180px;
+
+    }
+
+
+    .container{
+
+        padding:
+            25px 20px;
+
     }
 
 }
@@ -629,12 +665,32 @@ input:focus{
 <body>
 
 
-<div class="pagina">
+<!-- =========================
+     CARREGANDO
+========================= -->
+
+<div
+    id="telaCarregando"
+    class="carregando"
+>
+
+    Carregando...
+
+</div>
 
 
-    <!-- =========================
-         LOGO
-    ========================== -->
+<!-- =========================
+     PÁGINA
+========================= -->
+
+<div
+    class="pagina"
+    id="pagina"
+    style="display:none;"
+>
+
+
+    <!-- LOGO FORA DO QUADRO -->
 
     <div class="logo">
 
@@ -646,9 +702,7 @@ input:focus{
     </div>
 
 
-    <!-- =========================
-         QUADRO DE LOGIN
-    ========================== -->
+    <!-- QUADRO -->
 
     <div class="container">
 
@@ -659,80 +713,67 @@ input:focus{
 
 
         <p class="subtitulo">
-            Acesso ao sistema de gestão
+
+            Selecione o tipo de acesso
+
         </p>
 
 
         <!-- =========================
-             SELEÇÃO DE ACESSO
-        ========================== -->
+             ESCOLHA
+        ========================= -->
 
-        <div
-            id="selecaoAcesso"
-            class="selecao-acesso"
-        >
+        <div class="titulo-acesso">
 
-            <div class="titulo-selecao">
-                Selecione o tipo de acesso
-            </div>
+            Como deseja acessar?
+
+        </div>
 
 
-            <div class="botoes-acesso">
+        <div class="tipo-login">
 
 
-                <button
-                    type="button"
-                    class="botao-acesso"
-                    onclick="abrirLogin('administrador')"
-                >
-                    ADMINISTRADOR
-                </button>
+            <button
+                id="btnAdministrador"
+                onclick="selecionarTipo('administrador')"
+            >
+
+                Administrador
+
+            </button>
 
 
-                <button
-                    type="button"
-                    class="botao-acesso"
-                    onclick="abrirLogin('atendente')"
-                >
-                    ATENDENTE
-                </button>
+            <button
+                id="btnAtendente"
+                onclick="selecionarTipo('atendente')"
+            >
 
+                Atendente
 
-            </div>
+            </button>
+
 
         </div>
 
 
         <!-- =========================
              FORMULÁRIO
-        ========================== -->
+        ========================= -->
 
         <div
             id="formularioLogin"
-            class="formulario"
         >
 
 
-            <div class="tipo-selecionado">
-
-                Acesso:
-
-                <span id="tipoSelecionado">
-                    -
-                </span>
-
-            </div>
-
-
-            <!-- ADMINISTRADOR -->
-
             <div
-                id="campoEmail"
                 class="form-group"
+                id="campoEmail"
             >
 
                 <label for="email">
+
                     E-mail
+
                 </label>
 
                 <input
@@ -745,16 +786,16 @@ input:focus{
             </div>
 
 
-            <!-- ATENDENTE -->
-
             <div
-                id="campoLogin"
                 class="form-group"
+                id="campoLogin"
                 style="display:none;"
             >
 
                 <label for="login">
+
                     Nome de acesso
+
                 </label>
 
                 <input
@@ -767,12 +808,12 @@ input:focus{
             </div>
 
 
-            <!-- SENHA -->
-
             <div class="form-group">
 
                 <label for="senha">
+
                     Senha
+
                 </label>
 
                 <input
@@ -781,7 +822,7 @@ input:focus{
                     autocomplete="current-password"
                     placeholder="Digite sua senha"
                     onkeydown="
-                        if(event.key === 'Enter'){
+                        if(event.key==='Enter'){
                             entrar();
                         }
                     "
@@ -793,8 +834,9 @@ input:focus{
             <!-- OPÇÕES ADMINISTRADOR -->
 
             <div
-                id="opcoesAdministrador"
                 class="opcoes-login"
+                id="opcoesAdministrador"
+                style="display:none;"
             >
 
                 <label class="checkbox-item">
@@ -823,25 +865,58 @@ input:focus{
             </div>
 
 
-            <!-- ENTRAR -->
+            <!-- OPÇÕES ATENDENTE -->
+
+            <div
+                class="opcoes-login"
+                id="opcoesAtendente"
+                style="display:none;"
+            >
+
+                <label class="checkbox-item">
+
+                    <input
+                        type="checkbox"
+                        id="lembrarLogin"
+                    >
+
+                    Lembrar nome de acesso
+
+                </label>
+
+
+                <label class="checkbox-item">
+
+                    <input
+                        type="checkbox"
+                        id="manterConectadoAtendente"
+                    >
+
+                    Manter-me conectado
+
+                </label>
+
+            </div>
+
 
             <button
-                type="button"
                 class="botao-entrar"
                 onclick="entrar()"
             >
+
                 ENTRAR
+
             </button>
 
 
-            <!-- VOLTAR -->
-
             <button
-                type="button"
+                id="botaoVoltar"
                 class="botao-voltar"
-                onclick="voltarSelecao()"
+                onclick="voltarEscolha()"
             >
-                VOLTAR
+
+                Voltar
+
             </button>
 
 
@@ -851,132 +926,258 @@ input:focus{
         </div>
 
 
-    </div>
+        <!-- RODAPÉ -->
 
+        <div class="footer">
 
-    <!-- =========================
-         RODAPÉ
-    ========================== -->
+            © 2026 Pratini Sports
 
-    <div class="footer">
+        </div>
 
-        © 2026 Pratini Sports
 
     </div>
-
 
 </div>
 
 
 <script>
 
-
 /* =========================
-   VARIÁVEL
+   VARIÁVEL DO TIPO DE ACESSO
 ========================= */
 
 let tipoAcesso = null;
 
 
 /* =========================
-   ABRIR LOGIN
+   INICIAR
 ========================= */
 
-function abrirLogin(tipo){
+window.onload = function(){
+
+    document.getElementById(
+        "telaCarregando"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "pagina"
+    ).style.display = "flex";
+
+
+    carregarDadosSalvos();
+
+};
+
+
+/* =========================
+   DADOS SALVOS
+========================= */
+
+function carregarDadosSalvos(){
+
+    const emailSalvo =
+        localStorage.getItem(
+            "email_salvo"
+        );
+
+
+    if(emailSalvo){
+
+        document.getElementById(
+            "email"
+        ).value = emailSalvo;
+
+        document.getElementById(
+            "lembrarEmail"
+        ).checked = true;
+
+    }
+
+
+    const loginSalvo =
+        localStorage.getItem(
+            "login_atendente_salvo"
+        );
+
+
+    if(loginSalvo){
+
+        document.getElementById(
+            "login"
+        ).value = loginSalvo;
+
+        document.getElementById(
+            "lembrarLogin"
+        ).checked = true;
+
+    }
+
+
+    const manter =
+        localStorage.getItem(
+            "manter_conectado"
+        );
+
+
+    if(manter === "sim"){
+
+        document.getElementById(
+            "manterConectado"
+        ).checked = true;
+
+    }
+
+
+    const manterAtendente =
+        localStorage.getItem(
+            "manter_conectado_atendente"
+        );
+
+
+    if(
+        manterAtendente === "sim"
+    ){
+
+        document.getElementById(
+            "manterConectadoAtendente"
+        ).checked = true;
+
+    }
+
+}
+
+
+/* =========================
+   ESCOLHER TIPO
+========================= */
+
+function selecionarTipo(tipo){
 
     tipoAcesso = tipo;
 
 
-    document
-    .getElementById("selecaoAcesso")
-    .style.display =
-        "none";
+    const formulario =
+        document.getElementById(
+            "formularioLogin"
+        );
 
 
-    document
-    .getElementById("formularioLogin")
-    .style.display =
+    const campoEmail =
+        document.getElementById(
+            "campoEmail"
+        );
+
+
+    const campoLogin =
+        document.getElementById(
+            "campoLogin"
+        );
+
+
+    const opcoesAdministrador =
+        document.getElementById(
+            "opcoesAdministrador"
+        );
+
+
+    const opcoesAtendente =
+        document.getElementById(
+            "opcoesAtendente"
+        );
+
+
+    const btnAdministrador =
+        document.getElementById(
+            "btnAdministrador"
+        );
+
+
+    const btnAtendente =
+        document.getElementById(
+            "btnAtendente"
+        );
+
+
+    const botaoVoltar =
+        document.getElementById(
+            "botaoVoltar"
+        );
+
+
+    formulario.style.display =
         "block";
 
 
-    document
-    .getElementById("mensagem")
-    .innerHTML =
-        "";
+    botaoVoltar.style.display =
+        "block";
 
 
     if(tipo === "administrador"){
 
-        document
-        .getElementById("tipoSelecionado")
-        .innerText =
-            "ADMINISTRADOR";
-
-
-        document
-        .getElementById("campoEmail")
-        .style.display =
+        campoEmail.style.display =
             "block";
 
-
-        document
-        .getElementById("campoLogin")
-        .style.display =
+        campoLogin.style.display =
             "none";
 
 
-        document
-        .getElementById("opcoesAdministrador")
-        .style.display =
+        opcoesAdministrador.style.display =
             "block";
 
+        opcoesAtendente.style.display =
+            "none";
 
-        setTimeout(function(){
 
-            document
-            .getElementById("email")
-            .focus();
+        btnAdministrador.classList.add(
+            "ativo"
+        );
 
-        },100);
+        btnAtendente.classList.remove(
+            "ativo"
+        );
+
+
+        document.getElementById(
+            "email"
+        ).focus();
 
     }
 
 
     if(tipo === "atendente"){
 
-        document
-        .getElementById("tipoSelecionado")
-        .innerText =
-            "ATENDENTE";
-
-
-        document
-        .getElementById("campoEmail")
-        .style.display =
+        campoEmail.style.display =
             "none";
 
-
-        document
-        .getElementById("campoLogin")
-        .style.display =
+        campoLogin.style.display =
             "block";
 
 
-        document
-        .getElementById("opcoesAdministrador")
-        .style.display =
+        opcoesAdministrador.style.display =
             "none";
 
+        opcoesAtendente.style.display =
+            "block";
 
-        setTimeout(function(){
 
-            document
-            .getElementById("login")
-            .focus();
+        btnAdministrador.classList.remove(
+            "ativo"
+        );
 
-        },100);
+        btnAtendente.classList.add(
+            "ativo"
+        );
+
+
+        document.getElementById(
+            "login"
+        ).focus();
 
     }
+
+
+    limparMensagem();
 
 }
 
@@ -985,115 +1186,73 @@ function abrirLogin(tipo){
    VOLTAR
 ========================= */
 
-function voltarSelecao(){
+function voltarEscolha(){
 
     tipoAcesso = null;
 
 
-    document
-    .getElementById("formularioLogin")
-    .style.display =
+    document.getElementById(
+        "formularioLogin"
+    ).style.display =
         "none";
 
 
-    document
-    .getElementById("selecaoAcesso")
-    .style.display =
-        "block";
+    document.getElementById(
+        "botaoVoltar"
+    ).style.display =
+        "none";
 
 
-    document
-    .getElementById("email")
-    .value =
-        "";
+    document.getElementById(
+        "btnAdministrador"
+    ).classList.remove(
+        "ativo"
+    );
 
 
-    document
-    .getElementById("login")
-    .value =
-        "";
+    document.getElementById(
+        "btnAtendente"
+    ).classList.remove(
+        "ativo"
+    );
 
 
-    document
-    .getElementById("senha")
-    .value =
-        "";
+    document.getElementById(
+        "senha"
+    ).value = "";
 
 
-    document
-    .getElementById("mensagem")
-    .innerHTML =
-        "";
+    limparMensagem();
 
 }
 
 
 /* =========================
-   CARREGAR EMAIL SALVO
+   LIMPAR MENSAGEM
 ========================= */
 
-window.addEventListener(
-    "load",
-    function(){
+function limparMensagem(){
 
-        const emailSalvo =
-            localStorage.getItem(
-                "email_salvo"
-            );
+    const mensagem =
+        document.getElementById(
+            "mensagem"
+        );
 
+    mensagem.innerHTML = "";
 
-        if(emailSalvo){
-
-            document
-            .getElementById("email")
-            .value =
-                emailSalvo;
-
-
-            document
-            .getElementById("lembrarEmail")
-            .checked =
-                true;
-
-        }
-
-
-        const manter =
-            localStorage.getItem(
-                "manter_conectado"
-            );
-
-
-        if(manter === "sim"){
-
-            document
-            .getElementById("manterConectado")
-            .checked =
-                true;
-
-        }
-
-    }
-);
+}
 
 
 /* =========================
-   ENTRAR
+   LOGIN
 ========================= */
 
 async function entrar(){
 
     const mensagem =
-        document
-        .getElementById("mensagem");
-
-
-    mensagem.style.color =
-        "#ffffff";
-
-
-    mensagem.innerHTML =
-        "Verificando acesso...";
+        document.getElementById(
+            "mensagem"
+        );
 
 
     if(!tipoAcesso){
@@ -1102,9 +1261,29 @@ async function entrar(){
             "#ff6b6b";
 
         mensagem.innerHTML =
-            "Selecione o tipo de acesso.";
+            "Selecione Administrador ou Atendente.";
 
         return;
+
+    }
+
+
+    const senha =
+        document.getElementById(
+            "senha"
+        ).value.trim();
+
+
+    if(!senha){
+
+        mensagem.style.color =
+            "#ff6b6b";
+
+        mensagem.innerHTML =
+            "Digite sua senha.";
+
+        return;
+
     }
 
 
@@ -1117,26 +1296,15 @@ async function entrar(){
             "Erro: Supabase não carregado.";
 
         return;
+
     }
 
 
-    const senha =
-        document
-        .getElementById("senha")
-        .value
-        .trim();
+    mensagem.style.color =
+        "#CFCFCF";
 
-
-    if(!senha){
-
-        mensagem.style.color =
-            "#ff6b6b";
-
-        mensagem.innerHTML =
-            "Digite sua senha.";
-
-        return;
-    }
+    mensagem.innerHTML =
+        "Verificando acesso...";
 
 
     try{
@@ -1144,16 +1312,17 @@ async function entrar(){
 
         /* =========================
            ADMINISTRADOR
-        ========================== */
+        ========================= */
 
-        if(tipoAcesso === "administrador"){
+        if(
+            tipoAcesso ===
+            "administrador"
+        ){
 
             const email =
-                document
-                .getElementById("email")
-                .value
-                .trim()
-                .toLowerCase();
+                document.getElementById(
+                    "email"
+                ).value.trim();
 
 
             if(!email){
@@ -1165,6 +1334,7 @@ async function entrar(){
                     "Digite o e-mail do administrador.";
 
                 return;
+
             }
 
 
@@ -1172,7 +1342,8 @@ async function entrar(){
                 data,
                 error
             } =
-                await db.auth.signInWithPassword({
+                await db.auth
+                .signInWithPassword({
 
                     email:
                         email,
@@ -1185,8 +1356,6 @@ async function entrar(){
 
             if(error){
 
-                console.error(error);
-
                 mensagem.style.color =
                     "#ff6b6b";
 
@@ -1194,153 +1363,96 @@ async function entrar(){
                     "E-mail ou senha inválidos.";
 
                 return;
+
             }
 
 
             if(
-                !data ||
-                !data.session
+                data &&
+                data.session
             ){
 
-                mensagem.style.color =
-                    "#ff6b6b";
-
-                mensagem.innerHTML =
-                    "Não foi possível iniciar a sessão.";
-
-                return;
-            }
+                const lembrar =
+                    document.getElementById(
+                        "lembrarEmail"
+                    ).checked;
 
 
-            const usuario =
-                data.session.user;
+                const manter =
+                    document.getElementById(
+                        "manterConectado"
+                    ).checked;
 
 
-            const {
-                data: perfil,
-                error: erroPerfil
-            } =
-                await db
-                .from("perfis")
-                .select("role,nome")
-                .eq(
-                    "id",
-                    usuario.id
-                )
-                .single();
+                if(lembrar){
+
+                    localStorage.setItem(
+                        "email_salvo",
+                        email
+                    );
+
+                }else{
+
+                    localStorage.removeItem(
+                        "email_salvo"
+                    );
+
+                }
 
 
-            if(
-                erroPerfil ||
-                !perfil
-            ){
+                if(manter){
 
-                await db.auth.signOut();
+                    localStorage.setItem(
+                        "manter_conectado",
+                        "sim"
+                    );
 
+                }else{
 
-                mensagem.style.color =
-                    "#ff6b6b";
+                    localStorage.removeItem(
+                        "manter_conectado"
+                    );
 
-                mensagem.innerHTML =
-                    "Perfil de administrador não encontrado.";
-
-                return;
-            }
-
-
-            if(
-                perfil.role !== "admin"
-            ){
-
-                await db.auth.signOut();
+                }
 
 
                 mensagem.style.color =
-                    "#ff6b6b";
+                    "#73C46B";
 
                 mensagem.innerHTML =
-                    "Este usuário não possui acesso de administrador.";
-
-                return;
-            }
+                    "Login realizado com sucesso!";
 
 
-            const lembrar =
-                document
-                .getElementById("lembrarEmail")
-                .checked;
+                setTimeout(
+                    function(){
 
+                        window.location.href =
+                            "dashboard.html";
 
-            const manter =
-                document
-                .getElementById("manterConectado")
-                .checked;
-
-
-            if(lembrar){
-
-                localStorage.setItem(
-                    "email_salvo",
-                    email
-                );
-
-            }else{
-
-                localStorage.removeItem(
-                    "email_salvo"
+                    },
+                    700
                 );
 
             }
-
-
-            if(manter){
-
-                localStorage.setItem(
-                    "manter_conectado",
-                    "sim"
-                );
-
-            }else{
-
-                localStorage.removeItem(
-                    "manter_conectado"
-                );
-
-            }
-
-
-            mensagem.style.color =
-                "#7CFC00";
-
-
-            mensagem.innerHTML =
-                "Login realizado com sucesso!";
-
-
-            setTimeout(function(){
-
-                window.location.href =
-                    "dashboard.html";
-
-            },700);
-
 
             return;
+
         }
 
 
         /* =========================
            ATENDENTE
-        ========================== */
+        ========================= */
 
-        if(tipoAcesso === "atendente"){
+        if(
+            tipoAcesso ===
+            "atendente"
+        ){
 
             const login =
-                document
-                .getElementById("login")
-                .value
-                .trim()
-                .toLowerCase();
+                document.getElementById(
+                    "login"
+                ).value.trim();
 
 
             if(!login){
@@ -1352,24 +1464,24 @@ async function entrar(){
                     "Digite seu nome de acesso.";
 
                 return;
+
             }
 
 
+            /*
+               BUSCA O USUÁRIO DE LOGIN
+               PELO NOME DE ACESSO
+            */
+
             const {
-                data: atendente,
-                error: erroAtendente
+                data: usuarioLogin,
+                error: erroLogin
             } =
                 await db
                 .from("usuarios_login")
-                .select(`
-                    id,
-                    usuario_id,
-                    login,
-                    nome,
-                    tipo,
-                    ativo,
-                    email_interno
-                `)
+                .select(
+                    "id,usuario_id,login,nome,tipo,ativo,email_interno"
+                )
                 .eq(
                     "login",
                     login
@@ -1378,18 +1490,13 @@ async function entrar(){
                     "ativo",
                     true
                 )
-                .single();
+                .maybeSingle();
 
 
             if(
-                erroAtendente ||
-                !atendente
+                erroLogin ||
+                !usuarioLogin
             ){
-
-                console.error(
-                    erroAtendente
-                );
-
 
                 mensagem.style.color =
                     "#ff6b6b";
@@ -1398,20 +1505,32 @@ async function entrar(){
                     "Nome de acesso ou senha inválidos.";
 
                 return;
+
             }
 
 
-            if(
-                !atendente.email_interno
-            ){
+            /*
+               O SUPABASE AUTH PRECISA
+               DO EMAIL INTERNO DA ATENDENTE.
+
+               A ATENDENTE NÃO PRECISA
+               SABER OU DIGITAR ESSE EMAIL.
+            */
+
+            const emailInterno =
+                usuarioLogin.email_interno;
+
+
+            if(!emailInterno){
 
                 mensagem.style.color =
                     "#ff6b6b";
 
                 mensagem.innerHTML =
-                    "Este atendente ainda não possui um acesso configurado.";
+                    "Este usuário ainda não está configurado corretamente.";
 
                 return;
+
             }
 
 
@@ -1419,10 +1538,11 @@ async function entrar(){
                 data,
                 error
             } =
-                await db.auth.signInWithPassword({
+                await db.auth
+                .signInWithPassword({
 
                     email:
-                        atendente.email_interno,
+                        emailInterno,
 
                     password:
                         senha
@@ -1432,9 +1552,6 @@ async function entrar(){
 
             if(error){
 
-                console.error(error);
-
-
                 mensagem.style.color =
                     "#ff6b6b";
 
@@ -1442,96 +1559,120 @@ async function entrar(){
                     "Nome de acesso ou senha inválidos.";
 
                 return;
+
             }
 
 
             if(
-                !data ||
-                !data.session
+                data &&
+                data.session
             ){
 
+                const lembrar =
+                    document.getElementById(
+                        "lembrarLogin"
+                    ).checked;
+
+
+                const manter =
+                    document.getElementById(
+                        "manterConectadoAtendente"
+                    ).checked;
+
+
+                if(lembrar){
+
+                    localStorage.setItem(
+                        "login_atendente_salvo",
+                        login
+                    );
+
+                }else{
+
+                    localStorage.removeItem(
+                        "login_atendente_salvo"
+                    );
+
+                }
+
+
+                if(manter){
+
+                    localStorage.setItem(
+                        "manter_conectado_atendente",
+                        "sim"
+                    );
+
+                }else{
+
+                    localStorage.removeItem(
+                        "manter_conectado_atendente"
+                    );
+
+                }
+
+
+                /*
+                   GUARDA O LOGIN DA ATENDENTE
+                   PARA IDENTIFICAÇÃO NO SISTEMA
+                */
+
+                localStorage.setItem(
+                    "usuario_login",
+                    login
+                );
+
+
+                localStorage.setItem(
+                    "usuario_nome",
+                    usuarioLogin.nome
+                );
+
+
+                localStorage.setItem(
+                    "usuario_tipo",
+                    "atendente"
+                );
+
+
                 mensagem.style.color =
-                    "#ff6b6b";
+                    "#73C46B";
 
                 mensagem.innerHTML =
-                    "Não foi possível iniciar a sessão.";
+                    "Login realizado com sucesso!";
 
-                return;
+
+                setTimeout(
+                    function(){
+
+                        window.location.href =
+                            "dashboard.html";
+
+                    },
+                    700
+                );
+
             }
 
-
-            /* =========================
-               SALVA ATENDENTE
-            ========================== */
-
-            localStorage.setItem(
-                "atendente_id",
-                atendente.id
-            );
-
-
-            localStorage.setItem(
-                "atendente_nome",
-                atendente.nome
-            );
-
-
-            localStorage.setItem(
-                "atendente_login",
-                atendente.login
-            );
-
-
-            localStorage.setItem(
-                "atendente_usuario_id",
-                atendente.usuario_id
-            );
-
-
-            mensagem.style.color =
-                "#7CFC00";
-
-
-            mensagem.innerHTML =
-                "Login realizado com sucesso!";
-
-
-            setTimeout(function(){
-
-                window.location.href =
-                    "dashboard.html";
-
-            },700);
-
-
-            return;
         }
 
 
-    }
+    }catch(err){
 
-    catch(err){
-
-        console.error(
-            "Erro no login:",
-            err
-        );
+        console.error(err);
 
 
         mensagem.style.color =
             "#ff6b6b";
 
-
         mensagem.innerHTML =
-            "Ocorreu um erro ao realizar o login.";
+            "Erro ao realizar login.";
 
     }
 
 }
 
-
 </script>
-
 
 </body>
 
