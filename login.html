@@ -10,7 +10,7 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>Login - Pratini Sports</title>
+<title>Portal Pratini Sports</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -89,29 +89,80 @@ body{
 
     color:var(--texto);
 
-    padding:20px;
+    padding:30px 20px;
 }
 
 
 /* =========================
-   CONTAINER
+   ESTRUTURA PRINCIPAL
+========================= */
+
+.pagina{
+
+    width:100%;
+
+    max-width:430px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+}
+
+
+/* =========================
+   LOGO FORA DO QUADRO
+========================= */
+
+.logo{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-bottom:22px;
+}
+
+
+.logo img{
+
+    width:225px;
+
+    max-width:80%;
+
+    height:auto;
+
+    object-fit:contain;
+
+    filter:
+        drop-shadow(
+            0 5px 12px
+            rgba(0,0,0,.30)
+        );
+}
+
+
+/* =========================
+   CARD PRINCIPAL
 ========================= */
 
 .container{
 
     width:100%;
 
-    max-width:430px;
-
-    background:
-        #111315;
+    background:#111315;
 
     border:
         1px solid #383c40;
 
     border-radius:20px;
 
-    padding:35px;
+    padding:34px;
 
     box-shadow:
 
@@ -122,29 +173,6 @@ body{
         rgba(124,252,0,.05);
 
     text-align:center;
-}
-
-
-/* =========================
-   LOGO
-========================= */
-
-.logo{
-
-    margin-bottom:18px;
-
-}
-
-
-.logo img{
-
-    width:210px;
-
-    max-width:80%;
-
-    height:auto;
-
-    object-fit:contain;
 }
 
 
@@ -218,8 +246,7 @@ h1{
 
     border-radius:11px;
 
-    background:
-        var(--verde);
+    background:var(--verde);
 
     color:#050505;
 
@@ -231,8 +258,7 @@ h1{
 
     cursor:pointer;
 
-    transition:
-        .18s ease;
+    transition:.18s ease;
 
     box-shadow:
         0 5px 16px
@@ -242,8 +268,7 @@ h1{
 
 .botao-acesso:hover{
 
-    background:
-        var(--verde-hover);
+    background:var(--verde-hover);
 
     transform:
         translateY(-2px);
@@ -335,8 +360,7 @@ input{
 
     height:53px;
 
-    padding:
-        0 15px;
+    padding:0 15px;
 
     border:
         1px solid #44484c;
@@ -429,8 +453,7 @@ input:focus{
 
     border-radius:10px;
 
-    background:
-        var(--verde);
+    background:var(--verde);
 
     color:#050505;
 
@@ -450,8 +473,7 @@ input:focus{
 
 .botao-entrar:hover{
 
-    background:
-        var(--verde-hover);
+    background:var(--verde-hover);
 
     transform:
         translateY(-2px);
@@ -534,29 +556,13 @@ input:focus{
 
 .footer{
 
-    margin-top:28px;
+    margin-top:22px;
 
     color:#777;
 
     font-size:12px;
 
     text-align:center;
-}
-
-
-/* =========================
-   CARREGANDO
-========================= */
-
-.carregando{
-
-    display:none;
-
-    color:#ccc;
-
-    text-align:center;
-
-    font-size:15px;
 }
 
 
@@ -568,9 +574,19 @@ input:focus{
 
     body{
 
-        padding:15px;
+        padding:25px 15px;
+    }
 
-        align-items:center;
+
+    .logo{
+
+        margin-bottom:18px;
+    }
+
+
+    .logo img{
+
+        width:195px;
     }
 
 
@@ -579,12 +595,6 @@ input:focus{
         padding:28px 22px;
 
         border-radius:17px;
-    }
-
-
-    .logo img{
-
-        width:190px;
     }
 
 
@@ -611,7 +621,6 @@ input:focus{
 
 }
 
-
 </style>
 
 </head>
@@ -620,7 +629,7 @@ input:focus{
 <body>
 
 
-<div class="container">
+<div class="pagina">
 
 
     <!-- =========================
@@ -638,204 +647,208 @@ input:focus{
 
 
     <!-- =========================
-         TITULO
+         QUADRO DE LOGIN
     ========================== -->
 
-    <h1>
-        Pratini Sports
-    </h1>
+    <div class="container">
 
 
-    <p class="subtitulo">
-        Acesso ao sistema de gestão
-    </p>
+        <h1>
+            Portal Pratini Sports
+        </h1>
 
 
-    <!-- =========================
-         SELEÇÃO DE PERFIL
-    ========================== -->
+        <p class="subtitulo">
+            Acesso ao sistema de gestão
+        </p>
 
-    <div
-        id="selecaoAcesso"
-        class="selecao-acesso"
-    >
 
-        <div class="titulo-selecao">
-            Selecione o tipo de acesso
+        <!-- =========================
+             SELEÇÃO DE ACESSO
+        ========================== -->
+
+        <div
+            id="selecaoAcesso"
+            class="selecao-acesso"
+        >
+
+            <div class="titulo-selecao">
+                Selecione o tipo de acesso
+            </div>
+
+
+            <div class="botoes-acesso">
+
+
+                <button
+                    type="button"
+                    class="botao-acesso"
+                    onclick="abrirLogin('administrador')"
+                >
+                    ADMINISTRADOR
+                </button>
+
+
+                <button
+                    type="button"
+                    class="botao-acesso"
+                    onclick="abrirLogin('atendente')"
+                >
+                    ATENDENTE
+                </button>
+
+
+            </div>
+
         </div>
 
 
-        <div class="botoes-acesso">
+        <!-- =========================
+             FORMULÁRIO
+        ========================== -->
 
+        <div
+            id="formularioLogin"
+            class="formulario"
+        >
+
+
+            <div class="tipo-selecionado">
+
+                Acesso:
+
+                <span id="tipoSelecionado">
+                    -
+                </span>
+
+            </div>
+
+
+            <!-- ADMINISTRADOR -->
+
+            <div
+                id="campoEmail"
+                class="form-group"
+            >
+
+                <label for="email">
+                    E-mail
+                </label>
+
+                <input
+                    id="email"
+                    type="email"
+                    autocomplete="username"
+                    placeholder="Digite seu e-mail"
+                >
+
+            </div>
+
+
+            <!-- ATENDENTE -->
+
+            <div
+                id="campoLogin"
+                class="form-group"
+                style="display:none;"
+            >
+
+                <label for="login">
+                    Nome de acesso
+                </label>
+
+                <input
+                    id="login"
+                    type="text"
+                    autocomplete="username"
+                    placeholder="Digite seu nome de acesso"
+                >
+
+            </div>
+
+
+            <!-- SENHA -->
+
+            <div class="form-group">
+
+                <label for="senha">
+                    Senha
+                </label>
+
+                <input
+                    id="senha"
+                    type="password"
+                    autocomplete="current-password"
+                    placeholder="Digite sua senha"
+                    onkeydown="
+                        if(event.key === 'Enter'){
+                            entrar();
+                        }
+                    "
+                >
+
+            </div>
+
+
+            <!-- OPÇÕES ADMINISTRADOR -->
+
+            <div
+                id="opcoesAdministrador"
+                class="opcoes-login"
+            >
+
+                <label class="checkbox-item">
+
+                    <input
+                        type="checkbox"
+                        id="lembrarEmail"
+                    >
+
+                    Lembrar e-mail
+
+                </label>
+
+
+                <label class="checkbox-item">
+
+                    <input
+                        type="checkbox"
+                        id="manterConectado"
+                    >
+
+                    Manter-me conectado
+
+                </label>
+
+            </div>
+
+
+            <!-- ENTRAR -->
 
             <button
                 type="button"
-                class="botao-acesso"
-                onclick="abrirLogin('administrador')"
+                class="botao-entrar"
+                onclick="entrar()"
             >
-                ADMINISTRADOR
+                ENTRAR
             </button>
 
+
+            <!-- VOLTAR -->
 
             <button
                 type="button"
-                class="botao-acesso"
-                onclick="abrirLogin('atendente')"
+                class="botao-voltar"
+                onclick="voltarSelecao()"
             >
-                ATENDENTE
+                VOLTAR
             </button>
 
 
-        </div>
+            <p id="mensagem"></p>
 
-    </div>
-
-
-    <!-- =========================
-         LOGIN
-    ========================== -->
-
-    <div
-        id="formularioLogin"
-        class="formulario"
-    >
-
-
-        <div class="tipo-selecionado">
-
-            Acesso:
-
-            <span id="tipoSelecionado">
-                -
-            </span>
 
         </div>
-
-
-        <!-- LOGIN ADMINISTRADOR -->
-
-        <div
-            id="campoEmail"
-            class="form-group"
-        >
-
-            <label for="email">
-                E-mail
-            </label>
-
-            <input
-                id="email"
-                type="email"
-                autocomplete="username"
-                placeholder="Digite seu e-mail"
-            >
-
-        </div>
-
-
-        <!-- LOGIN ATENDENTE -->
-
-        <div
-            id="campoLogin"
-            class="form-group"
-            style="display:none;"
-        >
-
-            <label for="login">
-                Nome de acesso
-            </label>
-
-            <input
-                id="login"
-                type="text"
-                autocomplete="username"
-                placeholder="Digite seu nome de acesso"
-            >
-
-        </div>
-
-
-        <!-- SENHA -->
-
-        <div class="form-group">
-
-            <label for="senha">
-                Senha
-            </label>
-
-            <input
-                id="senha"
-                type="password"
-                autocomplete="current-password"
-                placeholder="Digite sua senha"
-                onkeydown="
-                    if(event.key === 'Enter'){
-                        entrar();
-                    }
-                "
-            >
-
-        </div>
-
-
-        <!-- OPÇÕES -->
-
-        <div
-            id="opcoesAdministrador"
-            class="opcoes-login"
-        >
-
-            <label class="checkbox-item">
-
-                <input
-                    type="checkbox"
-                    id="lembrarEmail"
-                >
-
-                Lembrar e-mail
-
-            </label>
-
-
-            <label class="checkbox-item">
-
-                <input
-                    type="checkbox"
-                    id="manterConectado"
-                >
-
-                Manter-me conectado
-
-            </label>
-
-        </div>
-
-
-        <!-- BOTÃO -->
-
-        <button
-            type="button"
-            class="botao-entrar"
-            onclick="entrar()"
-        >
-            ENTRAR
-        </button>
-
-
-        <!-- VOLTAR -->
-
-        <button
-            type="button"
-            class="botao-voltar"
-            onclick="voltarSelecao()"
-        >
-            VOLTAR
-        </button>
-
-
-        <!-- MENSAGEM -->
-
-        <p id="mensagem"></p>
 
 
     </div>
@@ -859,7 +872,7 @@ input:focus{
 
 
 /* =========================
-   VARIÁVEIS
+   VARIÁVEL
 ========================= */
 
 let tipoAcesso = null;
@@ -874,74 +887,47 @@ function abrirLogin(tipo){
     tipoAcesso = tipo;
 
 
-    const selecao =
-        document.getElementById(
-            "selecaoAcesso"
-        );
-
-
-    const formulario =
-        document.getElementById(
-            "formularioLogin"
-        );
-
-
-    const campoEmail =
-        document.getElementById(
-            "campoEmail"
-        );
-
-
-    const campoLogin =
-        document.getElementById(
-            "campoLogin"
-        );
-
-
-    const opcoesAdministrador =
-        document.getElementById(
-            "opcoesAdministrador"
-        );
-
-
-    const tipoSelecionado =
-        document.getElementById(
-            "tipoSelecionado"
-        );
-
-
-    const mensagem =
-        document.getElementById(
-            "mensagem"
-        );
-
-
-    mensagem.innerHTML = "";
-
-
-    selecao.style.display =
+    document
+    .getElementById("selecaoAcesso")
+    .style.display =
         "none";
 
 
-    formulario.style.display =
+    document
+    .getElementById("formularioLogin")
+    .style.display =
         "block";
+
+
+    document
+    .getElementById("mensagem")
+    .innerHTML =
+        "";
 
 
     if(tipo === "administrador"){
 
-        tipoSelecionado.innerText =
+        document
+        .getElementById("tipoSelecionado")
+        .innerText =
             "ADMINISTRADOR";
 
 
-        campoEmail.style.display =
+        document
+        .getElementById("campoEmail")
+        .style.display =
             "block";
 
 
-        campoLogin.style.display =
+        document
+        .getElementById("campoLogin")
+        .style.display =
             "none";
 
 
-        opcoesAdministrador.style.display =
+        document
+        .getElementById("opcoesAdministrador")
+        .style.display =
             "block";
 
 
@@ -956,21 +942,29 @@ function abrirLogin(tipo){
     }
 
 
-    else if(tipo === "atendente"){
+    if(tipo === "atendente"){
 
-        tipoSelecionado.innerText =
+        document
+        .getElementById("tipoSelecionado")
+        .innerText =
             "ATENDENTE";
 
 
-        campoEmail.style.display =
+        document
+        .getElementById("campoEmail")
+        .style.display =
             "none";
 
 
-        campoLogin.style.display =
+        document
+        .getElementById("campoLogin")
+        .style.display =
             "block";
 
 
-        opcoesAdministrador.style.display =
+        document
+        .getElementById("opcoesAdministrador")
+        .style.display =
             "none";
 
 
@@ -997,53 +991,45 @@ function voltarSelecao(){
 
 
     document
-    .getElementById(
-        "formularioLogin"
-    )
+    .getElementById("formularioLogin")
     .style.display =
         "none";
 
 
     document
-    .getElementById(
-        "selecaoAcesso"
-    )
+    .getElementById("selecaoAcesso")
     .style.display =
         "block";
 
 
     document
-    .getElementById(
-        "email"
-    )
-    .value = "";
+    .getElementById("email")
+    .value =
+        "";
 
 
     document
-    .getElementById(
-        "login"
-    )
-    .value = "";
+    .getElementById("login")
+    .value =
+        "";
 
 
     document
-    .getElementById(
-        "senha"
-    )
-    .value = "";
+    .getElementById("senha")
+    .value =
+        "";
 
 
     document
-    .getElementById(
-        "mensagem"
-    )
-    .innerHTML = "";
+    .getElementById("mensagem")
+    .innerHTML =
+        "";
 
 }
 
 
 /* =========================
-   CARREGAR DADOS SALVOS
+   CARREGAR EMAIL SALVO
 ========================= */
 
 window.addEventListener(
@@ -1059,17 +1045,13 @@ window.addEventListener(
         if(emailSalvo){
 
             document
-            .getElementById(
-                "email"
-            )
+            .getElementById("email")
             .value =
                 emailSalvo;
 
 
             document
-            .getElementById(
-                "lembrarEmail"
-            )
+            .getElementById("lembrarEmail")
             .checked =
                 true;
 
@@ -1085,9 +1067,7 @@ window.addEventListener(
         if(manter === "sim"){
 
             document
-            .getElementById(
-                "manterConectado"
-            )
+            .getElementById("manterConectado")
             .checked =
                 true;
 
@@ -1098,15 +1078,14 @@ window.addEventListener(
 
 
 /* =========================
-   LOGIN
+   ENTRAR
 ========================= */
 
 async function entrar(){
 
     const mensagem =
-        document.getElementById(
-            "mensagem"
-        );
+        document
+        .getElementById("mensagem");
 
 
     mensagem.style.color =
@@ -1116,10 +1095,6 @@ async function entrar(){
     mensagem.innerHTML =
         "Verificando acesso...";
 
-
-    /* =========================
-       VERIFICA TIPO
-    ========================== */
 
     if(!tipoAcesso){
 
@@ -1133,10 +1108,6 @@ async function entrar(){
     }
 
 
-    /* =========================
-       VERIFICA SUPABASE
-    ========================== */
-
     if(typeof db === "undefined"){
 
         mensagem.style.color =
@@ -1149,15 +1120,9 @@ async function entrar(){
     }
 
 
-    /* =========================
-       SENHA
-    ========================== */
-
     const senha =
         document
-        .getElementById(
-            "senha"
-        )
+        .getElementById("senha")
         .value
         .trim();
 
@@ -1177,17 +1142,15 @@ async function entrar(){
     try{
 
 
-        /* =====================================================
+        /* =========================
            ADMINISTRADOR
-        ===================================================== */
+        ========================== */
 
         if(tipoAcesso === "administrador"){
 
             const email =
                 document
-                .getElementById(
-                    "email"
-                )
+                .getElementById("email")
                 .value
                 .trim()
                 .toLowerCase();
@@ -1222,11 +1185,7 @@ async function entrar(){
 
             if(error){
 
-                console.error(
-                    "Erro administrador:",
-                    error
-                );
-
+                console.error(error);
 
                 mensagem.style.color =
                     "#ff6b6b";
@@ -1252,10 +1211,6 @@ async function entrar(){
                 return;
             }
 
-
-            /* =========================
-               VERIFICA PERFIL
-            ========================== */
 
             const usuario =
                 data.session.user;
@@ -1294,8 +1249,7 @@ async function entrar(){
 
 
             if(
-                perfil.role !==
-                "admin"
+                perfil.role !== "admin"
             ){
 
                 await db.auth.signOut();
@@ -1311,23 +1265,15 @@ async function entrar(){
             }
 
 
-            /* =========================
-               LEMBRAR E-MAIL
-            ========================== */
-
             const lembrar =
                 document
-                .getElementById(
-                    "lembrarEmail"
-                )
+                .getElementById("lembrarEmail")
                 .checked;
 
 
             const manter =
                 document
-                .getElementById(
-                    "manterConectado"
-                )
+                .getElementById("manterConectado")
                 .checked;
 
 
@@ -1338,9 +1284,7 @@ async function entrar(){
                     email
                 );
 
-            }
-
-            else{
+            }else{
 
                 localStorage.removeItem(
                     "email_salvo"
@@ -1356,9 +1300,7 @@ async function entrar(){
                     "sim"
                 );
 
-            }
-
-            else{
+            }else{
 
                 localStorage.removeItem(
                     "manter_conectado"
@@ -1387,17 +1329,15 @@ async function entrar(){
         }
 
 
-        /* =====================================================
+        /* =========================
            ATENDENTE
-        ===================================================== */
+        ========================== */
 
         if(tipoAcesso === "atendente"){
 
             const login =
                 document
-                .getElementById(
-                    "login"
-                )
+                .getElementById("login")
                 .value
                 .trim()
                 .toLowerCase();
@@ -1414,11 +1354,6 @@ async function entrar(){
                 return;
             }
 
-
-            /*
-               PRIMEIRO LOCALIZA
-               O ATENDENTE
-            */
 
             const {
                 data: atendente,
@@ -1452,7 +1387,6 @@ async function entrar(){
             ){
 
                 console.error(
-                    "Erro atendente:",
                     erroAtendente
                 );
 
@@ -1466,12 +1400,6 @@ async function entrar(){
                 return;
             }
 
-
-            /*
-               O LOGIN DA ATENDENTE
-               UTILIZA O EMAIL INTERNO
-               CADASTRADO NA TABELA.
-            */
 
             if(
                 !atendente.email_interno
@@ -1504,10 +1432,7 @@ async function entrar(){
 
             if(error){
 
-                console.error(
-                    "Erro autenticação atendente:",
-                    error
-                );
+                console.error(error);
 
 
                 mensagem.style.color =
@@ -1535,49 +1460,31 @@ async function entrar(){
             }
 
 
-            /*
-               GUARDA O ATENDENTE ATIVO
-               PARA A CENTRAL DE ENTREGA
-            */
+            /* =========================
+               SALVA ATENDENTE
+            ========================== */
 
             localStorage.setItem(
-
                 "atendente_id",
-
                 atendente.id
-
             );
 
 
             localStorage.setItem(
-
                 "atendente_nome",
-
                 atendente.nome
-
             );
 
 
             localStorage.setItem(
-
                 "atendente_login",
-
                 atendente.login
-
             );
 
 
-            /*
-               TAMBÉM GUARDA O ID
-               DO USUÁRIO AUTH
-            */
-
             localStorage.setItem(
-
                 "atendente_usuario_id",
-
                 atendente.usuario_id
-
             );
 
 
