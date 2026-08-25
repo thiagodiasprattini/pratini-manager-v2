@@ -33,15 +33,15 @@
 
     --card-hover:#383838;
 
-    --verde:#73C46B;
+    --primary:#73C46B;
 
-    --verde-hover:#8AD982;
+    --primary-hover:#8AD982;
 
-    --texto:#FFFFFF;
+    --text:#FFFFFF;
 
-    --texto-secundario:#CFCFCF;
+    --text-secondary:#CFCFCF;
 
-    --borda:#4A4A4A;
+    --border:#4A4A4A;
 }
 
 
@@ -86,15 +86,15 @@ body{
         sans-serif;
 
     background:
-        radial-gradient(
-            circle at top,
-            #292929 0%,
-            #202020 45%,
-            #181818 100%
+        linear-gradient(
+            135deg,
+            #1A1A1A,
+            #222222,
+            #2A2A2A
         );
 
     color:
-        var(--texto);
+        var(--text);
 
     display:flex;
 
@@ -111,7 +111,7 @@ body{
 
 
 /* =====================================================
-   ÁREA DA LOGO
+   LOGO
 ===================================================== */
 
 .logo-area{
@@ -162,17 +162,16 @@ body{
     width:100%;
 
     background:
-        rgba(46,46,46,.97);
+        var(--card);
 
     border:
-        1px solid var(--borda);
+        1px solid var(--border);
 
     border-radius:18px;
 
     padding:32px;
 
     box-shadow:
-
         0 18px 45px
         rgba(0,0,0,.38);
 
@@ -192,7 +191,7 @@ body{
     font-weight:700;
 
     color:
-        var(--texto);
+        var(--text);
 
     margin-bottom:8px;
 
@@ -204,7 +203,7 @@ body{
     text-align:center;
 
     color:
-        var(--texto-secundario);
+        var(--text-secondary);
 
     font-size:14px;
 
@@ -237,14 +236,12 @@ body{
     min-height:58px;
 
     border:
-
-        1px solid
-        var(--verde);
+        1px solid var(--primary);
 
     border-radius:11px;
 
     background:
-        var(--verde);
+        var(--primary);
 
     color:#111;
 
@@ -272,10 +269,10 @@ body{
 .botao-tipo:hover{
 
     background:
-        var(--verde-hover);
+        var(--primary-hover);
 
     border-color:
-        var(--verde-hover);
+        var(--primary-hover);
 
     transform:
         translateY(-2px);
@@ -296,7 +293,7 @@ body{
 
 
 /* =====================================================
-   ÁREA DO FORMULÁRIO
+   FORMULÁRIO
 ===================================================== */
 
 .formulario{
@@ -326,7 +323,7 @@ body{
     background:transparent;
 
     color:
-        var(--texto-secundario);
+        var(--text-secondary);
 
     text-align:left;
 
@@ -354,7 +351,7 @@ body{
 .botao-voltar:hover{
 
     color:
-        var(--verde);
+        var(--primary);
 
 }
 
@@ -368,7 +365,7 @@ body{
     text-align:center;
 
     color:
-        var(--verde);
+        var(--primary);
 
     font-size:13px;
 
@@ -401,7 +398,7 @@ body{
     margin-bottom:8px;
 
     color:
-        var(--texto);
+        var(--text);
 
     font-size:14px;
 
@@ -455,7 +452,7 @@ body{
 .form-group input:focus{
 
     border-color:
-        var(--verde);
+        var(--primary);
 
     box-shadow:
         0 0 0 3px
@@ -486,7 +483,7 @@ body{
     gap:9px;
 
     color:
-        var(--texto-secundario);
+        var(--text-secondary);
 
     font-size:13px;
 
@@ -506,7 +503,7 @@ body{
     margin:0;
 
     accent-color:
-        var(--verde);
+        var(--primary);
 
 }
 
@@ -528,7 +525,7 @@ body{
     border-radius:10px;
 
     background:
-        var(--verde);
+        var(--primary);
 
     color:#111;
 
@@ -554,7 +551,7 @@ body{
 .botao-entrar:hover{
 
     background:
-        var(--verde-hover);
+        var(--primary-hover);
 
     transform:
         translateY(-2px);
@@ -636,11 +633,13 @@ body{
 
     }
 
+
     .logo-area{
 
         margin-bottom:28px;
 
     }
+
 
     .logo-area img{
 
@@ -805,6 +804,7 @@ body{
         Portal Pratini Sports
     </h1>
 
+
     <p class="subtitulo">
         Selecione o tipo de acesso
     </p>
@@ -860,6 +860,7 @@ body{
             E-mail
         </label>
 
+
         <input
             id="emailAdministrador"
             type="email"
@@ -875,6 +876,7 @@ body{
         <label for="senhaAdministrador">
             Senha
         </label>
+
 
         <input
             id="senhaAdministrador"
@@ -956,6 +958,7 @@ body{
             Usuário
         </label>
 
+
         <input
             id="loginAtendenteCampo"
             type="text"
@@ -971,6 +974,7 @@ body{
         <label for="senhaAtendente">
             Senha
         </label>
+
 
         <input
             id="senhaAtendente"
@@ -1020,7 +1024,7 @@ body{
 <script>
 
 /* =====================================================
-   ELEMENTOS
+   ELEMENTO DE MENSAGEM
 ===================================================== */
 
 const mensagem =
@@ -1028,46 +1032,52 @@ const mensagem =
 
 
 /* =====================================================
-   CARREGA DADOS SALVOS
+   CARREGAR DADOS SALVOS
 ===================================================== */
 
-window.addEventListener("load", function(){
+window.addEventListener(
+    "load",
+    function(){
 
-    const emailSalvo =
-        localStorage.getItem(
-            "email_salvo"
-        );
+        const emailSalvo =
+            localStorage.getItem(
+                "email_salvo"
+            );
 
 
-    if(emailSalvo){
+        if(emailSalvo){
 
-        document.getElementById(
-            "emailAdministrador"
-        ).value =
-            emailSalvo;
+            document.getElementById(
+                "emailAdministrador"
+            ).value =
+                emailSalvo;
 
-        document.getElementById(
-            "lembrarEmail"
-        ).checked = true;
+
+            document.getElementById(
+                "lembrarEmail"
+            ).checked =
+                true;
+
+        }
+
+
+        const manter =
+            localStorage.getItem(
+                "manter_conectado"
+            );
+
+
+        if(manter === "sim"){
+
+            document.getElementById(
+                "manterConectado"
+            ).checked =
+                true;
+
+        }
 
     }
-
-
-    const manter =
-        localStorage.getItem(
-            "manter_conectado"
-        );
-
-
-    if(manter === "sim"){
-
-        document.getElementById(
-            "manterConectado"
-        ).checked = true;
-
-    }
-
-});
+);
 
 
 /* =====================================================
@@ -1078,54 +1088,76 @@ function abrirLogin(tipo){
 
     document.getElementById(
         "selecaoAcesso"
-    ).style.display = "none";
+    ).style.display =
+        "none";
 
 
     document.getElementById(
         "loginAdministrador"
-    ).classList.remove("ativo");
+    ).classList.remove(
+        "ativo"
+    );
 
 
     document.getElementById(
         "loginAtendente"
-    ).classList.remove("ativo");
+    ).classList.remove(
+        "ativo"
+    );
 
 
-    mensagem.innerHTML = "";
+    mensagem.innerHTML =
+        "";
 
 
-    if(tipo === "administrador"){
+    if(
+        tipo ===
+        "administrador"
+    ){
 
         document.getElementById(
             "loginAdministrador"
-        ).classList.add("ativo");
+        ).classList.add(
+            "ativo"
+        );
 
 
-        setTimeout(function(){
+        setTimeout(
+            function(){
 
-            document.getElementById(
-                "emailAdministrador"
-            ).focus();
+                document.getElementById(
+                    "emailAdministrador"
+                ).focus();
 
-        },100);
+            },
+            100
+        );
 
     }
 
 
-    if(tipo === "atendente"){
+    if(
+        tipo ===
+        "atendente"
+    ){
 
         document.getElementById(
             "loginAtendente"
-        ).classList.add("ativo");
+        ).classList.add(
+            "ativo"
+        );
 
 
-        setTimeout(function(){
+        setTimeout(
+            function(){
 
-            document.getElementById(
-                "loginAtendenteCampo"
-            ).focus();
+                document.getElementById(
+                    "loginAtendenteCampo"
+                ).focus();
 
-        },100);
+            },
+            100
+        );
 
     }
 
@@ -1133,27 +1165,33 @@ function abrirLogin(tipo){
 
 
 /* =====================================================
-   VOLTAR
+   VOLTAR PARA TELA INICIAL
 ===================================================== */
 
 function voltarInicio(){
 
     document.getElementById(
         "loginAdministrador"
-    ).classList.remove("ativo");
+    ).classList.remove(
+        "ativo"
+    );
 
 
     document.getElementById(
         "loginAtendente"
-    ).classList.remove("ativo");
+    ).classList.remove(
+        "ativo"
+    );
 
 
     document.getElementById(
         "selecaoAcesso"
-    ).style.display = "flex";
+    ).style.display =
+        "flex";
 
 
-    mensagem.innerHTML = "";
+    mensagem.innerHTML =
+        "";
 
 }
 
@@ -1171,24 +1209,30 @@ function mostrarMensagem(
         texto;
 
 
-    if(tipo === "erro"){
+    if(
+        tipo ===
+        "erro"
+    ){
 
         mensagem.style.color =
             "#ff6b6b";
 
     }
 
-    else if(tipo === "sucesso"){
+    else if(
+        tipo ===
+        "sucesso"
+    ){
 
         mensagem.style.color =
-            "var(--verde)";
+            "var(--primary)";
 
     }
 
     else{
 
         mensagem.style.color =
-            "#ffffff";
+            "#FFFFFF";
 
     }
 
@@ -1217,7 +1261,10 @@ async function entrarAdministrador(){
         .trim();
 
 
-    if(!email || !senha){
+    if(
+        !email ||
+        !senha
+    ){
 
         mostrarMensagem(
             "Digite o e-mail e a senha.",
@@ -1229,7 +1276,10 @@ async function entrarAdministrador(){
     }
 
 
-    if(typeof db === "undefined"){
+    if(
+        typeof db ===
+        "undefined"
+    ){
 
         mostrarMensagem(
             "Erro: Supabase não carregado.",
@@ -1266,7 +1316,10 @@ async function entrarAdministrador(){
 
         if(error){
 
-            console.error(error);
+            console.error(
+                error
+            );
+
 
             mostrarMensagem(
                 "E-mail ou senha inválidos.",
@@ -1302,7 +1355,9 @@ async function entrarAdministrador(){
                     email
                 );
 
-            }else{
+            }
+
+            else{
 
                 localStorage.removeItem(
                     "email_salvo"
@@ -1318,7 +1373,9 @@ async function entrarAdministrador(){
                     "sim"
                 );
 
-            }else{
+            }
+
+            else{
 
                 localStorage.removeItem(
                     "manter_conectado"
@@ -1333,12 +1390,15 @@ async function entrarAdministrador(){
             );
 
 
-            setTimeout(function(){
+            setTimeout(
+                function(){
 
-                window.location.href =
-                    "dashboard.html";
+                    window.location.href =
+                        "dashboard.html";
 
-            },700);
+                },
+                700
+            );
 
         }
 
@@ -1346,7 +1406,10 @@ async function entrarAdministrador(){
 
     catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
+
 
         mostrarMensagem(
             "Erro ao realizar login.",
@@ -1380,7 +1443,10 @@ async function entrarAtendente(){
         .trim();
 
 
-    if(!login || !senha){
+    if(
+        !login ||
+        !senha
+    ){
 
         mostrarMensagem(
             "Digite o usuário e a senha.",
@@ -1392,7 +1458,10 @@ async function entrarAtendente(){
     }
 
 
-    if(typeof db === "undefined"){
+    if(
+        typeof db ===
+        "undefined"
+    ){
 
         mostrarMensagem(
             "Erro: Supabase não carregado.",
@@ -1412,17 +1481,14 @@ async function entrarAtendente(){
 
     try{
 
-        /*
-           BUSCA O USUÁRIO DE ATENDIMENTO
-           PELO LOGIN INFORMADO
-        */
-
         const {
             data: usuarioLogin,
             error: erroLogin
         } =
             await db
-            .from("usuarios_login")
+            .from(
+                "usuarios_login"
+            )
             .select(
                 "id,usuario_id,login,nome,tipo,ativo,email_interno"
             )
@@ -1451,14 +1517,6 @@ async function entrarAtendente(){
 
         }
 
-
-        /*
-           O SUPABASE AUTH AINDA FAZ A
-           AUTENTICAÇÃO DA SENHA.
-
-           O CAMPO email_interno É O E-MAIL
-           TÉCNICO DO USUÁRIO.
-        */
 
         const emailInterno =
             usuarioLogin.email_interno;
@@ -1493,7 +1551,10 @@ async function entrarAtendente(){
 
         if(error){
 
-            console.error(error);
+            console.error(
+                error
+            );
+
 
             mostrarMensagem(
                 "Usuário ou senha inválidos.",
@@ -1509,12 +1570,6 @@ async function entrarAtendente(){
             data &&
             data.session
         ){
-
-            /*
-               GUARDA INFORMAÇÕES DO ATENDENTE
-               PARA O SISTEMA SABER QUEM FEZ
-               A ENTREGA.
-            */
 
             localStorage.setItem(
                 "atendente_login",
@@ -1540,12 +1595,15 @@ async function entrarAtendente(){
             );
 
 
-            setTimeout(function(){
+            setTimeout(
+                function(){
 
-                window.location.href =
-                    "dashboard.html";
+                    window.location.href =
+                        "dashboard.html";
 
-            },700);
+                },
+                700
+            );
 
         }
 
@@ -1553,7 +1611,10 @@ async function entrarAtendente(){
 
     catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
+
 
         mostrarMensagem(
             "Erro ao realizar login.",
@@ -1566,24 +1627,31 @@ async function entrarAtendente(){
 
 
 /* =====================================================
-   ENTER NO TECLADO
+   ENTER PELO TECLADO
 ===================================================== */
 
 document.addEventListener(
     "keydown",
     function(event){
 
-        if(event.key !== "Enter"){
+        if(
+            event.key !==
+            "Enter"
+        ){
+
             return;
+
         }
 
 
-        const admin =
+        const administrador =
             document.getElementById(
                 "loginAdministrador"
             )
             .classList
-            .contains("ativo");
+            .contains(
+                "ativo"
+            );
 
 
         const atendente =
@@ -1591,10 +1659,12 @@ document.addEventListener(
                 "loginAtendente"
             )
             .classList
-            .contains("ativo");
+            .contains(
+                "ativo"
+            );
 
 
-        if(admin){
+        if(administrador){
 
             entrarAdministrador();
 
@@ -1610,7 +1680,6 @@ document.addEventListener(
 );
 
 </script>
-
 
 </body>
 
