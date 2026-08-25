@@ -1111,45 +1111,82 @@ function finalizarLeitura(dados){
 
 /* =====================================================
    CSV
+
+   IMPORTANTE (correção):
+   O arquivo é lido como TEXTO primeiro (via FileReader),
+   e só depois esse texto pronto é entregue ao Papa Parse.
+
+   Entregar o arquivo "bruto" (File) direto pro Papa Parse
+   usa um caminho de leitura por streaming interno da
+   biblioteca que, em alguns navegadores, corta o arquivo
+   no meio sem gerar nenhum erro visível — foi a causa de
+   planilhas grandes (700+ linhas) sendo lidas pela metade.
 ===================================================== */
 
 
 function lerComoCsv(arquivo){
 
-    Papa.parse(
-        arquivo,
-        {
-
-            header:true,
-
-            delimiter:";",
-
-            skipEmptyLines:true,
-
-            encoding:"UTF-8",
+    const leitor =
+        new FileReader();
 
 
-            complete:
-                function(resultado){
+    leitor.onload =
+        function(e){
 
-                    finalizarLeitura(
-                        resultado.data
-                    );
-
-                },
+            const textoCompleto =
+                e.target.result;
 
 
-            error:
-                function(erro){
+            Papa.parse(
+                textoCompleto,
+                {
 
-                    alert(
-                        "Erro ao ler CSV: " +
-                        erro.message
-                    );
+                    header:true,
+
+                    delimiter:";",
+
+                    skipEmptyLines:true,
+
+
+                    complete:
+                        function(resultado){
+
+                            finalizarLeitura(
+                                resultado.data
+                            );
+
+                        },
+
+
+                    error:
+                        function(erro){
+
+                            alert(
+                                "Erro ao ler CSV: " +
+                                erro.message
+                            );
+
+                        }
 
                 }
+            );
 
-        }
+        };
+
+
+    leitor.onerror =
+        function(){
+
+            alert(
+                "Erro ao abrir o arquivo CSV."
+            );
+
+        };
+
+
+    leitor.readAsText(
+        arquivo,
+        "UTF-8"
     );
 
 }
